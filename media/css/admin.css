@@ -1,0 +1,11 @@
+#mp-event_data #add_event_table #event_start,
+#mp-event_data #add_event_table #event_end {
+  min-width: 100px;
+}
+#mp-event_data .spinner.left {
+  float: none;
+}
+#column-options .mp-weekday,
+#column-options .mp-date {
+  margin: 10px 0 0;
+}
