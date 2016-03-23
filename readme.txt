@@ -18,5 +18,5 @@ Timetable plugin allows to create an online schedule for gym classes, conference
 
 1. Upload the plugin to the /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-
+3.
 
