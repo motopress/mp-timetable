@@ -3,7 +3,6 @@
 namespace mp_timetable\plugin_core\classes;
 
 use mp_timetable\classes\models\Column;
-use Mp_Time_Table;
 
 class Shortcode extends Core {
 
@@ -152,5 +151,44 @@ class Shortcode extends Core {
 
 		}
 		return $events_data;
+	}
+
+
+	public function integration_motopress($motopressCELibrary) {
+		$columns = array();
+		$events = array();
+		$categories = array();
+
+		$attributes = array(
+			'weekday' => array(
+				'type' => 'select-multiple',
+				'label' => __('Column', 'mp-timetable'),
+				'list' => $columns),
+			'event' => array(
+				'type' => 'select-multiple',
+				'label' => __('Events', 'mp-timetable'),
+				'list' => $events),
+			'event_category' => array(
+				'type' => 'select-multiple',
+				'label' => __('Event categories', 'mp-timetable'),
+				'list' => $categories),
+
+			'measure' => array(
+				'type' => 'select',
+				'label' => __('Hour measure', 'mp-timetable'),
+				'list' => array('1' => __('Hour (1h)', 'mp-timetable'), '0.5' => __('Half hour (30min)', 'mp-timetable'), '0.25' => __('Quarter hour (15min)', 'mp-timetable'))),
+
+			'filter_style' => array(
+				'type' => 'select',
+				'label' => __('Filter style', 'mp-timetable'),
+				'list' => array('dropdown_list' => __('Dropdown list', 'mp-timetable'), 'tabs' => __('Tabs', 'mp-timetable'))),
+
+			'title' => array(
+				'type' => 'checkbox',
+				'label' => __('Title', 'domain'),
+			)
+		);
+		$youShortcodeObj = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);
+		$motopressCELibrary->addObject($youShortcodeObj, $group = 'other');
 	}
 }

@@ -281,7 +281,7 @@ class Import extends Model {
 	public function process_attachment($post, $url) {
 		if (!$this->fetch_attachments)
 			return new \WP_Error('attachment_processing_error',
-				__('Fetching attachments is not enabled', 'wordpress-importer'));
+				__('Fetching attachments is not enabled', 'mp-timetable'));
 
 		// if the URL is absolute, but does not contain address, then upload it assuming base_site_url
 		if (preg_match('|^/[\w\W]+$|', $url))
@@ -294,7 +294,7 @@ class Import extends Model {
 		if ($info = wp_check_filetype($upload['file']))
 			$post['post_mime_type'] = $info['type'];
 		else
-			return new \WP_Error('attachment_processing_error', __('Invalid file type', 'wordpress-importer'));
+			return new \WP_Error('attachment_processing_error', __('Invalid file type', 'mp-timetable'));
 
 		$post['guid'] = $upload['url'];
 
@@ -374,13 +374,13 @@ class Import extends Model {
 		$headers['response'] = wp_remote_retrieve_response_code($response_data);
 		if (!$headers) {
 			@unlink($upload['file']);
-			return new \WP_Error('import_file_error', __('Remote server did not respond', 'wordpress-importer'));
+			return new \WP_Error('import_file_error', __('Remote server did not respond', 'mp-timetable'));
 		}
 
 		// make sure the fetch was successful
 		if ($headers['response'] != '200') {
 			@unlink($upload['file']);
-			return new \WP_Error('import_file_error', sprintf(__('Remote server returned error response %1$d %2$s', 'wordpress-importer'), esc_html($headers['response']), get_status_header_desc($headers['response'])));
+			return new \WP_Error('import_file_error', sprintf(__('Remote server returned error response %1$d %2$s', 'mp-timetable'), esc_html($headers['response']), get_status_header_desc($headers['response'])));
 		}
 
 		$this->write_file($url, $upload);
@@ -389,18 +389,18 @@ class Import extends Model {
 
 		if (isset($headers['content-length']) && $filesize != $headers['content-length']) {
 			@unlink($upload['file']);
-			return new \WP_Error('import_file_error', __('Remote file is incorrect size', 'wordpress-importer'));
+			return new \WP_Error('import_file_error', __('Remote file is incorrect size', 'mp-timetable'));
 		}
 
 		if (0 == $filesize) {
 			@unlink($upload['file']);
-			return new \WP_Error('import_file_error', __('Zero size file downloaded', 'wordpress-importer'));
+			return new \WP_Error('import_file_error', __('Zero size file downloaded', 'mp-timetable'));
 		}
 
 		$max_size = (int)$this->max_attachment_size();
 		if (!empty($max_size) && $filesize > $max_size) {
 			@unlink($upload['file']);
-			return new \WP_Error('import_file_error', sprintf(__('Remote file is too large, limit is %s', 'wordpress-importer'), size_format($max_size)));
+			return new \WP_Error('import_file_error', sprintf(__('Remote file is too large, limit is %s', 'mp-timetable'), size_format($max_size)));
 		}
 
 		// keep track of the old and new urls so we can substitute them later
@@ -454,7 +454,7 @@ class Import extends Model {
 	 * @return array Information gathered from the WXR file
 	 */
 	function parse($file) {
-		$parser = new lib\WXR_Parser();
+		$parser = new libs\WXR_Parser();
 		return $parser->parse($file);
 	}
 

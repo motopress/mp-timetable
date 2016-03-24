@@ -238,7 +238,7 @@ class WXR_Parser_SimpleXML {
 
 			$posts[] = $post;
 		}
-		// grab time_slots 
+		// grab time_slots
 		foreach ($xml->channel->timeslot as $time) {
 			$time_slots[] = array(
 				'column' => (int)$time->column,

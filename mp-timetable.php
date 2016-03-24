@@ -48,15 +48,15 @@ class Mp_Time_Table {
 		/**
 		 * Include Gump
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/lib/class-gump.php';
+		require_once plugin_dir_path(__FILE__) . 'classes/libs/class-gump.php';
 		/**
 		 * Install Fire bug
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/lib/FirePHPCore/fb.php';
+		require_once plugin_dir_path(__FILE__) . 'classes/libs/FirePHPCore/fb.php';
 		/**
 		 * Install Parsers
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/lib/parsers.php';
+		require_once plugin_dir_path(__FILE__) . 'classes/libs/parsers.php';
 		/**
 		 * Include Core
 		 */

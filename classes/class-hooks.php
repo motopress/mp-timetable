@@ -27,6 +27,8 @@ class Hooks extends Core {
 		add_filter('post_class', 'mptt_post_class', 15, 3);
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
 
+		add_action('mp_library', array(Shortcode::get_instance(),'integration_motopress'), 10, 1);
+
 		add_action('customize_preview_init', array(Core::get_instance(), 'customizer_live_preview'), 11);
 		add_action('current_screen', array(Core::get_instance(), 'current_screen'));
 
@@ -136,7 +138,7 @@ class Hooks extends Core {
 		add_action('save_post', array(Post::get_instance(), 'save_custom_post'), 40, 2);
 		add_action('wp_ajax_route_url', array(Core::get_instance(), "wp_ajax_route_url"));
 
-		register_importer('mptt-importer', 'Timetable', __('Import events with table'), array(Import::get_instance(), 'import'));
+		register_importer('mptt-importer', 'Timetable', __('Import events with timeslots'), array(Import::get_instance(), 'import'));
 	}
 
 	/**
