@@ -2,8 +2,8 @@
 
 namespace mp_timetable\plugin_core\classes;
 
-use mp_timetable\classes\lib\FirePHPCore\FB;
-use mp_timetable\classes\lib\GUMP;
+use mp_timetable\classes\libs\FirePHPCore\FB;
+use mp_timetable\classes\libs\GUMP;
 use \Mp_Time_Table;
 
 class Preprocessor extends GUMP {

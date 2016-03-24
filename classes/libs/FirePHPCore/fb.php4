@@ -1,5 +1,5 @@
 <?php
-namespace mp_timetable\classes\lib\FirePHPCore;
+namespace mp_timetable\classes\libs\FirePHPCore;
 /* ***** BEGIN LICENSE BLOCK *****
  *  
  * This file is part of FirePHP (http://www.firephp.org/).

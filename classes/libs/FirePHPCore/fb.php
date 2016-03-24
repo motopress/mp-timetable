@@ -1,7 +1,7 @@
 <?php
-namespace mp_timetable\classes\lib\FirePHPCore;
+namespace mp_timetable\classes\libs\FirePHPCore;
 
-use mp_timetable\classes\lib\FirePHPCore\FirePHP;
+use mp_timetable\classes\libs\FirePHPCore\FirePHP;
 
 /* ***** BEGIN LICENSE BLOCK *****
  *  

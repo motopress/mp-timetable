@@ -1,7 +1,7 @@
 <?php
 namespace mp_timetable\classes\models;
 
-use mp_timetable\classes\lib;
+use mp_timetable\classes\libs;
 use mp_timetable\plugin_core\classes\Model as Model;
 use mp_timetable\plugin_core\classes\View as View;
 

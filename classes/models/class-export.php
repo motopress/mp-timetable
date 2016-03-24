@@ -1,11 +1,11 @@
 <?php
 namespace mp_timetable\classes\models;
 
-use mp_timetable\classes\lib;
+use mp_timetable\classes\libs;
 use mp_timetable\plugin_core\classes\Model as Model;
 
 /**
- * Model Events
+ *  Export model
  */
 class Export extends Model {
 	protected static $instance;
@@ -438,7 +438,18 @@ class Export extends Model {
 
 		return $str;
 	}
-
+	/**
+	 *
+	 * @param bool $return_me
+	 * @param string $meta_key
+	 *
+	 * @return bool
+	 */
+	public function mptt_filter_postmeta($return_me, $meta_key) {
+		if ('_edit_lock' == $meta_key)
+			$return_me = true;
+		return $return_me;
+	}
 	/**
 	 * Output list of taxonomy terms, in XML tag format, associated with a post
 	 *

@@ -1,5 +1,5 @@
 <?php
-namespace mp_timetable\classes\lib;
+namespace mp_timetable\classes\libs;
 /**
  * GUMP - A fast, extensible PHP input validation class.
  *

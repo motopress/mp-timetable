@@ -1,5 +1,5 @@
 <?php
-namespace mp_timetable\classes\lib;
+namespace mp_timetable\classes\libs;
 	/**
 	 * WordPress eXtended RSS file parser implementations
 	 *
