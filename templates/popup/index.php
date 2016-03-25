@@ -193,7 +193,7 @@
 							<label for="row_height"><?php _e('Row height (in px)', 'mp-timetable'); ?></label>
 						</th>
 						<td>
-							<input type="text" name="row_height" id="row_height" value="31" class="regular-text">
+							<input type="text" name="row_height" id="row_height" value="45" class="regular-text">
 						</td>
 						<td>
 							<span class="description"><?php _e('Specify timetable row height in pixels.', 'mp-timetable'); ?></span>

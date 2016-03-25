@@ -62,7 +62,7 @@ class Shortcode extends Core {
 			'user' => "0",
 			'hide_hrs' => "0",
 			'hide_empty_rows' => "1",
-			'row_height' => "31",
+			'row_height' => "45",
 			'disable_event_url' => "0",
 			'text_align' => "center",
 			'id' => "",
@@ -179,7 +179,8 @@ class Shortcode extends Core {
 		return $list_array;
 	}
 
-	/** Integration in motopress
+	/**
+	 * Integration in motopress
 	 *
 	 * @param $motopressCELibrary
 	 */
@@ -255,7 +256,6 @@ class Shortcode extends Core {
 				'label' => __('Description', 'mp-timetable'),
 				'default' => 0,
 				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
-
 			),
 			'user' => array(
 				'type' => 'radio-buttons',
@@ -280,7 +280,7 @@ class Shortcode extends Core {
 			'row_height' => array(
 				'type' => 'text',
 				'label' => __('Row height (in px)', 'mp-timetable'),
-				'default' => 31
+				'default' => 45
 			),
 			'responsive' => array(
 				'type' => 'select',
@@ -289,7 +289,7 @@ class Shortcode extends Core {
 				'default' => 1,
 			)
 		);
-		$youShortcodeObj = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);
-		$motopressCELibrary->addObject($youShortcodeObj, $group = 'other');
+		$mp_timetable = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);
+		$motopressCELibrary->addObject($mp_timetable, 'other');
 	}
 }
