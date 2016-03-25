@@ -473,6 +473,7 @@ class Core {
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					break;
 				case "customize":
+				case "widgets":
 					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
 
