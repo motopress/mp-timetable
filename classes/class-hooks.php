@@ -27,8 +27,6 @@ class Hooks extends Core {
 		add_filter('post_class', 'mptt_post_class', 15, 3);
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
 
-		add_action('mp_library', array(Shortcode::get_instance(),'integration_motopress'), 10, 1);
-
 		add_action('customize_preview_init', array(Core::get_instance(), 'customizer_live_preview'), 11);
 		add_action('current_screen', array(Core::get_instance(), 'current_screen'));
 
@@ -40,7 +38,6 @@ class Hooks extends Core {
 		//add_action('admin_print_scripts-post-new.php', array(Core::get_instance(), 'init_admin_scripts'), 11);
 		//add_action('admin_print_scripts-post.php', array(Core::get_instance(), 'init_admin_scripts'), 11);
 		add_action('widgets_init', array($this, 'register_widgets'));
-
 	}
 
 	/**
@@ -119,7 +116,9 @@ class Hooks extends Core {
 		Core::get_instance()->register_all_taxonomies();
 		// route url
 		Core::get_instance()->wp_ajax_route_url();
+
 		add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
+		add_action('mp_library', array(Shortcode::get_instance(), 'integration_motopress'), 20, 1);
 
 		Core::get_instance()->init_plugin_version();
 	}

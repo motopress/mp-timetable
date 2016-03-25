@@ -3,6 +3,7 @@
 namespace mp_timetable\plugin_core\classes;
 
 use mp_timetable\classes\models\Column;
+use mp_timetable\classes\models\Events;
 
 class Shortcode extends Core {
 
@@ -46,7 +47,7 @@ class Shortcode extends Core {
 			$params = array();
 		}
 		$mptt_shortcode_data = array();
-		$mptt_shortcode_data['params'] = shortcode_atts(array(
+		$mptt_shortcode_data['params'] = $params = shortcode_atts(array(
 			'events' => "",
 			'event_categ' => "",
 			'col' => "",
@@ -153,39 +154,139 @@ class Shortcode extends Core {
 		return $events_data;
 	}
 
+	/**
+	 * @param array $data_array
+	 * @param string $type
+	 *
+	 * @return array
+	 */
+	public function create_list_motopress($data_array = array(), $type = 'post') {
+		$list_array = array();
+		switch ($type) {
+			case "post":
+				foreach ($data_array as $item) {
+					$list_array[$item->ID] = $item->post_title;
+				}
+				break;
+			case "term":
+				foreach ($data_array as $item) {
+					$list_array[$item->term_id] = $item->name;
+				}
+				break;
+			default:
+				break;
+		}
+		return $list_array;
+	}
 
+	/** Integration in motopress
+	 *
+	 * @param $motopressCELibrary
+	 */
 	public function integration_motopress($motopressCELibrary) {
-		$columns = array();
-		$events = array();
-		$categories = array();
+		$columns = $this->create_list_motopress(Column::get_instance()->get_all_column());
+		$events = $this->create_list_motopress(Events::get_instance()->get_all_events());
+		$categories = get_terms('mp-event_category', 'orderby=count&hide_empty=0');
+		$categories = $this->create_list_motopress($categories, 'term');
 
 		$attributes = array(
-			'weekday' => array(
+			'col' => array(
 				'type' => 'select-multiple',
 				'label' => __('Column', 'mp-timetable'),
 				'list' => $columns),
-			'event' => array(
+			'events' => array(
 				'type' => 'select-multiple',
 				'label' => __('Events', 'mp-timetable'),
 				'list' => $events),
-			'event_category' => array(
+			'event_categ' => array(
 				'type' => 'select-multiple',
 				'label' => __('Event categories', 'mp-timetable'),
 				'list' => $categories),
-
-			'measure' => array(
+			'increment' => array(
 				'type' => 'select',
 				'label' => __('Hour measure', 'mp-timetable'),
 				'list' => array('1' => __('Hour (1h)', 'mp-timetable'), '0.5' => __('Half hour (30min)', 'mp-timetable'), '0.25' => __('Quarter hour (15min)', 'mp-timetable'))),
-
-			'filter_style' => array(
+			'view' => array(
 				'type' => 'select',
 				'label' => __('Filter style', 'mp-timetable'),
-				'list' => array('dropdown_list' => __('Dropdown list', 'mp-timetable'), 'tabs' => __('Tabs', 'mp-timetable'))),
-
+				'list' => array('dropdown_list' => __('Dropdown list', 'mp-timetable'), 'tabs' => __('Tabs', 'mp-timetable'))
+			),
+			'label' => array(
+				'type' => 'text',
+				'label' => __('Filter label', 'mp-timetable'),
+				'default' => __('All Events', 'mp-timetable')
+			),
+			'hide_label' => array(
+				'type' => 'select',
+				'label' => __("Hide 'All Events' view", 'mp-timetable'),
+				'list' => array('0' => __('No', 'mp-timetable'), '1' => __('Yes', 'mp-timetable'))
+			),
+			'hide_hrs' => array(
+				'type' => 'select',
+				'label' => __('Hide first (hours) column', 'mp-timetable'),
+				'list' => array('0' => __('No', 'mp-timetable'), '1' => __('Yes', 'mp-timetable'))
+			),
+			'hide_empty_rows' => array(
+				'type' => 'select',
+				'label' => __('Hide empty rows', 'mp-timetable'),
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+				'default' => 1
+			),
 			'title' => array(
-				'type' => 'checkbox',
-				'label' => __('Title', 'domain'),
+				'type' => 'radio-buttons',
+				'label' => __('Title', 'mp-timetable'),
+				'default' => 1,
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+			),
+			'time' => array(
+				'type' => 'radio-buttons',
+				'label' => __('Time', 'mp-timetable'),
+				'default' => 1,
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+			),
+			'sub-title' => array(
+				'type' => 'radio-buttons',
+				'label' => __('Subtitle', 'mp-timetable'),
+				'default' => 1,
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+			),
+			'description' => array(
+				'type' => 'radio-buttons',
+				'label' => __('Description', 'mp-timetable'),
+				'default' => 0,
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+
+			),
+			'user' => array(
+				'type' => 'radio-buttons',
+				'label' => __('User', 'mp-timetable'),
+				'default' => 0,
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+			),
+			'disable_event_url' => array(
+				'type' => 'select',
+				'label' => __('Disable event URL', 'mp-timetable'),
+				'list' => array('0' => __('No', 'mp-timetable'), '1' => __('Yes', 'mp-timetable'))
+			),
+			'text_align' => array(
+				'type' => 'select',
+				'label' => __('Text align', 'mp-timetable'),
+				'list' => array('center' => __('center', 'mp-timetable'), 'left' => __('left', 'mp-timetable'), 'right' => __('right', 'mp-timetable'))
+			),
+			'id' => array(
+				'type' => 'text',
+				'label' => __('Id', 'mp-timetable')
+			),
+			'row_height' => array(
+				'type' => 'text',
+				'label' => __('Row height (in px)', 'mp-timetable'),
+				'default' => 31
+			),
+			'responsive' => array(
+				'type' => 'select',
+				'label' => __('Responsive', 'mp-timetable'),
+				'list' => array('1' => __('Yes', 'mp-timetable'), '0' => __('No', 'mp-timetable')),
+				'default' => 1,
 			)
 		);
 		$youShortcodeObj = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);

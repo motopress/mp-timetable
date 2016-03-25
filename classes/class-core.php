@@ -520,6 +520,8 @@ class Core {
 			case"widget":
 				wp_enqueue_style('mptt-style', Mp_Time_Table::get_plugin_url('media/css/style.css'), array(), $this->version);
 				break;
+			default:
+				break;
 		}
 	}
 
@@ -538,6 +540,10 @@ class Core {
 		global $post_type;
 		if (in_array($post_type, $this->post_types)) {
 			wp_enqueue_style('mptt-style', Mp_Time_Table::get_plugin_url('media/css/style.css'), array(), $this->version);
+		} elseif (!empty($_GET['motopress-ce'])) {
+			$this->add_plugin_js('shortcode');
+			$this->add_plugin_css('shortcode');
 		}
+
 	}
 }

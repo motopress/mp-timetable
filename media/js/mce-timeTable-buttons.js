@@ -78,9 +78,6 @@
 												break;
 											case 'description':
 												shortcode_obj['attrs']['description'] = parram['value'];
-												console.log(shortcode_obj['attrs']['description']);
-												console.log(parram['value']);
-												console.log(parram);
 												break;
 											case 'user':
 												shortcode_obj['attrs']['user'] = parram['value'];
