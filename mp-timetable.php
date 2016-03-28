@@ -48,65 +48,65 @@ class Mp_Time_Table {
 		/**
 		 * Include Gump
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/libs/class-gump.php';
+		require_once self::get_plugin_path() . 'classes/libs/class-gump.php';
 		/**
 		 * Install Fire bug
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/libs/FirePHPCore/fb.php';
+		require_once self::get_plugin_path() . 'classes/libs/FirePHPCore/fb.php';
 		/**
 		 * Install Parsers
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/libs/parsers.php';
+		require_once self::get_plugin_path() . 'classes/libs/parsers.php';
 		/**
 		 * Include Core
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-core.php';
+		require_once self::get_plugin_path() . 'classes/class-core.php';
 		/**
 		 * Include module
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-module.php';
+		require_once self::get_plugin_path() . 'classes/class-module.php';
 		/**
 		 * Include Model
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-model.php';
+		require_once self::get_plugin_path() . 'classes/class-model.php';
 
 		/**
 		 * Include Controller
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-controller.php';
+		require_once self::get_plugin_path() . 'classes/class-controller.php';
 		/**
 		 * Include State factory
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-state-factory.php';
+		require_once self::get_plugin_path() . 'classes/class-state-factory.php';
 
 		/**
 		 * Include Preprocessor
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-preprocessor.php';
+		require_once self::get_plugin_path() . 'classes/class-preprocessor.php';
 
 		/**
 		 * include shortcodes
 		 */
-		require_once(plugin_dir_path(__FILE__) . 'classes/class-shortcode.php');
+		require_once(self::get_plugin_path() . 'classes/class-shortcode.php');
 		/**
 		 * include Widget
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/widgets/class-mp-timetable-widget.php';
+		require_once self::get_plugin_path() . 'classes/widgets/class-mp-timetable-widget.php';
 
 		/**
 		 * Include view
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-view.php';
+		require_once self::get_plugin_path() . 'classes/class-view.php';
 		/**
 		 * Include hooks
 		 */
-		require_once plugin_dir_path(__FILE__) . 'classes/class-hooks.php';
+		require_once self::get_plugin_path() . 'classes/class-hooks.php';
 	}
 
 	/**
 	 * Get plugin path
 	 */
-	static function get_plugin_path() {
+	public static function get_plugin_path() {
 		return plugin_dir_path(__FILE__);
 	}
 
@@ -118,7 +118,7 @@ class Mp_Time_Table {
 	 * @return string
 	 */
 	public static function get_plugin_part_path($part = '') {
-		return plugin_dir_path(__FILE__) . $part;
+		return self::get_plugin_path() . $part;
 	}
 
 	/**

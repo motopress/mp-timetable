@@ -168,17 +168,19 @@ class Events extends Model {
 	 */
 	public function get_events_data(array $params) {
 		$events = array();
+		$sql_reguest = "SELECT * FROM " . $this->table_name;
 
 		if ((!empty($params['all']) && $params['all']) || empty($params['list'])) {
-			$sql_reguest = "SELECT * FROM " . $this->table_name;
+
 		} elseif (!is_array($params['column'])) {
 			if (isset($params['list']) && is_array($params['list'])) {
 				$params['list'] = implode(',', $params['list']);
 			}
-			$sql_reguest = "SELECT * FROM `$this->table_name` WHERE " . $params['column'] . " IN (" . $params['list'] . ")";
+			$sql_reguest .= " WHERE " . $params['column'] . " IN (" . $params['list'] . ")";
 		} elseif (is_array($params['column']) && is_array($params['column'])) {
 
-			$sql_reguest = "SELECT * FROM `$this->table_name` WHERE ";
+			$sql_reguest .= " WHERE ";
+
 			$last_key = key(array_slice($params['column'], -1, 1, TRUE));
 			foreach ($params['column'] as $key => $column) {
 				if (isset($params['list'][$column]) && is_array($params['list'][$column])) {
@@ -187,7 +189,6 @@ class Events extends Model {
 				$sql_reguest .= $column . " IN (" . $params['list'][$column] . ")";
 				$sql_reguest .= ($last_key != $key) ? ' AND ' : '';
 			}
-
 		}
 
 		$events_data = $this->wpdb->get_results($sql_reguest);
