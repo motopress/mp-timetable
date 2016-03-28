@@ -88,71 +88,81 @@ class Shortcode extends Core {
 	 */
 	public function get_shortcode_events($params) {
 		$events_data = array('events' => array(), 'column' => array());
-		$columns_ids = array();
+		$columns_ids = $events_categ = $events = array();
+
 		$step = $params['increment'] === '1' ? 60 : (60 * $params['increment']);
+
 		//get event by id
-		if (!empty($params['events'])) {
-			$events_data['events'] = $events_data['events'] + $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
+		if (!empty($params['events']) && empty($params['col']) && empty($params['event_categ'])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
 		}
+
 		// get event by category
 		if (!empty($params['event_categ'])) {
-			$category_events = $this->get('events')->get_events_data_by_category($params['event_categ']);
-			$events_data['events'] = $events_data['events'] + $category_events;
+			$events_categ = $this->get('events')->get_events_data_by_category($params['event_categ']);
 		}
+
 		// get event by column
-		if (!empty($params['col']) && empty($params['event_categ'])) {
-			$column_events = $this->get('events')->get_events_data(array('column' => 'column_id', 'list' => $params['col']));
-			$events_data['events'] = $events_data['events'] + $column_events;
+		if (!empty($params['col']) && empty($params['event_categ']) && empty($params['events'])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'column_id', 'list' => $params['col']));
 		}
+
+		//Columns + events
+		if (!empty($params['events']) && !empty($params['col']) && empty($params['event_categ'])) {
+			$events = $this->get('events')->get_events_data(array('column' => array('column_id', 'event_id'), 'list' => array('column_id' => $params['col'], 'event_id' => $params['events'])));
+		}
+
+		//Events +  Categories
+		if (!empty($params['events']) && !empty($params['event_categ']) && empty($params['col'])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
+		}
+
 		//if all params empty
 		if (empty($params['col']) && empty($params['event_categ']) && empty($params['events'])) {
-			$events_data['events'] = $events_data['events'] + $this->get('events')->get_events_data(array('column' => 'event_id', 'all' => true));
-			$events_data['events'] = $events_data['events'] + $this->get('events')->get_events_data_by_category('');
-			$events_data['events'] = $events_data['events'] + $this->get('events')->get_events_data(array('column' => 'column_id', 'all' => true));
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'all' => true));
+			$events_categ = $this->get('events')->get_events_data_by_category('');
+		}
+		// select all event option
+		if (!empty($params['col']) && !empty($params['event_categ']) && !empty($params['events'])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
 		}
 
-
-
+		$events_data['events'] = array_merge($events_data['events'], $events_categ, $events);
 
 		//Create column array;
-		if (!empty($events_data['events'])) {
-
-			if (empty($params['col']) || !empty($params['event_categ'])) {
-				foreach ($events_data['events'] as $event) {
-					$columns_ids[] = $event->column_id;
-				}
-				$columns_ids = array_unique($columns_ids);
-			} else {
-				$columns_ids = explode(',', $params['col']);
+		if (empty($params['col'])) {
+			foreach ($events_data['events'] as $event) {
+				$columns_ids[] = $event->column_id;
 			}
+			$columns_ids = array_unique($columns_ids);
+		} else {
+			$columns_ids = explode(',', $params['col']);
+		}
 
-			//Sort column by menu order
-			$events_data['column'] = Column::get_instance()->get_all_column(array('post__in' => $columns_ids));
+		//Sort column by menu order
+		$events_data['column'] = Column::get_instance()->get_all_column(array('post__in' => $columns_ids));
 
-			foreach ($events_data['column'] as $key => $column) {
-				$column_events = array();
-				// add to column  events
-				foreach ($events_data['events'] as $event_key => $event) {
-					if ($column->ID == $event->column_id) {
-						$start_index = date('G', strtotime($event->event_start)) / $params['increment'] + floor(date('i', strtotime($event->event_start)) / $step);
-						$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step) + (date('i', strtotime($event->event_end)) == $step ? 1 : 0);
-						$event->output = false;
-						$event->start_index = $start_index;
-						$event->end_index = $end_index;
-						$column_events[$event->id] = $event;
-					}
+		foreach ($events_data['column'] as $key => $column) {
+			$column_events = array();
+			// add to column  events
+			foreach ($events_data['events'] as $event_key => $event) {
+				if ($column->ID == $event->column_id) {
+					$start_index = date('G', strtotime($event->event_start)) / $params['increment'] + floor(date('i', strtotime($event->event_start)) / $step);
+					$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step) + (date('i', strtotime($event->event_end)) == $step ? 1 : 0);
+					$event->output = false;
+					$event->start_index = $start_index;
+					$event->end_index = $end_index;
+					$column_events[$event->id] = $event;
 				}
-				//sort by start date
-				usort($column_events, function ($a, $b) {
-					if (strtotime($a->event_start) == strtotime($b->event_start)) {
-						return 0;
-					}
-					return (strtotime($a->event_start) < strtotime($b->event_start)) ? -1 : 1;
-
-				});
-				$events_data['column_events'][$column->ID] = $column_events;
 			}
-
+			//sort by start date
+			usort($column_events, function ($a, $b) {
+				if (strtotime($a->event_start) == strtotime($b->event_start)) {
+					return 0;
+				}
+				return (strtotime($a->event_start) < strtotime($b->event_start)) ? -1 : 1;
+			});
+			$events_data['column_events'][$column->ID] = $column_events;
 		}
 		return $events_data;
 	}
@@ -164,23 +174,35 @@ class Shortcode extends Core {
 	 * @return array
 	 */
 	public function create_list_motopress($data_array = array(), $type = 'post') {
-	$list_array = array();
-	switch ($type) {
-		case "post":
-			foreach ($data_array as $item) {
-				$list_array[$item->ID] = $item->post_title;
-			}
-			break;
-		case "term":
-			foreach ($data_array as $item) {
-				$list_array[$item->term_id] = $item->name;
-			}
-			break;
-		default:
-			break;
+		$list_array = array();
+		switch ($type) {
+			case "post":
+				foreach ($data_array as $item) {
+					$list_array[$item->ID] = $item->post_title;
+				}
+				break;
+			case "term":
+				foreach ($data_array as $item) {
+					$list_array[$item->term_id] = $item->name;
+				}
+				break;
+			default:
+				break;
+		}
+		return $list_array;
 	}
-	return $list_array;
-}
+
+	public function get_event_ids(array $data = array()) {
+		$ids_list = array();
+		if (empty($data)) {
+			return '';
+		} else {
+			foreach ($data as $event) {
+				$ids_list[] = $event->id;
+			}
+			return implode(',', $ids_list);
+		}
+	}
 
 	/**
 	 * Integration in motopress

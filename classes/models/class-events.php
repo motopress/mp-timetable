@@ -75,6 +75,12 @@ class Events extends Model {
 		$this->get_view()->render_html("events/metabox-event-data", array('event_data' => $event_data, 'args' => $metabox['args'], 'columns' => $data['columns'], 'date' => array('time_format' => $time_format_array)), true);
 	}
 
+	/**
+	 * Render event options
+	 *
+	 * @param $post
+	 * @param $metabox
+	 */
 	public function render_event_options($post, $metabox) {
 		$this->get_view()->render_html("events/metabox-event-options", array('post' => $post), true);
 	}
@@ -162,17 +168,30 @@ class Events extends Model {
 	 */
 	public function get_events_data(array $params) {
 		$events = array();
-		$limit = '';
-		if (isset($params['list']) && is_array($params['list'])) {
-			$params['list'] = implode(',', $params['list']);
-		}
 
 		if ((!empty($params['all']) && $params['all']) || empty($params['list'])) {
-			$sql_reguest = "SELECT * FROM " . $this->table_name . $limit;
-		} else {
+			$sql_reguest = "SELECT * FROM " . $this->table_name;
+		} elseif (!is_array($params['column'])) {
+			if (isset($params['list']) && is_array($params['list'])) {
+				$params['list'] = implode(',', $params['list']);
+			}
 			$sql_reguest = "SELECT * FROM `$this->table_name` WHERE " . $params['column'] . " IN (" . $params['list'] . ")";
+		} elseif (is_array($params['column']) && is_array($params['column'])) {
+
+			$sql_reguest = "SELECT * FROM `$this->table_name` WHERE ";
+			$last_key = key(array_slice($params['column'], -1, 1, TRUE));
+			foreach ($params['column'] as $key => $column) {
+				if (isset($params['list'][$column]) && is_array($params['list'][$column])) {
+					$params['list'][$column] = implode(',', $params['list'][$column]);
+				}
+				$sql_reguest .= $column . " IN (" . $params['list'][$column] . ")";
+				$sql_reguest .= ($last_key != $key) ? ' AND ' : '';
+			}
+
 		}
+
 		$events_data = $this->wpdb->get_results($sql_reguest);
+
 		foreach ($events_data as $event) {
 			$event->post = get_post($event->event_id);
 			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
