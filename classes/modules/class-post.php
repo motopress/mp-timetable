@@ -62,5 +62,4 @@ class Post extends Module {
 			}
 		}
 	}
-
 }

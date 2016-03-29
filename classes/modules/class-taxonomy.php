@@ -4,7 +4,6 @@ namespace mp_timetable\plugin_core\classes\modules;
 
 use mp_timetable\plugin_core\classes\Module;
 use mp_timetable\plugin_core\classes\View;
-use \Mp_Time_Table;
 
 class Taxonomy extends Module {
 

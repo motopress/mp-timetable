@@ -233,7 +233,7 @@ class Import extends Model {
 	 */
 	public function process_start($file) {
 		$this->import_data = $this->parse($file);
-		$this->get_authors_from_import($this->import_data);
+		$this->get_authors_from_import();
 		$this->version = $this->import_data['version'];
 		$this->posts = $this->import_data['posts'];
 		$this->terms = $this->import_data['terms'];
@@ -276,7 +276,7 @@ class Import extends Model {
 	 * @param array $post Attachment post details from WXR
 	 * @param string $url URL to fetch attachment from
 	 *
-	 * @return int|WP_Error Post ID on success, WP_Error otherwise
+	 * @return int|/WP_Error Post ID on success, WP_Error otherwise
 	 */
 	public function process_attachment($post, $url) {
 		if (!$this->fetch_attachments)
@@ -442,7 +442,7 @@ class Import extends Model {
 			printf(__('This WXR file (version %s) may not be supported by this version of the importer. Please consider updating.', 'mp-timetable'), esc_html($this->import_data['version']));
 			echo '</strong></p></div>';
 		}
-		$this->get_authors_from_import($this->import_data);
+		$this->get_authors_from_import();
 		return true;
 	}
 
@@ -488,7 +488,6 @@ class Import extends Model {
 	 * Uses the provided author information from WXR 1.1 files
 	 * or extracts info from each post for WXR 1.0 files
 	 *
-	 * @param array $this ->import_data Data returned by a WXR parser
 	 */
 	function get_authors_from_import() {
 		if (!empty($this->import_data['authors'])) {
@@ -845,8 +844,8 @@ class Import extends Model {
 
 		// all other posts/terms are imported, retry menu items with missing associated object
 		$missing_menu_items = $this->missing_menu_items;
-		foreach ($missing_menu_items as $item)
-			$this->process_menu_item($item);
+//		foreach ($missing_menu_items as $item)
+//			$this->process_menu_item($item);
 
 		// find parents for menu item orphans
 		foreach ($this->menu_item_orphans as $child_id => $parent_id) {
@@ -875,6 +874,7 @@ class Import extends Model {
 			// remap enclosure urls
 			$result = $wpdb->query($wpdb->prepare("UPDATE {$wpdb->postmeta} SET meta_value = REPLACE(meta_value, %s, %s) WHERE meta_key='enclosure'", $from_url, $to_url));
 		}
+		return $result;
 	}
 
 	// return the difference in length between two strings
