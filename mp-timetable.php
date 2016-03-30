@@ -44,7 +44,6 @@ class Mp_Time_Table {
 	 * Include all files
 	 */
 	public static function include_all() {
-
 		/**
 		 * Include Gump
 		 */
@@ -158,7 +157,6 @@ class Mp_Time_Table {
 		dbDelta($sql);
 	}
 
-
 	/**
 	 * On deactivation defrozo plugin
 	 */
@@ -183,6 +181,4 @@ class Mp_Time_Table {
 	static function get_plugin_url($path = false, $pluginName = "mp-timetable", $sync = '') {
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
-
-
 }
