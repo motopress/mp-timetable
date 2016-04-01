@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Plugin Name: Timetable
+ * Plugin Name: Timetable by MotoPress
  * Plugin URI: http://www.getmotopress.com
- * Description: Timetable plugin allows to create an online schedule for gym classes, conferences, learning lessons etc. It goes with shortcode generator letting easily add a timetable to the site page and upcoming events widget.
- * Version: 0.3.0
+ * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
+ * Version: 1.0.0
  * Author: MotoPress
  * Author URI: http://www.getmotopress.com
  * License: GPLv2 or later
