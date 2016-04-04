@@ -105,8 +105,6 @@ class Hooks extends Core {
 	 * Init hook
 	 */
 	public function init() {
-		// load languages
-		Core::get_instance()->load_language();
 
 		// Init sort codes
 		Shortcode::get_instance()->init();
