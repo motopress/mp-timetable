@@ -105,8 +105,6 @@ class Hooks extends Core {
 	 * Init hook
 	 */
 	public function init() {
-		// load languages
-		Core::get_instance()->load_language();
 
 		// Init sort codes
 		Shortcode::get_instance()->init();
@@ -137,7 +135,7 @@ class Hooks extends Core {
 		add_action('save_post', array(Post::get_instance(), 'save_custom_post'), 40, 2);
 		add_action('wp_ajax_route_url', array(Core::get_instance(), "wp_ajax_route_url"));
 
-		register_importer('mptt-importer', 'Timetable', __('Import events with timeslots'), array(Import::get_instance(), 'import'));
+		register_importer('mptt-importer', 'Timetable', __('Import Timetable events, categories, tags and images.'), array(Import::get_instance(), 'import'));
 	}
 
 	/**
@@ -151,7 +149,7 @@ class Hooks extends Core {
 		add_submenu_page("edit.php?post_type=mp-event", __("Add Column", 'mp-timetable'), __("Add Column", 'mp-timetable'), "edit_posts", "post-new.php?post_type=mp-column");
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Categories", 'mp-timetable'), __("Event Categories", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_category&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Tags", 'mp-timetable'), __("Event Tags", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event");
-		add_submenu_page("edit.php?post_type=mp-event", __("Export / import", 'mp-timetable'), __("Export / import", 'mp-timetable'), "import", "admin.php?page=mptt-import", array($this->get_controller('import'), 'action_content'));
+		add_submenu_page("edit.php?post_type=mp-event", __("Export / Import", 'mp-timetable'), __("Export / Import", 'mp-timetable'), "import", "admin.php?page=mptt-import", array($this->get_controller('import'), 'action_content'));
 	}
 
 	/**

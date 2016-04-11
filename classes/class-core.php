@@ -46,11 +46,9 @@ class Core {
 	 * @param $name
 	 */
 	public function init_plugin($name) {
-		ob_start('mp_timetable\plugin_core\classes\Preprocessor::fatal_error_handler');
-		// run session
-		if (!session_id()) {
-			session_start();
-		}
+
+		load_plugin_textdomain( 'mp-restaurant-menu', FALSE, Mp_Time_Table::get_plugin_path() . 'languages/' );
+	
 		// include template for function
 		Core::include_all(Mp_Time_Table::get_plugin_part_path('templates-functions'));
 		// include plugin models files
@@ -139,23 +137,6 @@ class Core {
 			$this->init_plugin_version();
 		}
 		return $this->version;
-	}
-
-	/**
-	 * Load language file
-	 *
-	 * @param bool|false $domain
-	 *
-	 * @return bool
-	 */
-	public function load_language($domain = false) {
-		if (empty($domain)) {
-			return false;
-		}
-		$locale = get_option("locate", true);
-		$moFile = Mp_Time_Table::get_plugin_path() . 'languages' . "{$domain}-{$locale}.mo";
-		$result = load_textdomain($domain, $moFile);
-		return $result;
 	}
 
 	/**
