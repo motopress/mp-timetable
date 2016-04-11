@@ -770,12 +770,13 @@ class Import extends Model {
 			}
 
 			// change time_slot data if post ID change
+
 			if (!empty($original_post_ID)) {
 				if ($original_post_ID != $post_id) {
 					foreach ($this->import_data['time_slots'] as $key => $time_slot) {
-						if ($post['post_type'] == 'mp-event' && $time_slot['event'] = $original_post_ID) {
+						if ($post['post_type'] == 'mp-event' && $time_slot['event'] == $original_post_ID) {
 							$time_slot['event'] = $post_id;
-						} elseif ($post['post_type'] == 'mp-column' && $time_slot['column'] = $original_post_ID) {
+						} elseif ($post['post_type'] == 'mp-column' && $time_slot['column'] == $original_post_ID) {
 							$time_slot['column'] = $post_id;
 						} else {
 							continue;
@@ -784,6 +785,8 @@ class Import extends Model {
 					}
 				}
 			}
+
+
 			if (!isset($post['postmeta'])) {
 				$post['postmeta'] = array();
 			}
@@ -865,6 +868,7 @@ class Import extends Model {
 	 */
 	function backfill_attachment_urls() {
 		global $wpdb;
+		$result = array();
 		// make sure we do the longest urls first, in case one is a substring of another
 		uksort($this->url_remap, array(&$this, 'cmpr_strlen'));
 
