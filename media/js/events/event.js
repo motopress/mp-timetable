@@ -202,7 +202,7 @@ Registry.register("Event",
 							id: id
 						},
 						function(data) {
-							if ( $('#events-list tr[data-id="' + id + '"]').length ) {
+							if ($('#events-list tr[data-id="' + id + '"]').length) {
 								$('#events-list tr[data-id="' + id + '"]').remove();
 							}
 						},
@@ -259,12 +259,11 @@ Registry.register("Event",
 					var column_ID = $('#weekday_id option:selected').val();
 					var template = {
 						tag: 'tr',
-						attrs: {
-						},
+						attrs: {},
 						content: [
 							{
 								tag: 'td',
-								attrs: {'style':'display:none;'},
+								attrs: {'style': 'display:none;'},
 								content: [
 									{
 										tag: 'input',
@@ -312,34 +311,33 @@ Registry.register("Event",
 								tag: 'td',
 								attrs: {
 									'class': 'event-column'
-								}, 
+								},
 								content: [$('#weekday_id option:selected').text()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-start'
-								}, 
+								},
 								content: [$('#event_start').val()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-end'
-								}, 
+								},
 								content: [$('#event_end').val()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-description'
-								}, 
+								},
 								content: [$('#description').val()]
 							},
 							{
 								tag: 'td',
-								attrs: {
-								}, 
+								attrs: {},
 								content: []
 							},
 						]
@@ -363,13 +361,13 @@ Registry.register("Event",
 					};
 
 					var td = $(Registry._get("adminFunctions").getHtml(tdTemplate));
-					var end = 0;
-					var events = state.eventsData[columnId].events;
+					//var end = 0;
+					//	var events = state.eventsData[columnId].events;
 
 					if (eventID !== 'all') {
 						$.each(state.eventsData[columnId].events, function(index, eventObject) {
 							if (!_.isUndefined(eventObject)) {
-								if (eventObject.eventId === eventID && eventObject.dataStart === trIndex) {
+								if (eventObject.eventId === eventID && eventObject.dataStartItem === trIndex) {
 									if (state.eventsData[columnId].events[index].output === true) {
 										return;
 									}
@@ -446,6 +444,7 @@ Registry.register("Event",
 							'data-id': event.id,
 							'data-event-id': event.eventId,
 							'data-start': event.dataStart,
+							'data-start-item': event.dataStartItem,
 							'data-end': event.dataEnd,
 							'data-color': event.dataColor,
 							'data-hover_color': event.dataHoverColor,
@@ -470,12 +469,12 @@ Registry.register("Event",
 								'class': 'timeslot'
 							},
 							content: [{
-									tag: 'span',
-									attrs: {
-										'class': 'timeslot-start'
-									},
-									content: [event.topHour]
+								tag: 'span',
+								attrs: {
+									'class': 'timeslot-start'
 								},
+								content: [event.topHour]
+							},
 								{
 									tag: event.timeslotDelimiterTag,
 									attrs: {
@@ -490,7 +489,7 @@ Registry.register("Event",
 									},
 									content: [event.bottomHour]
 								}]
-							},
+						},
 							{
 								tag: 'p',
 								attrs: {
@@ -666,6 +665,7 @@ Registry.register("Event",
 										id: eventContainer.attr('data-id'),
 										eventId: eventContainer.attr('data-event-id'),
 										dataStart: eventContainer.attr('data-start'),
+										dataStartItem: eventContainer.attr('data-start-item'),
 										dataEnd: eventContainer.attr('data-end'),
 										dataColor: eventContainer.attr('data-color'),
 										dataHoverColor: eventContainer.attr('data-hover_color'),
@@ -771,61 +771,61 @@ Registry.register("Event",
 				 */
 				filterShortcodeTable: function(element) {
 					/*if (element.parents().find('table').attr('data-table-id')) {
-						location.hash = '#' + element.parents('.mptt-shortcode-wrapper').find('table').attr('data-table-id') + '/' + element.find(":selected").text().trim();
-					} else {
-						location.hash = '#' + element.find(":selected").text().trim();
-					}*/
+					 location.hash = '#' + element.parents('.mptt-shortcode-wrapper').find('table').attr('data-table-id') + '/' + element.find(":selected").text().trim();
+					 } else {
+					 location.hash = '#' + element.find(":selected").text().trim();
+					 }*/
 				},
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
 
 					if (selector.length) {
-						
-						
+
+
 						/*$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
-								$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
-								$(this).parents('li').addClass('active');
-								state.responsiveFilter($(this));
-							});
-						if ( $(window).width() < 767 ) {
-							selector.off('change').on('change', function() {
-								//state.filterShortcodeTable($(this));
-								
-							});
+						 $(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
+						 $(this).parents('li').addClass('active');
+						 state.responsiveFilter($(this));
+						 });
+						 if ( $(window).width() < 767 ) {
+						 selector.off('change').on('change', function() {
+						 //state.filterShortcodeTable($(this));
 
-							
+						 });
 
-						} else {*/
-							$.each($('.mptt-event-container'), function(index, value) {
-								$(this).parents('td').addClass('event');
-							});
 
-							state.setRowspanTd();
 
-							selector.off('change').on('change', function() {
-								//state.filterShortcodeTable($(this));
-								state.filterStatic($(this));
-								state.responsiveFilter($(this));
-							});
-							state.setEventHeight();
+						 } else {*/
+						$.each($('.mptt-event-container'), function(index, value) {
+							$(this).parents('td').addClass('event');
+						});
 
-							$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
-								$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
-								$(this).parents('li').addClass('active');
-								state.filterStatic($(this));
-								state.responsiveFilter($(this));
-							});
+						state.setRowspanTd();
+
+						selector.off('change').on('change', function() {
+							//state.filterShortcodeTable($(this));
+							state.filterStatic($(this));
+							state.responsiveFilter($(this));
+						});
+						state.setEventHeight();
+
+						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
+							$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
+							$(this).parents('li').addClass('active');
+							state.filterStatic($(this));
+							state.responsiveFilter($(this));
+						});
 						//}
 					}
 				},
 				getFilterByHash: function() {
 					/*state.filterShortcodeTable($(this));
-					var hash = window.location.hash.substr(1);
-					if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
-						$('.mptt-navigation-tabs').find('a[title="' + hash + '"]').click();
-					} else {
-						$('.mptt-navigation-select').find('option:contains(' + hash + ')').change();
-					}*/
+					 var hash = window.location.hash.substr(1);
+					 if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+					 $('.mptt-navigation-tabs').find('a[title="' + hash + '"]').click();
+					 } else {
+					 $('.mptt-navigation-select').find('option:contains(' + hash + ')').change();
+					 }*/
 				},
 				/**
 				 * Show gide empty rows
