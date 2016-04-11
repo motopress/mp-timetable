@@ -55,3 +55,8 @@ Please find the step-by-step instructions of working with the plugin [here](http
 2. Example of Timetable Frontend
 3. Example of the Individual Event page and Upcoming Events widget
 4. Shortcode parameters
+
+== Changelog ==
+
+= 1.0.3 =
+* Minor bugfixes and improvements
