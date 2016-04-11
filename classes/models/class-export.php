@@ -9,6 +9,7 @@ use mp_timetable\plugin_core\classes\Model as Model;
  */
 class Export extends Model {
 	protected static $instance;
+	private $table;
 
 	public static function get_instance() {
 		if (null === self::$instance) {
@@ -18,6 +19,7 @@ class Export extends Model {
 	}
 
 	function __construct() {
+		$this->table = Events::get_instance()->table_name;
 		parent::__construct();
 	}
 
@@ -151,7 +153,11 @@ class Export extends Model {
 
 				<?php $this->mptt_authors_list($post_ids); ?>
 				<?php foreach ($terms as $t) : ?>
-					<wp:term><wp:term_id><?php echo $this->mptt_cdata($t->term_id); ?></wp:term_id><wp:term_taxonomy><?php echo $this->mptt_cdata($t->taxonomy); ?></wp:term_taxonomy><wp:term_slug><?php echo $this->mptt_cdata($t->slug); ?></wp:term_slug><wp:term_parent><?php echo $this->mptt_cdata($t->parent ? $terms[$t->parent]->slug : ''); ?></wp:term_parent><?php $this->mptt_term_name($t); ?><?php $this->mptt_term_description($t); ?>	</wp:term>
+					<wp:term>
+						<wp:term_id><?php echo $this->mptt_cdata($t->term_id); ?></wp:term_id>
+						<wp:term_taxonomy><?php echo $this->mptt_cdata($t->taxonomy); ?></wp:term_taxonomy>
+						<wp:term_slug><?php echo $this->mptt_cdata($t->slug); ?></wp:term_slug>
+						<wp:term_parent><?php echo $this->mptt_cdata($t->parent ? $terms[$t->parent]->slug : ''); ?></wp:term_parent><?php $this->mptt_term_name($t); ?><?php $this->mptt_term_description($t); ?>    </wp:term>
 				<?php endforeach; ?>
 
 
@@ -438,6 +444,7 @@ class Export extends Model {
 
 		return $str;
 	}
+
 	/**
 	 *
 	 * @param bool $return_me
@@ -450,6 +457,7 @@ class Export extends Model {
 			$return_me = true;
 		return $return_me;
 	}
+
 	/**
 	 * Output list of taxonomy terms, in XML tag format, associated with a post
 	 *
