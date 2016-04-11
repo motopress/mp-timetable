@@ -63,7 +63,7 @@ function mptt_shortcode_template_content_static_table() {
 		<tr class="mptt-shortcode-row">
 			<th style=" <?php echo (bool)($mptt_shortcode_data['params']['hide_hrs']) ? 'display:none;' : '' ?>"></th>
 			<?php foreach ($mptt_shortcode_data['events_data']['column'] as $column): ?>
-				<th  data-column-id="<?php echo $column->ID ?>"><?php echo $column->post_title ?></th>
+				<th data-column-id="<?php echo $column->ID ?>"><?php echo $column->post_title ?></th>
 			<?php endforeach; ?>
 		</tr>
 		</thead>
@@ -116,7 +116,7 @@ function mptt_shortcode_template_content_static_table() {
 										if ($sub_item->output) {
 											continue;
 										}
-										if (strtotime($sub_item->event_start) <= $endTime) {
+										if (strtotime($sub_item->event_start) < $endTime) {
 											$mptt_shortcode_data['events_data']['column_events'][$columns->ID][$key_sub_events]->output = true; ?>
 											<?php
 											\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',

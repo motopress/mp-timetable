@@ -28,7 +28,7 @@ class Column extends Model {
 			'post_type' => 'mp-column',
 			'post_status' => 'publish',
 			'order' => 'ASC',
-			'orderby' => 'date menu_order',
+			'orderby' => 'menu_order date',
 			'posts_per_page' => -1,
 			'post__in' => ''
 		);
