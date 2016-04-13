@@ -162,7 +162,7 @@
   width: 1%;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container {
-  position: absolute;
+  position: static;
   top: 0;
   right: 0;
   left: 0;
@@ -190,6 +190,7 @@
   margin: 0.25rem;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container:hover {
+  width: 100%;
   background-color: inherit;
   display: inline-block;
   height: auto !important;
