@@ -58,5 +58,8 @@ Please find the step-by-step instructions of working with the plugin [here](http
 
 == Changelog ==
 
+= 1.0.4 =
+* Minor bugfixes and improvements
+
 = 1.0.3 =
 * Minor bugfixes and improvements

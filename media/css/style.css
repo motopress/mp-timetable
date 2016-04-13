@@ -52,6 +52,9 @@
   background: #fff;
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.15);
 }
+.twentyfifteen .mptt-sidebar .widget.mptt-container {
+  padding: 0;
+}
 @media screen and (min-width: 38.75em) {
   .twentyfifteen .t15mp {
     margin-right: 7.6923%;
@@ -273,26 +276,26 @@
   display: inline-block;
   margin: 0.5rem 0.25rem 0.25rem 0.25rem;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1.1em;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container .event-subtitle {
   margin: 0.25rem;
-  font-size: 0.8rem;
+  font-size: 0.8em;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container .event-user {
   margin: 0.25rem;
-  font-size: 0.8rem;
+  font-size: 0.8em;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container .event-user .avatar {
   border-radius: 50%;
   margin-right: 3px;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container .event-description {
-  font-size: 0.8rem;
+  font-size: 0.8em;
   margin: 0.25rem;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container .timeslot {
-  font-size: 0.9rem;
+  font-size: 0.9em;
   margin: 0.25rem;
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table tbody .mptt-event-container:hover {
