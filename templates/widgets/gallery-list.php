@@ -5,7 +5,7 @@
 	</p>
 
 	<p>
-		<label for="<?php echo $widget_object->get_field_id('limit') ?>"><?php _e('Count', "mp-timetable") ?></label>
+		<label for="<?php echo $widget_object->get_field_id('limit') ?>"><?php _e('Number of events to display', "mp-timetable") ?></label>
 		<input class="widefat" id="<?php echo $widget_object->get_field_id('limit') ?>" name="<?php echo $widget_object->get_field_name('limit') ?>" type="text" value="<?php echo $instance['limit'] ?>">
 	</p>
 
@@ -20,7 +20,7 @@
 
 	<p class="next-days" style="display: <?php echo $instance['view_settings'] === 'all' ? 'block' : 'none' ?> ;">
 		<label for="<?php echo $widget_object->get_field_id('next_days') ?>">
-			<?php _e('All upcoming within next', "mp-timetable") ?>
+			<?php _e('Enter number of days', "mp-timetable") ?>
 		</label>
 		<input class="regular-text" id="<?php echo $widget_object->get_field_id('next_days') ?>" name="<?php echo $widget_object->get_field_name('next_days') ?>" type="text" value="<?php echo $instance['next_days'] ?>">
 		<?php _n( 'day', 'days', $instance['next_days'], "mp-timetable" ) ?>

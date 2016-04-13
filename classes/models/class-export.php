@@ -327,10 +327,11 @@ class Export extends Model {
 	public function file_name() {
 		$sitename = sanitize_key(get_bloginfo('name'));
 		if (!empty($sitename)) {
-			$sitename .= '.';
+			$sitename .= '_';
 		}
-		$date = date('d.m.Y H.i');
-		$wp_filename = 'timetable_' . $date . '.xml';
+		$date = date('d.m.Y_H.i', time());
+
+		$wp_filename = $sitename . 'timetable_' . $date . '.xml';
 		/**
 		 * Filter the export filename.
 		 *
