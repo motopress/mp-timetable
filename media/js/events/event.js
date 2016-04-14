@@ -753,17 +753,30 @@ Registry.register("Event",
 				},
 				setEventHeight: function() {
 					$.each($('td.event'), function() {
-						var top = 0;
 						var events = $(this).find('.mptt-event-container');
 						var eventCount = events.length;
-						var heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
-						$.each(events, function() {
-							$(this).height(heightItem + "%");
-							$(this).css('top', top + "%");
-							$(this).removeClass('mptt-hidden');
-							top += heightItem;
-						});
+						var heightItem = 0;
+						var top = 0;
+						if (!$('body').hasClass('mprm_ie')) {
 
+							heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
+
+							$.each(events, function() {
+								$(this).height(heightItem + "%");
+								$(this).css('top', top + "%");
+								$(this).removeClass('mptt-hidden');
+								top += heightItem;
+							});
+						} else {
+							var tdHeight = $(this).height();
+							heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
+							$.each(events, function() {
+								$(this).height(heightItem + "px");
+								$(this).css('top', top + "px");
+								$(this).removeClass('mptt-hidden');
+								top += heightItem;
+							});
+						}
 					});
 				},
 				/**

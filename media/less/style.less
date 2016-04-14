@@ -196,7 +196,7 @@
 		}
 	  }
 	  .mptt-event-container {
-		position: static;
+		position: absolute;
 
 		top: 0;
 		right: 0;
@@ -236,7 +236,7 @@
 		}
 	  }
 	  .mptt-event-container:hover {
-		width: 100%;
+		//width: 100%;
 		background-color: inherit;
 		display: inline-block;
 		height: auto !important;
@@ -372,6 +372,19 @@
   &.mptt-shortcode-wrapper {
 	.event-title {
 	  box-shadow: none;
+	}
+  }
+}
+
+body {
+  &.mprm_ie {
+	.mptt-shortcode-table {
+	  .mptt-event-container:hover {
+		//position: static;
+	  }
+	  .mptt-event-container.mptt-full-height:hover {
+		height: auto !important;
+	  }
 	}
   }
 }

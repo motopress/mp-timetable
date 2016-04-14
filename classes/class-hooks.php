@@ -119,6 +119,8 @@ class Hooks extends Core {
 		add_action('mp_library', array(Shortcode::get_instance(), 'integration_motopress'), 20, 1);
 
 		Core::get_instance()->init_plugin_version();
+
+		add_filter('body_class', array($this, 'browser_body_class'));
 	}
 
 	/**
@@ -175,5 +177,21 @@ class Hooks extends Core {
 	public function mce_buttons($buttons) {
 		array_push($buttons, 'addTimeTableButton');
 		return $buttons;
+	}
+
+	public function browser_body_class($classes) {
+		global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
+
+		if ($is_lynx) $classes[] = 'mprm_lynx';
+		elseif ($is_gecko) $classes[] = 'mprm_gecko';
+		elseif ($is_opera) $classes[] = 'mprm_opera';
+		elseif ($is_NS4) $classes[] = 'mprm_ns4';
+		elseif ($is_safari) $classes[] = 'mprm_safari';
+		elseif ($is_chrome) $classes[] = 'mprm_chrome';
+		elseif ($is_IE) $classes[] = 'mprm_ie';
+		else $classes[] = '';
+
+		if ($is_iphone) $classes[] = 'mprm_iphone';
+		return $classes;
 	}
 }
