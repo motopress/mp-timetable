@@ -46,6 +46,7 @@ function mptt_column_template_content_events_list() { ?>
 
 				<?php if (!empty($event->user)) { ?>
 					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>">
+							<?php echo get_avatar( $event->user->ID, apply_filters('mptt-column-user-avatar-size', 32) ); ?>
 							<?php echo $event->user->display_name ?>
 						</a></p>
 					<div class="mptt-clearfix"></div>

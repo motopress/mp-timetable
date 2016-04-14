@@ -8,7 +8,7 @@ function mptt_event_template_content_title() { ?>
 function mptt_event_template_content_thumbnail() { ?>
 	<div class="thumbnail-wrapper">
 		<?php if (has_post_thumbnail()) {
-			the_post_thumbnail('large', array('class' => "event-thumbnail"));
+			the_post_thumbnail(apply_filters('mptt_event_template_content_thumbnail_size', 'large'), array('class' => "event-thumbnail"));
 		} ?>
 	</div>
 	<?php

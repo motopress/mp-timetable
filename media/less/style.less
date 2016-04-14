@@ -1,4 +1,7 @@
 @default_color: #3b5998;
+
+@import 'theme.less';
+
 .mptt-main-wrapper {
   &.mp-event-item {
 	img {
@@ -101,6 +104,10 @@
 	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
+		
+		.avatar {
+			border-radius: 50%;
+		}
 	  }
 	}
   }
@@ -185,6 +192,7 @@
 		  padding: 0 1rem !important;
 		  white-space: nowrap;
 		  width: 1%;
+		  vertical-align: middle;
 		}
 	  }
 	  .mptt-event-container {
@@ -203,18 +211,27 @@
 		  color: inherit;
 		  display: inline-block;
 		  margin: 0.5rem 0.25rem 0.25rem 0.25rem;
-		  text-decoration: underline;
+		  text-decoration: none;
+		  font-size: 1.1em;
 		}
 		.event-subtitle {
 		  margin: 0.25rem;
+		  font-size: 0.8em;
 		}
 		.event-user {
 		  margin: 0.25rem;
+		  font-size: 0.8em;
+			.avatar {
+				border-radius: 50%;
+				margin-right: 3px;
+			}
 		}
 		.event-description {
+		  font-size: 0.8em;
 		  margin: 0.25rem;
 		}
 		.timeslot {
+		  font-size: 0.9em;
 		  margin: 0.25rem;
 		}
 	  }
@@ -225,6 +242,9 @@
 		height: auto !important;
 		overflow: visible;
 		z-index: 10;
+		.event-title {
+		  text-decoration: underline;
+		}
 	  }
 	  .mptt-event-container.mptt-full-height:hover {
 		height: 100% !important;

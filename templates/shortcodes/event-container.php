@@ -39,6 +39,7 @@
 	<?php endif; ?>
 
 	<?php
+
 	if ($params['description'] && !empty($item->description)): ?>
 		<p class="event-description"><?php echo $item->description; ?></p>
 	<?php endif; ?>
@@ -46,6 +47,7 @@
 	<?php if ($params['user']): ?>
 		<p class="event-user">
 			<?php $user_info = get_userdata($item->user_id);
+			echo get_avatar( $item->user_id, apply_filters('mptt-event-user-avatar-size', 24) );
 			echo $user_info->data->display_name; ?>
 		</p>
 	<?php endif; ?>
