@@ -49,8 +49,8 @@ function mptt_column_template_content_events_list() { ?>
 							<?php echo get_avatar( $event->user->ID, apply_filters('mptt-column-user-avatar-size', 32) ); ?>
 							<?php echo $event->user->display_name ?>
 						</a></p>
-					<div class="mptt-clearfix"></div>
 				<?php } ?>
+					<div class="mptt-clearfix"></div>
 			</li>
 		<?php endforeach; ?>
 	</ul>

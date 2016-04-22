@@ -59,6 +59,9 @@ MotoPress Timetable plugin is an all-around tool designed to help you create onl
 
 == Changelog ==
 
+= 1.0.6 =
+* Fixed an issue in column view
+
 = 1.0.5 =
 * Improved compatibility with IE10+
 
