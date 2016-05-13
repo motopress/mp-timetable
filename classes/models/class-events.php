@@ -126,6 +126,7 @@ class Events extends Model {
 		if (!empty($params['event_data'])) {
 			foreach ($params['event_data'] as $key => $event) {
 				if (is_array($event['event_start']) && !empty($event['event_start'])) {
+
 					for ($i = 0; $i < count($event['event_start']); $i++) {
 						$rows_affected[] = $this->wpdb->insert($this->table_name, array(
 								'column_id' => $key,
@@ -312,14 +313,15 @@ class Events extends Model {
 	 *
 	 * @return array|null|object|void
 	 */
-	public function get_event_data($params) {
-		$event_data = $this->wpdb->get_results("SELECT * FROM $this->table_name WHERE {$params["field"]} = {$params['id']}");
+	public function get_event_data($params, $order_by = 'event_start') {
+		$event_data = $this->wpdb->get_results("SELECT * FROM $this->table_name WHERE {$params["field"]} = {$params['id']} ORDER BY {$order_by}");
 		foreach ($event_data as $key => $event) {
 			$event_data[$key]->event_start = date(get_option('time_format'), strtotime($event_data[$key]->event_start));
 			$event_data[$key]->event_end = date(get_option('time_format'), strtotime($event_data[$key]->event_end));
 			$event_data[$key]->user = get_user_by('id', $event_data[$key]->user_id);
 			$event_data[$key]->post = get_post($event_data[$key]->event_id);
 		}
+
 		return $event_data;
 	}
 
