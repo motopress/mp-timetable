@@ -44,11 +44,13 @@
 		<p class="event-description"><?php echo $item->description; ?></p>
 	<?php endif; ?>
 
-	<?php if ($params['user']): ?>
+	<?php if ($params['user'] && $item->user_id != '-1' ): ?>
 		<p class="event-user">
 			<?php $user_info = get_userdata($item->user_id);
-			echo get_avatar( $item->user_id, apply_filters('mptt-event-user-avatar-size', 24) );
-			echo $user_info->data->display_name; ?>
+			if( $user_info ){
+				echo get_avatar( $item->user_id, apply_filters('mptt-event-user-avatar-size', 24) );
+				echo $user_info->data->display_name;
+			}?>
 		</p>
 	<?php endif; ?>
 </div>

@@ -165,8 +165,10 @@ Registry.register("Event",
 				 */
 				initEditButtons: function() {
 					$('#events-list #edit-event-button').off('click').on('click', function() {
-						var id = $(this).attr('data-id');
+						var id = $(this).attr('data-id'),
+							$tr = $(this).parent().parent();
 						$(this).parent().find('.spinner').addClass('is-active');
+
 						Registry._get("adminFunctions").wpAjax(
 							{
 								controller: "events",
@@ -175,6 +177,9 @@ Registry.register("Event",
 							},
 							function(data) {
 								$('#events-list .spinner').removeClass('is-active');
+								$('#events-list tr').removeClass('active');
+								$tr.addClass('active');
+
 								$('#event_start').val(data.event_start);
 								$('#event_end').val(data.event_end);
 								$('#description').val(data.description);
@@ -216,10 +221,13 @@ Registry.register("Event",
 				 */
 				updateEventItem: function() {
 					var item = $('#events-list tr[data-id="' + state.event_id + '"]');
+					item.removeClass('active');
 					item.find('td.event-column').text($('#weekday_id option:selected').text());
 					item.find('td.event-start').text($('#event_start').val());
 					item.find('td.event-end').text($('#event_end').val());
+					item.find('td.event-user-id').text( ( $('#user_id').val() == '-1') ? '' :  $('#user_id option:selected').text() );
 					item.find('td.event-description').text($('#description').val());
+
 					state.event_id = null;
 					$('#add_mp_event').removeClass('edit').val('Add Time Slot');
 				},
@@ -257,6 +265,7 @@ Registry.register("Event",
 				 */
 				renderEventItem: function() {
 					var column_ID = $('#weekday_id option:selected').val();
+
 					var template = {
 						tag: 'tr',
 						attrs: {},
@@ -334,6 +343,13 @@ Registry.register("Event",
 									'class': 'event-description'
 								},
 								content: [$('#description').val()]
+							},
+							{
+								tag: 'td',
+								attrs: {
+									'class': 'event-user-id'
+								},
+								content: [ ( $('#user_id').val() == '-1') ? '' :  $('#user_id option:selected').text() ]
 							},
 							{
 								tag: 'td',

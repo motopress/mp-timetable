@@ -186,10 +186,12 @@ function mptt_shortcode_template_content_responsive_table() {
 											<?php echo $event->description ?>
 										</p>
 									<?php endif; ?>
-									<?php if ($mptt_shortcode_data['params']['user']): ?>
+									<?php if ($mptt_shortcode_data['params']['user'] && ( $event->user_id != '-1' ) ): ?>
 										<p class="event-user">
 											<?php $user_info = get_userdata($event->user_id);
-											echo $user_info->data->display_name; ?>
+											if($user_info){
+												echo $user_info->data->display_name;
+											}?>
 										</p>
 									<?php endif; ?>
 								</li>

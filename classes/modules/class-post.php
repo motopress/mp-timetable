@@ -52,7 +52,9 @@ class Post extends Module {
 			//Save post by post_type
 			switch ($post_type) {
 				case'mp-event':
-					$this->get('events')->save_event_data(array('post' => $post, 'event_data' => $request['event_data'], 'event_meta' => $request['event_meta']));
+					$this->get('events')->save_event_data(array('post' => $post,
+							'event_data' => ( !empty( $request['event_data'] ) )? $request['event_data'] : null,
+							'event_meta' => ( !empty( $request['event_meta'] ) )? $request['event_meta'] : null));
 					break;
 				case'mp-column':
 					$this->get('column')->save_column_data(array('post' => $post, 'data' => $request['column']));
