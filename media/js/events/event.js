@@ -661,6 +661,7 @@ Registry.register("Event",
 					var min = Math.min.apply(Math, arrMin);
 					var max = Math.max.apply(Math, arrMax);
 					var rowSpan = (max - min);
+
 					return rowSpan < 1 ? 1 : rowSpan;
 				},
 				/**
