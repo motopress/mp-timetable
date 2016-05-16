@@ -381,7 +381,7 @@ class Core {
 				'with_front' => true,
 				'hierarchical' => true
 			),
-			"supports" => array("title", "editor", "excerpt", "thumbnail", "page-attributes"),
+			"supports" => array("title", "editor", 'comments', "excerpt", "thumbnail", "page-attributes"),
 			"show_in_admin_bar" => true
 		);
 		register_post_type('mp-event', $args);

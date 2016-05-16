@@ -94,7 +94,7 @@
     margin-left: 0;
   }
 }
-.mptt-main-wrapper.mp-event-item img {
+.mptt-main-wrapper.mp-event-item img:not(.avatar ) {
   width: 100%;
   height: auto;
 }
