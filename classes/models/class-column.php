@@ -145,4 +145,15 @@ class Column extends Model {
 			}
 		}
 	}
+
+	/**
+	 * Delete timeslots of the Column
+	 *
+	 * @param array $params
+	 */
+	public function before_delete_column($post_id) {
+		$table_name = $this->get('events')->table_name;
+
+		return $this->wpdb->delete($table_name, array('column_id' => $post_id), array('%d'));
+	}
 }

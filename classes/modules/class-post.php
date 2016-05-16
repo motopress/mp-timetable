@@ -51,17 +51,31 @@ class Post extends Module {
 
 			//Save post by post_type
 			switch ($post_type) {
-				case'mp-event':
+				case 'mp-event':
 					$this->get('events')->save_event_data(array('post' => $post,
 							'event_data' => ( !empty( $request['event_data'] ) )? $request['event_data'] : null,
 							'event_meta' => ( !empty( $request['event_meta'] ) )? $request['event_meta'] : null));
 					break;
-				case'mp-column':
+				case 'mp-column':
 					$this->get('column')->save_column_data(array('post' => $post, 'data' => $request['column']));
 					break;
 				default:
 					break;
 			}
 		}
+	}
+
+	/**
+	 * Before delete custom post
+	 *
+	 * @param $post_id
+	 * @param $post
+	 */
+	public function before_delete_custom_post($post_id) {
+		global $post_type;
+		if ( $post_type != 'mp-column' ) return;
+
+		$this->get('column')->before_delete_column( $post_id );
+
 	}
 }
