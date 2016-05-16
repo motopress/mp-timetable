@@ -314,7 +314,19 @@ class Events extends Model {
 	 * @return array|null|object|void
 	 */
 	public function get_event_data($params, $order_by = 'event_start') {
-		$event_data = $this->wpdb->get_results("SELECT * FROM $this->table_name WHERE {$params["field"]} = {$params['id']} ORDER BY {$order_by}");
+
+		$table_posts = $this->wpdb->prefix .'posts';
+
+		$event_data = $this->wpdb->get_results(
+				"SELECT t.*
+					FROM $this->table_name t INNER JOIN
+					(
+						SELECT * FROM {$table_posts}
+						WHERE post_type = 'mp-column'
+					) p ON t.column_id = p.ID
+					WHERE t.{$params["field"]} = {$params['id']}
+					ORDER BY p.menu_order, t.{$order_by}"
+		);
 		foreach ($event_data as $key => $event) {
 			$event_data[$key]->event_start = date(get_option('time_format'), strtotime($event_data[$key]->event_start));
 			$event_data[$key]->event_end = date(get_option('time_format'), strtotime($event_data[$key]->event_end));
