@@ -14,8 +14,8 @@
 	<?php foreach ($event_data as $data): ?>
 		<tr data-id="<?php echo $data->id ?>">
 			<td class="event-column"><?php echo get_the_title($data->column_id); ?></td>
-			<td class="event-start"><?php echo date(get_option('time_format'), strtotime($data->event_start)); ?></td>
-			<td class="event-end"><?php echo date(get_option('time_format'), strtotime($data->event_end)); ?></td>
+			<td class="event-start"><?php echo $data->event_start; ?></td>
+			<td class="event-end"><?php echo $data->event_end; ?></td>
 			<td class="event-description"><?php echo $data->description ?></td>
 			<td class="event-user-id"><?php
  				$user = ($data->user_id != '-1')? get_userdata($data->user_id) : false;
