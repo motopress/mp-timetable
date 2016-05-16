@@ -131,8 +131,8 @@ class Events extends Model {
 						$rows_affected[] = $this->wpdb->insert($this->table_name, array(
 								'column_id' => $key,
 								'event_id' => $params['post']->ID,
-								'event_start' => date('H:i:s', strtotime($event['event_start'][$i])),
-								'event_end' => date('H:i:s', strtotime($event['event_end'][$i])),
+								'event_start' => date('H:i', strtotime($event['event_start'][$i])),
+								'event_end' => date('H:i', strtotime($event['event_end'][$i])),
 								'user_id' => $event['user_id'][$i],
 								'description' => $event['description'][$i]
 							)
@@ -196,8 +196,10 @@ class Events extends Model {
 
 		foreach ($events_data as $event) {
 			$event->post = get_post($event->event_id);
-			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
-			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
+//			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
+//			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
+			$event->event_start = date('H:i', strtotime($event->event_start));
+			$event->event_end = date('H:i', strtotime($event->event_end));
 			$events[] = $event;
 		}
 		return $events;
@@ -240,7 +242,7 @@ class Events extends Model {
 		$events = array();
 		$weekday = strtolower(date('l', time()));
 		$current_date = date('d/m/Y', time());
-		$curent_time = date('H:i:s', current_time('timestamp'));
+		$curent_time = date('H:i', current_time('timestamp'));
 		if (!empty($instance['mp_categories'])) {
 			$category_columns_ids = $this->get('column')->get_columns_by_event_category($instance['mp_categories']);
 		}
@@ -327,9 +329,10 @@ class Events extends Model {
 				. " WHERE t.`{$params["field"]}` = {$params['id']}"
 				. " ORDER BY p.`menu_order`, t.`{$order_by}`"
 		);
+
 		foreach ($event_data as $key => $event) {
-			$event_data[$key]->event_start = date(get_option('time_format'), strtotime($event_data[$key]->event_start));
-			$event_data[$key]->event_end = date(get_option('time_format'), strtotime($event_data[$key]->event_end));
+			$event_data[$key]->event_start = date('H:i', strtotime($event_data[$key]->event_start));
+			$event_data[$key]->event_end = date('H:i', strtotime($event_data[$key]->event_end));
 			$event_data[$key]->user = get_user_by('id', $event_data[$key]->user_id);
 			$event_data[$key]->post = get_post($event_data[$key]->event_id);
 		}
@@ -348,8 +351,8 @@ class Events extends Model {
 		$result = $this->wpdb->update(
 			$this->table_name,
 			array(
-				'event_start' => date('H:i:s', strtotime($data['event_start'])),
-				'event_end' => date('H:i:s', strtotime($data['event_end'])),
+				'event_start' => date('H:i', strtotime($data['event_start'])),
+				'event_end' => date('H:i', strtotime($data['event_end'])),
 				'description' => $data['description'],
 				'column_id' => $data['weekday_ids'],
 				'user_id' => $data['user_id'],

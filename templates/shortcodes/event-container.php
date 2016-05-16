@@ -29,9 +29,9 @@
 	<?php endif; ?>
 	<?php if ($params['time']): ?>
 		<p class="timeslot">
-			<span class="timeslot-start"><?php echo $item->event_start ?></span>
+			<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($item->event_start)); ?></span>
 			<span class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
-			<span class="timeslot-end"><?php echo $item->event_end; ?></span>
+			<span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($item->event_end));; ?></span>
 		</p>
 	<?php endif; ?>
 	<?php if ($params['sub-title'] && !empty($item->post->sub_title)): ?>

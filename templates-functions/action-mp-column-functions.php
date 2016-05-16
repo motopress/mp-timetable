@@ -33,7 +33,7 @@ function mptt_column_template_content_events_list() { ?>
 				</h4>
 
 				<p class="timeslot">
-					<span class="timeslot-start"><?php echo $event->event_start ?></span><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php echo $event->event_end; ?></span>
+					<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
 				</p>
 
 				<?php if (!empty($event->post->sub_title)) { ?>
