@@ -148,7 +148,6 @@ class Shortcode extends Core {
 			foreach ($events_data['events'] as $event_key => $event) {
 				if ($column->ID == $event->column_id) {
 					$start_index = date('G', strtotime($event->event_start)) / $params['increment'] + floor(date('i', strtotime($event->event_start)) / $step);
-
 					$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step) + (date('i', strtotime($event->event_end)) == $step ? 1 : 0);
 
 					$event->output = false;

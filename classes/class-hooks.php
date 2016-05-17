@@ -25,8 +25,10 @@ class Hooks extends Core {
 		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
 		add_filter('manage_edit-mp-column_columns', array($this->get('column'), 'set_column_columns'));
 		// post_class filter
+		add_filter('get_the_archive_title', array(Post::get_instance(), 'get_the_archive_title'));
 		add_filter('post_class', 'mptt_post_class', 15, 3);
 		add_action('pre_get_posts', array($this->get('column'),'clientarea_default_order'), 9 );
+		add_action('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9 );
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
 		add_action('manage_posts_custom_column', array($this->get('column'), 'get_column_columns'));
 
