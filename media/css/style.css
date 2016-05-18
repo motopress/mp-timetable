@@ -136,7 +136,8 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.mptt-main-wrapper .mptt-event.events-list .event .timeslot {
+.mptt-main-wrapper .mptt-event.events-list .event .timeslot,
+.mptt-main-wrapper .mptt-event.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
@@ -175,15 +176,12 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.mptt-main-wrapper .mptt-column.events-list .event .timeslot {
+.mptt-main-wrapper .mptt-column.events-list .event .timeslot,
+.mptt-main-wrapper .mptt-column.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
 .mptt-main-wrapper .mptt-column.events-list .event .event-description {
-  margin: 0.25rem 0 0;
-  padding: 0;
-}
-.mptt-main-wrapper .mptt-column.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
@@ -212,7 +210,8 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.upcoming-events-widget .mptt-widget.events-list .event .timeslot {
+.upcoming-events-widget .mptt-widget.events-list .event .timeslot,
+.upcoming-events-widget .mptt-widget.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
@@ -347,7 +346,8 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.mptt-shortcode-wrapper .mptt-shortcode-list .mptt-column .mptt-events-list .mptt-list-event .timeslot {
+.mptt-shortcode-wrapper .mptt-shortcode-list .mptt-column .mptt-events-list .mptt-list-event .timeslot,
+.mptt-shortcode-wrapper .mptt-shortcode-list .mptt-column .mptt-events-list .mptt-list-event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }

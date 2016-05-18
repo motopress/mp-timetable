@@ -3,8 +3,8 @@
 @import 'theme.less';
 
 .mptt-main-wrapper {
-  &.mp-event-item:not(.avatar ) {
-	img {
+  &.mp-event-item {
+	img:not(.avatar ) {
 	  width: 100%;
 	  height: auto;
 	}
@@ -51,7 +51,8 @@
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
-	  .timeslot {
+	  .timeslot,
+	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
@@ -93,7 +94,8 @@
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
-	  .timeslot {
+	  .timeslot,
+	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
@@ -102,9 +104,6 @@
 		padding: 0;
 	  }
 	  .event-user {
-		margin: 0.25rem 0 0;
-		padding: 0;
-
 		.avatar {
 		  border-radius: 50%;
 		}
@@ -134,7 +133,8 @@
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
-	  .timeslot {
+	  .timeslot,
+	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
@@ -288,7 +288,8 @@
 			margin: 0.25rem 0 0;
 			padding: 0;
 		  }
-		  .timeslot {
+		  .timeslot,
+		  .event-user {
 			margin: 0.25rem 0 0;
 			padding: 0;
 		  }

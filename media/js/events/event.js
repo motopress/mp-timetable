@@ -221,7 +221,7 @@ Registry.register("Event",
 				 */
 				updateEventItem: function() {
 					var item = $('#events-list tr[data-id="' + state.event_id + '"]');
-					item.removeClass('active');
+					//item.removeClass('active');
 					item.find('td.event-column').text($('#weekday_id option:selected').text());
 					item.find('td.event-start').text($('#event_start').val());
 					item.find('td.event-end').text($('#event_end').val());

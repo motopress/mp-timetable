@@ -189,13 +189,11 @@ function mptt_shortcode_template_content_responsive_table() {
 										</p>
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['user'] && ( $event->user_id != '-1' ) ): ?>
-										<p class="event-user">
-											<?php $user_info = get_userdata($event->user_id);
+										<p class="event-user"><?php $user_info = get_userdata($event->user_id);
 											if( $user_info ){
 												echo get_avatar( $event->user_id, apply_filters('mptt-event-user-avatar-size', 24) ) . ' ';
 												echo $user_info->data->display_name;
-											}?>
-										</p>
+											}?></p>
 									<?php endif; ?>
 								</li>
 							<?php endforeach; ?>

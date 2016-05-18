@@ -56,7 +56,7 @@
 			</th>
 			<td>
 				<?php wp_dropdown_users(array(
-					'show_option_none' => __('No user selected', 'mp-timetable'),
+					'show_option_none' => __('none', 'mp-timetable'),
 					'show_option_all' => null,
 					'hide_if_only_one_author' => null,
 					'orderby' => 'display_name',

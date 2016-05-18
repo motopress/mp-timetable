@@ -60,20 +60,10 @@ if (!empty($events)):
 				</a>
 			<?php } ?>
 			</h4>
-			<p class="column-title"><?php echo get_the_title($event->column_id) ?></p>
+			<?php if($instance['view_settings'] !== 'today'): ?><p class="column-title"><?php echo get_the_title($event->column_id) ?></p><?php endif; ?>
 			<p class="timeslot">
 				<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?>
 			</p>
-
-			<?php if (! empty($event->user_id) && ($event->user_id != 0)): ?>
-				<p class="event-user">
-					<?php $user_info = get_userdata($event->user_id);
-					if( $user_info ){
-						echo get_avatar( $event->user_id, apply_filters('mptt-event-user-avatar-size', 24) ) . ' ';
-						echo $user_info->data->display_name;
-					}?>
-				</p>
-			<?php endif; ?>
 		</li>
 
 	<?php endforeach;

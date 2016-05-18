@@ -61,7 +61,7 @@ class Post extends Module {
 
 	public function get_the_archive_title($title){
 		if( is_author() ) {
-			$title = __('Author or heads events', 'mp-timetable');
+			$title = '';
 		}
 		return $title;
 	}

@@ -12,7 +12,7 @@ if (is_active_sidebar('mptt-sidebar')) {
 	the_widget('timetable\classes\widgets\Timetable_widget', apply_filters('mptt_widget_settings', array(
 		'title' => __('All upcoming events', "mp-timetable"),
 		'view_settings' => 'all',
-		'limit' => '',
+		'limit' => '10',
 		'next_days' => '5',
 	)), array('widget_id' => 'wp-timetable-2' . $post->ID));
 

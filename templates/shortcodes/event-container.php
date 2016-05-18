@@ -45,12 +45,10 @@
 	<?php endif; ?>
 
 	<?php if ($params['user'] && $item->user_id != '-1' ): ?>
-		<p class="event-user">
-			<?php $user_info = get_userdata($item->user_id);
+		<p class="event-user"><?php $user_info = get_userdata($item->user_id);
 			if( $user_info ){
 				echo get_avatar( $item->user_id, apply_filters('mptt-event-user-avatar-size', 24) );
 				echo $user_info->data->display_name;
 			}?>
-		</p>
-	<?php endif; ?>
+		</p><?php endif; ?>
 </div>

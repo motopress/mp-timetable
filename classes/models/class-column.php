@@ -33,7 +33,7 @@ class Column extends Model {
 	 * @return array
 	 */
 	public function set_column_columns($columns) {
-			$columns = array_slice($columns, 0, 2, true) + array("mp-column_timeslots_number" => __('Timeslots number', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
+			$columns = array_slice($columns, 0, 2, true) + array("mp-column_timeslots_number" => __('Timeslots', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
 
 		return $columns;
 	}
