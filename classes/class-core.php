@@ -381,7 +381,7 @@ class Core {
 				'with_front' => true,
 				'hierarchical' => true
 			),
-			"supports" => array("title", "editor", "excerpt", "thumbnail", "page-attributes"),
+			"supports" => array("title", "editor", 'comments', "excerpt", "thumbnail", "page-attributes"),
 			"show_in_admin_bar" => true
 		);
 		register_post_type('mp-event', $args);
@@ -468,6 +468,7 @@ class Core {
 			switch ($current_screen->base) {
 				case "post":
 				case "page":
+					wp_enqueue_script("jquery-ui-tabs");
 					wp_enqueue_script("jBox", Mp_Time_Table::get_plugin_url('media/js/lib/jBox.min.js'), array('jquery'), '0.2.1');
 					wp_enqueue_script("mptt-popup-events", Mp_Time_Table::get_plugin_url('media/js/popup/popup-events.js'), array('jquery'), $this->version);
 					wp_enqueue_style('jBox', Mp_Time_Table::get_plugin_url('media/css/jbox/jBox.css'), array(), '1.8.0');

@@ -34,7 +34,10 @@ function mptt_event_template_content_time_list() { ?>
 				</h4>
 
 				<p class="timeslot">
-					<span class="timeslot-start"><?php echo $event->event_start ?></span><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php echo $event->event_end; ?></span>
+					<span class="timeslot-start"><?php
+						echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php
+						echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php
+						echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
 				</p>
 
 				<?php if (!empty($event->post->sub_title)) { ?>
@@ -44,11 +47,21 @@ function mptt_event_template_content_time_list() { ?>
 				<?php if (!empty($event->description)) { ?>
 					<p class="event-description"><?php echo $event->description; ?></p>
 				<?php } ?>
-
+				<?php if (!empty($event->user)) { ?>
+					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>"><?php echo get_avatar( $event->user->ID, apply_filters('mptt-column-user-avatar-size', 32) ) . ' ';
+							echo $event->user->display_name ?></a></p>
+				<?php } ?>
 			</li>
 		<?php endforeach; ?>
 	</ul>
 	<?php
+}
+
+function mptt_event_template_content_comments(){
+	// If comments are open or we have at least one comment, load up the comment template.
+	if (comments_open() || get_comments_number()) {
+		comments_template();
+	}
 }
 
 /**

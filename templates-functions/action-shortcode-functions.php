@@ -56,6 +56,8 @@ function mptt_shortcode_template_content_static_table() {
 	$increment = $mptt_shortcode_data['params']['increment'] === '1' ? "+1 hour" : "+" . (60 * $mptt_shortcode_data['params']['increment']) . " minutes";
 	?>
 	<input type="hidden" name="hide_empty_rows" value="<?php echo $mptt_shortcode_data['params']['hide_empty_rows'] ?>"/>
+
+
 	<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table') ?>" data-amout-rows="<?php echo $amount_rows ?>"
 	       data-increment="<?php echo $mptt_shortcode_data['params']['increment'] ?>"
 	       data-table-id="<?php echo $mptt_shortcode_data['params']['id'] ?>">
@@ -176,9 +178,9 @@ function mptt_shortcode_template_content_responsive_table() {
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['time']): ?>
 										<p class="timeslot">
-											<span class="timeslot-start"><?php echo $event->event_start ?></span>
+											<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span>
 											<span class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
-											<span class="timeslot-end"><?php echo $event->event_end; ?></span>
+											<span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
 										</p>
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['description']): ?>
@@ -186,11 +188,12 @@ function mptt_shortcode_template_content_responsive_table() {
 											<?php echo $event->description ?>
 										</p>
 									<?php endif; ?>
-									<?php if ($mptt_shortcode_data['params']['user']): ?>
-										<p class="event-user">
-											<?php $user_info = get_userdata($event->user_id);
-											echo $user_info->data->display_name; ?>
-										</p>
+									<?php if ($mptt_shortcode_data['params']['user'] && ( $event->user_id != '-1' ) ): ?>
+										<p class="event-user"><?php $user_info = get_userdata($event->user_id);
+											if( $user_info ){
+												echo get_avatar( $event->user_id, apply_filters('mptt-event-user-avatar-size', 24) ) . ' ';
+												echo $user_info->data->display_name;
+											}?></p>
 									<?php endif; ?>
 								</li>
 							<?php endforeach; ?>

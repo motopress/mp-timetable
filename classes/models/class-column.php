@@ -10,12 +10,64 @@ use mp_timetable\plugin_core\classes\Model as Model;
 class Column extends Model {
 
 	protected static $instance;
+	protected $wpdb;
 
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
 		}
 		return self::$instance;
+	}
+
+	function __construct() {
+		parent::__construct();
+		global $wpdb;
+		$this->wpdb = $wpdb;
+	}
+
+	/**
+	 * Add column
+	 *
+	 * @param $columns
+	 *
+	 * @return array
+	 */
+	public function set_column_columns($columns) {
+			$columns = array_slice($columns, 0, 2, true) + array("mp-column_timeslots_number" => __('Timeslots', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
+
+		return $columns;
+	}
+
+	/**
+	 * Create event category admin link
+	 *
+	 * @param $column
+	 */
+	public function get_column_columns($column){
+		global $post;
+		switch ($column) {
+			case 'mp-column_timeslots_number':
+				$metaData = $this->count_events($post);
+				echo empty($metaData) ? "—" : $metaData;
+				break;
+		}
+
+	}
+
+	public function count_events($post){
+		$table_name = $this->get('events')->table_name;
+		$count = $this->wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE `column_id` = {$post->ID}");
+
+		return intval($count);
+	}
+
+	public function clientarea_default_order($query){
+		if ( is_admin() || $query->is_main_query() ){
+			$query->set( 'orderby', 'menu_order' );
+			$query->set( 'order', 'ASC' );
+
+			return;
+		}
 	}
 
 	/**
@@ -92,5 +144,16 @@ class Column extends Model {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Delete timeslots of the Column
+	 *
+	 * @param array $params
+	 */
+	public function before_delete_column($post_id) {
+		$table_name = $this->get('events')->table_name;
+
+		return $this->wpdb->delete($table_name, array('column_id' => $post_id), array('%d'));
 	}
 }
