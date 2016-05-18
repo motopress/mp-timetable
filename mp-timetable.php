@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: Timetable
+ * Plugin Name: Timetable orig
  * Plugin URI: http://www.getmotopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
  * Version: 1.0.6
