@@ -23,9 +23,14 @@ class Hooks extends Core {
 		add_action("admin_init", array($this, "admin_init"));
 		add_action('admin_menu', array($this, 'admin_menu'));
 		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
+		add_filter('manage_edit-mp-column_columns', array($this->get('column'), 'set_column_columns'));
 		// post_class filter
+		add_filter('get_the_archive_title', array(Post::get_instance(), 'get_the_archive_title'));
 		add_filter('post_class', 'mptt_post_class', 15, 3);
+		add_action('pre_get_posts', array($this->get('column'),'clientarea_default_order'), 9 );
+		add_action('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9 );
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
+		add_action('manage_posts_custom_column', array($this->get('column'), 'get_column_columns'));
 
 		add_action('customize_preview_init', array(Core::get_instance(), 'customizer_live_preview'), 11);
 		add_action('current_screen', array(Core::get_instance(), 'current_screen'));
@@ -79,6 +84,7 @@ class Hooks extends Core {
 		add_action('mptt_event_item_content', 'mptt_event_template_content_post_content', 30);
 		add_action('mptt_event_item_content', 'mptt_event_template_content_time_title', 40);
 		add_action('mptt_event_item_content', 'mptt_event_template_content_time_list', 50);
+		add_action('mptt_event_item_content', 'mptt_event_template_content_comments', 60);
 
 		// Column template action
 		add_action('mptt_single_column_template_content', 'mptt_column_template_content_title', 10);
@@ -133,6 +139,8 @@ class Hooks extends Core {
 
 		Core::get_instance()->init_plugin_version();
 
+		add_action('before_delete_post', array(Post::get_instance(), 'before_delete_custom_post'));
+		add_action('wp_trash_post', array(Post::get_instance(), 'before_delete_custom_post'));
 		add_action('add_meta_boxes', array(Post::get_instance(), 'add_meta_boxes'));
 		add_action('save_post', array(Post::get_instance(), 'save_custom_post'), 40, 2);
 		add_action('wp_ajax_route_url', array(Core::get_instance(), "wp_ajax_route_url"));
