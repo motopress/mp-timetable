@@ -56,6 +56,8 @@ function mptt_shortcode_template_content_static_table() {
 	$increment = $mptt_shortcode_data['params']['increment'] === '1' ? "+1 hour" : "+" . (60 * $mptt_shortcode_data['params']['increment']) . " minutes";
 	?>
 	<input type="hidden" name="hide_empty_rows" value="<?php echo $mptt_shortcode_data['params']['hide_empty_rows'] ?>"/>
+
+
 	<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table') ?>" data-amout-rows="<?php echo $amount_rows ?>"
 	       data-increment="<?php echo $mptt_shortcode_data['params']['increment'] ?>"
 	       data-table-id="<?php echo $mptt_shortcode_data['params']['id'] ?>">

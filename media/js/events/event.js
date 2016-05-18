@@ -377,11 +377,12 @@ Registry.register("Event",
 					};
 
 					var td = $(Registry._get("adminFunctions").getHtml(tdTemplate));
+
 					//var end = 0;
 					//	var events = state.eventsData[columnId].events;
-
 					if (eventID !== 'all') {
 						$.each(state.eventsData[columnId].events, function(index, eventObject) {
+
 							if (!_.isUndefined(eventObject)) {
 								if (eventObject.eventId === eventID && eventObject.dataStartItem === trIndex) {
 									if (state.eventsData[columnId].events[index].output === true) {
@@ -389,7 +390,9 @@ Registry.register("Event",
 									}
 									state.eventsData[columnId].events[index].output = true;
 									td.addClass('event');
+
 									td.append(state.renderEventContainer(eventObject));
+
 									//if (parseInt(end) < parseInt(eventObject.dataEnd)) {
 									//	end = eventObject.dataEnd;
 									//}
@@ -454,6 +457,7 @@ Registry.register("Event",
 				 * @param event
 				 */
 				renderEventContainer: function(event) {
+					
 					var eventContainer = {
 						tag: 'div',
 						attrs: {
@@ -656,7 +660,6 @@ Registry.register("Event",
 						var end = $(this).attr('data-end');
 						arrMin[index] = start;
 						arrMax[index] = end;
-
 					});
 					var min = Math.min.apply(Math, arrMin);
 					var max = Math.max.apply(Math, arrMax);
@@ -669,15 +672,24 @@ Registry.register("Event",
 				 * @param container
 				 */
 				getEvents: function(container) {
+
 					if (_.isEmpty(state.eventsData)) {
 
 						//get columns
 						$.each(container.find('.mptt-shortcode-table th'), function(index) {
 							if (!_.isUndefined($(this).attr('data-column-id'))) {
+
 								var columnID = $(this).attr('data-column-id');
+
 								state.eventsData[columnID] = {events: []};
 								$.each($('td.mptt-shortcode-event[data-column-id="' + columnID + '"] .mptt-event-container'), function() {
 									var eventContainer = $(this);
+
+									// Fix event dublication
+									if( state.eventsData[columnID].events.some(function(item){
+										return item.id == eventContainer.attr('data-id');
+									}) ){ return; };
+
 									state.eventsData[columnID].events.push({
 										id: eventContainer.attr('data-id'),
 										eventId: eventContainer.attr('data-event-id'),
@@ -696,7 +708,7 @@ Registry.register("Event",
 										eventHeaderHref: eventContainer.find('.event-title').attr('href'),
 										topHour: $.trim(eventContainer.find('.timeslot span.timeslot-start').text()),
 										bottomHour: $.trim(eventContainer.find('.timeslot span.timeslot-end').text()),
-										afterText: $.trim(eventContainer.find('.event-user').text()),
+										afterText: $.trim(eventContainer.find('.event-user').html()),
 										eventDescription: $.trim(eventContainer.find('.event-description').text()),
 										timeslotDelimiter: $.trim(eventContainer.find('.timeslot span.timeslot-delimiter').text()),
 										timeslotDelimiterTag: $.trim(eventContainer.find('.timeslot span.timeslot-delimiter').prop("tagName"))
@@ -896,6 +908,7 @@ Registry.register("Event",
 				renderTable: function(shortcodeContainer, eventID) {
 					state.getEvents(shortcodeContainer);
 					shortcodeContainer.find('.mptt-shortcode-event').remove();
+
 					$.each(shortcodeContainer.find('.mptt-shortcode-table tbody tr'), function(index) {
 						var tr = $(this);
 						var trIndex = $(this).attr('data-index');
