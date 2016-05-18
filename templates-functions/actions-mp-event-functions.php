@@ -48,7 +48,7 @@ function mptt_event_template_content_time_list() { ?>
 					<p class="event-description"><?php echo $event->description; ?></p>
 				<?php } ?>
 				<?php if (!empty($event->user)) { ?>
-					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>"><?php echo get_avatar( $event->user->ID, apply_filters('mptt-column-user-avatar-size', 32) );
+					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>"><?php echo get_avatar( $event->user->ID, apply_filters('mptt-column-user-avatar-size', 32) ) . ' ';
 							echo $event->user->display_name ?></a></p>
 				<?php } ?>
 			</li>
