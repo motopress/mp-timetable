@@ -20,7 +20,7 @@
 				<td class="event-user-id"><?php
 					$user = ($data->user_id != '-1')? get_userdata($data->user_id) : false;
 					if($user){
-						echo $user->user_login;
+						echo $user->display_name;
 					}?></td>
 				<td>
 					<a id="edit-event-button" class="button" data-id="<?php echo $data->id ?>"><?php _e('Edit', 'mp-timetable') ?></a>
