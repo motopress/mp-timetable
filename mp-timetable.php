@@ -4,7 +4,7 @@
  * Plugin Name: Timetable orig
  * Plugin URI: http://www.getmotopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: MotoPress
  * Author URI: http://www.getmotopress.com
  * License: GPLv2 or later
