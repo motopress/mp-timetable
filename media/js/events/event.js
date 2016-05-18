@@ -457,7 +457,7 @@ Registry.register("Event",
 				 * @param event
 				 */
 				renderEventContainer: function(event) {
-					
+
 					var eventContainer = {
 						tag: 'div',
 						attrs: {
