@@ -284,7 +284,6 @@ Registry.register("adminFunctions", (function($) {
 		}
 		if ($('.mptt-shortcode-wrapper').length) {
 			Registry._get("Event").filterShortcodeEvents();
-			Registry._get("Event").toggleRows();
 		}
 		if ($('.upcoming-events-widget').length || $('.mptt-shortcode-wrapper').length) {
 			Registry._get("Event").setColorSettings();

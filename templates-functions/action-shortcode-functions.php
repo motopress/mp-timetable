@@ -52,99 +52,121 @@ function mptt_shortcode_template_content_filter() {
 
 function mptt_shortcode_template_content_static_table() {
 	global $mptt_shortcode_data;
+	mptt_shortcode_template_event($mptt_shortcode_data, 'all', true);
+
+	foreach ($mptt_shortcode_data['unique_events'] as $ev){
+		mptt_shortcode_template_event($mptt_shortcode_data, $ev->event_id, false);
+	}
+}
+
+function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all', $display = false ){
 	$amount_rows = 23 / $mptt_shortcode_data['params']['increment'];
-	$increment = $mptt_shortcode_data['params']['increment'] === '1' ? "+1 hour" : "+" . (60 * $mptt_shortcode_data['params']['increment']) . " minutes";
+
+	if( $event_id === 'all' ){
+		$column_events = $mptt_shortcode_data['events_data']['column_events'];
+	} else {
+		$column_events = array();
+		foreach($mptt_shortcode_data['events_data']['column_events'] as $col_id => $col_events ){
+			$column_events[$col_id] = array_filter(
+					$col_events,
+					function($val) use ($event_id) {
+						return $event_id == $val->event_id;
+					});
+		}
+	}
+
+	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params'] );
+	$t = $bounds;
+
+	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params'] );
 	?>
-	<input type="hidden" name="hide_empty_rows" value="<?php echo $mptt_shortcode_data['params']['hide_empty_rows'] ?>"/>
-
-
-	<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table') ?>" data-amout-rows="<?php echo $amount_rows ?>"
-	       data-increment="<?php echo $mptt_shortcode_data['params']['increment'] ?>"
-	       data-table-id="<?php echo $mptt_shortcode_data['params']['id'] ?>">
-		<thead>
-		<tr class="mptt-shortcode-row">
-			<th style=" <?php echo (bool)($mptt_shortcode_data['params']['hide_hrs']) ? 'display:none;' : '' ?>"></th>
-			<?php foreach ($mptt_shortcode_data['events_data']['column'] as $column): ?>
-				<th data-column-id="<?php echo $column->ID ?>"><?php echo $column->post_title ?></th>
-			<?php endforeach; ?>
-		</tr>
-		</thead>
-		<tbody>
-
-		<?php for ($i = 0; $i <= $amount_rows; $i++): ?>
-			<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
-				<?php $tm = $i * $mptt_shortcode_data['params']['increment'];
-				if (floor($tm) == $tm) {
-					$table_cell_start = $tm . ':00';
-				} else {
-					if ($amount_rows == 46) {
-						$table_cell_start = floor($tm) . ':30';
-					} else {
-						$tm_position = explode('.', $tm);
-
-						if ($tm_position[1] == 25) {
-							$mnts = ':15';
-						} elseif ($tm_position[1] == 5) {
-							$mnts = ':30';
-						} else {
-							$mnts = ':45';
-						}
-						$table_cell_start = floor($tm) . $mnts;
-					}
-				} ?>
-				<td class="mptt-shortcode-hours" style="<?php echo (bool)$mptt_shortcode_data['params']['hide_hrs'] ? 'display:none;' : '';
-				echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>"><?php echo date(get_option('time_format'), strtotime($table_cell_start)); ?></td>
-				<?php foreach ($mptt_shortcode_data['events_data']['column'] as $columns): ?>
-					<td class="mptt-shortcode-event" data-column-id="<?php echo $columns->ID ?>" rowspan="" style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
-						<?php if (!empty($mptt_shortcode_data['events_data']['column_events'][$columns->ID])) {
-							foreach ($mptt_shortcode_data['events_data']['column_events'][$columns->ID] as $key_events => $item) :
-								if ($item->output) {
-									continue;
-								}
-								$endTime = 0;
-								if ($endTime < strtotime($item->event_end)) {
-									$endTime = strtotime($item->event_end);
-								}
-								if ($item->start_index == $i) {
-									$mptt_shortcode_data['events_data']['column_events'][$columns->ID][$key_events]->output = true;
-
-									\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
-										array(
-											'item' => $item,
-											'params' => $mptt_shortcode_data['params']
-										), true);
-
-									foreach ($mptt_shortcode_data['events_data']['column_events'][$columns->ID] as $key_sub_events => $sub_item) :
-										if ($sub_item->output) {
-											continue;
-										}
-										if (strtotime($sub_item->event_start) < $endTime) {
-											$mptt_shortcode_data['events_data']['column_events'][$columns->ID][$key_sub_events]->output = true; ?>
-											<?php
-											\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
-												array(
-													'item' => $sub_item,
-													'params' => $mptt_shortcode_data['params'],
-													'startIndex' => $item->start_index
-												)
-												, true);
-											if ($endTime < strtotime($sub_item->event_end)) {
-												$endTime = strtotime($sub_item->event_end);
-											}
-										}
-									endforeach;
-								}
-							endforeach;
-						} ?>
-					</td>
+		<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table')
+				. ' ' . apply_filters('mptt_shortcode_static_filter_class', 'mptt-filter-table') . '-' . $event_id; ?>" data-amout-rows="<?php echo $amount_rows ?>"
+				style="<?php echo ($display) ? '' : 'display:none;' ?>">
+			<thead>
+			<tr class="mptt-shortcode-row">
+				<th style="<?php echo (bool)($mptt_shortcode_data['params']['hide_hrs']) ? 'display:none;' : '' ?>"></th>
+				<?php foreach ($mptt_shortcode_data['events_data']['column'] as $column): ?>
+					<th data-column-id="<?php echo $column->ID ?>"><?php echo $column->post_title ?></th>
 				<?php endforeach; ?>
 			</tr>
-		<?php endfor; ?>
+			</thead>
+			<tbody>
+			<?php for ($i = $bounds['start']; $i <= $bounds['end']; $i++): ?>
+				<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
+					<?php $tm = $i * $mptt_shortcode_data['params']['increment'];
+					if (floor($tm) == $tm) {
+						$table_cell_start = $tm . ':00';
+					} else {
+						if ($amount_rows == 46) {
+							$table_cell_start = floor($tm) . ':30';
+						} else {
+							$tm_position = explode('.', $tm);
 
-		</tbody>
-	</table>
+							if ($tm_position[1] == 25) {
+								$mnts = ':15';
+							} elseif ($tm_position[1] == 5) {
+								$mnts = ':30';
+							} else {
+								$mnts = ':45';
+							}
+							$table_cell_start = floor($tm) . $mnts;
+						}
+					} ?>
+					<td class="mptt-shortcode-hours" style="<?php echo (bool)$mptt_shortcode_data['params']['hide_hrs'] ? 'display:none;' : '';
+					echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>"><?php echo date(get_option('time_format'), strtotime($table_cell_start)); ?></td>
+					<?php foreach ($column_events as $column_id=>$events_list): ?>
+						<td class="mptt-shortcode-event" data-column-id="<?php echo $column_id ?>" rowspan="" style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
+							<?php if (!empty($column_events[$column_id])) {
+								foreach ($events_list as $key_events => $item) :
+									if ($item === reset($column_events[$column_id]))
+										$item->output = false;
 
-<?php }
+									if ($item->output) {
+										continue;
+									}
+
+									if ($item->start_index == $i) {
+										\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
+												array(
+														'item' => $item,
+														'params' => $mptt_shortcode_data['params']
+												), true);
+									}
+								endforeach;
+							} ?>
+						</td>
+					<?php endforeach; ?>
+				</tr>
+			<?php endfor; ?>
+			</tbody>
+		</table>
+	<?php
+}
+
+function mptt_shortcode_get_table_cell_bounds($column_events, $params){
+	$hide_empty_rows = $params['hide_empty_rows'];
+
+	if($hide_empty_rows){
+		$min = -1;
+		$max = -1;
+		foreach($column_events as $events){
+			foreach($events as $item){
+				if( $item->start_index && $item->end_index ){
+					$min = ($min === -1) ? $item->start_index : $min;
+					$max = ($max === -1) ? $item->end_index : $max;
+					$min = ($item->start_index < $min ) ? $item->start_index : $min;
+					$max = ($item->end_index > $max ) ? $item->end_index : $max;
+				}
+			}
+		}
+	} else {
+		$min = 0;
+		$max = 23 / $params['increment'];
+	}
+
+	return array('start' => $min, 'end' => $max);
+}
 
 function mptt_shortcode_template_content_responsive_table() {
 	global $mptt_shortcode_data;

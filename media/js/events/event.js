@@ -364,94 +364,7 @@ Registry.register("Event",
 					//state.initDeleteButton();
 					state.clearTable();
 				},
-				renderShortcodeEventItem: function(columnId, eventID, trIndex) {
-					var tdTemplate = {
-						tag: 'td',
-						attrs: {
-							'class': 'mptt-shortcode-event',
-							'data-column-id': columnId,
-							'rowspan': ''
-						},
-						content: []
 
-					};
-
-					var td = $(Registry._get("adminFunctions").getHtml(tdTemplate));
-
-					//var end = 0;
-					//	var events = state.eventsData[columnId].events;
-					if (eventID !== 'all') {
-						$.each(state.eventsData[columnId].events, function(index, eventObject) {
-
-							if (!_.isUndefined(eventObject)) {
-								if (eventObject.eventId === eventID && eventObject.dataStartItem === trIndex) {
-									if (state.eventsData[columnId].events[index].output === true) {
-										return;
-									}
-									state.eventsData[columnId].events[index].output = true;
-									td.addClass('event');
-
-									td.append(state.renderEventContainer(eventObject));
-
-									//if (parseInt(end) < parseInt(eventObject.dataEnd)) {
-									//	end = eventObject.dataEnd;
-									//}
-
-									//$.each(events, function(subIndex, subEventObject) {
-									//	if (!_.isUndefined(subEventObject)) {
-									//		if (subEventObject.eventId === eventID) {
-									//			if (subEventObject.output === true) {
-									//				return;
-									//			}
-									//			if (parseInt(subEventObject.dataStart) <= parseInt(end)) {
-									//				state.eventsData[columnId].events[subIndex].output = true;
-									//				td.append(state.renderEventContainer(subEventObject));
-									//				if (parseInt(end) < parseInt(subEventObject.dataEnd)) {
-									//					end = subEventObject.dataEnd;
-									//				}
-									//			}
-									//		}
-									//	}
-									//});
-								}
-							}
-						});
-					} else {
-						$.each(state.eventsData[columnId].events, function(index, eventObject) {
-							if (!_.isUndefined(eventObject)) {
-								if (eventObject.dataStart === trIndex) {
-									if (state.eventsData[columnId].events[index].output === true) {
-										return;
-									}
-									state.eventsData[columnId].events[index].output = true;
-									td.append(state.renderEventContainer(eventObject));
-									td.addClass('event');
-									//
-									//if (parseInt(end) < parseInt(eventObject.dataEnd)) {
-									//	end = eventObject.dataEnd;
-									//}
-
-									//$.each(events, function(subIndex, subEventObject) {
-									//	if (!_.isUndefined(subEventObject)) {
-									//		if (subEventObject.output === true) {
-									//			return;
-									//		}
-									//		if (parseInt(subEventObject.dataStart) <= parseInt(end)) {
-									//			state.eventsData[columnId].events[subIndex].output = true;
-									//			td.append(state.renderEventContainer(subEventObject));
-									//			if (parseInt(end) < parseInt(subEventObject.dataEnd)) {
-									//				end = subEventObject.dataEnd;
-									//			}
-									//		}
-									//	}
-									//});
-								}
-							}
-						});
-					}
-
-					return td;
-				},
 				/**
 				 * Render Container
 				 * @param event
@@ -663,6 +576,7 @@ Registry.register("Event",
 					});
 					var min = Math.min.apply(Math, arrMin);
 					var max = Math.max.apply(Math, arrMax);
+
 					var rowSpan = (max - min);
 
 					return rowSpan < 1 ? 1 : rowSpan;
@@ -770,15 +684,11 @@ Registry.register("Event",
 					} else {
 						eventID = element.parents('li').attr('data-event-id');
 					}
-					state.renderTable(parentShortcode, eventID);
 
-					$.each(state.eventsData, function(columnID) {
-						$.each(state.eventsData[columnID].events, function(index) {
-							state.eventsData[columnID].events[index].output = false;
-						});
-					});
-					state.setEventHeight();
-					state.setColorSettings('.mptt-colorized');
+					jQuery('table',parentShortcode).hide();
+					jQuery('.mptt-filter-table-'+eventID,parentShortcode).fadeIn();
+
+					return;
 				},
 				setEventHeight: function() {
 					$.each($('td.event'), function() {
@@ -820,9 +730,7 @@ Registry.register("Event",
 				},
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
-
 					if (selector.length) {
-
 
 						/*$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
 						 $(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
@@ -835,8 +743,6 @@ Registry.register("Event",
 
 						 });
 
-
-
 						 } else {*/
 						$.each($('.mptt-event-container'), function(index, value) {
 							$(this).parents('td').addClass('event');
@@ -845,7 +751,6 @@ Registry.register("Event",
 						state.setRowspanTd();
 
 						selector.off('change').on('change', function() {
-							//state.filterShortcodeTable($(this));
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
 						});
@@ -857,8 +762,8 @@ Registry.register("Event",
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
 						});
-						//}
 					}
+					return;
 				},
 				getFilterByHash: function() {
 					/*state.filterShortcodeTable($(this));
@@ -869,56 +774,7 @@ Registry.register("Event",
 					 $('.mptt-navigation-select').find('option:contains(' + hash + ')').change();
 					 }*/
 				},
-				/**
-				 * Show gide empty rows
-				 * @param shortcodeContainer
-				 */
-				toggleRows: function() {
-					$.each($('.mptt-shortcode-wrapper'), function() {
-						var shortcode_params = $.parseJSON($(this).find('input[name="hide_empty_rows"]').val());
 
-						if (Boolean(shortcode_params)) {
-							var arrMin = [];
-							var arrMax = [];
-
-							$.each($(this).find('.mptt-event-container'), function(index, value) {
-								var start = $(this).attr('data-start');
-								var end = $(this).attr('data-end');
-								arrMin[index] = start;
-								arrMax[index] = end;
-							});
-
-							var min = Math.min.apply(Math, arrMin);
-							var max = Math.max.apply(Math, arrMax);
-							$.each($(this).find('.mptt-shortcode-table tbody tr'), function(index) {
-								var trIndex = $(this).attr('data-index');
-								if ((parseInt(trIndex) < parseInt(min) || parseInt(trIndex) > parseInt(max))) {
-									$(this).hide();
-								} else {
-									$(this).show();
-								}
-							});
-						}
-					});
-
-				}, /**
-				 * Re-render table
-				 * @param shortcodeContainer
-				 */
-				renderTable: function(shortcodeContainer, eventID) {
-					state.getEvents(shortcodeContainer);
-					shortcodeContainer.find('.mptt-shortcode-event').remove();
-
-					$.each(shortcodeContainer.find('.mptt-shortcode-table tbody tr'), function(index) {
-						var tr = $(this);
-						var trIndex = $(this).attr('data-index');
-						$.each(state.eventsData, function(columnID) {
-							tr.append(state.renderShortcodeEventItem(columnID, eventID, trIndex));
-						});
-					});
-					state.toggleRows(shortcodeContainer);
-					state.setRowspanTd();
-				},
 				/**
 				 * Set rowspan td
 				 */
@@ -929,10 +785,15 @@ Registry.register("Event",
 						var rowSpan = state.getRowspan(events);
 						var tableContainer = $(this).parents('.mptt-shortcode-table');
 						if (!_.isUndefined(rowSpan) && rowSpan > 1) {
+
 							var index = $(this).parents('tr').attr('data-index');
 							var torowSpan = rowSpan + parseInt(index) - 1;
+
 							for (index; index < torowSpan; index++) {
 								tableContainer.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1) + ' td:not(.event)[data-column-id="' + columnId + '"]').remove();
+								if(tableContainer.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1) + ' td.event[data-column-id="' + columnId + '"]').length){
+									rowSpan -= (torowSpan - index);
+								}
 							}
 						}
 						$(this).attr('rowspan', rowSpan);

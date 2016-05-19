@@ -200,9 +200,9 @@ Registry.register("adminFunctions", (function($) {
 				}
 			}
 		}
+
 		Registry._get("Event").filterShortcodeEvents();
 		Registry._get("Event").setColorSettings();
 		//Registry._get("Event").getFilterByHash();
-		Registry._get("Event").toggleRows();
 	});
 })(jQuery);
