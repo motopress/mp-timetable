@@ -128,11 +128,11 @@ Registry.register("adminFunctions", (function($) {
 				var height = $(window).outerHeight() - 60,
 					width = $(window).outerWidth() - 60,
 					spinner = wp.html.string({
-							tag: "span",
-							attrs: {
-								class: "spinner is-active"
+							'tag': "span",
+							'attrs': {
+								'class': "spinner is-active"
 							},
-							content: ""
+							'content': ""
 						}
 					),
 					params = {
@@ -284,7 +284,7 @@ Registry.register("adminFunctions", (function($) {
 		}
 		if ($('.mptt-shortcode-wrapper').length) {
 			Registry._get("Event").filterShortcodeEvents();
-			Registry._get("Event").toggleRows();
+			Registry._get("Event").getFilterByHash();
 		}
 		if ($('.upcoming-events-widget').length || $('.mptt-shortcode-wrapper').length) {
 			Registry._get("Event").setColorSettings();

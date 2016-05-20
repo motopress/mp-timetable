@@ -3,7 +3,7 @@
      data-start="<?php echo empty($startIndex) ? $item->start_index : $startIndex ?>"
      data-start-item="<?php echo $item->start_index ?>"
      data-end="<?php echo $item->end_index ?>"
-     class="mptt-event-container id-<?php echo $item->id; ?> mptt-colorized mptt-hidden"
+     class="mptt-event-container id-<?php echo $item->id; ?> mptt-colorized"
      style="<?php echo $params['text_align'] ? 'text-align:' . $params['text_align'] . ';' : '' ?>
      <?php echo $item->post->color ? 'background-color:' . $item->post->color . ';' : '' ?>
      <?php echo $item->post->text_color ? 'color:' . $item->post->text_color : '' ?>"

@@ -145,6 +145,9 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
+.mptt-main-wrapper .mptt-event.events-list .event .event-user .avatar {
+  border-radius: 50%;
+}
 .mptt-main-wrapper .mptt-event.events-list .event:last-child {
   margin-bottom: 0;
 }
@@ -229,7 +232,7 @@
 /*====== Widget End ======*/
 /* ====== Shortcode start ====== */
 .mptt-shortcode-wrapper {
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table {
   margin-top: 1rem;
@@ -384,10 +387,10 @@
     display: block;
   }
   .mptt-shortcode-wrapper .mptt-shortcode-table {
-    display: none;
+    display: none!important;
   }
   .mptt-shortcode-wrapper.mptt-table-fixed .mptt-shortcode-list {
-    display: none;
+    display: none!important;
   }
   .mptt-shortcode-wrapper.mptt-table-fixed .mptt-shortcode-table {
     display: table;
