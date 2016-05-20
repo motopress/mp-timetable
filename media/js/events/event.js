@@ -366,105 +366,6 @@ Registry.register("Event",
 				},
 
 				/**
-				 * Render Container
-				 * @param event
-				 */
-				renderEventContainer: function(event) {
-
-					var eventContainer = {
-						tag: 'div',
-						attrs: {
-							'data-id': event.id,
-							'data-event-id': event.eventId,
-							'data-start': event.dataStart,
-							'data-start-item': event.dataStartItem,
-							'data-end': event.dataEnd,
-							'data-color': event.dataColor,
-							'data-hover_color': event.dataHoverColor,
-							'data-bg_color': event.dataBgColor,
-							'data-bg_hover_color': event.dataBgHoverColor,
-							'data-type': "event",
-							'style': event.style,
-							'class': 'mptt-event-container id-' + event.id + ' mptt-hidden mptt-colorized'
-						},
-						content: [{
-							tag: event.eventHeaderTag,
-							attrs: {
-								'title': event.eventHeader,
-								'class': 'event-title',
-								'href': _.isUndefined(event.eventHeaderHref) ? '' : event.eventHeaderHref,
-								'style': _.isUndefined(event.eventHeaderStyle) ? '' : event.eventHeaderStyle
-							},
-							content: [event.eventHeader]
-						}, {
-							tag: 'p',
-							attrs: {
-								'class': 'timeslot'
-							},
-							content: [{
-								tag: 'span',
-								attrs: {
-									'class': 'timeslot-start'
-								},
-								content: [event.topHour]
-							},
-								{
-									tag: event.timeslotDelimiterTag,
-									attrs: {
-										'class': 'timeslot-delimiter'
-									},
-									content: [event.timeslotDelimiter]
-								},
-								{
-									tag: 'span',
-									attrs: {
-										'class': 'timeslot-end'
-									},
-									content: [event.bottomHour]
-								}]
-						},
-							{
-								tag: 'p',
-								attrs: {
-									'class': 'event-subtitle'
-								},
-								content: [event.subTitle]
-							},
-							{
-								tag: 'p',
-								attrs: {
-									'class': 'event-description'
-								},
-								content: [event.eventDescription]
-							}, {
-								tag: 'p',
-								attrs: {
-									'class': 'event-user'
-								}, content: [event.afterText]
-							}
-						]
-					};
-
-					return Registry._get("adminFunctions").getHtml(eventContainer);
-				},
-				/**
-				 * Render events block
-				 */
-				renderEventsBlock: function() {
-					if (!$('#mp_events_data #events-list').length) {
-						var template = {
-							tag: 'ul',
-							attrs: {
-								'id': 'events-list'
-							},
-							content: []
-						};
-
-						$('#add_event_table').before(Registry._get("adminFunctions").getHtml(template));
-					}
-
-				},
-				/**
 				 * Set user color settings
 				 * @param selector
 				 */
@@ -581,69 +482,7 @@ Registry.register("Event",
 
 					return rowSpan < 1 ? 1 : rowSpan;
 				},
-				/**
-				 * Get all events shortcode
-				 * @param container
-				 */
-				getEvents: function(container) {
 
-					if (_.isEmpty(state.eventsData)) {
-
-						//get columns
-						$.each(container.find('.mptt-shortcode-table th'), function(index) {
-							if (!_.isUndefined($(this).attr('data-column-id'))) {
-
-								var columnID = $(this).attr('data-column-id');
-
-								state.eventsData[columnID] = {events: []};
-								$.each($('td.mptt-shortcode-event[data-column-id="' + columnID + '"] .mptt-event-container'), function() {
-									var eventContainer = $(this);
-
-									// Fix event dublication
-									if( state.eventsData[columnID].events.some(function(item){
-										return item.id == eventContainer.attr('data-id');
-									}) ){ return; };
-
-									state.eventsData[columnID].events.push({
-										id: eventContainer.attr('data-id'),
-										eventId: eventContainer.attr('data-event-id'),
-										dataStart: eventContainer.attr('data-start'),
-										dataStartItem: eventContainer.attr('data-start-item'),
-										dataEnd: eventContainer.attr('data-end'),
-										dataColor: eventContainer.attr('data-color'),
-										dataHoverColor: eventContainer.attr('data-hover_color'),
-										dataBgColor: eventContainer.attr('data-bg_color'),
-										dataBgHoverColor: eventContainer.attr('data-bg_hover_color'),
-										style: eventContainer.attr('style'),
-										eventHeader: $.trim(eventContainer.find('.event-title').text()),
-										eventHeaderTag: $.trim(eventContainer.find('.event-title').prop("tagName")),
-										subTitle: $.trim(eventContainer.find('.event-subtitle').text()),
-										eventHeaderStyle: eventContainer.find('.event-title').attr('style'),
-										eventHeaderHref: eventContainer.find('.event-title').attr('href'),
-										topHour: $.trim(eventContainer.find('.timeslot span.timeslot-start').text()),
-										bottomHour: $.trim(eventContainer.find('.timeslot span.timeslot-end').text()),
-										afterText: $.trim(eventContainer.find('.event-user').html()),
-										eventDescription: $.trim(eventContainer.find('.event-description').text()),
-										timeslotDelimiter: $.trim(eventContainer.find('.timeslot span.timeslot-delimiter').text()),
-										timeslotDelimiterTag: $.trim(eventContainer.find('.timeslot span.timeslot-delimiter').prop("tagName"))
-									});
-								});
-								state.eventsData[columnID].events.sort(function(a, b) {
-									if (a.dataStart < b.dataStart) {
-										return -1;
-									}
-									else if (a.dataStart > b.dataStart) {
-										return 1;
-									}
-									else {
-										return 0;
-									}
-								});
-
-							}
-						});
-					}
-				},
 				/**
 				 * Responsive filter
 				 * @param eventID
@@ -686,7 +525,7 @@ Registry.register("Event",
 					}
 
 					jQuery('table',parentShortcode).hide();
-					jQuery('.mptt-filter-table-'+eventID,parentShortcode).fadeIn();
+					jQuery('.' + MPTT.filter_class + '-'+eventID,parentShortcode).fadeIn();
 
 					return;
 				},
@@ -732,24 +571,12 @@ Registry.register("Event",
 					var selector = $('.mptt-menu');
 					if (selector.length) {
 
-						/*$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
-						 $(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
-						 $(this).parents('li').addClass('active');
-						 state.responsiveFilter($(this));
-						 });
-						 if ( $(window).width() < 767 ) {
-						 selector.off('change').on('change', function() {
-						 //state.filterShortcodeTable($(this));
-
-						 });
-
-						 } else {*/
 						$.each($('.mptt-event-container'), function(index, value) {
 							$(this).parents('td').addClass('event');
 						});
 
 						state.setRowspanTd();
-
+						$('.' + MPTT.filter_class + '-all').fadeIn();
 						selector.off('change').on('change', function() {
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
@@ -766,24 +593,24 @@ Registry.register("Event",
 					return;
 				},
 				getFilterByHash: function() {
-					/*state.filterShortcodeTable($(this));
+					state.filterShortcodeTable($(this));
 					 var hash = window.location.hash.substr(1);
 					 if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
 					 $('.mptt-navigation-tabs').find('a[title="' + hash + '"]').click();
 					 } else {
 					 $('.mptt-navigation-select').find('option:contains(' + hash + ')').change();
-					 }*/
+					 }
 				},
 
 				/**
 				 * Set rowspan td
 				 */
 				setRowspanTd: function() {
-					$.each($('.mptt-shortcode-table td.event'), function() {
+					$.each($('.' + MPTT.table_class +' td.event'), function() {
 						var events = $(this).find('.mptt-event-container');
 						var columnId = $(this).attr('data-column-id');
 						var rowSpan = state.getRowspan(events);
-						var tableContainer = $(this).parents('.mptt-shortcode-table');
+						var tableContainer = $(this).parents('.' + MPTT.table_class);
 						if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 
 							var index = $(this).parents('tr').attr('data-index');
@@ -798,6 +625,7 @@ Registry.register("Event",
 						}
 						$(this).attr('rowspan', rowSpan);
 					});
+
 				},
 				/**
 				 * Widget settings

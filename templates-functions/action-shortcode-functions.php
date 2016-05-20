@@ -53,14 +53,14 @@ function mptt_shortcode_template_content_filter() {
 function mptt_shortcode_template_content_static_table() {
 	global $mptt_shortcode_data;
 
-	mptt_shortcode_template_event($mptt_shortcode_data, 'all', true);
+	mptt_shortcode_template_event($mptt_shortcode_data, 'all');
 
 	foreach ($mptt_shortcode_data['unique_events'] as $ev){
-		mptt_shortcode_template_event($mptt_shortcode_data, $ev->event_id, false);
+		mptt_shortcode_template_event($mptt_shortcode_data, $ev->event_id);
 	}
 }
 
-function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all', $display = false ){
+function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all'){
 	$amount_rows = 23 / $mptt_shortcode_data['params']['increment'];
 
 	if( $event_id === 'all' ){
@@ -79,8 +79,8 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all',
 	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params'] );
 	?>
 		<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table')
-				. ' ' . apply_filters('mptt_shortcode_static_filter_class', 'mptt-filter-table') . '-' . $event_id; ?>" data-amout-rows="<?php echo $amount_rows ?>"
-				style="<?php echo ($display) ? '' : 'display:none;' ?>">
+				. ' ' . apply_filters('mptt_shortcode_static_filter_class', 'mptt-filter-table') . '-' . $event_id; ?>"
+				style="display:none;">
 			<thead>
 			<tr class="mptt-shortcode-row">
 				<th style="<?php echo (bool)($mptt_shortcode_data['params']['hide_hrs']) ? 'display:none;' : '' ?>"></th>
@@ -117,12 +117,11 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all',
 						<td class="mptt-shortcode-event" data-column-id="<?php echo $column_id ?>" rowspan="" style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
 							<?php if (!empty($column_events[$column_id])) {
 								foreach ($events_list as $key_events => $item) :
-									if ($item === reset($column_events[$column_id]))
-										$item->output = false;
-
-									if ($item->output) {
-										continue;
-									}
+//									if ($item === reset($column_events[$column_id]))
+//										$item->output = false;
+//									if ($item->output) {
+//										continue;
+//									}
 
 									if ($item->start_index == $i) {
 										\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
