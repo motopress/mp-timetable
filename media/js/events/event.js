@@ -489,22 +489,22 @@ Registry.register("Event",
 				 * @param parentShortcode
 				 */
 				responsiveFilter: function(element) {
-					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
-					var eventID = 'all';
+					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+					var eventID = '#all';
 
 					if (element.is("select")) {
 						eventID = element.val();
 					} else {
-						eventID = element.parents('li').attr('data-event-id');
+						eventID = element.attr('href');
 					}
 
-					if (eventID !== 'all') {
-						parentShortcode.find('.mptt-list-event').hide();
-						parentShortcode.find('.mptt-list-event[data-event-id="' + eventID + '"]').show();
+					if (eventID !== '#all') {
+						$('.mptt-shortcode-wrapper .mptt-list-event').hide();
+						$('.mptt-shortcode-wrapper .mptt-list-event[data-event-id="' + eventID + '"]').show();
 					} else {
-						parentShortcode.find('.mptt-list-event').show();
+						$('.mptt-shortcode-wrapper .mptt-list-event').show();
 					}
-					$.each(parentShortcode.find('.mptt-column'), function() {
+					$.each($('.mptt-shortcode-wrapper .mptt-column'), function() {
 						$(this).show();
 						if ($(this).find('.mptt-list-event:visible').length < 1) {
 							$(this).hide();
@@ -516,22 +516,28 @@ Registry.register("Event",
 				 * @param element
 				 */
 				filterStatic: function(element) {
-					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
-					var eventID = 'all';
+					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+					var eventID = '#all';
+
 					if (element.is("select")) {
 						eventID = element.val();
 					} else {
-						eventID = element.parents('li').attr('data-event-id');
+						eventID = element.attr('href');
 					}
 
-					jQuery('table',parentShortcode).hide();
-					jQuery('.' + MPTT.filter_class + '-'+eventID,parentShortcode).fadeIn();
+					window.location.hash = eventID;
 
+					jQuery('.mptt-shortcode-wrapper table').hide();
+					jQuery( 'table[id="'+eventID+'"]' ).fadeIn();
+					state.setEventHeight();
 					return;
 				},
+				/**
+				 * Fill all posible height in ceil
+				 */
 				setEventHeight: function() {
-					$.each($('td.event'), function() {
-						var events = $(this).find('.mptt-event-container');
+					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
+						var events = $('.mptt-event-container',$(this));
 						var eventCount = events.length;
 						var heightItem = 0;
 						var top = 0;
@@ -546,6 +552,7 @@ Registry.register("Event",
 								top += heightItem;
 							});
 						} else {
+
 							var tdHeight = $(this).height();
 							heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
 							$.each(events, function() {
@@ -557,16 +564,7 @@ Registry.register("Event",
 						}
 					});
 				},
-				/**
-				 * Filter events by name
-				 */
-				filterShortcodeTable: function(element) {
-					/*if (element.parents().find('table').attr('data-table-id')) {
-					 location.hash = '#' + element.parents('.mptt-shortcode-wrapper').find('table').attr('data-table-id') + '/' + element.find(":selected").text().trim();
-					 } else {
-					 location.hash = '#' + element.find(":selected").text().trim();
-					 }*/
-				},
+
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
 					if (selector.length) {
@@ -576,12 +574,11 @@ Registry.register("Event",
 						});
 
 						state.setRowspanTd();
-						$('.' + MPTT.filter_class + '-all').fadeIn();
+
 						selector.off('change').on('change', function() {
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
 						});
-						state.setEventHeight();
 
 						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
 							$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
@@ -593,13 +590,19 @@ Registry.register("Event",
 					return;
 				},
 				getFilterByHash: function() {
-					state.filterShortcodeTable($(this));
-					 var hash = window.location.hash.substr(1);
-					 if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
-					 $('.mptt-navigation-tabs').find('a[title="' + hash + '"]').click();
-					 } else {
-					 $('.mptt-navigation-select').find('option:contains(' + hash + ')').change();
-					 }
+					 var hash = window.location.hash;
+
+					if( $('table[id="'+hash+'"]').length){
+						if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+							$('.mptt-navigation-tabs').find('a[href="' + hash + '"]').click();
+						} else {
+							$('.mptt-navigation-select').find('option[value="' + hash + '"]').change();
+						}
+					} else {
+						$('table[id="#all"]').fadeIn();
+						state.setEventHeight();
+					}
+
 				},
 
 				/**

@@ -229,7 +229,7 @@
 /*====== Widget End ======*/
 /* ====== Shortcode start ====== */
 .mptt-shortcode-wrapper {
-  overflow-y: hidden;
+  /*overflow-y: hidden;*/
 }
 .mptt-shortcode-wrapper .mptt-shortcode-table {
   margin-top: 1rem;
@@ -384,10 +384,10 @@
     display: block;
   }
   .mptt-shortcode-wrapper .mptt-shortcode-table {
-    display: none;
+    display: none!important;;
   }
   .mptt-shortcode-wrapper.mptt-table-fixed .mptt-shortcode-list {
-    display: none;
+    display: none!important;;
   }
   .mptt-shortcode-wrapper.mptt-table-fixed .mptt-shortcode-table {
     display: table;

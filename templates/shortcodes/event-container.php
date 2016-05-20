@@ -1,6 +1,7 @@
 <div data-id="<?php echo $item->id ?>"
      data-event-id="<?php echo $item->event_id ?>"
      data-start="<?php echo empty($startIndex) ? $item->start_index : $startIndex ?>"
+     data-start-item="<?php echo $item->start_index ?>"
      data-end="<?php echo $item->end_index ?>"
      class="mptt-event-container id-<?php echo $item->id; ?> mptt-colorized"
      style="<?php echo $params['text_align'] ? 'text-align:' . $params['text_align'] . ';' : '' ?>

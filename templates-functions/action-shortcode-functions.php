@@ -16,11 +16,11 @@ function mptt_shortcode_template_content_filter() {
 	if ($mptt_shortcode_data['params']['view'] == 'dropdown_list') { ?>
 		<select class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>">
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
-				<option value="all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
+				<option value="#all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
 			<?php endif;
 			if (!empty($mptt_shortcode_data['unique_events'])):
 				foreach ($mptt_shortcode_data['unique_events'] as $event): ?>
-					<option value="<?php echo $event->event_id ?>">
+					<option value="#<?php echo $event->post->post_name ?>">
 						<?php echo $event->post->post_title ?>
 					</option>
 				<?php endforeach;
@@ -29,9 +29,9 @@ function mptt_shortcode_template_content_filter() {
 	<?php } elseif ($mptt_shortcode_data['params']['view'] == 'tabs') { ?>
 		<ul class="<?php echo apply_filters('mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs') ?>">
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
-				<li data-event-id="all">
+				<li>
 					<a title="<?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?>"
-					   href="#<?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?>">
+					   href="#all">
 						<?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?>
 					</a>
 				</li>
@@ -39,8 +39,8 @@ function mptt_shortcode_template_content_filter() {
 			if (!empty($mptt_shortcode_data['unique_events'])): ?>
 				<?php foreach ($mptt_shortcode_data['unique_events'] as $event):
 					?>
-					<li data-event-id="<?php echo $event->event_id ?>">
-						<a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_title ?>">
+					<li>
+						<a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_name ?>">
 							<?php echo $event->post->post_title ?>
 						</a>
 					</li>
@@ -53,33 +53,35 @@ function mptt_shortcode_template_content_filter() {
 function mptt_shortcode_template_content_static_table() {
 	global $mptt_shortcode_data;
 
-	mptt_shortcode_template_event($mptt_shortcode_data, 'all');
+	mptt_shortcode_template_event($mptt_shortcode_data);
 
 	foreach ($mptt_shortcode_data['unique_events'] as $ev){
-		mptt_shortcode_template_event($mptt_shortcode_data, $ev->event_id);
+		mptt_shortcode_template_event($mptt_shortcode_data, $ev->post);
 	}
 }
 
-function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all'){
+function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all'){
 	$amount_rows = 23 / $mptt_shortcode_data['params']['increment'];
 
-	if( $event_id === 'all' ){
+	if( $post === 'all' ){
+		$event_id = $post;
 		$column_events = $mptt_shortcode_data['events_data']['column_events'];
 	} else {
 		$column_events = array();
 		foreach($mptt_shortcode_data['events_data']['column_events'] as $col_id => $col_events ){
 			$column_events[$col_id] = array_filter(
 					$col_events,
-					function($val) use ($event_id) {
-						return $event_id == $val->event_id;
+					function($val) use ($post) {
+						return $post->ID == $val->event_id;
 					});
 		}
+		$event_id = $post->post_name;
 	}
 
 	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params'] );
 	?>
-		<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table')
-				. ' ' . apply_filters('mptt_shortcode_static_filter_class', 'mptt-filter-table') . '-' . $event_id; ?>"
+		<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'); ?>"
+		       id="#<?php echo $event_id; ?>"
 				style="display:none;">
 			<thead>
 			<tr class="mptt-shortcode-row">
@@ -122,7 +124,6 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all')
 //									if ($item->output) {
 //										continue;
 //									}
-
 									if ($item->start_index == $i) {
 										\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
 												array(
@@ -176,12 +177,11 @@ function mptt_shortcode_template_content_responsive_table() {
 						<h3 class="mptt-column-title"><?php echo $column->post_title ?></h3>
 						<ul class="mptt-events-list">
 							<?php foreach ($mptt_shortcode_data['events_data']['column_events'][$column->ID] as $event) : ?>
-								<li class="mptt-list-event" data-event-id="<?php echo $event->event_id ?>"
+								<li class="mptt-list-event" data-event-id="#<?php echo $event->post->post_name ?>"
 									<?php
 									if (!empty($event->post->color)) {
 										echo 'style="border-left-color:' . $event->post->color . ';"';
 									} ?> >
-
 									<?php if ($mptt_shortcode_data['params']['title']): ?>
 										<?php
 										$disable_url = (bool)$event->post->timetable_disable_url || (bool)$mptt_shortcode_data['params']['disable_event_url'];

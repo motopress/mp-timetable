@@ -438,8 +438,7 @@ class Core {
 		wp_localize_script(
 				'mptt-event-object',
 				'MPTT',
-				array(  'table_class'  => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'),
-						'filter_class' => apply_filters('mptt_shortcode_static_filter_class', 'mptt-filter-table') )
+				array( 'table_class'  => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table') )
 		);
 
 		wp_enqueue_script('underscore');
@@ -498,8 +497,7 @@ class Core {
 		wp_localize_script(
 				'mptt-event-object',
 				'MPTT',
-				array(  'table_class'  => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'),
-						'filter_class' => apply_filters('mptt_shortcode_static_filter_class', 'mptt-filter-table') )
+				array( 'table_class'  => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'))
 		);
 
 		switch ($type) {
