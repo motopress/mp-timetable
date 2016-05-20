@@ -52,6 +52,7 @@ function mptt_shortcode_template_content_filter() {
 
 function mptt_shortcode_template_content_static_table() {
 	global $mptt_shortcode_data;
+
 	mptt_shortcode_template_event($mptt_shortcode_data, 'all', true);
 
 	foreach ($mptt_shortcode_data['unique_events'] as $ev){
@@ -74,9 +75,6 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $event_id = 'all',
 					});
 		}
 	}
-
-	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params'] );
-	$t = $bounds;
 
 	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params'] );
 	?>
