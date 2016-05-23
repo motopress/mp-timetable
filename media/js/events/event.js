@@ -596,7 +596,7 @@ Registry.register("Event",
 						if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
 							$('.mptt-navigation-tabs').find('a[href="' + hash + '"]').click();
 						} else {
-							$('.mptt-navigation-select').find('option[value="' + hash + '"]').change();
+							$('.mptt-navigation-select').val(hash).change();
 						}
 					} else {
 						$('table[id="#all"]').fadeIn();
