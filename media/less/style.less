@@ -4,7 +4,7 @@
 
 .mptt-main-wrapper {
   &.mp-event-item {
-	img {
+	img:not(.avatar ) {
 	  width: 100%;
 	  height: auto;
 	}
@@ -51,13 +51,19 @@
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
-	  .timeslot {
+	  .timeslot,
+	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
 	  .event-description {
 		margin: 0.25rem 0 0;
 		padding: 0;
+	  }
+	  .event-user {
+		.avatar {
+			border-radius: 50%;
+		}
 	  }
 	}
 	.event:last-child {
@@ -71,7 +77,7 @@
   .column-content {
 	margin: 1rem 0;
   }
-  .mptt-column.events-list {
+  .mptt-column.events-list{
 	margin: 0 0 2rem 0;
 	list-style: none;
 	padding: 0;
@@ -93,7 +99,8 @@
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
-	  .timeslot {
+	  .timeslot,
+	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
@@ -102,9 +109,6 @@
 		padding: 0;
 	  }
 	  .event-user {
-		margin: 0.25rem 0 0;
-		padding: 0;
-
 		.avatar {
 		  border-radius: 50%;
 		}
@@ -134,7 +138,8 @@
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
-	  .timeslot {
+	  .timeslot,
+	  .event-user {
 		margin: 0.25rem 0 0;
 		padding: 0;
 	  }
@@ -162,7 +167,7 @@
 /* ====== Shortcode start ====== */
 
 .mptt-shortcode-wrapper {
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
   .mptt-shortcode-table {
 	margin-top: 1rem;
 
@@ -288,7 +293,8 @@
 			margin: 0.25rem 0 0;
 			padding: 0;
 		  }
-		  .timeslot {
+		  .timeslot,
+		  .event-user {
 			margin: 0.25rem 0 0;
 			padding: 0;
 		  }
@@ -339,11 +345,11 @@
 	  display: block;
 	}
 	.mptt-shortcode-table {
-	  display: none;
+	  display: none!important;
 	}
 	&.mptt-table-fixed {
 	  .mptt-shortcode-list {
-		display: none;
+		display: none!important;;
 	  }
 	  .mptt-shortcode-table {
 		display: table;

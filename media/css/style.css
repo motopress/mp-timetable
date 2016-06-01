@@ -94,7 +94,7 @@
     margin-left: 0;
   }
 }
-.mptt-main-wrapper.mp-event-item img {
+.mptt-main-wrapper.mp-event-item img:not(.avatar ) {
   width: 100%;
   height: auto;
 }
@@ -136,13 +136,17 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.mptt-main-wrapper .mptt-event.events-list .event .timeslot {
+.mptt-main-wrapper .mptt-event.events-list .event .timeslot,
+.mptt-main-wrapper .mptt-event.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
 .mptt-main-wrapper .mptt-event.events-list .event .event-description {
   margin: 0.25rem 0 0;
   padding: 0;
+}
+.mptt-main-wrapper .mptt-event.events-list .event .event-user .avatar {
+  border-radius: 50%;
 }
 .mptt-main-wrapper .mptt-event.events-list .event:last-child {
   margin-bottom: 0;
@@ -175,15 +179,12 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.mptt-main-wrapper .mptt-column.events-list .event .timeslot {
+.mptt-main-wrapper .mptt-column.events-list .event .timeslot,
+.mptt-main-wrapper .mptt-column.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
 .mptt-main-wrapper .mptt-column.events-list .event .event-description {
-  margin: 0.25rem 0 0;
-  padding: 0;
-}
-.mptt-main-wrapper .mptt-column.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
@@ -212,7 +213,8 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.upcoming-events-widget .mptt-widget.events-list .event .timeslot {
+.upcoming-events-widget .mptt-widget.events-list .event .timeslot,
+.upcoming-events-widget .mptt-widget.events-list .event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
@@ -229,9 +231,6 @@
 }
 /*====== Widget End ======*/
 /* ====== Shortcode start ====== */
-.mptt-shortcode-wrapper {
-  overflow-y: hidden;
-}
 .mptt-shortcode-wrapper .mptt-shortcode-table {
   margin-top: 1rem;
 }
@@ -347,7 +346,8 @@
   margin: 0.25rem 0 0;
   padding: 0;
 }
-.mptt-shortcode-wrapper .mptt-shortcode-list .mptt-column .mptt-events-list .mptt-list-event .timeslot {
+.mptt-shortcode-wrapper .mptt-shortcode-list .mptt-column .mptt-events-list .mptt-list-event .timeslot,
+.mptt-shortcode-wrapper .mptt-shortcode-list .mptt-column .mptt-events-list .mptt-list-event .event-user {
   margin: 0.25rem 0 0;
   padding: 0;
 }
@@ -384,10 +384,10 @@
     display: block;
   }
   .mptt-shortcode-wrapper .mptt-shortcode-table {
-    display: none;
+    display: none!important;
   }
   .mptt-shortcode-wrapper.mptt-table-fixed .mptt-shortcode-list {
-    display: none;
+    display: none!important;
   }
   .mptt-shortcode-wrapper.mptt-table-fixed .mptt-shortcode-table {
     display: table;

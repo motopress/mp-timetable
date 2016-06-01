@@ -9,3 +9,9 @@
 #column-options .mp-date {
   margin: 10px 0 0;
 }
+#events-list .active * {
+  background-color: #F7FCFE;
+}
+#events-list .active td:first-child {
+  border-left: 4px solid #0091cd;
+}

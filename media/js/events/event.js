@@ -165,8 +165,10 @@ Registry.register("Event",
 				 */
 				initEditButtons: function() {
 					$('#events-list #edit-event-button').off('click').on('click', function() {
-						var id = $(this).attr('data-id');
+						var id = $(this).attr('data-id'),
+							$tr = $(this).parent().parent();
 						$(this).parent().find('.spinner').addClass('is-active');
+
 						Registry._get("adminFunctions").wpAjax(
 							{
 								controller: "events",
@@ -175,6 +177,9 @@ Registry.register("Event",
 							},
 							function(data) {
 								$('#events-list .spinner').removeClass('is-active');
+								$('#events-list tr').removeClass('active');
+								$tr.addClass('active');
+
 								$('#event_start').val(data.event_start);
 								$('#event_end').val(data.event_end);
 								$('#description').val(data.description);
@@ -216,10 +221,13 @@ Registry.register("Event",
 				 */
 				updateEventItem: function() {
 					var item = $('#events-list tr[data-id="' + state.event_id + '"]');
+					//item.removeClass('active');
 					item.find('td.event-column').text($('#weekday_id option:selected').text());
 					item.find('td.event-start').text($('#event_start').val());
 					item.find('td.event-end').text($('#event_end').val());
+					item.find('td.event-user-id').text( ( $('#user_id').val() == '-1') ? '' :  $('#user_id option:selected').text() );
 					item.find('td.event-description').text($('#description').val());
+
 					state.event_id = null;
 					$('#add_mp_event').removeClass('edit').val('Add Time Slot');
 				},
@@ -257,6 +265,7 @@ Registry.register("Event",
 				 */
 				renderEventItem: function() {
 					var column_ID = $('#weekday_id option:selected').val();
+
 					var template = {
 						tag: 'tr',
 						attrs: {},
@@ -337,6 +346,13 @@ Registry.register("Event",
 							},
 							{
 								tag: 'td',
+								attrs: {
+									'class': 'event-user-id'
+								},
+								content: [ ( $('#user_id').val() == '-1') ? '' :  $('#user_id option:selected').text() ]
+							},
+							{
+								tag: 'td',
 								attrs: {},
 								content: []
 							},
@@ -348,189 +364,7 @@ Registry.register("Event",
 					//state.initDeleteButton();
 					state.clearTable();
 				},
-				renderShortcodeEventItem: function(columnId, eventID, trIndex) {
-					var tdTemplate = {
-						tag: 'td',
-						attrs: {
-							'class': 'mptt-shortcode-event',
-							'data-column-id': columnId,
-							'rowspan': ''
-						},
-						content: []
 
-					};
-
-					var td = $(Registry._get("adminFunctions").getHtml(tdTemplate));
-					//var end = 0;
-					//	var events = state.eventsData[columnId].events;
-
-					if (eventID !== 'all') {
-						$.each(state.eventsData[columnId].events, function(index, eventObject) {
-							if (!_.isUndefined(eventObject)) {
-								if (eventObject.eventId === eventID && eventObject.dataStartItem === trIndex) {
-									if (state.eventsData[columnId].events[index].output === true) {
-										return;
-									}
-									state.eventsData[columnId].events[index].output = true;
-									td.addClass('event');
-									td.append(state.renderEventContainer(eventObject));
-									//if (parseInt(end) < parseInt(eventObject.dataEnd)) {
-									//	end = eventObject.dataEnd;
-									//}
-
-									//$.each(events, function(subIndex, subEventObject) {
-									//	if (!_.isUndefined(subEventObject)) {
-									//		if (subEventObject.eventId === eventID) {
-									//			if (subEventObject.output === true) {
-									//				return;
-									//			}
-									//			if (parseInt(subEventObject.dataStart) <= parseInt(end)) {
-									//				state.eventsData[columnId].events[subIndex].output = true;
-									//				td.append(state.renderEventContainer(subEventObject));
-									//				if (parseInt(end) < parseInt(subEventObject.dataEnd)) {
-									//					end = subEventObject.dataEnd;
-									//				}
-									//			}
-									//		}
-									//	}
-									//});
-								}
-							}
-						});
-					} else {
-						$.each(state.eventsData[columnId].events, function(index, eventObject) {
-							if (!_.isUndefined(eventObject)) {
-								if (eventObject.dataStart === trIndex) {
-									if (state.eventsData[columnId].events[index].output === true) {
-										return;
-									}
-									state.eventsData[columnId].events[index].output = true;
-									td.append(state.renderEventContainer(eventObject));
-									td.addClass('event');
-									//
-									//if (parseInt(end) < parseInt(eventObject.dataEnd)) {
-									//	end = eventObject.dataEnd;
-									//}
-
-									//$.each(events, function(subIndex, subEventObject) {
-									//	if (!_.isUndefined(subEventObject)) {
-									//		if (subEventObject.output === true) {
-									//			return;
-									//		}
-									//		if (parseInt(subEventObject.dataStart) <= parseInt(end)) {
-									//			state.eventsData[columnId].events[subIndex].output = true;
-									//			td.append(state.renderEventContainer(subEventObject));
-									//			if (parseInt(end) < parseInt(subEventObject.dataEnd)) {
-									//				end = subEventObject.dataEnd;
-									//			}
-									//		}
-									//	}
-									//});
-								}
-							}
-						});
-					}
-
-					return td;
-				},
-				/**
-				 * Render Container
-				 * @param event
-				 */
-				renderEventContainer: function(event) {
-					var eventContainer = {
-						tag: 'div',
-						attrs: {
-							'data-id': event.id,
-							'data-event-id': event.eventId,
-							'data-start': event.dataStart,
-							'data-start-item': event.dataStartItem,
-							'data-end': event.dataEnd,
-							'data-color': event.dataColor,
-							'data-hover_color': event.dataHoverColor,
-							'data-bg_color': event.dataBgColor,
-							'data-bg_hover_color': event.dataBgHoverColor,
-							'data-type': "event",
-							'style': event.style,
-							'class': 'mptt-event-container id-' + event.id + ' mptt-hidden mptt-colorized'
-						},
-						content: [{
-							tag: event.eventHeaderTag,
-							attrs: {
-								'title': event.eventHeader,
-								'class': 'event-title',
-								'href': _.isUndefined(event.eventHeaderHref) ? '' : event.eventHeaderHref,
-								'style': _.isUndefined(event.eventHeaderStyle) ? '' : event.eventHeaderStyle
-							},
-							content: [event.eventHeader]
-						}, {
-							tag: 'p',
-							attrs: {
-								'class': 'timeslot'
-							},
-							content: [{
-								tag: 'span',
-								attrs: {
-									'class': 'timeslot-start'
-								},
-								content: [event.topHour]
-							},
-								{
-									tag: event.timeslotDelimiterTag,
-									attrs: {
-										'class': 'timeslot-delimiter'
-									},
-									content: [event.timeslotDelimiter]
-								},
-								{
-									tag: 'span',
-									attrs: {
-										'class': 'timeslot-end'
-									},
-									content: [event.bottomHour]
-								}]
-						},
-							{
-								tag: 'p',
-								attrs: {
-									'class': 'event-subtitle'
-								},
-								content: [event.subTitle]
-							},
-							{
-								tag: 'p',
-								attrs: {
-									'class': 'event-description'
-								},
-								content: [event.eventDescription]
-							}, {
-								tag: 'p',
-								attrs: {
-									'class': 'event-user'
-								}, content: [event.afterText]
-							}
-						]
-					};
-
-					return Registry._get("adminFunctions").getHtml(eventContainer);
-				},
-				/**
-				 * Render events block
-				 */
-				renderEventsBlock: function() {
-					if (!$('#mp_events_data #events-list').length) {
-						var template = {
-							tag: 'ul',
-							attrs: {
-								'id': 'events-list'
-							},
-							content: []
-						};
-
-						$('#add_event_table').before(Registry._get("adminFunctions").getHtml(template));
-					}
-
-				},
 				/**
 				 * Set user color settings
 				 * @param selector
@@ -640,89 +474,37 @@ Registry.register("Event",
 						var end = $(this).attr('data-end');
 						arrMin[index] = start;
 						arrMax[index] = end;
-
 					});
 					var min = Math.min.apply(Math, arrMin);
 					var max = Math.max.apply(Math, arrMax);
+
 					var rowSpan = (max - min);
+
 					return rowSpan < 1 ? 1 : rowSpan;
 				},
-				/**
-				 * Get all events shortcode
-				 * @param container
-				 */
-				getEvents: function(container) {
-					if (_.isEmpty(state.eventsData)) {
 
-						//get columns
-						$.each(container.find('.mptt-shortcode-table th'), function(index) {
-							if (!_.isUndefined($(this).attr('data-column-id'))) {
-								var columnID = $(this).attr('data-column-id');
-								state.eventsData[columnID] = {events: []};
-								$.each($('td.mptt-shortcode-event[data-column-id="' + columnID + '"] .mptt-event-container'), function() {
-									var eventContainer = $(this);
-									state.eventsData[columnID].events.push({
-										id: eventContainer.attr('data-id'),
-										eventId: eventContainer.attr('data-event-id'),
-										dataStart: eventContainer.attr('data-start'),
-										dataStartItem: eventContainer.attr('data-start-item'),
-										dataEnd: eventContainer.attr('data-end'),
-										dataColor: eventContainer.attr('data-color'),
-										dataHoverColor: eventContainer.attr('data-hover_color'),
-										dataBgColor: eventContainer.attr('data-bg_color'),
-										dataBgHoverColor: eventContainer.attr('data-bg_hover_color'),
-										style: eventContainer.attr('style'),
-										eventHeader: $.trim(eventContainer.find('.event-title').text()),
-										eventHeaderTag: $.trim(eventContainer.find('.event-title').prop("tagName")),
-										subTitle: $.trim(eventContainer.find('.event-subtitle').text()),
-										eventHeaderStyle: eventContainer.find('.event-title').attr('style'),
-										eventHeaderHref: eventContainer.find('.event-title').attr('href'),
-										topHour: $.trim(eventContainer.find('.timeslot span.timeslot-start').text()),
-										bottomHour: $.trim(eventContainer.find('.timeslot span.timeslot-end').text()),
-										afterText: $.trim(eventContainer.find('.event-user').text()),
-										eventDescription: $.trim(eventContainer.find('.event-description').text()),
-										timeslotDelimiter: $.trim(eventContainer.find('.timeslot span.timeslot-delimiter').text()),
-										timeslotDelimiterTag: $.trim(eventContainer.find('.timeslot span.timeslot-delimiter').prop("tagName"))
-									});
-								});
-								state.eventsData[columnID].events.sort(function(a, b) {
-									if (a.dataStart < b.dataStart) {
-										return -1;
-									}
-									else if (a.dataStart > b.dataStart) {
-										return 1;
-									}
-									else {
-										return 0;
-									}
-								});
-
-							}
-						});
-					}
-				},
 				/**
 				 * Responsive filter
 				 * @param eventID
 				 * @param parentShortcode
 				 */
 				responsiveFilter: function(element) {
-					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
-					var eventID = 'all';
+					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+					var eventID = '#all';
 
 					if (element.is("select")) {
 						eventID = element.val();
 					} else {
-						eventID = element.parents('li').attr('data-event-id');
+						eventID = element.attr('href');
 					}
 
-					if (eventID !== 'all') {
-						parentShortcode.find('.mptt-list-event').hide();
-						parentShortcode.find('.mptt-list-event[data-event-id="' + eventID + '"]').show();
+					if (eventID !== '#all') {
+						$('.mptt-shortcode-wrapper .mptt-list-event').hide();
+						$('.mptt-shortcode-wrapper .mptt-list-event[data-event-id="' + eventID + '"]').show();
 					} else {
-						parentShortcode.find('.mptt-list-event').show();
+						$('.mptt-shortcode-wrapper .mptt-list-event').show();
 					}
-					$.each(parentShortcode.find('.mptt-column'), function() {
+					$.each($('.mptt-shortcode-wrapper .mptt-column'), function() {
 						$(this).show();
 						if ($(this).find('.mptt-list-event:visible').length < 1) {
 							$(this).hide();
@@ -734,26 +516,28 @@ Registry.register("Event",
 				 * @param element
 				 */
 				filterStatic: function(element) {
-					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
-					var eventID = 'all';
+					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+					var eventID = '#all';
+
 					if (element.is("select")) {
 						eventID = element.val();
 					} else {
-						eventID = element.parents('li').attr('data-event-id');
+						eventID = element.attr('href');
 					}
-					state.renderTable(parentShortcode, eventID);
 
-					$.each(state.eventsData, function(columnID) {
-						$.each(state.eventsData[columnID].events, function(index) {
-							state.eventsData[columnID].events[index].output = false;
-						});
-					});
+					window.location.hash = eventID;
+
+					jQuery('.mptt-shortcode-wrapper table').hide();
+					jQuery( 'table[id="'+eventID+'"]' ).fadeIn();
 					state.setEventHeight();
-					state.setColorSettings('.mptt-colorized');
+					return;
 				},
+				/**
+				 * Fill all posible height in ceil
+				 */
 				setEventHeight: function() {
-					$.each($('td.event'), function() {
-						var events = $(this).find('.mptt-event-container');
+					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
+						var events = $('.mptt-event-container',$(this));
 						var eventCount = events.length;
 						var heightItem = 0;
 						var top = 0;
@@ -768,6 +552,7 @@ Registry.register("Event",
 								top += heightItem;
 							});
 						} else {
+
 							var tdHeight = $(this).height();
 							heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
 							$.each(events, function() {
@@ -779,36 +564,11 @@ Registry.register("Event",
 						}
 					});
 				},
-				/**
-				 * Filter events by name
-				 */
-				filterShortcodeTable: function(element) {
-					/*if (element.parents().find('table').attr('data-table-id')) {
-					 location.hash = '#' + element.parents('.mptt-shortcode-wrapper').find('table').attr('data-table-id') + '/' + element.find(":selected").text().trim();
-					 } else {
-					 location.hash = '#' + element.find(":selected").text().trim();
-					 }*/
-				},
+
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
-
 					if (selector.length) {
 
-
-						/*$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
-						 $(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
-						 $(this).parents('li').addClass('active');
-						 state.responsiveFilter($(this));
-						 });
-						 if ( $(window).width() < 767 ) {
-						 selector.off('change').on('change', function() {
-						 //state.filterShortcodeTable($(this));
-
-						 });
-
-
-
-						 } else {*/
 						$.each($('.mptt-event-container'), function(index, value) {
 							$(this).parents('td').addClass('event');
 						});
@@ -816,11 +576,9 @@ Registry.register("Event",
 						state.setRowspanTd();
 
 						selector.off('change').on('change', function() {
-							//state.filterShortcodeTable($(this));
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
 						});
-						state.setEventHeight();
 
 						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
 							$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
@@ -828,85 +586,49 @@ Registry.register("Event",
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
 						});
-						//}
 					}
+					return;
 				},
 				getFilterByHash: function() {
-					/*state.filterShortcodeTable($(this));
-					 var hash = window.location.hash.substr(1);
-					 if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
-					 $('.mptt-navigation-tabs').find('a[title="' + hash + '"]').click();
-					 } else {
-					 $('.mptt-navigation-select').find('option:contains(' + hash + ')').change();
-					 }*/
-				},
-				/**
-				 * Show gide empty rows
-				 * @param shortcodeContainer
-				 */
-				toggleRows: function() {
-					$.each($('.mptt-shortcode-wrapper'), function() {
-						var shortcode_params = $.parseJSON($(this).find('input[name="hide_empty_rows"]').val());
+					 var hash = window.location.hash;
 
-						if (Boolean(shortcode_params)) {
-							var arrMin = [];
-							var arrMax = [];
-
-							$.each($(this).find('.mptt-event-container'), function(index, value) {
-								var start = $(this).attr('data-start');
-								var end = $(this).attr('data-end');
-								arrMin[index] = start;
-								arrMax[index] = end;
-							});
-
-							var min = Math.min.apply(Math, arrMin);
-							var max = Math.max.apply(Math, arrMax);
-							$.each($(this).find('.mptt-shortcode-table tbody tr'), function(index) {
-								var trIndex = $(this).attr('data-index');
-								if ((parseInt(trIndex) < parseInt(min) || parseInt(trIndex) > parseInt(max))) {
-									$(this).hide();
-								} else {
-									$(this).show();
-								}
-							});
+					if( $('table[id="'+hash+'"]').length){
+						if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+							$('.mptt-navigation-tabs').find('a[href="' + hash + '"]').click();
+						} else {
+							$('.mptt-navigation-select').val(hash).change();
 						}
-					});
+					} else {
+						$('table[id="#all"]').fadeIn();
+						state.setEventHeight();
+					}
 
-				}, /**
-				 * Re-render table
-				 * @param shortcodeContainer
-				 */
-				renderTable: function(shortcodeContainer, eventID) {
-					state.getEvents(shortcodeContainer);
-					shortcodeContainer.find('.mptt-shortcode-event').remove();
-					$.each(shortcodeContainer.find('.mptt-shortcode-table tbody tr'), function(index) {
-						var tr = $(this);
-						var trIndex = $(this).attr('data-index');
-						$.each(state.eventsData, function(columnID) {
-							tr.append(state.renderShortcodeEventItem(columnID, eventID, trIndex));
-						});
-					});
-					state.toggleRows(shortcodeContainer);
-					state.setRowspanTd();
 				},
+
 				/**
 				 * Set rowspan td
 				 */
 				setRowspanTd: function() {
-					$.each($('.mptt-shortcode-table td.event'), function() {
+					$.each($('.' + MPTT.table_class +' td.event'), function() {
 						var events = $(this).find('.mptt-event-container');
 						var columnId = $(this).attr('data-column-id');
 						var rowSpan = state.getRowspan(events);
-						var tableContainer = $(this).parents('.mptt-shortcode-table');
+						var tableContainer = $(this).parents('.' + MPTT.table_class);
 						if (!_.isUndefined(rowSpan) && rowSpan > 1) {
+
 							var index = $(this).parents('tr').attr('data-index');
 							var torowSpan = rowSpan + parseInt(index) - 1;
+
 							for (index; index < torowSpan; index++) {
 								tableContainer.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1) + ' td:not(.event)[data-column-id="' + columnId + '"]').remove();
+								if(tableContainer.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1) + ' td.event[data-column-id="' + columnId + '"]').length){
+									rowSpan -= (torowSpan - index);
+								}
 							}
 						}
 						$(this).attr('rowspan', rowSpan);
 					});
+
 				},
 				/**
 				 * Widget settings

@@ -381,7 +381,7 @@ class Core {
 				'with_front' => true,
 				'hierarchical' => true
 			),
-			"supports" => array("title", "editor", "excerpt", "thumbnail", "page-attributes"),
+			"supports" => array("title", "editor", 'comments', "excerpt", "thumbnail", "page-attributes"),
 			"show_in_admin_bar" => true
 		);
 		register_post_type('mp-event', $args);
@@ -434,15 +434,23 @@ class Core {
 	 * @param \WP_Screen $current_screen
 	 */
 	public function current_screen(\WP_Screen $current_screen) {
+		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+		wp_localize_script(
+				'mptt-event-object',
+				'MPTT',
+				array( 'table_class'  => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table') )
+		);
+
 		wp_enqueue_script('underscore');
 		wp_enqueue_style('mptt-admin-style', Mp_Time_Table::get_plugin_url('media/css/admin.css'), array(), $this->version);
 		wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions.js'), array(), $this->version);
+
 
 		if (!empty($current_screen)) {
 			switch ($current_screen->id) {
 				case "mp-event":
 					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
-					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+					wp_enqueue_script("mptt-event-object");
 					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.js'), '0.3.3');
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
@@ -451,14 +459,14 @@ class Core {
 					break;
 				case "mp-column":
 					wp_enqueue_script('jquery-ui-datepicker');
-					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					break;
 				case "customize":
 				case "widgets":
 					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
-					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
@@ -468,6 +476,7 @@ class Core {
 			switch ($current_screen->base) {
 				case "post":
 				case "page":
+					wp_enqueue_script("jquery-ui-tabs");
 					wp_enqueue_script("jBox", Mp_Time_Table::get_plugin_url('media/js/lib/jBox.min.js'), array('jquery'), '0.2.1');
 					wp_enqueue_script("mptt-popup-events", Mp_Time_Table::get_plugin_url('media/js/popup/popup-events.js'), array('jquery'), $this->version);
 					wp_enqueue_style('jBox', Mp_Time_Table::get_plugin_url('media/css/jbox/jBox.css'), array(), '1.8.0');
@@ -484,12 +493,19 @@ class Core {
 	 * @param bool $type
 	 */
 	public function add_plugin_js($type = false) {
+		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+		wp_localize_script(
+				'mptt-event-object',
+				'MPTT',
+				array( 'table_class'  => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'))
+		);
+
 		switch ($type) {
 			case"shortcode":
 			case"widget":
 				wp_enqueue_script('underscore');
 				wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions.js'), array("jquery"), $this->version);
-				wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+				wp_enqueue_script("mptt-event-object");
 				break;
 		}
 	}

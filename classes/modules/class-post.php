@@ -16,6 +16,56 @@ class Post extends Module {
 		return self::$instance;
 	}
 
+	public function pre_get_posts($query){
+		global $wpdb;
+
+		// if it's an author query
+		if($query->is_author() && ! is_admin() ){
+			// put all the posts on page 1
+			if( isset($query->query['author_name']) ){
+				$author = get_user_by('slug', $query->query['author_name']);
+				$author_id = $author? $author->ID : array();
+			} else if( isset($query->query['author']) ){
+				$author_id = $query->query['author'];
+			} else{
+				$author_id = '';
+			}
+
+			$posts_name = $wpdb->prefix . 'posts';
+			$tt_name = $wpdb->prefix . 'mp_timetable_data';
+
+			$sql = "SELECT DISTINCT p.ID "
+				." FROM {$posts_name} p LEFT JOIN {$tt_name} t ON p.`ID` = t.`event_id` "
+				." WHERE ("
+				." ( p.post_type IN ('post', 'mp-event') AND p.`post_status` LIKE 'publish')"
+				."  AND ( t.`user_id` = {$author_id} OR p.`post_author` = {$author_id} )"
+				." )";
+			$admin_ids =  $wpdb->get_results($sql, ARRAY_N);
+			$ids = array();
+
+			foreach($admin_ids as $key=>$val){
+				$ids[] = $val[0];
+			}
+
+
+			$query->set('post_type', array('post', 'mp-event'));
+			$query->set('author_name','');
+			$query->set('author','');
+			$query->set('orderby', 'post_type');
+			$query->set('order','ASC');
+			$query->set('post__in',$ids);
+		}
+
+		return $query;
+	}
+
+	public function get_the_archive_title($title){
+		if( is_author() ) {
+			$title = '';
+		}
+		return $title;
+	}
+
 
 	/**
 	 * add meta _boxes
@@ -51,15 +101,31 @@ class Post extends Module {
 
 			//Save post by post_type
 			switch ($post_type) {
-				case'mp-event':
-					$this->get('events')->save_event_data(array('post' => $post, 'event_data' => $request['event_data'], 'event_meta' => $request['event_meta']));
+				case 'mp-event':
+					$this->get('events')->save_event_data(array('post' => $post,
+							'event_data' => ( !empty( $request['event_data'] ) )? $request['event_data'] : null,
+							'event_meta' => ( !empty( $request['event_meta'] ) )? $request['event_meta'] : null));
 					break;
-				case'mp-column':
+				case 'mp-column':
 					$this->get('column')->save_column_data(array('post' => $post, 'data' => $request['column']));
 					break;
 				default:
 					break;
 			}
 		}
+	}
+
+	/**
+	 * Before delete custom post
+	 *
+	 * @param $post_id
+	 * @param $post
+	 */
+	public function before_delete_custom_post($post_id) {
+		global $post_type;
+		if ( $post_type != 'mp-column' ) return;
+
+		$this->get('column')->before_delete_column( $post_id );
+
 	}
 }
