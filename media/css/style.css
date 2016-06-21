@@ -231,6 +231,9 @@
 }
 /*====== Widget End ======*/
 /* ====== Shortcode start ====== */
+.mptt-shortcode-wrapper {
+  /* overflow-y: hidden; */
+}
 .mptt-shortcode-wrapper .mptt-shortcode-table {
   margin-top: 1rem;
 }

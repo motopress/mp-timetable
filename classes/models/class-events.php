@@ -15,19 +15,18 @@ class Events extends Model {
 	protected $wpdb;
 	protected $table_name;
 
+	function __construct() {
+		parent::__construct();
+		global $wpdb;
+		$this->wpdb = $wpdb;
+		$this->table_name = $wpdb->prefix . "mp_timetable_data";
+	}
 
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
 		}
 		return self::$instance;
-	}
-
-	function __construct() {
-		parent::__construct();
-		global $wpdb;
-		$this->wpdb = $wpdb;
-		$this->table_name = $wpdb->prefix . "mp_timetable_data";
 	}
 
 	/**
@@ -73,6 +72,38 @@ class Events extends Model {
 		$event_data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
 
 		$this->get_view()->render_html("events/metabox-event-data", array('event_data' => $event_data, 'args' => $metabox['args'], 'columns' => $data['columns'], 'date' => array('time_format' => $time_format_array)), true);
+	}
+
+	/**
+	 * Get single event data by id
+	 *
+	 * @param array $params
+	 *
+	 * @return array|null|object|void
+	 */
+	public function get_event_data($params, $order_by = 'event_start') {
+
+		$table_posts = $this->wpdb->prefix . 'posts';
+
+		$event_data = $this->wpdb->get_results(
+			"SELECT t.*"
+			. " FROM $this->table_name t INNER JOIN"
+			. " ("
+			. "	SELECT * FROM {$table_posts}"
+			. " WHERE `post_type` = 'mp-column'"
+			. " ) p ON t.`column_id` = p.`ID`"
+			. " WHERE t.`{$params["field"]}` = {$params['id']}"
+			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
+		);
+
+		foreach ($event_data as $key => $event) {
+			$event_data[$key]->event_start = date('H:i', strtotime($event_data[$key]->event_start));
+			$event_data[$key]->event_end = date('H:i', strtotime($event_data[$key]->event_end));
+			$event_data[$key]->user = get_user_by('id', $event_data[$key]->user_id);
+			$event_data[$key]->post = get_post($event_data[$key]->event_id);
+		}
+
+		return $event_data;
 	}
 
 	/**
@@ -161,77 +192,6 @@ class Events extends Model {
 	}
 
 	/**
-	 * Get event data by post
-	 *
-	 * @param array $params
-	 *
-	 * @return array|null|object
-	 */
-	public function get_events_data(array $params) {
-		$events = array();
-		$sql_reguest = "SELECT * FROM " . $this->table_name;
-
-		if ((!empty($params['all']) && $params['all']) || empty($params['list'])) {
-
-		} elseif (!is_array($params['column'])) {
-			if (isset($params['list']) && is_array($params['list'])) {
-				$params['list'] = implode(',', $params['list']);
-			}
-			$sql_reguest .= " WHERE " . $params['column'] . " IN (" . $params['list'] . ")";
-		} elseif (is_array($params['column']) && is_array($params['column'])) {
-
-			$sql_reguest .= " WHERE ";
-
-			$last_key = key(array_slice($params['column'], -1, 1, TRUE));
-			foreach ($params['column'] as $key => $column) {
-				if (isset($params['list'][$column]) && is_array($params['list'][$column])) {
-					$params['list'][$column] = implode(',', $params['list'][$column]);
-				}
-				$sql_reguest .= $column . " IN (" . $params['list'][$column] . ")";
-				$sql_reguest .= ($last_key != $key) ? ' AND ' : '';
-			}
-		}
-
-		$events_data = $this->wpdb->get_results($sql_reguest);
-
-		foreach ($events_data as $event) {
-			$event->post = get_post($event->event_id);
-//			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
-//			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
-			$event->event_start = date('H:i', strtotime($event->event_start));
-			$event->event_end = date('H:i', strtotime($event->event_end));
-			$events[] = $event;
-		}
-		return $events;
-	}
-
-	/**
-	 * @param $event_category
-	 *
-	 * @return array|null|object
-	 */
-	public function get_events_data_by_category($event_category) {
-		$terms = explode(',', $event_category);
-		$posts_array = get_posts(
-			array(
-				'fields' => 'ids',
-				'posts_per_page' => -1,
-				'post_type' => 'mp-event',
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'mp-event_category',
-						'field' => 'term_id',
-						'terms' => $terms,
-					)
-				)
-			)
-		);
-		$ids = implode(',', $posts_array);
-		$event_data = $this->get_events_data(array('column' => 'event_id', 'list' => $ids));
-		return $event_data;
-	}
-
-	/**
 	 * Get widget events
 	 *
 	 * @param $instance
@@ -290,8 +250,6 @@ class Events extends Model {
 							$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
 						}
 					}
-
-
 				}
 				break;
 			default:
@@ -302,41 +260,139 @@ class Events extends Model {
 				$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
 				break;
 		}
+		if (!empty($instance['mp_categories'])) {
+			$events = $this->filter_events_by_categories($events, $instance['mp_categories']);
+		}
+
 		if ($instance['limit'] > 0) {
+
 			$events = array_slice($events, 0, $instance['limit']);
 		}
 		return $events;
 	}
 
 	/**
-	 * Get single event data by id
+	 * Get event data by post
 	 *
 	 * @param array $params
 	 *
-	 * @return array|null|object|void
+	 * @return array|null|object
 	 */
-	public function get_event_data($params, $order_by = 'event_start') {
+	public function get_events_data(array $params) {
+		$events = array();
+		$sql_reguest = "SELECT * FROM " . $this->table_name;
 
-		$table_posts = $this->wpdb->prefix .'posts';
+		if ((!empty($params['all']) && $params['all']) || empty($params['list'])) {
 
-		$event_data = $this->wpdb->get_results(
-					"SELECT t.*"
-				. " FROM $this->table_name t INNER JOIN"
-				. " ("
-				. "	SELECT * FROM {$table_posts}"
-				. " WHERE `post_type` = 'mp-column'"
-				. " ) p ON t.`column_id` = p.`ID`"
-				. " WHERE t.`{$params["field"]}` = {$params['id']}"
-				. " ORDER BY p.`menu_order`, t.`{$order_by}`"
-		);
+		} elseif (!is_array($params['column'])) {
+			if (isset($params['list']) && is_array($params['list'])) {
+				$params['list'] = implode(',', $params['list']);
+			}
+			$sql_reguest .= " WHERE " . $params['column'] . " IN (" . $params['list'] . ")";
+		} elseif (is_array($params['column']) && is_array($params['column'])) {
 
-		foreach ($event_data as $key => $event) {
-			$event_data[$key]->event_start = date('H:i', strtotime($event_data[$key]->event_start));
-			$event_data[$key]->event_end = date('H:i', strtotime($event_data[$key]->event_end));
-			$event_data[$key]->user = get_user_by('id', $event_data[$key]->user_id);
-			$event_data[$key]->post = get_post($event_data[$key]->event_id);
+			$sql_reguest .= " WHERE ";
+
+			$last_key = key(array_slice($params['column'], -1, 1, TRUE));
+			foreach ($params['column'] as $key => $column) {
+				if (isset($params['list'][$column]) && is_array($params['list'][$column])) {
+					$params['list'][$column] = implode(',', $params['list'][$column]);
+				}
+				$sql_reguest .= $column . " IN (" . $params['list'][$column] . ")";
+				$sql_reguest .= ($last_key != $key) ? ' AND ' : '';
+			}
 		}
 
+		$events_data = $this->wpdb->get_results($sql_reguest);
+
+		foreach ($events_data as $event) {
+			$event->post = get_post($event->event_id);
+//			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
+//			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
+			$event->event_start = date('H:i', strtotime($event->event_start));
+			$event->event_end = date('H:i', strtotime($event->event_end));
+			$events[] = $event;
+		}
+		return $events;
+	}
+
+	/**
+	 * Filtered events by view settings
+	 *
+	 * @param $params
+	 *
+	 * @return array
+	 */
+	protected function filter_events($params) {
+		$events = array();
+		if (!empty($params['events'])) {
+			foreach ($params['events'] as $key => $event) {
+				if ($params['view_settings'] === 'today' || $params['view_settings'] === 'all') {
+					if (strtotime($event->event_end) <= strtotime($params['time'])) {
+						continue;
+					}
+				} elseif ($params['view_settings'] === 'current') {
+					if ((strtotime($event->event_end) >= strtotime($params['time']) && strtotime($params['time']) <= strtotime($event->event_start)) || strtotime($event->event_end) <= strtotime($params['time'])) {
+						continue;
+					}
+				}
+				$events[$key] = $event;
+			}
+		}
+		return $events;
+	}
+
+	/**
+	 * Filter find events by select categories;
+	 *
+	 * @param array $events
+	 * @param array $categories
+	 *
+	 * @return array
+	 */
+	public function filter_events_by_categories(array $events, array $categories) {
+		$eventsCategories = $this->get_events_data_by_category($categories);
+		$temp_events = array();
+		foreach ($eventsCategories as $cat_event) {
+			foreach ($events as $event) {
+				if ($cat_event->id === $event->id) {
+					$temp_events[] = $event;
+				}
+
+			}
+		}
+		return $temp_events;
+
+	}
+
+	/**
+	 * @param array /string $event_category
+	 *
+	 * @return array|null|object
+	 */
+	public function get_events_data_by_category($event_categories) {
+		if (!is_array($event_categories)) {
+			$terms = explode(',', $event_categories);
+		} else {
+			$terms = $event_categories;
+		}
+
+		$posts_array = get_posts(
+			array(
+				'fields' => 'ids',
+				'posts_per_page' => -1,
+				'post_type' => 'mp-event',
+				'tax_query' => array(
+					array(
+						'taxonomy' => 'mp-event_category',
+						'field' => 'term_id',
+						'terms' => $terms,
+					)
+				)
+			)
+		);
+		$ids = implode(',', $posts_array);
+		$event_data = $this->get_events_data(array('column' => 'event_id', 'list' => $ids));
 		return $event_data;
 	}
 
@@ -383,32 +439,6 @@ class Events extends Model {
 			'posts_per_page' => -1
 		);
 		return get_posts($args);
-	}
-
-	/**
-	 * Filtered events by view settings
-	 *
-	 * @param $params
-	 *
-	 * @return array
-	 */
-	protected function filter_events($params) {
-		$events = array();
-		if (!empty($params['events'])) {
-			foreach ($params['events'] as $key => $event) {
-				if ($params['view_settings'] === 'today' || $params['view_settings'] === 'all') {
-					if (strtotime($event->event_end) <= strtotime($params['time'])) {
-						continue;
-					}
-				} elseif ($params['view_settings'] === 'current') {
-					if ((strtotime($event->event_end) >= strtotime($params['time']) && strtotime($params['time']) <= strtotime($event->event_start)) || strtotime($event->event_end) <= strtotime($params['time'])) {
-						continue;
-					}
-				}
-				$events[$key] = $event;
-			}
-		}
-		return $events;
 	}
 
 	/**
