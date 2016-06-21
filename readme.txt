@@ -59,6 +59,9 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 
 == Changelog ==
 
+= 1.1.3 =
+* Fixed an issue with categories filter in widget
+
 = 1.1.2 =
 * Fixed an issue with posts order
 
