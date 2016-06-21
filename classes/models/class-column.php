@@ -43,7 +43,7 @@ class Column extends Model {
 	 *
 	 * @param $column
 	 */
-	public function get_column_columns($column){
+	public function get_column_columns($column) {
 		global $post;
 		switch ($column) {
 			case 'mp-column_timeslots_number':
@@ -54,19 +54,21 @@ class Column extends Model {
 
 	}
 
-	public function count_events($post){
+	public function count_events($post) {
 		$table_name = $this->get('events')->table_name;
 		$count = $this->wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE `column_id` = {$post->ID}");
 
 		return intval($count);
 	}
 
-	public function clientarea_default_order($query){
-		if ( is_admin() || $query->is_main_query() ){
-			$query->set( 'orderby', 'menu_order' );
-			$query->set( 'order', 'ASC' );
+	public function clientarea_default_order($query) {
+		if ( is_admin() || $query->is_main_query() ) {
+			if ( is_post_type_archive( 'mp-column' ) ) {
+				$query->set( 'orderby', 'menu_order' );
+				$query->set( 'order', 'ASC' );
 
-			return;
+				return;
+			}
 		}
 	}
 
