@@ -76,7 +76,11 @@ class Shortcode extends Core {
 				$mptt_shortcode_data['unique_events'][$event->event_id] = $event;
 			}
 		}
-		return $this->get_view()->render_html('shortcodes/index-timetable', array(), false);
+		if (empty($mptt_shortcode_data['events_data']['events']) && empty($mptt_shortcode_data['events_data']['column'])) {
+			return $this->get_view()->render_html('shortcodes/empty-search-events', array(), false);
+		} else {
+			return $this->get_view()->render_html('shortcodes/index-timetable', array(), false);
+		}
 	}
 
 	/**
@@ -140,60 +144,38 @@ class Shortcode extends Core {
 		}
 
 		//Sort column by menu order
-		$events_data['column'] = Column::get_instance()->get_all_column(array('post__in' => $columns_ids));
+		$events_data['column'] = $this->get('column')->get_all_column(array('post__in' => $columns_ids));
+		if (!empty($events_data['column'])) {
+			foreach ($events_data['column'] as $key => $column) {
+				$column_events = array();
+				// add to column  events
+				foreach ($events_data['events'] as $event_key => $event) {
+					if ($column->ID == $event->column_id) {
+						$start_index = date('G', strtotime($event->event_start)) / $params['increment'] + floor(date('i', strtotime($event->event_start)) / $step);
 
-		foreach ($events_data['column'] as $key => $column) {
-			$column_events = array();
-			// add to column  events
-			foreach ($events_data['events'] as $event_key => $event) {
-				if ($column->ID == $event->column_id) {
-					$start_index = date('G', strtotime($event->event_start)) / $params['increment'] + floor(date('i', strtotime($event->event_start)) / $step);
+						// fix 15 min bug
+						//$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step) + (date('i', strtotime($event->event_end)) == $step ? 1 : 0);
+						$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step);
 
-					// fix 15 min bug
-					//$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step) + (date('i', strtotime($event->event_end)) == $step ? 1 : 0);
-					$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step);
-
-					$event->output = false;
-					$event->start_index = $start_index;
-					$event->end_index = $end_index;
-					$column_events[$event->id] = $event;
+						$event->output = false;
+						$event->start_index = $start_index;
+						$event->end_index = $end_index;
+						$column_events[$event->id] = $event;
+					}
 				}
+				//sort by start date
+				usort($column_events, function ($a, $b) {
+					if (strtotime($a->event_start) == strtotime($b->event_start)) {
+						return 0;
+					}
+					return (strtotime($a->event_start) < strtotime($b->event_start)) ? -1 : 1;
+				});
+				$events_data['column_events'][$column->ID] = $column_events;
 			}
-			//sort by start date
-			usort($column_events, function ($a, $b) {
-				if (strtotime($a->event_start) == strtotime($b->event_start)) {
-					return 0;
-				}
-				return (strtotime($a->event_start) < strtotime($b->event_start)) ? -1 : 1;
-			});
-			$events_data['column_events'][$column->ID] = $column_events;
+		} else {
+			$events_data['events'] = array();
 		}
 		return $events_data;
-	}
-
-	/**
-	 * @param array $data_array
-	 * @param string $type
-	 *
-	 * @return array
-	 */
-	public function create_list_motopress($data_array = array(), $type = 'post') {
-		$list_array = array();
-		switch ($type) {
-			case "post":
-				foreach ($data_array as $item) {
-					$list_array[$item->ID] = $item->post_title;
-				}
-				break;
-			case "term":
-				foreach ($data_array as $item) {
-					$list_array[$item->term_id] = $item->name;
-				}
-				break;
-			default:
-				break;
-		}
-		return $list_array;
 	}
 
 	public function get_event_ids(array $data = array()) {
@@ -320,5 +302,30 @@ class Shortcode extends Core {
 		);
 		$mp_timetable = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);
 		$motopressCELibrary->addObject($mp_timetable, 'other');
+	}
+
+	/**
+	 * @param array $data_array
+	 * @param string $type
+	 *
+	 * @return array
+	 */
+	public function create_list_motopress($data_array = array(), $type = 'post') {
+		$list_array = array();
+		switch ($type) {
+			case "post":
+				foreach ($data_array as $item) {
+					$list_array[$item->ID] = $item->post_title;
+				}
+				break;
+			case "term":
+				foreach ($data_array as $item) {
+					$list_array[$item->term_id] = $item->name;
+				}
+				break;
+			default:
+				break;
+		}
+		return $list_array;
 	}
 }
