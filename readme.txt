@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
 Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer
 Requires at least: 3.6
-Tested up to: 4.5.2
+Tested up to: 4.5.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,9 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 4. Shortcode parameters
 
 == Changelog ==
+
+= 1.1.4 =
+* Improved compatibility with Polylang plugin
 
 = 1.1.3 =
 * Fixed an issue with categories filter in widget
