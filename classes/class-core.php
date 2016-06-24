@@ -10,7 +10,6 @@ use mp_timetable\plugin_core\classes;
  */
 class Core {
 
-	public static $LANGS = array('en_US', 'ru_RU');
 	protected static $instance;
 	protected $version;
 	/**
