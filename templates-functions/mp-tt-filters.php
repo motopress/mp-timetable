@@ -18,3 +18,14 @@ function mptt_widget_settings($params) {
 	), $params);
 	return $params;
 }
+
+function mptt_widget_head_settings($params) {
+	$params = shortcode_atts(array(
+		'title' => '',
+		'limit' => '3',
+		'view_settings' => 'today',
+		'user_id' => '1',
+		'disable_url' => '',
+	), $params);
+	return $params;
+}

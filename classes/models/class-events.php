@@ -199,7 +199,7 @@ class Events extends Model {
 	 * @return false|int
 	 */
 	public function before_delete_event($post_id) {
-		$meta_keys = array ('event_id', 'event_start', 'event_end', 'user_id', 'description');
+		$meta_keys = array('event_id', 'event_start', 'event_end', 'user_id', 'description');
 
 		foreach ($meta_keys as $meta_key) {
 			delete_post_meta($post_id, $meta_key);
@@ -289,6 +289,81 @@ class Events extends Model {
 	}
 
 	/**
+	 * Get widget events
+	 *
+	 * @param $instance
+	 *
+	 * @return array
+	 */
+	public function get_widget_head_events($instance) {
+		$events = array();
+		$weekday = strtolower(date('l', time()));
+		$current_date = date('d/m/Y', time());
+		$curent_time = date('H:i', current_time('timestamp'));
+
+		$args = array(
+			'post_type' => 'mp-column',
+			'fields' => 'ids',
+			'meta_query' => array(
+				'relation' => 'OR',
+				array(
+					'key' => 'weekday',
+					'value' => $weekday
+				),
+				array(
+					'key' => 'option_day',
+					'value' => $current_date
+				)
+			)
+		);
+
+		switch ($instance['view_settings']) {
+			case'today':
+			case 'current':
+				$column_post_ids = get_posts($args);
+				if (!empty($column_post_ids)) {
+					$events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
+				}
+				$events = $this->filter_events(array('events' => $events, 'view_settings' => $instance['view_settings'], 'time' => $curent_time));
+				break;
+			case 'all':
+				for ($i = 0; $i <= 6; $i++) {
+					// set new day week
+					$time = strtotime("+$i days");
+					$args['meta_query'][0]['value'] = strtolower(date('l', $time));
+					//set new date
+					$args['meta_query'][1]['value'] = date('d/m/Y', $time);
+
+					$column_post_ids = get_posts($args);
+					if (!empty($column_post_ids)) {
+						$day_events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
+						$events = array_merge($events, $day_events);
+					}
+					if ($i === 0) {
+						$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
+					}
+				}
+				break;
+			default:
+				$column_post_ids = get_posts($args);
+				if (!empty($column_post_ids)) {
+					$events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
+				}
+				$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
+				break;
+		}
+
+		//Filter by user_id
+		$events = $this->filter_events_by_field(array('events' => $events, 'field' => 'user_id', 'value' => $instance['user_id']));
+
+		if ($instance['limit'] > 0) {
+
+			$events = array_slice($events, 0, $instance['limit']);
+		}
+		return $events;
+	}
+
+	/**
 	 * Get event data by post
 	 *
 	 * @param array $params
@@ -353,6 +428,27 @@ class Events extends Model {
 						continue;
 					}
 				}
+				$events[$key] = $event;
+			}
+		}
+		return $events;
+	}
+
+	/**
+	 * Filtered events by Event Head
+	 *
+	 * @param $params
+	 *
+	 * @return array
+	 */
+	protected function filter_events_by_field($params) {
+		$events = array();
+		if (!empty($params['events'])) {
+			foreach ($params['events'] as $key => $event) {
+				if ($event->$params['field'] != $params['value']) {
+					continue;
+				}
+
 				$events[$key] = $event;
 			}
 		}

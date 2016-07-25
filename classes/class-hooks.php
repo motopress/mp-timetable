@@ -63,6 +63,7 @@ class Hooks extends Core {
 			));
 		}
 		register_widget('timetable\classes\widgets\Timetable_widget');
+		register_widget('timetable\classes\widgets\Timetable_Head_widget');
 	}
 
 	/**
