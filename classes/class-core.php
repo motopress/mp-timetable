@@ -2,31 +2,20 @@
 
 namespace mp_timetable\plugin_core\classes;
 
-use mp_timetable\plugin_core\classes;
-use mp_timetable\plugin_core\classes\modules\Post as Post;
-use mp_timetable\plugin_core\classes\modules\Taxonomy as Taxonomy;
 use Mp_Time_Table;
+use mp_timetable\plugin_core\classes;
 
 /**
  * Class main state
  */
 class Core {
 
+	protected static $instance;
+	protected $version;
 	/**
 	 * Current state
 	 */
 	private $state;
-	protected $version;
-
-	public static $LANGS = array('en_US', 'ru_RU');
-	protected static $instance;
-
-	public static function get_instance() {
-		if (null === self::$instance) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
 
 	/**
 	 * Core constructor.
@@ -38,6 +27,18 @@ class Core {
 		$this->post_types = array(
 			'mp-event', 'mp-column'
 		);
+	}
+
+	/**
+	 * Check for ajax post
+	 * @return bool
+	 */
+	static function is_ajax() {
+		if (defined('DOING_AJAX') && DOING_AJAX) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -68,6 +69,44 @@ class Core {
 	}
 
 	/**
+	 * Include all files from folder
+	 *
+	 * @param string $folder
+	 * @param boolean $inFolder
+	 */
+	static function include_all($folder, $inFolder = true) {
+		if (file_exists($folder)) {
+			$includeArr = scandir($folder);
+			foreach ($includeArr as $include) {
+				if (!is_dir($folder . "/" . $include)) {
+					include_once($folder . "/" . $include);
+				} else {
+					if ($include != "." && $include != ".." && $inFolder) {
+						Core::include_all($folder . "/" . $include);
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Install current state
+	 *
+	 * @param $name
+	 */
+	public function install_state($name) {
+		// include plugin state
+		Core::get_instance()->set_state(new State_Factory($name));
+	}
+
+	public static function get_instance() {
+		if (null === self::$instance) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Include template
 	 *
 	 * @param $template
@@ -76,25 +115,24 @@ class Core {
 	 */
 	public function include_custom_template($template) {
 		global $post, $taxonomy;
+		if (is_embed()) {
+			return $template;
+		}
 
-		if (is_single()) {
-			if (!empty($post)) {
-				if (in_array($post->post_type, $this->post_types)) {
-					if (basename($template) != "single-$post->post_type.php") {
-						$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
-						if (file_exists($path)) {
-							$template = $path;
-						}
-					}
+		if (!empty($post) && is_single() && in_array($post->post_type, $this->post_types)) {
+			if (basename($template) != "single-$post->post_type.php") {
+				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
+				if (file_exists($path)) {
+					$template = $path;
 				}
-			} elseif (!empty($taxonomy)) {
-				if (in_array($taxonomy, $this->taxonomy_names)) {
-					if (basename($template) != "taxonomy-$taxonomy.php") {
-						$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'taxonomy-' . $taxonomy . '.php';
-						if (is_tax($taxonomy) && file_exists($path)) {
-							$template = $path;
-						}
-					}
+			}
+		}
+
+		if (!empty($taxonomy) && is_tax() && in_array($taxonomy, $this->taxonomy_names)) {
+			if (basename($template) != "taxonomy-$taxonomy.php") {
+				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'taxonomy-' . $taxonomy . '.php';
+				if (is_tax($taxonomy) && file_exists($path)) {
+					$template = $path;
 				}
 			}
 		}
@@ -117,15 +155,35 @@ class Core {
 	}
 
 	/**
-	 * Get plugin version
+	 * Check and return current state
+	 *
+	 * @param string $type
+	 *
+	 * @return boolean
 	 */
-	public function init_plugin_version() {
-		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
-		if (!function_exists('get_plugin_data')) {
-			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+	public function get_model($type = null) {
+		return Core::get_instance()->get_state()->get_model($type);
+	}
+
+	/**
+	 * Get State
+	 * @return bool
+	 */
+	public function get_state() {
+		if ($this->state) {
+			return $this->state;
+		} else {
+			return false;
 		}
-		$pluginObject = get_plugin_data($filePath);
-		$this->version = $pluginObject['Version'];
+	}
+
+	/**
+	 * Set state
+	 *
+	 * @param  $state
+	 */
+	public function set_state($state) {
+		$this->state = $state;
 	}
 
 	/**
@@ -140,13 +198,15 @@ class Core {
 	}
 
 	/**
-	 * Install current state
-	 *
-	 * @param $name
+	 * Get plugin version
 	 */
-	public function install_state($name) {
-		// include plugin state
-		Core::get_instance()->set_state(new State_Factory($name));
+	public function init_plugin_version() {
+		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
+		if (!function_exists('get_plugin_data')) {
+			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+		}
+		$pluginObject = get_plugin_data($filePath);
+		$this->version = $pluginObject['Version'];
 	}
 
 	/**
@@ -160,30 +220,6 @@ class Core {
 			// call controller
 			Preprocessor::get_instance()->call_controller($action, $controller);
 			die();
-		}
-	}
-
-	/**
-	 * Check for ajax post
-	 * @return bool
-	 */
-	static function is_ajax() {
-		if (defined('DOING_AJAX') && DOING_AJAX) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	/**
-	 * Get State
-	 * @return bool
-	 */
-	public function get_state() {
-		if ($this->state) {
-			return $this->state;
-		} else {
-			return false;
 		}
 	}
 
@@ -208,17 +244,6 @@ class Core {
 	}
 
 	/**
-	 * Check and return current state
-	 *
-	 * @param string $type
-	 *
-	 * @return boolean
-	 */
-	public function get_model($type = null) {
-		return Core::get_instance()->get_state()->get_model($type);
-	}
-
-	/**
 	 * Get preprocessor
 	 *
 	 * @param $type
@@ -227,36 +252,6 @@ class Core {
 	 */
 	public function get_preprocessor($type = NULL) {
 		return Core::get_instance()->get_state()->get_preprocessor($type);
-	}
-
-	/**
-	 * Set state
-	 *
-	 * @param  $state
-	 */
-	public function set_state($state) {
-		$this->state = $state;
-	}
-
-	/**
-	 * Include all files from folder
-	 *
-	 * @param string $folder
-	 * @param boolean $inFolder
-	 */
-	static function include_all($folder, $inFolder = true) {
-		if (file_exists($folder)) {
-			$includeArr = scandir($folder);
-			foreach ($includeArr as $include) {
-				if (!is_dir($folder . "/" . $include)) {
-					include_once($folder . "/" . $include);
-				} else {
-					if ($include != "." && $include != ".." && $inFolder) {
-						Core::include_all($folder . "/" . $include);
-					}
-				}
-			}
-		}
 	}
 
 	/**
@@ -429,20 +424,36 @@ class Core {
 	}
 
 	/**
+	 * Hook admin_enqueue_scripts
+	 */
+	public function admin_enqueue_scripts() {
+		global $current_screen;
+		$this->current_screen($current_screen);
+	}
+
+	/**
 	 * Load script by current screen
 	 *
 	 * @param \WP_Screen $current_screen
 	 */
 	public function current_screen(\WP_Screen $current_screen) {
+		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+		wp_localize_script(
+			'mptt-event-object',
+			'MPTT',
+			array('table_class' => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'))
+		);
+
 		wp_enqueue_script('underscore');
 		wp_enqueue_style('mptt-admin-style', Mp_Time_Table::get_plugin_url('media/css/admin.css'), array(), $this->version);
 		wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions.js'), array(), $this->version);
+
 
 		if (!empty($current_screen)) {
 			switch ($current_screen->id) {
 				case "mp-event":
 					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
-					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+					wp_enqueue_script("mptt-event-object");
 					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.js'), '0.3.3');
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
@@ -451,14 +462,14 @@ class Core {
 					break;
 				case "mp-column":
 					wp_enqueue_script('jquery-ui-datepicker');
-					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					break;
 				case "customize":
 				case "widgets":
 					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
-					wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
@@ -480,17 +491,38 @@ class Core {
 	}
 
 	/**
+	 * Hook wp_enqueue_scripts
+	 */
+	public function wp_enqueue_scripts() {
+		global $post_type;
+		if (in_array($post_type, $this->post_types)) {
+			wp_enqueue_style('mptt-style', Mp_Time_Table::get_plugin_url('media/css/style.css'), array(), $this->version);
+		} elseif (!empty($_GET['motopress-ce'])) {
+			$this->add_plugin_js('shortcode');
+			$this->add_plugin_css('shortcode');
+		}
+
+	}
+
+	/**
 	 * Add plugin js
 	 *
 	 * @param bool $type
 	 */
 	public function add_plugin_js($type = false) {
+		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+		wp_localize_script(
+			'mptt-event-object',
+			'MPTT',
+			array('table_class' => apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'))
+		);
+
 		switch ($type) {
 			case"shortcode":
 			case"widget":
 				wp_enqueue_script('underscore');
 				wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions.js'), array("jquery"), $this->version);
-				wp_enqueue_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+				wp_enqueue_script("mptt-event-object");
 				break;
 		}
 	}
@@ -509,27 +541,5 @@ class Core {
 			default:
 				break;
 		}
-	}
-
-	/**
-	 * Hook admin_enqueue_scripts
-	 */
-	public function admin_enqueue_scripts() {
-		global $current_screen;
-		$this->current_screen($current_screen);
-	}
-
-	/**
-	 * Hook wp_enqueue_scripts
-	 */
-	public function wp_enqueue_scripts() {
-		global $post_type;
-		if (in_array($post_type, $this->post_types)) {
-			wp_enqueue_style('mptt-style', Mp_Time_Table::get_plugin_url('media/css/style.css'), array(), $this->version);
-		} elseif (!empty($_GET['motopress-ce'])) {
-			$this->add_plugin_js('shortcode');
-			$this->add_plugin_css('shortcode');
-		}
-
 	}
 }

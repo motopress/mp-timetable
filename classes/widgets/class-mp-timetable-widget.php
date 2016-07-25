@@ -65,7 +65,7 @@ class Timetable_widget extends \WP_Widget {
 		$instance['mp_categories'] = $new_instance['mp_categories'];
 		$instance['view_settings'] = strip_tags($new_instance['view_settings']);
 		$instance['next_days'] = strip_tags($new_instance['next_days']);
-		$instance['time_settings'] = strip_tags($new_instance['time_settings']);
+		$instance['time_settings'] = empty($new_instance['time_settings']) ? "" : strip_tags($new_instance['time_settings']);
 		$instance['custom_url'] = strip_tags($new_instance['custom_url']);
 		$instance['disable_url'] = strip_tags($new_instance['disable_url']);
 		$instance['background_color'] = strip_tags($new_instance['background_color']);

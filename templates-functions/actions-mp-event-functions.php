@@ -36,7 +36,7 @@ function mptt_event_template_content_time_list() { ?>
 				<p class="timeslot">
 					<span class="timeslot-start"><?php
 						echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php
-						echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php
+					echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php
 						echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
 				</p>
 
@@ -48,7 +48,7 @@ function mptt_event_template_content_time_list() { ?>
 					<p class="event-description"><?php echo $event->description; ?></p>
 				<?php } ?>
 				<?php if (!empty($event->user)) { ?>
-					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>"><?php echo get_avatar( $event->user->ID, apply_filters('mptt-column-user-avatar-size', 32) ) . ' ';
+					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>"><?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32)) . ' ';
 							echo $event->user->display_name ?></a></p>
 				<?php } ?>
 			</li>
@@ -57,7 +57,7 @@ function mptt_event_template_content_time_list() { ?>
 	<?php
 }
 
-function mptt_event_template_content_comments(){
+function mptt_event_template_content_comments() {
 	// If comments are open or we have at least one comment, load up the comment template.
 	if (comments_open() || get_comments_number()) {
 		comments_template();
@@ -152,10 +152,12 @@ function mptt_post_class($classes, $class = '', $post_id = '') {
 	} elseif ('mp-event' == get_post_type($post_id)) {
 		$classes[] = 'mp-event-item';
 	}
-
-	if (false !== ($key = array_search('hentry', $classes))) {
-		unset($classes[$key]);
+	if (!is_search() && is_single()) {
+		if (false !== ($key = array_search('hentry', $classes))) {
+			unset($classes[$key]);
+		}
 	}
+
 	return $classes;
 }
 

@@ -32,7 +32,7 @@ class Taxonomy extends Module {
 
 		foreach ($taxonomies as $key => $tax) {
 			$data["wp"] = $tax;
-			$data["filter_link"] = '/wp-admin/edit.php?post_type=' . $post->post_type . '&' . $tax->taxonomy . '=' . $tax->slug;
+			$data["filter_link"] = admin_url('edit.php?post_type=' . $post->post_type . '&' . $tax->taxonomy . '=' . $tax->slug);
 			$taxonomies_html .= View::get_instance()->render_html("taxonomies/taxonomy-link", $data, false);
 			$taxonomies_html .= ($last_key != $key) ? ', ' : '';
 		}
