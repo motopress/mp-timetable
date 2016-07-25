@@ -433,7 +433,7 @@ class Events extends Model {
 	public function get_all_events() {
 		$args = array(
 			'post_type' => 'mp-event',
-			'post_status' => 'any',
+			'post_status' => 'publish',
 			'order' => 'ASC',
 			'orderby' => 'title',
 			'posts_per_page' => -1
