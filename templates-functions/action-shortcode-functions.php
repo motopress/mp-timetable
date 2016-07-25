@@ -15,9 +15,11 @@ function mptt_shortcode_template_content_filter() {
 	global $mptt_shortcode_data;
 
 	if ($mptt_shortcode_data['params']['view'] == 'dropdown_list') { ?>
-		<select class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>">
+		<select
+			class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>">
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
-				<option value="#all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
+				<option
+					value="#all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
 			<?php endif;
 			if (!empty($mptt_shortcode_data['unique_events'])):
 				foreach ($mptt_shortcode_data['unique_events'] as $event): ?>
@@ -79,8 +81,8 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 
 		$event_id = $post->post_name;
 	}
-
 	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params']);
+	$hide_empty_rows = $mptt_shortcode_data['params']['hide_empty_rows'];
 	?>
 	<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'); ?>"
 	       id="#<?php echo $event_id; ?>"
@@ -95,48 +97,72 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 		</thead>
 		<tbody>
 		<?php for ($i = $bounds['start']; $i <= $bounds['end']; $i++): ?>
-			<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
-				<?php $tm = $i * $mptt_shortcode_data['params']['increment'];
-				if (floor($tm) == $tm) {
-					$table_cell_start = $tm . ':00';
+			<?php
+			$tm = $i * $mptt_shortcode_data['params']['increment'];
+			if (floor($tm) == $tm) {
+				$table_cell_start = $tm . ':00';
+			} else {
+				if ($amount_rows == 46) {
+					$table_cell_start = floor($tm) . ':30';
 				} else {
-					if ($amount_rows == 46) {
-						$table_cell_start = floor($tm) . ':30';
-					} else {
-						$tm_position = explode('.', $tm);
+					$tm_position = explode('.', $tm);
 
-						if ($tm_position[1] == 25) {
-							$mnts = ':15';
-						} elseif ($tm_position[1] == 5) {
-							$mnts = ':30';
-						} else {
-							$mnts = ':45';
-						}
-						$table_cell_start = floor($tm) . $mnts;
+					if ($tm_position[1] == 25) {
+						$mnts = ':15';
+					} elseif ($tm_position[1] == 5) {
+						$mnts = ':30';
+					} else {
+						$mnts = ':45';
 					}
-				} ?>
-				<td class="mptt-shortcode-hours" style="<?php echo (bool)$mptt_shortcode_data['params']['hide_hrs'] ? 'display:none;' : '';
-				echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>"><?php echo date(get_option('time_format'), strtotime($table_cell_start)); ?></td>
-				<?php foreach ($column_events as $column_id => $events_list): ?>
-					<td class="mptt-shortcode-event" data-column-id="<?php echo $column_id ?>" rowspan="" style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
-						<?php if (!empty($column_events[$column_id])) {
-							foreach ($events_list as $key_events => $item) :
-								if ($item->start_index == $i) {
-									\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
-										array(
-											'item' => $item,
-											'params' => $mptt_shortcode_data['params']
-										), true);
-								}
-							endforeach;
-						} ?>
-					</td>
-				<?php endforeach; ?>
-			</tr>
+					$table_cell_start = floor($tm) . $mnts;
+				}
+			}
+			?>
+			<?php if ($hide_empty_rows && !mptt_shortcode_row_has_items($i, $bounds['end'], $column_events)): ?>
+				<?php continue; ?>
+			<?php else: ?>
+				<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
+					<td class="mptt-shortcode-hours"
+					    style="<?php echo (bool)$mptt_shortcode_data['params']['hide_hrs'] ? 'display:none;' : '';
+					    echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>"><?php echo date(get_option('time_format'), strtotime($table_cell_start)); ?></td>
+					<?php foreach ($column_events as $column_id => $events_list): ?>
+						<td class="mptt-shortcode-event" data-column-id="<?php echo $column_id ?>" rowspan=""
+						    style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
+							<?php if (!empty($column_events[$column_id])) {
+								foreach ($events_list as $key_events => $item) :
+									if ($item->start_index == $i) {
+										\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
+											array(
+												'item' => $item,
+												'params' => $mptt_shortcode_data['params']
+											), true);
+									}
+								endforeach;
+							} ?>
+						</td>
+					<?php endforeach; ?>
+				</tr>
+			<?php endif; ?>
+
 		<?php endfor; ?>
 		</tbody>
 	</table>
 	<?php
+}
+
+function mptt_shortcode_row_has_items($i, $end, $column_events) {
+
+	foreach ($column_events as $column_id => $events_list) {
+		if (!empty($column_events[$column_id])) {
+			foreach ($events_list as $key_events => $item) {
+				if ($item->start_index == $i || $i <= $end) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
 }
 
 function mptt_shortcode_get_table_cell_bounds($column_events, $params) {
@@ -194,9 +220,12 @@ function mptt_shortcode_template_content_responsive_table() {
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['time']): ?>
 										<p class="timeslot">
-											<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span>
-											<span class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
-											<span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
+											<span
+												class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span>
+											<span
+												class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
+											<span
+												class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
 										</p>
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['description']): ?>
