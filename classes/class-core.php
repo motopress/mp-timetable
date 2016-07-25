@@ -115,7 +115,7 @@ class Core {
 	 */
 	public function include_custom_template($template) {
 		global $post, $taxonomy;
-		if (is_embed()) {
+		if (Core::get_instance()->is_embed()) {
 			return $template;
 		}
 
@@ -541,5 +541,22 @@ class Core {
 			default:
 				break;
 		}
+	}
+
+	/**
+	 * Fix fatal error for earlier WP versions
+	 *
+	 * @return bool
+	 */
+	public function is_embed() {
+
+		global $wp_version;
+		if( version_compare( $wp_version, '4.4', '<' ) ) {
+			if ( ! function_exists( 'is_embed' ) ) {
+				return false;
+			}
+		}
+
+		return is_embed();
 	}
 }

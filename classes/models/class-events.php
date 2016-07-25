@@ -181,7 +181,7 @@ class Events extends Model {
 	}
 
 	/**
-	 * Delete event data
+	 * Delete event timeslot
 	 *
 	 * @param $id
 	 *
@@ -189,6 +189,23 @@ class Events extends Model {
 	 */
 	public function delete_event($id) {
 		return $this->wpdb->delete($this->table_name, array('id' => $id), array('%d'));
+	}
+
+	/**
+	 * Delete event data
+	 *
+	 * @param $post_id
+	 *
+	 * @return false|int
+	 */
+	public function before_delete_event($post_id) {
+		$meta_keys = array ('event_id', 'event_start', 'event_end', 'user_id', 'description');
+
+		foreach ($meta_keys as $meta_key) {
+			delete_post_meta($post_id, $meta_key);
+		}
+
+		return $this->wpdb->delete($this->table_name, array('event_id' => $post_id), array('%d'));
 	}
 
 	/**
