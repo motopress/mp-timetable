@@ -22,7 +22,6 @@
 				'id' => $widget_object->get_field_id('user_id'), // integer
 				'class' => 'widefat',
 		)); ?>
-
 	</p>
 
 	<p>

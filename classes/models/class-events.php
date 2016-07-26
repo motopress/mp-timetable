@@ -14,11 +14,13 @@ class Events extends Model {
 	protected static $instance;
 	protected $wpdb;
 	protected $table_name;
+	protected $post_type;
 
 	function __construct() {
 		parent::__construct();
 		global $wpdb;
 		$this->wpdb = $wpdb;
+		$this->post_type = 'mp-event';
 		$this->table_name = $wpdb->prefix . "mp_timetable_data";
 	}
 
@@ -494,7 +496,7 @@ class Events extends Model {
 			array(
 				'fields' => 'ids',
 				'posts_per_page' => -1,
-				'post_type' => 'mp-event',
+				'post_type' => $this->post_type,
 				'tax_query' => array(
 					array(
 						'taxonomy' => 'mp-event_category',
@@ -545,7 +547,7 @@ class Events extends Model {
 	 */
 	public function get_all_events() {
 		$args = array(
-			'post_type' => 'mp-event',
+			'post_type' => $this->post_type,
 			'post_status' => 'publish',
 			'order' => 'ASC',
 			'orderby' => 'title',

@@ -119,13 +119,20 @@ class Core {
 			return $template;
 		}
 
-		if (!empty($post) && is_single() && in_array($post->post_type, $this->post_types)) {
-			if (basename($template) != "single-$post->post_type.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
-				if (file_exists($path)) {
-					$template = $path;
+		$source = get_option('mp_timetable_general', array('source_id' => 'plugin'));
+		$source = $source['source_id'];
+
+		if ($source === 'plugin') {
+			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+				if (basename($template) != "single-$post->post_type.php") {
+					$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
+					if (file_exists($path)) {
+						$template = $path;
+					}
 				}
 			}
+		} else {
+			add_action('loop_start', array($this, 'setupPseudoTemplate'));
 		}
 
 		if (!empty($taxonomy) && is_tax() && in_array($taxonomy, $this->taxonomy_names)) {
@@ -136,7 +143,41 @@ class Core {
 				}
 			}
 		}
+
 		return $template;
+	}
+
+	public function setupPseudoTemplate( $query ){
+		global $post;
+
+		if ( $query->is_main_query() ) {
+			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+				add_filter('the_content', array($this, 'appendPostMetas'));
+			}
+			remove_action( 'loop_start', array( $this, 'setupPseudoTemplate' ) );
+		}
+	}
+
+	public function appendPostMetas($content){
+		// run only once
+		remove_filter( 'the_content', array( $this, 'appendPostMetas' ) );
+
+		global $post;
+
+		ob_start();
+		switch ($post->post_type) {
+			case 'mp-event':
+				do_action('mptt_event_item_meta');
+				break;
+			case 'mp-column':
+				do_action('mptt_single_column_template_meta');
+				break;
+		}
+
+		$append = ob_get_clean();
+		$content .= $append;
+
+		return $content;
 	}
 
 	/**

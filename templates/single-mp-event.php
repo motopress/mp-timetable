@@ -18,6 +18,7 @@ while (have_posts()) : the_post();
 				 * add_action('mptt_event_item_content', 'mptt_event_template_content_time_list', 50);
 				 */
 				do_action('mptt_event_item_content');
+				do_action('mptt_event_item_meta');
 
 			?>
 		</div>
