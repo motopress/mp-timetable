@@ -117,8 +117,11 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 					$table_cell_start = floor($tm) . $mnts;
 				}
 			}
+
+			$row_has_items = mptt_shortcode_row_has_items($i, $column_events);
+
 			?>
-			<?php if ($hide_empty_rows && !mptt_shortcode_row_has_items($i, $bounds['end'], $column_events)): ?>
+			<?php if ($hide_empty_rows && !$row_has_items): ?>
 				<?php continue; ?>
 			<?php else: ?>
 				<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
@@ -150,12 +153,12 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 	<?php
 }
 
-function mptt_shortcode_row_has_items($i, $end, $column_events) {
+function mptt_shortcode_row_has_items($i, $column_events) {
 
 	foreach ($column_events as $column_id => $events_list) {
 		if (!empty($column_events[$column_id])) {
 			foreach ($events_list as $key_events => $item) {
-				if ($item->start_index == $i || $i <= $end) {
+				if ($item->start_index <= $i && $i < $item->end_index) {
 					return true;
 				}
 			}
