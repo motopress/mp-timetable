@@ -399,13 +399,19 @@ class Events extends Model {
 
 		$events_data = $this->wpdb->get_results($sql_reguest);
 
-		foreach ($events_data as $event) {
-			$event->post = get_post($event->event_id);
-//			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
-//			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
-			$event->event_start = date('H:i', strtotime($event->event_start));
-			$event->event_end = date('H:i', strtotime($event->event_end));
-			$events[] = $event;
+		if ( is_array($events_data) ) {
+			foreach ($events_data as $event) {
+				$post = get_post($event->event_id);
+				
+				if ( $post && ($post->post_type == $this->post_type) && ($post->post_status == 'publish') ) {
+					$event->post = $post;
+		//			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
+		//			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
+					$event->event_start = date('H:i', strtotime($event->event_start));
+					$event->event_end = date('H:i', strtotime($event->event_end));
+					$events[] = $event;
+				}
+			}
 		}
 		return $events;
 	}
