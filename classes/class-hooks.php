@@ -143,7 +143,7 @@ class Hooks extends Core {
 		Core::get_instance()->init_plugin_version();
 
 		add_action('before_delete_post', array(Post::get_instance(), 'before_delete_custom_post'));
-		add_action('wp_trash_post', array(Post::get_instance(), 'before_delete_custom_post'));
+//		add_action('wp_trash_post', array(Post::get_instance(), 'before_delete_custom_post'));
 		add_action('add_meta_boxes', array(Post::get_instance(), 'add_meta_boxes'));
 		add_action('save_post', array(Post::get_instance(), 'save_custom_post'), 40, 2);
 		add_action('wp_ajax_route_url', array(Core::get_instance(), "wp_ajax_route_url"));
