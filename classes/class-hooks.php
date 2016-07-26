@@ -86,7 +86,7 @@ class Hooks extends Core {
 		add_action('mptt_event_item_content', 'mptt_event_template_content_post_content', 30);
 		add_action('mptt_event_item_meta', 'mptt_event_template_content_time_title', 40);
 		add_action('mptt_event_item_meta', 'mptt_event_template_content_time_list', 50);
-		add_action('mptt_event_item_meta', 'mptt_event_template_content_comments', 60);
+		add_action('mptt_event_item_comments', 'mptt_event_template_content_comments', 60);
 
 		// Column template action
 		add_action('mptt_single_column_template_content', 'mptt_column_template_content_title', 10);

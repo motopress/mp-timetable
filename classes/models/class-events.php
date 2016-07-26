@@ -92,9 +92,13 @@ class Events extends Model {
 			. " FROM $this->table_name t INNER JOIN"
 			. " ("
 			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = 'mp-column'"
+			. " WHERE `post_type` = 'mp-column' AND `post_status` = 'publish'"
 			. " ) p ON t.`column_id` = p.`ID`"
-			. " WHERE t.`{$params["field"]}` = {$params['id']}"
+			. " INNER JOIN ("
+			. "	SELECT * FROM {$table_posts}"
+			. " WHERE `post_type` = '{$this->post_type}' AND `post_status` = 'publish'"
+			. " ) e ON t.`event_id` = e.`ID`"
+			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
 		);
 
@@ -227,6 +231,7 @@ class Events extends Model {
 		}
 		$args = array(
 			'post_type' => 'mp-column',
+			'post_status' => 'publish',
 			'fields' => 'ids',
 			'post__in' => !empty($category_columns_ids) ? $category_columns_ids : '',
 			'meta_query' => array(
@@ -305,6 +310,7 @@ class Events extends Model {
 
 		$args = array(
 			'post_type' => 'mp-column',
+			'post_status' => 'publish',
 			'fields' => 'ids',
 			'meta_query' => array(
 				'relation' => 'OR',
@@ -503,6 +509,7 @@ class Events extends Model {
 				'fields' => 'ids',
 				'posts_per_page' => -1,
 				'post_type' => $this->post_type,
+				'post_status' => 'publish',
 				'tax_query' => array(
 					array(
 						'taxonomy' => 'mp-event_category',

@@ -17,7 +17,6 @@ while (have_posts()) : the_post();
 		 */
 		do_action('mptt_single_column_template_content');
 		do_action('mptt_single_column_template_meta');
-
 		?>
 		<div class="mptt-clearfix"></div>
 	</div>

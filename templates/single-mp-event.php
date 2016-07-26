@@ -19,6 +19,7 @@ while (have_posts()) : the_post();
 				 */
 				do_action('mptt_event_item_content');
 				do_action('mptt_event_item_meta');
+				do_action('mptt_event_item_comments');
 
 			?>
 		</div>
