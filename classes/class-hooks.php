@@ -20,7 +20,7 @@ class Hooks extends Core {
 		// register custom post type and taxonomies
 		add_action('init', array($this, "init"));
 
-		add_action('admin_init', array($this->get_controller('settings'), 'action_save'));
+//		add_action('admin_init', array($this->get_controller('settings'), 'action_save'));
 		add_action("admin_init", array($this, "admin_init"));
 		add_action('admin_menu', array($this, 'admin_menu'));
 		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
@@ -64,7 +64,7 @@ class Hooks extends Core {
 			));
 		}
 		register_widget('timetable\classes\widgets\Timetable_widget');
-		register_widget('timetable\classes\widgets\Timetable_Head_widget');
+//		register_widget('timetable\classes\widgets\Timetable_Head_widget');
 	}
 
 	/**
@@ -163,7 +163,7 @@ class Hooks extends Core {
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Categories", 'mp-timetable'), __("Event Categories", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_category&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Tags", 'mp-timetable'), __("Event Tags", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Export / Import", 'mp-timetable'), __("Export / Import", 'mp-timetable'), "import", "admin.php?page=mptt-import", array($this->get_controller('import'), 'action_content'));
-		add_submenu_page("edit.php?post_type=mp-event", __("Settings", 'mp-timetable'), __("Settings", 'mp-timetable'), "switch_themes", "admin.php?page=mptt-switch-template", array($this->get_controller('settings'), 'action_content'));
+//		add_submenu_page("edit.php?post_type=mp-event", __("Settings", 'mp-timetable'), __("Settings", 'mp-timetable'), "switch_themes", "admin.php?page=mptt-switch-template", array($this->get_controller('settings'), 'action_content'));
 	}
 
 	/**
