@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-07-28 14:44+0300\n"
+"POT-Creation-Date: 2016-07-28 15:42+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -40,112 +40,112 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: classes/class-core.php:304 classes/class-core.php:316
-#: classes/class-core.php:320 classes/class-shortcode.php:215
+#: classes/class-core.php:299 classes/class-core.php:311
+#: classes/class-core.php:315 classes/class-shortcode.php:215
 #: templates/popup/index.php:40
 msgid "Event categories"
 msgstr ""
 
-#: classes/class-core.php:305
+#: classes/class-core.php:300
 msgid "Event category"
 msgstr ""
 
-#: classes/class-core.php:306 classes/class-core.php:307
+#: classes/class-core.php:301 classes/class-core.php:302
 msgid "Add New Event category"
 msgstr ""
 
-#: classes/class-core.php:308
+#: classes/class-core.php:303
 msgid "Edit Event category"
 msgstr ""
 
-#: classes/class-core.php:309
+#: classes/class-core.php:304
 msgid "New Event category"
 msgstr ""
 
-#: classes/class-core.php:310
+#: classes/class-core.php:305
 msgid "All Event categories"
 msgstr ""
 
-#: classes/class-core.php:311
+#: classes/class-core.php:306
 msgid "View Event category"
 msgstr ""
 
-#: classes/class-core.php:312
+#: classes/class-core.php:307
 msgid "Search Event category"
 msgstr ""
 
-#: classes/class-core.php:313
+#: classes/class-core.php:308
 msgid "No Event categories found"
 msgstr ""
 
-#: classes/class-core.php:314
+#: classes/class-core.php:309
 msgid "No Event categories found in Trash"
 msgstr ""
 
-#: classes/class-core.php:343 classes/class-core.php:355
-#: classes/class-core.php:359
+#: classes/class-core.php:338 classes/class-core.php:350
+#: classes/class-core.php:354
 msgid "Event tags"
 msgstr ""
 
-#: classes/class-core.php:344
+#: classes/class-core.php:339
 msgid "Event tag"
 msgstr ""
 
-#: classes/class-core.php:345 classes/class-core.php:346
+#: classes/class-core.php:340 classes/class-core.php:341
 msgid "Add New Event tag"
 msgstr ""
 
-#: classes/class-core.php:347
+#: classes/class-core.php:342
 msgid "Edit Event tag"
 msgstr ""
 
-#: classes/class-core.php:348
+#: classes/class-core.php:343
 msgid "New Event tag"
 msgstr ""
 
-#: classes/class-core.php:349
+#: classes/class-core.php:344
 msgid "All Event tags"
 msgstr ""
 
-#: classes/class-core.php:350
+#: classes/class-core.php:345
 msgid "View Event tag"
 msgstr ""
 
-#: classes/class-core.php:351
+#: classes/class-core.php:346
 msgid "Search Event tag"
 msgstr ""
 
-#: classes/class-core.php:352
+#: classes/class-core.php:347
 msgid "No Event tags found"
 msgstr ""
 
-#: classes/class-core.php:353
+#: classes/class-core.php:348
 msgid "No Event tags found in Trash"
 msgstr ""
 
-#: classes/class-core.php:390 classes/class-core.php:402
+#: classes/class-core.php:385 classes/class-core.php:397
 #: classes/class-hooks.php:159 classes/class-shortcode.php:211
 #: templates/popup/index.php:25
 msgid "Events"
 msgstr ""
 
-#: classes/class-core.php:391
+#: classes/class-core.php:386
 msgid "Event"
 msgstr ""
 
-#: classes/class-core.php:392 classes/class-core.php:393
+#: classes/class-core.php:387 classes/class-core.php:388
 msgid "Add New Event"
 msgstr ""
 
-#: classes/class-core.php:394
+#: classes/class-core.php:389
 msgid "Edit Event"
 msgstr ""
 
-#: classes/class-core.php:395
+#: classes/class-core.php:390
 msgid "New Event"
 msgstr ""
 
-#: classes/class-core.php:396 classes/class-shortcode.php:56
+#: classes/class-core.php:391 classes/class-shortcode.php:56
 #: classes/class-shortcode.php:229
 #: templates-functions/action-shortcode-functions.php:22
 #: templates-functions/action-shortcode-functions.php:36
@@ -153,61 +153,61 @@ msgstr ""
 msgid "All Events"
 msgstr ""
 
-#: classes/class-core.php:397
+#: classes/class-core.php:392
 msgid "View Event"
 msgstr ""
 
-#: classes/class-core.php:398
+#: classes/class-core.php:393
 msgid "Search Event"
 msgstr ""
 
-#: classes/class-core.php:399
+#: classes/class-core.php:394
 msgid "No Events found"
 msgstr ""
 
-#: classes/class-core.php:400
+#: classes/class-core.php:395
 msgid "No Events found in Trash"
 msgstr ""
 
-#: classes/class-core.php:426 classes/class-core.php:438
+#: classes/class-core.php:421 classes/class-core.php:433
 #: classes/class-hooks.php:161
 msgid "Columns"
 msgstr ""
 
-#: classes/class-core.php:427 classes/class-shortcode.php:207
+#: classes/class-core.php:422 classes/class-shortcode.php:207
 #: templates/events/event-data.php:4 templates/popup/index.php:10
 msgid "Column"
 msgstr ""
 
-#: classes/class-core.php:428 classes/class-core.php:429
+#: classes/class-core.php:423 classes/class-core.php:424
 msgid "Add New Column"
 msgstr ""
 
-#: classes/class-core.php:430
+#: classes/class-core.php:425
 msgid "Edit Column"
 msgstr ""
 
-#: classes/class-core.php:431
+#: classes/class-core.php:426
 msgid "New Column"
 msgstr ""
 
-#: classes/class-core.php:432
+#: classes/class-core.php:427
 msgid "All Columns"
 msgstr ""
 
-#: classes/class-core.php:433
+#: classes/class-core.php:428
 msgid "View Column"
 msgstr ""
 
-#: classes/class-core.php:434
+#: classes/class-core.php:429
 msgid "Search Column"
 msgstr ""
 
-#: classes/class-core.php:435
+#: classes/class-core.php:430
 msgid "No Columns found"
 msgstr ""
 
-#: classes/class-core.php:436
+#: classes/class-core.php:431
 msgid "No Columns found in Trash"
 msgstr ""
 
