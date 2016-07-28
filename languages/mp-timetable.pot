@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-07-28 15:42+0300\n"
+"POT-Creation-Date: 2016-07-28 16:08+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -314,7 +314,6 @@ msgid "Hide empty rows"
 msgstr ""
 
 #: classes/class-shortcode.php:249 templates/popup/index.php:141
-#: templates/widgets/gallery-head-list.php:3
 #: templates/widgets/gallery-list.php:3
 msgid "Title"
 msgstr ""
@@ -367,10 +366,6 @@ msgstr ""
 
 #: classes/class-shortcode.php:298 templates/popup/index.php:204
 msgid "Responsive"
-msgstr ""
-
-#: classes/controllers/class-controller-settings.php:61
-msgid "Settings saved."
 msgstr ""
 
 #: classes/libs/class-gump.php:450
@@ -874,14 +869,6 @@ msgstr ""
 msgid "Column Type"
 msgstr ""
 
-#: classes/widgets/class-mp-timetable-head-widget.php:16
-msgid "Display upcoming head events."
-msgstr ""
-
-#: classes/widgets/class-mp-timetable-head-widget.php:18
-msgid "Timetable Head Events"
-msgstr ""
-
 #: classes/widgets/class-mp-timetable-widget.php:18
 msgid "Display upcoming events."
 msgstr ""
@@ -1189,7 +1176,6 @@ msgid "Save"
 msgstr ""
 
 #: templates/shortcodes/empty-search-events.php:1
-#: templates/widgets/widget-head-view.php:41
 #: templates/widgets/widget-view.php:70
 msgid "no events found"
 msgstr ""
@@ -1202,31 +1188,22 @@ msgstr ""
 msgid "All upcoming events"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:7
-msgid "User ID"
-msgstr ""
-
-#: templates/widgets/gallery-head-list.php:28
 #: templates/widgets/gallery-list.php:8
 msgid "Number of events to display"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:33
 #: templates/widgets/gallery-list.php:13
 msgid "Display settings"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:35
 #: templates/widgets/gallery-list.php:15
 msgid "today upcoming"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:36
 #: templates/widgets/gallery-list.php:16
 msgid "all upcoming"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:37
 #: templates/widgets/gallery-list.php:17
 msgid "current events"
 msgstr ""

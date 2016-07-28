@@ -142,39 +142,6 @@ class Core {
 		return $template;
 	}
 
-	public function setupPseudoTemplate( $query ){
-		global $post;
-
-		if ( $query->is_main_query() ) {
-			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
-				add_filter('the_content', array($this, 'appendPostMetas'));
-			}
-			remove_action( 'loop_start', array( $this, 'setupPseudoTemplate' ) );
-		}
-	}
-
-	public function appendPostMetas($content){
-		// run only once
-		remove_filter( 'the_content', array( $this, 'appendPostMetas' ) );
-
-		global $post;
-
-		ob_start();
-		switch ($post->post_type) {
-			case 'mp-event':
-				do_action('mptt_event_item_meta');
-				break;
-			case 'mp-column':
-				do_action('mptt_single_column_template_meta');
-				break;
-		}
-
-		$append = ob_get_clean();
-		$content .= $append;
-
-		return $content;
-	}
-
 	/**
 	 * Get model instace
 	 *
