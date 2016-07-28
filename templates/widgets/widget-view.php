@@ -45,7 +45,6 @@ if (!empty($events)):
 			endif;
 			echo $style . '"';
 			?>
-
 		>
 			<?php
 

@@ -16,7 +16,7 @@ while (have_posts()) : the_post();
 		 * add_action('mptt_single_column_template_content', 'mptt_column_template_content_events_list', 30);
 		 */
 		do_action('mptt_single_column_template_content');
-
+		do_action('mptt_single_column_template_meta');
 		?>
 		<div class="mptt-clearfix"></div>
 	</div>

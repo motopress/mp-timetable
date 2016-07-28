@@ -1,2 +1,2 @@
 <div class="wrap">
-	<h2><?php _e('Import Timetable ', 'mp-timetable') ?></h2>
+	<h2><?php _e('Import / Export Timetable Plugin Data', 'mp-timetable') ?></h2>

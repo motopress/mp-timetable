@@ -89,9 +89,10 @@ class Mp_Time_Table {
 		 */
 		require_once(self::get_plugin_path() . 'classes/class-shortcode.php');
 		/**
-		 * include Widget
+		 * include Widgets
 		 */
 		require_once self::get_plugin_path() . 'classes/widgets/class-mp-timetable-widget.php';
+//		require_once self::get_plugin_path() . 'classes/widgets/class-mp-timetable-head-widget.php';
 
 		/**
 		 * Include view

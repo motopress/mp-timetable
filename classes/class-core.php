@@ -10,6 +10,7 @@ use mp_timetable\plugin_core\classes;
  */
 class Core {
 
+	public static $LANGS = array('en_US', 'ru_RU');
 	protected static $instance;
 	protected $version;
 	/**
@@ -115,7 +116,8 @@ class Core {
 	 */
 	public function include_custom_template($template) {
 		global $post, $taxonomy;
-		if (is_embed()) {
+
+		if (Core::get_instance()->is_embed()) {
 			return $template;
 		}
 
@@ -136,7 +138,41 @@ class Core {
 				}
 			}
 		}
+
 		return $template;
+	}
+
+	public function setupPseudoTemplate( $query ){
+		global $post;
+
+		if ( $query->is_main_query() ) {
+			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+				add_filter('the_content', array($this, 'appendPostMetas'));
+			}
+			remove_action( 'loop_start', array( $this, 'setupPseudoTemplate' ) );
+		}
+	}
+
+	public function appendPostMetas($content){
+		// run only once
+		remove_filter( 'the_content', array( $this, 'appendPostMetas' ) );
+
+		global $post;
+
+		ob_start();
+		switch ($post->post_type) {
+			case 'mp-event':
+				do_action('mptt_event_item_meta');
+				break;
+			case 'mp-column':
+				do_action('mptt_single_column_template_meta');
+				break;
+		}
+
+		$append = ob_get_clean();
+		$content .= $append;
+
+		return $content;
 	}
 
 	/**
@@ -542,4 +578,22 @@ class Core {
 				break;
 		}
 	}
+
+	/**
+	 * Fix fatal error for earlier WP versions
+	 *
+	 * @return bool
+	 */
+	public function is_embed() {
+
+		global $wp_version;
+		if( version_compare( $wp_version, '4.4', '<' ) ) {
+			if ( ! function_exists( 'is_embed' ) ) {
+				return false;
+			}
+		}
+
+		return is_embed();
+	}
+
 }

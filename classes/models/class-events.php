@@ -14,11 +14,13 @@ class Events extends Model {
 	protected static $instance;
 	protected $wpdb;
 	protected $table_name;
+	protected $post_type;
 
 	function __construct() {
 		parent::__construct();
 		global $wpdb;
 		$this->wpdb = $wpdb;
+		$this->post_type = 'mp-event';
 		$this->table_name = $wpdb->prefix . "mp_timetable_data";
 	}
 
@@ -90,9 +92,13 @@ class Events extends Model {
 			. " FROM $this->table_name t INNER JOIN"
 			. " ("
 			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = 'mp-column'"
+			. " WHERE `post_type` = 'mp-column' AND `post_status` = 'publish'"
 			. " ) p ON t.`column_id` = p.`ID`"
-			. " WHERE t.`{$params["field"]}` = {$params['id']}"
+			. " INNER JOIN ("
+			. "	SELECT * FROM {$table_posts}"
+			. " WHERE `post_type` = '{$this->post_type}' AND `post_status` = 'publish'"
+			. " ) e ON t.`event_id` = e.`ID`"
+			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
 		);
 
@@ -181,7 +187,7 @@ class Events extends Model {
 	}
 
 	/**
-	 * Delete event data
+	 * Delete event timeslot
 	 *
 	 * @param $id
 	 *
@@ -189,6 +195,23 @@ class Events extends Model {
 	 */
 	public function delete_event($id) {
 		return $this->wpdb->delete($this->table_name, array('id' => $id), array('%d'));
+	}
+
+	/**
+	 * Delete event data
+	 *
+	 * @param $post_id
+	 *
+	 * @return false|int
+	 */
+	public function before_delete_event($post_id) {
+		$meta_keys = array('event_id', 'event_start', 'event_end', 'user_id', 'description');
+
+		foreach ($meta_keys as $meta_key) {
+			delete_post_meta($post_id, $meta_key);
+		}
+
+		return $this->wpdb->delete($this->table_name, array('event_id' => $post_id), array('%d'));
 	}
 
 	/**
@@ -208,6 +231,7 @@ class Events extends Model {
 		}
 		$args = array(
 			'post_type' => 'mp-column',
+			'post_status' => 'publish',
 			'fields' => 'ids',
 			'post__in' => !empty($category_columns_ids) ? $category_columns_ids : '',
 			'meta_query' => array(
@@ -272,6 +296,82 @@ class Events extends Model {
 	}
 
 	/**
+	 * Get widget events
+	 *
+	 * @param $instance
+	 *
+	 * @return array
+	 */
+	public function get_widget_head_events($instance) {
+		$events = array();
+		$weekday = strtolower(date('l', time()));
+		$current_date = date('d/m/Y', time());
+		$curent_time = date('H:i', current_time('timestamp'));
+
+		$args = array(
+			'post_type' => 'mp-column',
+			'post_status' => 'publish',
+			'fields' => 'ids',
+			'meta_query' => array(
+				'relation' => 'OR',
+				array(
+					'key' => 'weekday',
+					'value' => $weekday
+				),
+				array(
+					'key' => 'option_day',
+					'value' => $current_date
+				)
+			)
+		);
+
+		switch ($instance['view_settings']) {
+			case'today':
+			case 'current':
+				$column_post_ids = get_posts($args);
+				if (!empty($column_post_ids)) {
+					$events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
+				}
+				$events = $this->filter_events(array('events' => $events, 'view_settings' => $instance['view_settings'], 'time' => $curent_time));
+				break;
+			case 'all':
+				for ($i = 0; $i <= 6; $i++) {
+					// set new day week
+					$time = strtotime("+$i days");
+					$args['meta_query'][0]['value'] = strtolower(date('l', $time));
+					//set new date
+					$args['meta_query'][1]['value'] = date('d/m/Y', $time);
+
+					$column_post_ids = get_posts($args);
+					if (!empty($column_post_ids)) {
+						$day_events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
+						$events = array_merge($events, $day_events);
+					}
+					if ($i === 0) {
+						$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
+					}
+				}
+				break;
+			default:
+				$column_post_ids = get_posts($args);
+				if (!empty($column_post_ids)) {
+					$events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
+				}
+				$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
+				break;
+		}
+
+		//Filter by user_id
+		$events = $this->filter_events_by_field(array('events' => $events, 'field' => 'user_id', 'value' => $instance['user_id']));
+
+		if ($instance['limit'] > 0) {
+
+			$events = array_slice($events, 0, $instance['limit']);
+		}
+		return $events;
+	}
+
+	/**
 	 * Get event data by post
 	 *
 	 * @param array $params
@@ -305,13 +405,17 @@ class Events extends Model {
 
 		$events_data = $this->wpdb->get_results($sql_reguest);
 
-		foreach ($events_data as $event) {
-			$event->post = get_post($event->event_id);
-//			$event->event_start = date(get_option('time_format'), strtotime($event->event_start));
-//			$event->event_end = date(get_option('time_format'), strtotime($event->event_end));
-			$event->event_start = date('H:i', strtotime($event->event_start));
-			$event->event_end = date('H:i', strtotime($event->event_end));
-			$events[] = $event;
+		if ( is_array($events_data) ) {
+			foreach ($events_data as $event) {
+				$post = get_post($event->event_id);
+				
+				if ( $post && ($post->post_type == $this->post_type) && ($post->post_status == 'publish') ) {
+					$event->post = $post;
+					$event->event_start = date('H:i', strtotime($event->event_start));
+					$event->event_end = date('H:i', strtotime($event->event_end));
+					$events[] = $event;
+				}
+			}
 		}
 		return $events;
 	}
@@ -336,6 +440,27 @@ class Events extends Model {
 						continue;
 					}
 				}
+				$events[$key] = $event;
+			}
+		}
+		return $events;
+	}
+
+	/**
+	 * Filtered events by Event Head
+	 *
+	 * @param $params
+	 *
+	 * @return array
+	 */
+	protected function filter_events_by_field($params) {
+		$events = array();
+		if (!empty($params['events'])) {
+			foreach ($params['events'] as $key => $event) {
+				if ($event->$params['field'] != $params['value']) {
+					continue;
+				}
+
 				$events[$key] = $event;
 			}
 		}
@@ -381,7 +506,8 @@ class Events extends Model {
 			array(
 				'fields' => 'ids',
 				'posts_per_page' => -1,
-				'post_type' => 'mp-event',
+				'post_type' => $this->post_type,
+				'post_status' => 'publish',
 				'tax_query' => array(
 					array(
 						'taxonomy' => 'mp-event_category',
@@ -432,8 +558,8 @@ class Events extends Model {
 	 */
 	public function get_all_events() {
 		$args = array(
-			'post_type' => 'mp-event',
-			'post_status' => 'any',
+			'post_type' => $this->post_type,
+			'post_status' => 'publish',
 			'order' => 'ASC',
 			'orderby' => 'title',
 			'posts_per_page' => -1
