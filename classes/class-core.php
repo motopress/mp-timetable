@@ -3,6 +3,9 @@
 namespace mp_timetable\plugin_core\classes;
 
 use Mp_Time_Table;
+use mp_timetable\classes\models\Column;
+use mp_timetable\classes\models\Events;
+use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes;
 
 /**
@@ -121,11 +124,15 @@ class Core {
 		}
 
 		if (!empty($post) && is_single() && in_array($post->post_type, $this->post_types)) {
-			if (basename($template) != "single-$post->post_type.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
-				if (file_exists($path)) {
-					$template = $path;
+			if (Settings::get_instance()->is_plugin_template_mode()) {
+				if (basename($template) != "single-$post->post_type.php") {
+					$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
+					if (file_exists($path)) {
+						$template = $path;
+					}
 				}
+			} else {
+				add_action('loop_start', array($this, 'setupPseudoTemplate'));
 			}
 		}
 
@@ -139,6 +146,39 @@ class Core {
 		}
 
 		return $template;
+	}
+
+	public function setupPseudoTemplate( $query ){
+		global $post;
+
+		if ( $query->is_main_query() ) {
+			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+				add_filter('the_content', array($this, 'appendPostMetas'));
+			}
+			remove_action( 'loop_start', array( $this, 'setupPseudoTemplate' ) );
+		}
+	}
+
+	public function appendPostMetas($content){
+		// run only once
+		remove_filter( 'the_content', array( $this, 'appendPostMetas' ) );
+
+		global $post;
+
+		ob_start();
+		switch ($post->post_type) {
+			case 'mp-event':
+				Events::get_instance()->render_event_metas();
+				break;
+			case 'mp-column':
+				Column::get_instance()->render_column_metas();
+				break;
+		}
+
+		$append = ob_get_clean();
+		$content .= $append;
+
+		return $content;
 	}
 
 	/**

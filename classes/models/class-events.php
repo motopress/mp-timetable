@@ -77,6 +77,14 @@ class Events extends Model {
 	}
 
 	/**
+	 * Render meta data
+	 */
+	public static function render_event_metas(){
+		mptt_event_template_content_time_title();
+		mptt_event_template_content_time_list();
+	}
+
+	/**
 	 * Get single event data by id
 	 *
 	 * @param array $params

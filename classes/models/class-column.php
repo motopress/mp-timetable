@@ -133,6 +133,13 @@ class Column extends Model {
 	}
 
 	/**
+	 * Render meta data
+	 */
+	public static function render_column_metas(){
+		mptt_column_template_content_events_list();
+	}
+
+	/**
 	 * Save meta data Column post type
 	 *
 	 * @param array $params

@@ -1,9 +1,10 @@
 <?php
 namespace mp_timetable\plugin_core\classes;
 
-use mp_timetable\classes\models\Import;
-use mp_timetable\plugin_core\classes\modules\Post;
 use Mp_Time_Table;
+use mp_timetable\classes\models\Import;
+use mp_timetable\classes\models\Settings;
+use mp_timetable\plugin_core\classes\modules\Post;
 use timetable\classes\widgets;
 
 class Hooks extends Core {
@@ -20,7 +21,7 @@ class Hooks extends Core {
 		// register custom post type and taxonomies
 		add_action('init', array($this, "init"));
 
-//		add_action('admin_init', array($this->get_controller('settings'), 'action_save'));
+		add_action('admin_init', array($this->get_controller('settings'), 'action_save'));
 		add_action("admin_init", array($this, "admin_init"));
 		add_action('admin_menu', array($this, 'admin_menu'));
 		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
@@ -28,8 +29,8 @@ class Hooks extends Core {
 		// post_class filter
 		add_filter('get_the_archive_title', array(Post::get_instance(), 'get_the_archive_title'));
 		add_filter('post_class', 'mptt_post_class', 15, 3);
-		add_action('pre_get_posts', array($this->get('column'),'clientarea_default_order'), 9 );
-		add_action('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9 );
+		add_action('pre_get_posts', array($this->get('column'), 'clientarea_default_order'), 9);
+		add_action('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9);
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
 		add_action('manage_posts_custom_column', array($this->get('column'), 'get_column_columns'));
 
@@ -123,8 +124,8 @@ class Hooks extends Core {
 		// route url
 		Core::get_instance()->wp_ajax_route_url();
 
-//		add_filter('single_template', array(Core::get_instance(), 'include_custom_template'), 99);
-		add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
+		add_filter('single_template', array(Core::get_instance(), 'include_custom_template'), 99);
+//		add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
 		add_action('mp_library', array(Shortcode::get_instance(), 'integration_motopress'), 20, 1);
 
 		Core::get_instance()->init_plugin_version();
@@ -163,6 +164,9 @@ class Hooks extends Core {
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Categories", 'mp-timetable'), __("Event Categories", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_category&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Tags", 'mp-timetable'), __("Event Tags", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Export / Import", 'mp-timetable'), __("Export / Import", 'mp-timetable'), "import", "admin.php?page=mptt-import", array($this->get_controller('import'), 'action_content'));
+
+		add_submenu_page("edit.php?post_type=mp-event", __("Settings", 'mp-timetable'), __("Settings", 'mp-timetable'), "switch_themes", "admin.php?page=mptt-switch-template", array($this->get_controller('settings'), 'action_content'));
+
 	}
 
 	/**

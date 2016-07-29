@@ -11,6 +11,10 @@
  * Text Domain: mp-timetable
  * Domain Path: /languages
  */
+/*
+ * use add_theme_support('mptt-templates'); in your theme to override templates;
+ * put new templates in mptt_templates folder in your theme;
+ */
 
 use mp_timetable\plugin_core\classes\Core;
 
@@ -32,6 +36,7 @@ class Mp_Time_Table {
 		}
 		return self::$instance;
 	}
+
 
 	/**
 	 * Mp_Time_Table constructor.
@@ -100,6 +105,15 @@ class Mp_Time_Table {
 		 * Include hooks
 		 */
 		require_once self::get_plugin_path() . 'classes/class-hooks.php';
+	}
+
+	/**
+	 * Retrieve relative to theme root path to templates.
+	 *
+	 * @return string
+	 */
+	public static function get_template_path(){
+		return apply_filters( 'mptt_template_path', 'mptt_templates/' );
 	}
 
 	/**
