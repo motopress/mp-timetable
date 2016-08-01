@@ -94,10 +94,8 @@
     margin-left: 0;
   }
 }
-.event-user .avatar {
-  display: inline-block;
-}
-.event[id^="event_columns_"] {
+/* theme styles */
+.event[id^="event_"] {
   overflow: auto;
 }
 .mptt-main-wrapper.mp-event-item img:not(.avatar ) {
@@ -198,11 +196,23 @@
   border-radius: 50%;
 }
 /* TEST */
-.upcoming-events-widget .mptt-widget.events-list .event.mptt-colorized .event-title {
+.upcoming-events-widget .mptt-widget.events-list .event {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-left: 3px solid;
+}
+.upcoming-events-widget .mptt-widget.events-list .event.mptt-colorized .event-link {
   color: inherit;
 }
-.upcoming-events-widget .mptt-widget.events-list .event.mptt-colorized .event-title .event-link {
+.upcoming-events-widget .mptt-widget.events-list .event.mptt-colorized .post-date {
   color: inherit;
+}
+.upcoming-events-widget .mptt-widget.events-list .event.mptt-colorized .post-date .timeslot-start,
+.upcoming-events-widget .mptt-widget.events-list .event.mptt-colorized .post-date .timeslot-end {
+  color: inherit;
+}
+.upcoming-events-widget .mptt-widget.events-list .event:last-child {
+  margin-bottom: 0;
 }
 /**/
 .mptt-container {

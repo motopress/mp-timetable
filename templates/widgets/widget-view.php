@@ -8,7 +8,7 @@ do_action('mptt_widget_template_before_content');
 
 if (!empty($events)):
 	foreach ($events as $key => $event):
-		$widget = false;
+		$colorized = false;
 		$background_color = Events::get_instance()->choose_event_color(array('event_color' => $event->post->color, 'widget_color' => $instance['background_color']));
 		$background_hover_color = Events::get_instance()->choose_event_color(array('event_color' => $event->post->hover_color, 'widget_color' => $instance['hover_background_color']));
 		$color = Events::get_instance()->choose_event_color(array('event_color' => $event->post->text_color, 'widget_color' => $instance['text_color']));
@@ -21,12 +21,12 @@ if (!empty($events)):
 			|| $instance['item_border_color'] != ''
 			|| $instance['hover_item_border_color'] !== ''
 		) {
-			$widget = true;
+			$colorized = true;
 		}
-		$event_class = 'event' . ($widget ? ' mptt-colorized' : '');
+		$event_class = 'event' . ($colorized ? ' mptt-colorized' : '');
 		?>
 		<li class="widget_recent_entries  <?php echo apply_filters('mptt_widget_upcoming_event_element', $event_class) ?>"
-			<?php if ($widget): ?> data-type="widget"
+			<?php if ($colorized): ?> data-type="widget"
 				data-background-color="<?php echo $background_color ?>"
 				data-background-hover-color="<?php echo $background_hover_color ?>"
 				data-color="<?php echo $color ?>"
