@@ -52,7 +52,7 @@ class Hooks extends Core {
 	 */
 	public function register_widgets() {
 		$template = get_option('template');
-		if ($template != 'twentyfourteen') {
+		if ($template != 'twentyfourteen' && Settings::get_instance()->is_plugin_template_mode()) {
 			register_sidebar(array(
 				'name' => __('Timetable Sidebar', 'mp-timetable'),
 				'id' => "mptt-sidebar",
@@ -65,7 +65,6 @@ class Hooks extends Core {
 			));
 		}
 		register_widget('timetable\classes\widgets\Timetable_widget');
-//		register_widget('timetable\classes\widgets\Timetable_Head_widget');
 	}
 
 	/**

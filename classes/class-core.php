@@ -12,7 +12,7 @@ use mp_timetable\plugin_core\classes;
  * Class main state
  */
 class Core {
-	
+
 	protected static $instance;
 	protected $version;
 	/**
@@ -148,20 +148,20 @@ class Core {
 		return $template;
 	}
 
-	public function setupPseudoTemplate( $query ){
+	public function setupPseudoTemplate($query) {
 		global $post;
 
-		if ( $query->is_main_query() ) {
+		if ($query->is_main_query()) {
 			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
 				add_filter('the_content', array($this, 'appendPostMetas'));
 			}
-			remove_action( 'loop_start', array( $this, 'setupPseudoTemplate' ) );
+			remove_action('loop_start', array($this, 'setupPseudoTemplate'));
 		}
 	}
 
-	public function appendPostMetas($content){
+	public function appendPostMetas($content) {
 		// run only once
-		remove_filter( 'the_content', array( $this, 'appendPostMetas' ) );
+		remove_filter('the_content', array($this, 'appendPostMetas'));
 
 		global $post;
 
@@ -593,8 +593,8 @@ class Core {
 	public function is_embed() {
 
 		global $wp_version;
-		if( version_compare( $wp_version, '4.4', '<' ) ) {
-			if ( ! function_exists( 'is_embed' ) ) {
+		if (version_compare($wp_version, '4.4', '<')) {
+			if (!function_exists('is_embed')) {
 				return false;
 			}
 		}

@@ -84,47 +84,17 @@ class Events extends Model {
 		mptt_event_template_content_time_list();*/
 		$this->appendTimeSlots();
 	}
-	
+
+	/**
+	 * Render Timeslots by $post
+	 */
 	public function appendTimeSlots() {
-		
-		$count = count(mptt_get_event_data());
-		
-		if ($count) {
-		?>
-			<h3 class="timeslots-title"><?php printf(__('Event Timeslots (%s)', 'mp-timetable'), $count); ?></h3>
-		<?php
-		}
-		?>
+		global $post;
+		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+		$event_data = (!empty($data)) ? $data : array();
+		$count = count($event_data);
 
-		<?php foreach (mptt_get_event_data() as $event): ?>
-			<p class="event mptt-colorized" id="event_hours_<?php echo $event->event_id ?>">
-
-				<a class="event-link" href="<?php echo get_permalink($event->column_id); ?>"><?php echo get_the_title($event->column_id); ?></a>
-
-				<br />
-				<span class="timeslot-start"><?php
-					echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php
-				echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php
-					echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
-
-				<?php if (!empty($event->post->sub_title)) { ?>
-					<br />
-					<span class=""><?php echo $event->post->sub_title; ?></span>
-				<?php } ?>
-
-				<?php if (!empty($event->description)) { ?>
-					<br />
-					<span class=""><?php echo $event->description; ?></span>
-				<?php } ?>
-				<?php if (!empty($event->user)) { ?>
-					<br />
-					<a href="<?php echo get_author_posts_url($event->user->ID); ?>"><?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32)) . ' ';
-							echo $event->user->display_name ?></a>
-				<?php } ?>
-			</p>
-		<?php endforeach; ?>
-		
-		<?php
+		$this->get_view()->render_html("events/timeslots", array('events' => $event_data, 'count' => $count), true);
 	}
 
 	/**

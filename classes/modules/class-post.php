@@ -54,15 +54,30 @@ class Post extends Module {
 			$query->set('orderby', 'post_type');
 			$query->set('order', 'ASC');
 			$query->set('post__in', $ids);
+
+			$user = (!empty($author_id))? get_userdata($author_id) : false;
+			if($user){
+				$this->author_name = $user->display_name;
+			}
 		}
 
 		return $query;
 	}
 
+	public function feed_author($name) {
+		global $post;
+
+		$name = $this->author_name;
+
+		return $name;
+	}
+
 	public function get_the_archive_title($title) {
-		if (is_author()) {
-			$title = '';
+
+		if(!empty($this->author_name)) {
+			$title = __('Event Head or Author:', 'mp-timetable') . ' ' . $this->author_name;
 		}
+
 		return $title;
 	}
 

@@ -19,9 +19,13 @@ function mptt_event_template_content_post_content() { ?>
 	<?php
 }
 
-function mptt_event_template_content_time_title() { ?>
-	<h3 class="timeslots-title"><?php printf(__('Event Timeslots (%s)', 'mp-timetable'), count(mptt_get_event_data())); ?></h3>
-	<?php
+function mptt_event_template_content_time_title() {
+	$count = count(mptt_get_event_data());
+	if (!empty($count)) {
+		?>
+		<h3 class="timeslots-title"><?php printf(__('Event Timeslots (%s)', 'mp-timetable'), $count); ?></h3>
+		<?php
+	}
 }
 
 function mptt_event_template_content_time_list() { ?>

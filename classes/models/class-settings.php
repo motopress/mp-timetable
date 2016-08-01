@@ -84,8 +84,7 @@ class Settings extends Model {
 	 */
 	public function get_template_mode(){
 		$option = $this->get_settings();
-		$option = $option['source_id'];
 
-		return current_theme_supports('mptt-templates') ? 'plugin' : $option;
+		return $option['source_id'];
 	}
 }

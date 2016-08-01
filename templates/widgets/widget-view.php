@@ -25,7 +25,7 @@ if (!empty($events)):
 		}
 		$event_class = 'event' . ($widget ? ' mptt-colorized' : '');
 		?>
-		<li class="<?php echo apply_filters('mptt_widget_upcoming_event_element', $event_class) ?>"
+		<li class="widget_recent_entries  <?php echo apply_filters('mptt_widget_upcoming_event_element', $event_class) ?>"
 			<?php if ($widget): ?> data-type="widget"
 				data-background-color="<?php echo $background_color ?>"
 				data-background-hover-color="<?php echo $background_hover_color ?>"
@@ -50,7 +50,7 @@ if (!empty($events)):
 
 			$disable_url = (bool)$event->post->timetable_disable_url || (bool)$instance['disable_url'];
 			$url = ($instance['custom_url'] != "") ? $instance['custom_url'] : (($event->post->timetable_custom_url != "") ? $event->post->timetable_custom_url : get_permalink($event->event_id)); ?>
-			<h4 class="event-title">
+
 				<?php if (!$disable_url) { ?>
 				<a href="<?php echo $url ?>" title="<?php echo get_the_title($event->event_id) ?>" class="event-link">
 					<?php } ?>
@@ -58,11 +58,11 @@ if (!empty($events)):
 					<?php if (!$disable_url) { ?>
 				</a>
 			<?php } ?>
-			</h4>
-			<?php if($instance['view_settings'] !== 'today'): ?><p class="column-title"><?php echo get_the_title($event->column_id) ?></p><?php endif; ?>
-			<p class="timeslot">
+			<span class="post-date">
+				<?php if($instance['view_settings'] !== 'today'): ?><?php echo get_the_title($event->column_id) ?><br><?php endif; ?>
 				<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?>
-			</p>
+			</span>
+
 		</li>
 
 	<?php endforeach;

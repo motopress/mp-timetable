@@ -21,7 +21,7 @@ function mptt_column_template_content_events_list() { ?>
 
 				<?php if (has_post_thumbnail($event->event_id)) {
 
-					echo wp_get_attachment_image(get_post_thumbnail_id($event->event_id), apply_filters('mptt_event_thumbnail_size', 'thumbnail'), false, array('class' => "event-thumbnail"));
+					echo wp_get_attachment_image(get_post_thumbnail_id($event->event_id), apply_filters('mptt_event_thumbnail_size', 'thumbnail'), false, array('class' => "alignleft event-thumbnail"));
 				} else { ?>
 					<img class="event-thumbnail event-thumbnail-default" src="<?php echo Mp_Time_Table::get_plugin_url() . 'media/css/images/column_icon.png' ?>">
 				<?php } ?>

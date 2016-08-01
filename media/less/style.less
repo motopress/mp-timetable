@@ -2,6 +2,16 @@
 
 @import 'theme.less';
 
+.event-user {
+	.avatar {
+		display: inline-block;
+	}
+}
+
+.event[id^="event_columns_"] {
+  overflow: auto;
+}
+
 .mptt-main-wrapper {
   &.mp-event-item {
 	img:not(.avatar ) {
@@ -77,6 +87,7 @@
   .column-content {
 	margin: 1rem 0;
   }
+
   .mptt-column.events-list{
 	margin: 0 0 2rem 0;
 	list-style: none;
@@ -118,45 +129,88 @@
 
 }
 
+/* TEST */
+
 .upcoming-events-widget {
-  margin-top: 2rem;
-  .mptt-widget.events-list {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	.event {
-	  list-style: none;
-	  margin-bottom: 2rem;
-	  padding: 0.5rem 2rem;
-	  border-left: 3px solid @default_color;
+	//margin-top: 2rem;
+	.mptt-widget.events-list {
+		//list-style: none;
+		//margin: 0;
+		//padding: 0;
+		.event {
+			//list-style: none;
+			//margin-bottom: 2rem;
+			//padding: 0.5rem 2rem;
+			//border-left: 3px solid @default_color;
 
-	  .event-title {
-		margin: 0 0 0.25rem 0;
-		padding: 0;
-	  }
-	  .column-title {
-		margin: 0.25rem 0 0;
-		padding: 0;
-	  }
-	  .timeslot,
-	  .event-user {
-		margin: 0.25rem 0 0;
-		padding: 0;
-	  }
-	  &.mptt-colorized {
-		.event-title {
-		  margin: 0 0 0.25rem 0;
-		  padding: 0;
-		  color: inherit;
+			.event-title {
+				//margin: 0 0 0.25rem 0;
+				//padding: 0;
+			}
+			.column-title {
+				//margin: 0.25rem 0 0;
+				//padding: 0;
+			}
+			.timeslot,
+			.event-user {
+				//margin: 0.25rem 0 0;
+				//padding: 0;
+			}
+			&.mptt-colorized {
+				.event-title {
+					//margin: 0 0 0.25rem 0;
+					//padding: 0;
+					color: inherit;
 
-		  .event-link {
-			color: inherit;
-		  }
+					.event-link {
+						color: inherit;
+					}
+				}
+			}
 		}
-	  }
 	}
-  }
 }
+/**/
+//
+//.upcoming-events-widget {
+//  margin-top: 2rem;
+//  .mptt-widget.events-list {
+//	list-style: none;
+//	margin: 0;
+//	padding: 0;
+//	.event {
+//	  list-style: none;
+//	  margin-bottom: 2rem;
+//	  padding: 0.5rem 2rem;
+//	  border-left: 3px solid @default_color;
+//
+//	  .event-title {
+//		margin: 0 0 0.25rem 0;
+//		padding: 0;
+//	  }
+//	  .column-title {
+//		margin: 0.25rem 0 0;
+//		padding: 0;
+//	  }
+//	  .timeslot,
+//	  .event-user {
+//		margin: 0.25rem 0 0;
+//		padding: 0;
+//	  }
+//	  &.mptt-colorized {
+//		.event-title {
+//		  margin: 0 0 0.25rem 0;
+//		  padding: 0;
+//		  color: inherit;
+//
+//		  .event-link {
+//			color: inherit;
+//		  }
+//		}
+//	  }
+//	}
+//  }
+//}
 
 .mptt-container {
   list-style: none;
