@@ -75,7 +75,7 @@ class Post extends Module {
 	public function get_the_archive_title($title) {
 
 		if(!empty($this->author_name)) {
-			$title = __('Event Head or Author:', 'mp-timetable') . ' ' . $this->author_name;
+			$title = __('Author:', 'mp-timetable') . ' ' . $this->author_name;
 		}
 
 		return $title;

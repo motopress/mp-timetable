@@ -4,6 +4,7 @@ namespace timetable\classes\widgets;
 
 use mp_timetable\classes\models\Column;
 use mp_timetable\classes\models\Events;
+use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes\Core;
 use mp_timetable\plugin_core\classes\View;
 
@@ -95,8 +96,7 @@ class Timetable_widget extends \WP_Widget {
 	 */
 	public function widget($args, $instance) {
 		$cache = wp_cache_get('mp-timetable', 'widget');
-		Core::get_instance()->add_plugin_js('widget');
-		Core::get_instance()->add_plugin_css('widget');
+
 		if (!is_array($cache)) {
 			$cache = array();
 		}
@@ -114,7 +114,13 @@ class Timetable_widget extends \WP_Widget {
 		$data['args'] = $args;
 		$data['instance'] = mptt_widget_settings($instance);
 		$data['events'] = Events::get_instance()->get_widget_events($data['instance']);
-		View::get_instance()->render_html("widgets/widget-view", $data, true);
+		if (Settings::get_instance()->is_plugin_template_mode()) {
+			Core::get_instance()->add_plugin_js('widget');
+			Core::get_instance()->add_plugin_css('widget');
+			View::get_instance()->render_html("widgets/widget-view", $data, true);
+		} else {
+			View::get_instance()->render_html("widgets/widget-theme-view", $data, true);
+		}
 
 		$cache[$args['widget_id']] = ob_get_flush();
 		wp_cache_set('mp-timetable', $cache, 'widget');

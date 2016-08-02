@@ -14,7 +14,7 @@ if (!empty($count)) {
 	<p class="timeslot">
 
 		<a class="timeslot-link"
-		   href="<?php echo get_permalink($event->column_id); ?>"><?php echo get_the_title($event->column_id); ?></a>
+		   href="<?php echo get_permalink($event->column_id); ?>" title="<?php the_title_attribute( array('post' => $event->event_id) ); ?>"><?php echo get_the_title($event->column_id); ?></a>
 
 		<br/>
 		<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php
@@ -34,8 +34,8 @@ if (!empty($count)) {
 		<?php if (!empty($event->user)) { ?>
 			<br/>
 			<span class="timeslot-user vcard">
-				<?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32)); ?>
-				<?php echo $event->user->display_name ?>
+				<?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name); ?>
+				<?php echo $event->user->display_name; ?>
 			</span>
 		<?php } ?>
 	</p>

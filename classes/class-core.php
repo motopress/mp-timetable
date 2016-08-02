@@ -5,7 +5,6 @@ namespace mp_timetable\plugin_core\classes;
 use Mp_Time_Table;
 use mp_timetable\classes\models\Column;
 use mp_timetable\classes\models\Events;
-use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes;
 
 /**
@@ -123,16 +122,12 @@ class Core {
 			return $template;
 		}
 
-		if (!empty($post) && is_single() && in_array($post->post_type, $this->post_types)) {
-			if (Settings::get_instance()->is_plugin_template_mode()) {
-				if (basename($template) != "single-$post->post_type.php") {
-					$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
-					if (file_exists($path)) {
-						$template = $path;
-					}
+		if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+			if (basename($template) != "single-$post->post_type.php") {
+				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
+				if (file_exists($path)) {
+					$template = $path;
 				}
-			} else {
-				add_action('loop_start', array($this, 'setupPseudoTemplate'));
 			}
 		}
 
@@ -148,20 +143,50 @@ class Core {
 		return $template;
 	}
 
-	public function setupPseudoTemplate($query) {
+	/**
+	 * Include pseudo template
+	 *
+	 * @param $template
+	 *
+	 * @return string
+	 */
+	public function include_pseudo_custom_template($template) {
+		global $post, $taxonomy;
+
+		if (Core::get_instance()->is_embed()) {
+			return $template;
+		}
+
+		if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+			add_action('loop_start', array($this, 'setup_pseudo_template'));
+		}
+
+		if (!empty($taxonomy) && is_tax() && in_array($taxonomy, $this->taxonomy_names)) {
+			if (basename($template) != "taxonomy-$taxonomy.php") {
+				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'taxonomy-' . $taxonomy . '.php';
+				if (is_tax($taxonomy) && file_exists($path)) {
+					$template = $path;
+				}
+			}
+		}
+
+		return $template;
+	}
+
+	public function setup_pseudo_template($query) {
 		global $post;
 
 		if ($query->is_main_query()) {
 			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
-				add_filter('the_content', array($this, 'appendPostMetas'));
+				add_filter('the_content', array($this, 'append_post_metas'));
 			}
-			remove_action('loop_start', array($this, 'setupPseudoTemplate'));
+			remove_action('loop_start', array($this, 'setup_pseudo_template'));
 		}
 	}
 
-	public function appendPostMetas($content) {
+	public function append_post_metas($content) {
 		// run only once
-		remove_filter('the_content', array($this, 'appendPostMetas'));
+		remove_filter('the_content', array($this, 'append_post_metas'));
 
 		global $post;
 
@@ -174,7 +199,6 @@ class Core {
 				Column::get_instance()->render_column_metas();
 				break;
 		}
-
 		$append = ob_get_clean();
 		$content .= $append;
 
@@ -378,7 +402,6 @@ class Core {
 			'show_in_quick_edit' => null,
 		);
 		register_taxonomy('mp-event_tag', array("mp-event"), $args);
-
 
 	}
 
@@ -593,6 +616,11 @@ class Core {
 	public function is_embed() {
 
 		global $wp_version;
+
+		if (!function_exists('is_embed')) {
+			return false;
+		}
+
 		if (version_compare($wp_version, '4.4', '<')) {
 			if (!function_exists('is_embed')) {
 				return false;

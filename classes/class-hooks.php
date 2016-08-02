@@ -123,7 +123,11 @@ class Hooks extends Core {
 		// route url
 		Core::get_instance()->wp_ajax_route_url();
 
-		add_filter('single_template', array(Core::get_instance(), 'include_custom_template'), 99);
+		if (Settings::get_instance()->is_plugin_template_mode()) {
+			add_filter('single_template', array(Core::get_instance(), 'include_custom_template'), 99);
+		} else {
+			add_filter('single_template', array(Core::get_instance(), 'include_pseudo_custom_template'), 99);
+		}
 //		add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
 		add_action('mp_library', array(Shortcode::get_instance(), 'integration_motopress'), 20, 1);
 
@@ -163,7 +167,6 @@ class Hooks extends Core {
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Categories", 'mp-timetable'), __("Event Categories", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_category&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Tags", 'mp-timetable'), __("Event Tags", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Export / Import", 'mp-timetable'), __("Export / Import", 'mp-timetable'), "import", "admin.php?page=mptt-import", array($this->get_controller('import'), 'action_content'));
-
 		add_submenu_page("edit.php?post_type=mp-event", __("Settings", 'mp-timetable'), __("Settings", 'mp-timetable'), "switch_themes", "admin.php?page=mptt-switch-template", array($this->get_controller('settings'), 'action_content'));
 
 	}

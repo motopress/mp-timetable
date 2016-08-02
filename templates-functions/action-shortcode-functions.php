@@ -1,8 +1,9 @@
 <?php
 function mptt_shortcode_template_before_content() {
 	global $mptt_shortcode_data;
+	$wrapper_class = mptt_popular_theme_class();
 	?>
-	<div class="<?php echo apply_filters('mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . mptt_popular_theme_class() . ($mptt_shortcode_data['params']['responsive'] == '0' ? ' mptt-table-fixed' : '')) ?>">
+	<div class="<?php echo apply_filters('mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . $wrapper_class . ($mptt_shortcode_data['params']['responsive'] == '0' ? ' mptt-table-fixed' : '')) ?>">
 	<?php
 }
 
@@ -223,12 +224,12 @@ function mptt_shortcode_template_content_responsive_table() {
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['time']): ?>
 										<p class="timeslot">
-											<span
-												class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span>
+											<time datetime="<?php echo $event->event_start; ?>"
+												class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></time>
 											<span
 												class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
-											<span
-												class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></span>
+											<time datetime="<?php echo $event->event_end; ?>"
+												class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
 										</p>
 									<?php endif; ?>
 									<?php if ($mptt_shortcode_data['params']['description']): ?>
@@ -239,7 +240,7 @@ function mptt_shortcode_template_content_responsive_table() {
 									<?php if ($mptt_shortcode_data['params']['user'] && ($event->user_id != '-1')): ?>
 										<p class="event-user"><?php $user_info = get_userdata($event->user_id);
 											if ($user_info) {
-												echo get_avatar($event->user_id, apply_filters('mptt-event-user-avatar-size', 24)) . ' ';
+												echo get_avatar($event->user_id, apply_filters('mptt-event-user-avatar-size', 24), '', $user_info->data->display_name) . ' ';
 												echo $user_info->data->display_name;
 											} ?></p>
 									<?php endif; ?>

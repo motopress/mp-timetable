@@ -29,9 +29,11 @@
 	<?php endif; ?>
 	<?php if ($params['time']): ?>
 		<p class="timeslot">
-			<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($item->event_start)); ?></span>
+			<time datetime="<?php echo $item->event_start;?>"
+				class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($item->event_start)); ?></time>
 			<span class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
-			<span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($item->event_end));; ?></span>
+			<time  datetime="<?php echo $item->event_end;?>"
+				class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($item->event_end));; ?></time>
 		</p>
 	<?php endif; ?>
 	<?php if ($params['sub-title'] && !empty($item->post->sub_title)): ?>
@@ -44,11 +46,11 @@
 		<p class="event-description"><?php echo $item->description; ?></p>
 	<?php endif; ?>
 
-	<?php if ($params['user'] && $item->user_id != '-1' ): ?>
+	<?php if ($params['user'] && $item->user_id != '-1'): ?>
 		<p class="event-user"><?php $user_info = get_userdata($item->user_id);
-			if( $user_info ){
-				echo get_avatar( $item->user_id, apply_filters('mptt-event-user-avatar-size', 24) );
-				echo $user_info->data->display_name;
-			}?>
+		if ($user_info) {
+			echo get_avatar($item->user_id, apply_filters('mptt-event-user-avatar-size', 24), '', $user_info->data->display_name);
+			echo $user_info->data->display_name;
+		} ?>
 		</p><?php endif; ?>
 </div>
