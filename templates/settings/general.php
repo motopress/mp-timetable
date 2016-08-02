@@ -10,10 +10,12 @@
 				<label for="template_source"><?php _e('Template Mode', 'mp-timetable'); ?></label>
 			</th>
 			<td>
-				<?php $selected = !empty($settings['source_id']) ? $settings['source_id'] : 'plugin'; ?>
-				<select id="source_id" name="source_id">
-					<option value="theme"<?php echo ($selected == 'theme')? ' selected' : ''; ?>><?php _e('Theme', 'mp-timetable'); ?></option>
-					<option value="plugin"<?php echo ($selected == 'plugin')? ' selected' : ''; ?>><?php _e('Plugin', 'mp-timetable'); ?></option>
+				<?php
+					$theme_mode = !empty($settings['theme_mode']) ? $settings['theme_mode'] : 'theme' ;
+				?>
+				<select id="theme_mode" name="theme_mode">
+					<option value="theme" <?php selected( $theme_mode, 'theme' ); ?>><?php _e('Theme', 'mp-timetable'); ?></option>
+					<option value="plugin" <?php selected( $theme_mode, 'plugin' ); ?>><?php _e('Plugin', 'mp-timetable'); ?></option>
 				</select>
 				<p class="description"><?php _e('Choose a page template to control the appearance of your single event and column page.', 'mp-timetable'); ?></p>
 			</td>

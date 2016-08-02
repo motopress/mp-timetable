@@ -22,16 +22,19 @@ class Settings extends Model {
 		return self::$instance;
 	}
 
-	/**
-	 * Create event category admin link
-	 *
-	 * @param $column
-	 */
 	public function get_settings() {
-		$default = current_theme_supports('mptt-templates') ? 'plugin' : 'theme';
-		$data = get_option('mp_timetable_general', array('source_id' => $default));
 
-		return $data;
+		$mp_timetable_general = array(
+			'theme_mode' => 'theme',
+		);
+		
+		$settings = get_option('mp_timetable_general', $mp_timetable_general);
+		
+		if ( current_theme_supports('mptt-templates') ) {
+			$settings['theme_mode'] = 'plugin';
+		}
+
+		return $settings;
 	}
 
 	/**
@@ -57,8 +60,8 @@ class Settings extends Model {
 				wp_verify_nonce($_POST['mp-timetable-save-settings'], 'mp_timetable_nonce_settings')
 		) {
 			if (isset($_POST)) {
-				if (!empty($_POST['source_id'])) {
-					$options['source_id'] = $_POST['source_id'];
+				if (!empty($_POST['theme_mode'])) {
+					$options['theme_mode'] = $_POST['theme_mode'];
 					$saved = true;
 				}
 				update_option('mp_timetable_general', $options);
@@ -83,8 +86,8 @@ class Settings extends Model {
 	 * @return string
 	 */
 	public function get_template_mode(){
-		$option = $this->get_settings();
+		$options = $this->get_settings();
 
-		return $option['source_id'];
+		return isset($options['theme_mode']) ? $options['theme_mode'] : 'theme';
 	}
 }

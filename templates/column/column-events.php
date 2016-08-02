@@ -8,10 +8,10 @@ foreach ($events as $event): ?>
 		<?php if (has_post_thumbnail($event->event_id)) {
 			echo get_the_post_thumbnail( $event->event_id, apply_filters('mptt_event_thumbnail_size', 'thumbnail'), array('class' => "alignleft event-thumbnail", 'alt' => get_the_title($event->event_id)) );
 		} else { ?>
-			<img class="alignleft event-thumbnail event-thumbnail-default" src="<?php echo \Mp_Time_Table::get_plugin_url() . 'media/css/images/column_icon.png' ?>" alt="<?php echo get_the_title($event->event_id); ?>">
+			<img class="alignleft event-thumbnail event-thumbnail-default" src="<?php echo \Mp_Time_Table::get_plugin_url() . 'media/css/images/column_icon.png' ?>">
 		<?php } ?>
 
-		<a href="<?php echo $event->post->timetable_disable_url == '1' ? '#' : ($event->post->timetable_custom_url != "" ? $event->post->timetable_custom_url : get_permalink($event->event_id)) ?>" class="event-link" title="<?php the_title_attribute( array('post' => $event->event_id) ); ?>">
+		<a href="<?php echo $event->post->timetable_disable_url == '1' ? '#' : ($event->post->timetable_custom_url != "" ? $event->post->timetable_custom_url : get_permalink($event->event_id)) ?>" class="event-link">
 			<?php echo get_the_title($event->event_id); ?>
 		</a>
 

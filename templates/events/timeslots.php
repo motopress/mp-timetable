@@ -14,7 +14,7 @@ if (!empty($count)) {
 	<p class="timeslot">
 
 		<a class="timeslot-link"
-		   href="<?php echo get_permalink($event->column_id); ?>" title="<?php the_title_attribute( array('post' => $event->event_id) ); ?>"><?php echo get_the_title($event->column_id); ?></a>
+		   href="<?php echo get_permalink($event->column_id); ?>"><?php echo get_the_title($event->column_id); ?></a>
 
 		<br/>
 		<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php

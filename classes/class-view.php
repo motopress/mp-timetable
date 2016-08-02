@@ -47,6 +47,9 @@ class View {
 	 */
 	public function render_html($template, $data = null, $output = true) {
 		$includeFile = Mp_Time_Table::get_plugin_part_path('templates/') . $template . '.php';
+		
+		$includeFile = apply_filters('mptt_render_html', $includeFile, $template, $data, $output);
+		
 		ob_start();
 		if (is_array($data)) {
 			extract($data);

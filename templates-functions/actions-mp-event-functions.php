@@ -111,8 +111,9 @@ function mptt_theme_wrapper_before() {
 }
 
 function mptt_popular_theme_class() {
-	if(!Settings::get_instance()->is_plugin_template_mode())
+	/*if(!Settings::get_instance()->is_plugin_template_mode())
 		return '';
+	*/
 
 	$template = get_option('template');
 	switch ($template) {
