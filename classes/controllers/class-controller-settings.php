@@ -14,6 +14,9 @@ class Controller_Settings extends Controller {
 
 	protected static $instance;
 
+	/**
+	 * @return Controller_Settings
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -26,7 +29,9 @@ class Controller_Settings extends Controller {
 	 */
 	public function action_content() {
 		$data = Settings::get_instance()->get_settings();
-		View::get_instance()->render_html('../templates/settings/general', array('settings' => $data));
+		$theme_supports = $this->get('Settings')->is_theme_supports();
+
+		View::get_instance()->render_html('../templates/settings/general', array('settings' => $data, 'theme_supports' => $theme_supports));
 	}
 
 	/**
@@ -43,11 +48,9 @@ class Controller_Settings extends Controller {
 		/**
 		 * Show success message
 		 */
-		if (isset($_GET['settings-updated']) && $_GET['settings-updated'] == 'true') {
-			$_GET['settings-updated'] = false;
+		if (isset($_GET['settings-updated']) && ($_GET['settings-updated'] == TRUE)) {
 			$_GET['settings-updated'] = false;
 			add_settings_error('mpTimetableSettings', esc_attr('settings_updated'), __('Settings saved.', 'mp-timetable'), 'updated');
 		}
 	}
-
 }
