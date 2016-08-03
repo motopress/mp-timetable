@@ -25,7 +25,7 @@ if (!empty($events)):
 			</a>
 		<?php } ?>
 			<span class="post-date">
-				<?php if ($instance['view_settings'] !== 'today'): ?><?php echo get_the_title($event->column_id) ?>
+				<?php if ($instance['view_settings'] !== 'today' && $instance['view_settings'] !== 'current'): ?><?php echo get_the_title($event->column_id) ?>
 					<br><?php endif; ?>
 				<time datetime="<?php echo $event->event_start; ?>"
 				      class="timeslot-start"><?php echo date($time_format, strtotime($event->event_start));?></time><?php

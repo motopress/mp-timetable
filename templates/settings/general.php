@@ -13,7 +13,7 @@
 				<?php
 					$theme_mode = !empty($settings['theme_mode']) ? $settings['theme_mode'] : 'theme' ;
 				?>
-				<select id="theme_mode" name="theme_mode">
+				<select id="theme_mode" name="theme_mode" <?php echo \mp_timetable\classes\models\Settings::get_instance()->is_theme_supports() ? ' disabled' : '';?>>
 					<option value="theme" <?php selected( $theme_mode, 'theme' ); ?>><?php _e('Theme', 'mp-timetable'); ?></option>
 					<option value="plugin" <?php selected( $theme_mode, 'plugin' ); ?>><?php _e('Plugin', 'mp-timetable'); ?></option>
 				</select>

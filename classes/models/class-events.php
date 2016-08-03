@@ -94,7 +94,7 @@ class Events extends Model {
 		$event_data = (!empty($data)) ? $data : array();
 		$count = count($event_data);
 
-		$this->get_view()->render_html("events/timeslots", array('events' => $event_data, 'count' => $count), true);
+		$this->get_view()->render_html("theme/event-timeslots", array('events' => $event_data, 'count' => $count), true);
 	}
 
 	/**

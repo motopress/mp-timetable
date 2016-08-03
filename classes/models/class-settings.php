@@ -30,7 +30,7 @@ class Settings extends Model {
 		
 		$settings = get_option('mp_timetable_general', $mp_timetable_general);
 		
-		if ( current_theme_supports('mptt-templates') ) {
+		if ( $this->is_theme_supports() ) {
 			$settings['theme_mode'] = 'plugin';
 		}
 
@@ -89,5 +89,15 @@ class Settings extends Model {
 		$options = $this->get_settings();
 
 		return isset($options['theme_mode']) ? $options['theme_mode'] : 'theme';
+	}
+
+	/**
+	 * Theme supports plugin mode.
+	 *
+	 * @return string
+	 */
+	public function is_theme_supports(){
+
+		return current_theme_supports('mptt-templates');
 	}
 }
