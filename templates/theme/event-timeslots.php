@@ -5,12 +5,13 @@ if (!empty($count)) {
 	<h3 class="timeslots-title"><?php printf(__('Event Timeslots (%s)', 'mp-timetable'), $count); ?></h3>
 	<?php
 }
-?>
-<?php
+$time_format = get_option('time_format');
 
-	$time_format = get_option('time_format');
+if (empty($events)) {
+	return;
+}
 
-	foreach ($events as $event): ?>
+foreach ($events as $event): ?>
 	<p class="timeslot">
 
 		<a class="timeslot-link"
@@ -18,8 +19,9 @@ if (!empty($count)) {
 
 		<br/>
 		<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php
-					echo date($time_format, strtotime($event->event_start)); ?></time><?php
-		echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><time datetime="<?php echo $event->event_start; ?>" class="timeslot-end"><?php
+			echo date($time_format, strtotime($event->event_start)); ?></time><?php
+		echo apply_filters('mptt_timeslot_delimiter', ' - '); ?>
+		<time datetime="<?php echo $event->event_start; ?>" class="timeslot-end"><?php
 			echo date($time_format, strtotime($event->event_end)); ?></time>
 
 		<?php if (!empty($event->post->sub_title)) { ?>
