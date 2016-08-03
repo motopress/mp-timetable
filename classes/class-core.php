@@ -388,7 +388,7 @@ class Core {
 			"show_ui" => true,
 			'show_in_menu' => false,
 			'show_tagcloud' => true,
-			'hierarchical' => true,
+			'hierarchical' => false,
 			'update_count_callback' => '',
 			'rewrite' => array(
 				'slug' => 'timetable/tag',

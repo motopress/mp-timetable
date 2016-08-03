@@ -79,7 +79,7 @@ class Events extends Model {
 	/**
 	 * Render meta data
 	 */
-	public function render_event_metas(){
+	public function render_event_metas() {
 		/*mptt_event_template_content_time_title();
 		mptt_event_template_content_time_list();*/
 		$this->appendTimeSlots();
@@ -133,6 +133,7 @@ class Events extends Model {
 		return $event_data;
 	}
 
+
 	/**
 	 * Render event options
 	 *
@@ -169,6 +170,53 @@ class Events extends Model {
 		}
 		if ($column === 'mp-event_tag') {
 			echo Taxonomy::get_instance()->get_the_term_filter_list($post, 'mp-event_tag');
+		}
+	}
+
+	/**
+	 * Returns the category.
+	 *
+	 * @param string $sep (default: ', ')
+	 * @param string $before (default: '')
+	 * @param string $after (default: '')
+	 *
+	 * @return array
+	 */
+	public function get_category($sep = '', $before = '', $after = '') {
+		global $post;
+
+		return get_the_term_list($post->id, 'mp-event_category', $before, $sep, $after);
+	}
+
+	/**
+	 * Returns the category.
+	 *
+	 * @param string $sep (default: ', ')
+	 * @param string $before (default: '')
+	 * @param string $after (default: '')
+	 *
+	 * @return array
+	 */
+	public function the_category_list($list = false, $post_id = 0) {
+		global $post;
+
+		switch ($post->post_type) {
+			case 'mp-event':
+				return Taxonomy::get_instance()->get_the_term_filter_list($post, 'mp-event_category');
+				break;
+		}
+	}
+
+	/**
+	 * Returns the tags.
+	 */
+	public function the_tags($list, $before = '', $sep = ', ', $after = '', $id = 0) {
+		global $post;
+
+		switch ($post->post_type) {
+			case 'mp-event':
+				return get_the_term_list($post->id, 'mp-event_tag', $before, $sep, $after);
+				break;
 		}
 	}
 
@@ -350,11 +398,11 @@ class Events extends Model {
 
 		$events_data = $this->wpdb->get_results($sql_reguest);
 
-		if ( is_array($events_data) ) {
+		if (is_array($events_data)) {
 			foreach ($events_data as $event) {
 				$post = get_post($event->event_id);
-				
-				if ( $post && ($post->post_type == $this->post_type) && ($post->post_status == 'publish') ) {
+
+				if ($post && ($post->post_type == $this->post_type) && ($post->post_status == 'publish')) {
 					$event->post = $post;
 					$event->event_start = date('H:i', strtotime($event->event_start));
 					$event->event_end = date('H:i', strtotime($event->event_end));

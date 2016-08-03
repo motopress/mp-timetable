@@ -134,6 +134,9 @@ class Hooks extends Core {
 		Core::get_instance()->init_plugin_version();
 
 		add_filter('body_class', array($this, 'browser_body_class'));
+
+		add_filter('the_tags', array($this->get('events'), 'the_tags'));
+		add_filter('the_category_list', array($this->get('events'), 'the_category_list'));
 	}
 
 	/**

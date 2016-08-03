@@ -15,9 +15,14 @@ function mptt_shortcode_template_after_content() {
 function mptt_shortcode_template_content_filter() {
 	global $mptt_shortcode_data;
 
+	$style = '';
+	if (empty($mptt_shortcode_data['unique_events']) || count($mptt_shortcode_data['unique_events']) < 2) {
+		$style = ' style="display:none;"';
+	}
+
 	if ($mptt_shortcode_data['params']['view'] == 'dropdown_list') { ?>
 		<select
-			class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>">
+			class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>"<?php echo $style ?>>
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
 				<option
 					value="#all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
@@ -31,7 +36,7 @@ function mptt_shortcode_template_content_filter() {
 			endif; ?>
 		</select>
 	<?php } elseif ($mptt_shortcode_data['params']['view'] == 'tabs') { ?>
-		<ul class="<?php echo apply_filters('mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs') ?>">
+		<ul class="<?php echo apply_filters('mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs') ?>" <?php echo $style ?>>
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
 				<li>
 					<a title="<?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?>"
@@ -58,9 +63,10 @@ function mptt_shortcode_template_content_static_table() {
 	global $mptt_shortcode_data;
 	mptt_shortcode_template_event($mptt_shortcode_data);
 
-	foreach ($mptt_shortcode_data['unique_events'] as $ev) {
-		mptt_shortcode_template_event($mptt_shortcode_data, $ev->post);
-	}
+	if (isset($mptt_shortcode_data['unique_events']) && is_array($mptt_shortcode_data['unique_events']))
+		foreach ($mptt_shortcode_data['unique_events'] as $ev) {
+			mptt_shortcode_template_event($mptt_shortcode_data, $ev->post);
+		}
 }
 
 function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
@@ -84,10 +90,11 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 	}
 	$bounds = mptt_shortcode_get_table_cell_bounds($column_events, $mptt_shortcode_data['params']);
 	$hide_empty_rows = $mptt_shortcode_data['params']['hide_empty_rows'];
+	$font_size = !empty($mptt_shortcode_data['params']['font_size']) ? ' font-size:' . $mptt_shortcode_data['params']['font_size'] . ';' : '';
 	?>
 	<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'); ?>"
 	       id="#<?php echo $event_id; ?>"
-	       style="display:none;">
+	       style="display:none; <?php echo $font_size; ?>">
 		<thead>
 		<tr class="mptt-shortcode-row">
 			<th style="<?php echo (bool)($mptt_shortcode_data['params']['hide_hrs']) ? 'display:none;' : '' ?>"></th>
@@ -203,49 +210,51 @@ function mptt_shortcode_template_content_responsive_table() {
 					<div class="mptt-column">
 						<h3 class="mptt-column-title"><?php echo $column->post_title ?></h3>
 						<ul class="mptt-events-list">
-							<?php foreach ($mptt_shortcode_data['events_data']['column_events'][$column->ID] as $event) : ?>
-								<li class="mptt-list-event" data-event-id="#<?php echo $event->post->post_name ?>"
-									<?php
-									if (!empty($event->post->color)) {
-										echo 'style="border-left-color:' . $event->post->color . ';"';
-									} ?> >
-									<?php if ($mptt_shortcode_data['params']['title']): ?>
+							<?php if (!empty($mptt_shortcode_data['events_data']['column_events'][$column->ID])): ?>
+								<?php foreach ($mptt_shortcode_data['events_data']['column_events'][$column->ID] as $event) : ?>
+									<li class="mptt-list-event" data-event-id="#<?php echo $event->post->post_name ?>"
 										<?php
-										$disable_url = (bool)$event->post->timetable_disable_url || (bool)$mptt_shortcode_data['params']['disable_event_url'];
-										if (!$disable_url) { ?>
-											<a title="<?php echo $event->post->post_title; ?>"
-											href="<?php echo ($event->post->timetable_custom_url != "") ? $event->post->timetable_custom_url : get_permalink($event->event_id); ?>"
-											class="mptt-event-title">
-										<?php } ?>
-										<?php echo $event->post->post_title; ?>
-										<?php if (!$disable_url) { ?>
-											</a>
-										<?php } ?>
-									<?php endif; ?>
-									<?php if ($mptt_shortcode_data['params']['time']): ?>
-										<p class="timeslot">
-											<time datetime="<?php echo $event->event_start; ?>"
-												class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></time>
-											<span
-												class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
-											<time datetime="<?php echo $event->event_end; ?>"
-												class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
-										</p>
-									<?php endif; ?>
-									<?php if ($mptt_shortcode_data['params']['description']): ?>
-										<p class="event-description">
-											<?php echo $event->description ?>
-										</p>
-									<?php endif; ?>
-									<?php if ($mptt_shortcode_data['params']['user'] && ($event->user_id != '-1')): ?>
-										<p class="event-user"><?php $user_info = get_userdata($event->user_id);
-											if ($user_info) {
-												echo get_avatar($event->user_id, apply_filters('mptt-event-user-avatar-size', 24), '', $user_info->data->display_name) . ' ';
-												echo $user_info->data->display_name;
-											} ?></p>
-									<?php endif; ?>
-								</li>
-							<?php endforeach; ?>
+										if (!empty($event->post->color)) {
+											echo 'style="border-left-color:' . $event->post->color . ';"';
+										} ?> >
+										<?php if ($mptt_shortcode_data['params']['title']): ?>
+											<?php
+											$disable_url = (bool)$event->post->timetable_disable_url || (bool)$mptt_shortcode_data['params']['disable_event_url'];
+											if (!$disable_url) { ?>
+												<a title="<?php echo $event->post->post_title; ?>"
+												href="<?php echo ($event->post->timetable_custom_url != "") ? $event->post->timetable_custom_url : get_permalink($event->event_id); ?>"
+												class="mptt-event-title">
+											<?php } ?>
+											<?php echo $event->post->post_title; ?>
+											<?php if (!$disable_url) { ?>
+												</a>
+											<?php } ?>
+										<?php endif; ?>
+										<?php if ($mptt_shortcode_data['params']['time']): ?>
+											<p class="timeslot">
+												<time datetime="<?php echo $event->event_start; ?>"
+												      class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></time>
+												<span
+													class="timeslot-delimiter"><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?></span>
+												<time datetime="<?php echo $event->event_end; ?>"
+												      class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
+											</p>
+										<?php endif; ?>
+										<?php if ($mptt_shortcode_data['params']['description']): ?>
+											<p class="event-description">
+												<?php echo $event->description ?>
+											</p>
+										<?php endif; ?>
+										<?php if ($mptt_shortcode_data['params']['user'] && ($event->user_id != '-1')): ?>
+											<p class="event-user"><?php $user_info = get_userdata($event->user_id);
+												if ($user_info) {
+													echo get_avatar($event->user_id, apply_filters('mptt-event-user-avatar-size', 24), '', $user_info->data->display_name) . ' ';
+													echo $user_info->data->display_name;
+												} ?></p>
+										<?php endif; ?>
+									</li>
+								<?php endforeach;
+							endif; ?>
 						</ul>
 					</div>
 				<?php endforeach;

@@ -383,8 +383,16 @@ Registry.register("Event",
 							case "event":
 								element.hover(
 									function() {
-										$(this).css('background-color', $(this).attr('data-bg_hover_color'));
-										$(this).css('color', $(this).attr('data-hover_color'));
+										var bg = $(this).attr('data-bg_hover_color'),
+											color = $(this).attr('data-hover_color');
+
+										if(!_.isEmpty(bg)) {
+											$(this).css('background-color', bg);
+										}
+										if(!_.isEmpty(color)) {
+											$(this).css('color', color);
+										}
+
 										var parentHeight = $(this).parent().height();
 										var elementHeight = $(this).height();
 										if (parentHeight > elementHeight) {

@@ -201,6 +201,17 @@
 					</tr>
 					<tr>
 						<th scope="row">
+							<label for="font_size"><?php _e('Base Font Size', 'mp-timetable'); ?></label>
+						</th>
+						<td>
+							<input type="text" name="font_size" id="font_size" value="" class="regular-text">
+						</td>
+						<td>
+							<span class="description"><?php _e('Base font size for the table. Example 12px, 2em, 80%.', 'mp-timetable'); ?></span>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
 							<label for="responsive"><?php _e('Responsive', 'mp-timetable'); ?></label>
 						</th>
 						<td>

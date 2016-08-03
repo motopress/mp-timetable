@@ -63,6 +63,7 @@ class Shortcode extends Core {
 			'hide_hrs' => "0",
 			'hide_empty_rows' => "1",
 			'row_height' => "45",
+			'font_size' => "",
 			'disable_event_url' => "0",
 			'text_align' => "center",
 			'id' => "",
@@ -292,6 +293,11 @@ class Shortcode extends Core {
 				'type' => 'text',
 				'label' => __('Row height (in px)', 'mp-timetable'),
 				'default' => 45
+			),
+			'font_size' => array(
+				'type' => 'text',
+				'label' => __('Base Font Size', 'mp-timetable'),
+				'default' => ''
 			),
 			'responsive' => array(
 				'type' => 'select',

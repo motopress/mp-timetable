@@ -1,12 +1,13 @@
 <?php use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes\Core;
 
-function mptt_event_template_content_title() { ?>
+function mptt_event_template_content_title() {?>
 	<h1 class="event-title"><?php the_title() ?></h1>
 	<?php
 }
 
-function mptt_event_template_content_thumbnail() { ?>
+function mptt_event_template_content_thumbnail() {
+	?>
 	<div class="thumbnail-wrapper">
 		<?php if (has_post_thumbnail()) {
 			the_post_thumbnail(apply_filters('mptt_event_template_content_thumbnail_size', 'large'), array('class' => "event-thumbnail"));
@@ -15,7 +16,8 @@ function mptt_event_template_content_thumbnail() { ?>
 	<?php
 }
 
-function mptt_event_template_content_post_content() { ?>
+function mptt_event_template_content_post_content() {
+	?>
 	<div class="event-content"><?php the_content(); ?></div>
 	<?php
 }

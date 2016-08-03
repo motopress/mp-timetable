@@ -94,6 +94,9 @@
 											case 'row_height':
 												shortcode_obj['attrs']['row_height'] = parram['value'];
 												break;
+											case 'font_size':
+												shortcode_obj['attrs']['font_size'] = parram['value'];
+												break;
 											case 'responsive':
 												shortcode_obj['attrs']['responsive'] = parram['value'];
 												break
