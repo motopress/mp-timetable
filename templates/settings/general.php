@@ -10,22 +10,20 @@
 				<label for="template_source"><?php _e('Template Mode', 'mp-timetable'); ?></label>
 			</th>
 			<td>
-				<?php
-					$theme_mode = !empty($settings['theme_mode']) ? $settings['theme_mode'] : 'theme' ;
-				?>
-				<select id="theme_mode" name="theme_mode" <?php echo \mp_timetable\classes\models\Settings::get_instance()->is_theme_supports() ? ' disabled' : '';?>>
-					<option value="theme" <?php selected( $theme_mode, 'theme' ); ?>><?php _e('Theme', 'mp-timetable'); ?></option>
-					<option value="plugin" <?php selected( $theme_mode, 'plugin' ); ?>><?php _e('Plugin', 'mp-timetable'); ?></option>
+				<?php $theme_mode = !empty($settings['theme_mode']) ? $settings['theme_mode'] : 'theme'; ?>
+
+				<select id="theme_mode" name="theme_mode" <?php echo $theme_supports ? ' disabled' : ''; ?>>
+					<option value="theme" <?php selected($theme_mode, 'theme'); ?>><?php _e('Theme', 'mp-timetable'); ?></option>
+					<option value="plugin" <?php selected($theme_mode, 'plugin'); ?>><?php _e('Plugin', 'mp-timetable'); ?></option>
 				</select>
+
 				<p class="description"><?php _e('Choose a page template to control the appearance of your single event and column page.', 'mp-timetable'); ?></p>
 			</td>
 		</tr>
 		</tbody>
 	</table>
-
 	<p class="submit">
 		<input type="submit" name="submit" id="submit" class="button-primary" value="<?php _e('Save', 'mp-timetable') ?>"/>
-		<input type="hidden" name="mp-timetable-save-settings"
-		       value="<?php echo wp_create_nonce('mp_timetable_nonce_settings') ?>">
+		<input type="hidden" name="mp-timetable-save-settings" value="<?php echo wp_create_nonce('mp_timetable_nonce_settings') ?>">
 	</p>
 </form>
