@@ -246,7 +246,7 @@ class Events extends Model {
 	 *
 	 * @return array
 	 */
-	public function the_category($thelist = '', $separator, $parents) {
+	public function the_category($thelist = '', $separator = '', $parents = '') {
 		global $post;
 
 		if ($post->post_type === $this->post_type) {
