@@ -4,6 +4,9 @@ $time_format = get_option('time_format');
 if (empty($events)) {
 	return;
 }
+
+do_action('mptt-before-theme-column-events');
+
 foreach ($events as $event): ?>
 	<p class="event" id="event_<?php echo $event->event_id ?>">
 
@@ -40,3 +43,5 @@ foreach ($events as $event): ?>
 		<?php } ?>
 	</p>
 <?php endforeach;
+
+do_action('mptt-after-theme-column-events');

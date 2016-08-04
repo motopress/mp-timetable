@@ -19,6 +19,7 @@ while (have_posts()) : the_post();
 				 */
 				do_action('mptt_event_item_content');
 
+
 			?>
 		</div>
 		<div class="<?php echo apply_filters('mptt_sidebar_class', 'mptt-sidebar') ?>">

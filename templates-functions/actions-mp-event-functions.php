@@ -31,7 +31,9 @@ function mptt_event_template_content_time_title() {
 	}
 }
 
-function mptt_event_template_content_time_list() { ?>
+function mptt_event_template_content_time_list() {
+	do_action('mptt-before-timeslots');
+	?>
 	<ul class="mptt-event <?php echo apply_filters('mptt_events_list_class', 'events-list') ?>">
 		<?php foreach (mptt_get_event_data() as $event): ?>
 			<li class="event mptt-colorized" id="event_hours_<?php echo $event->event_id ?>">
@@ -62,6 +64,7 @@ function mptt_event_template_content_time_list() { ?>
 		<?php endforeach; ?>
 	</ul>
 	<?php
+	do_action('mptt-after-timeslots');
 }
 
 function mptt_event_template_content_comments() {
@@ -163,7 +166,7 @@ function mptt_post_class($classes, $class = '', $post_id = '') {
 	} elseif ('mp-event' == get_post_type($post_id)) {
 		$classes[] = 'mp-event-item';
 	}
-	if (!is_search() && is_single()) {
+	if (!is_search() && is_single() && Settings::get_instance()->is_plugin_template_mode()) {
 		if (false !== ($key = array_search('hentry', $classes))) {
 			unset($classes[$key]);
 		}

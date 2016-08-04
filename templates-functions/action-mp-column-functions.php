@@ -13,7 +13,9 @@ function mptt_column_template_content_post_content() {
 	</div>
 <?php }
 
-function mptt_column_template_content_events_list() { ?>
+function mptt_column_template_content_events_list() {
+	do_action('mptt-before-column-events');
+	?>
 
 	<ul class="mptt-column <?php echo apply_filters('mptt_events_list_class', 'events-list') ?>">
 		<?php foreach (mptt_get_column_events() as $event): ?>
@@ -65,6 +67,7 @@ function mptt_column_template_content_events_list() { ?>
 		<?php endforeach; ?>
 	</ul>
 	<?php
+	do_action('mptt-after-column-events');
 }
 
 function mptt_get_column_events() {

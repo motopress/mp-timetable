@@ -1,16 +1,16 @@
 <?php
 
+if (empty($events)) {
+	return;
+}
+
 if (!empty($count)) {
 	?>
 	<h3 class="timeslots-title"><?php printf(__('Event Timeslots (%s)', 'mp-timetable'), $count); ?></h3>
 	<?php
 }
 $time_format = get_option('time_format');
-
-if (empty($events)) {
-	return;
-}
-
+do_action('mptt-before-theme-timeslots');
 foreach ($events as $event): ?>
 	<p class="timeslot">
 
@@ -42,3 +42,4 @@ foreach ($events as $event): ?>
 		<?php } ?>
 	</p>
 <?php endforeach; ?>
+<?php do_action('mptt-after-theme-timeslots'); ?>
