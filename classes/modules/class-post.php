@@ -16,7 +16,7 @@ class Post extends Module {
 		return self::$instance;
 	}
 
-	public function pre_get_posts($query) {
+	/*public function pre_get_posts($query) {
 		global $wpdb;
 
 		// if it's an author query
@@ -79,7 +79,7 @@ class Post extends Module {
 		}
 
 		return $title;
-	}
+	}*/
 
 
 	/**
