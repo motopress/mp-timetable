@@ -4,13 +4,17 @@ if (empty($events)) {
 	return;
 }
 
+do_action('mptt_event_timeslots_before_title');
+
 if (!empty($count)) {
 	?>
 	<h3 class="timeslots-title"><?php printf(__('Event Timeslots (%s)', 'mp-timetable'), $count); ?></h3>
 	<?php
 }
 $time_format = get_option('time_format');
-do_action('mptt-before-theme-timeslots');
+
+do_action('mptt_event_timeslots_before_timeslots');
+
 foreach ($events as $event): ?>
 	<p class="timeslot">
 
@@ -36,10 +40,11 @@ foreach ($events as $event): ?>
 		<?php if (!empty($event->user)) { ?>
 			<br/>
 			<span class="timeslot-user vcard">
-				<?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name); ?>
+				<?php echo get_avatar($event->user->ID, apply_filters('mptt_event_timeslots_avatar_size', 32), '', $event->user->display_name); ?>
 				<?php echo $event->user->display_name; ?>
 			</span>
 		<?php } ?>
 	</p>
 <?php endforeach; ?>
-<?php do_action('mptt-after-theme-timeslots'); ?>
+
+<?php do_action('mptt_event_timeslots_after_timeslots'); ?>

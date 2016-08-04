@@ -5,7 +5,7 @@ if (empty($events)) {
 	return;
 }
 
-do_action('mptt-before-theme-column-events');
+do_action('mptt_column_events_before_events');
 
 foreach ($events as $event): ?>
 	<p class="event" id="event_<?php echo $event->event_id ?>">
@@ -37,11 +37,11 @@ foreach ($events as $event): ?>
 		<?php if (!empty($event->user)) { ?>
 			<br/>
 			<span class="event-user vcard">
-				<?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name); ?>
+				<?php echo get_avatar($event->user->ID, apply_filters('mptt_column_events_avatar_size', 32), '', $event->user->display_name); ?>
 				<?php echo $event->user->display_name ?>
 			</span>
 		<?php } ?>
 	</p>
 <?php endforeach;
 
-do_action('mptt-after-theme-column-events');
+do_action('mptt_column_events_after_events');

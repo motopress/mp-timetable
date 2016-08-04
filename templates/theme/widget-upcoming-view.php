@@ -4,14 +4,18 @@
 if (!empty($instance['title'])) {
 	echo $args['before_title'] . $instance['title'] . $args['after_title'];
 }
-do_action('mptt_widget_template_before_content');
+do_action('mptt_widget_upcoming_before_content');
+
 $time_format = get_option('time_format');
 
-if (!empty($events)):
+if (!empty($events)): ?>
+	<ul>
+	
+	<?php
 	foreach ($events as $key => $event):
 		$event_class = 'event';
 		?>
-		<li class="widget_recent_entries  <?php echo apply_filters('mptt_widget_upcoming_event_element', $event_class) ?>">
+		<li class="<?php echo apply_filters('mptt_widget_upcoming_event_class', $event_class) ?>">
 			<?php
 
 			$disable_url = (bool)$event->post->timetable_disable_url || (bool)$instance['disable_url'];
@@ -34,11 +38,13 @@ if (!empty($events)):
 				      class="timeslot-end"><?php echo date($time_format, strtotime($event->event_end)); ?></time>
 			</span>
 		</li>
-	<?php endforeach;
+	<?php endforeach; ?>
+	</ul>
+	<?php
 else:
 	_e('no events found', "mp-timetable");
 endif;
 
-do_action('mptt_widget_template_after_content');
+do_action('mptt_widget_upcoming_after_content');
 
 echo $args['after_widget'] ?>

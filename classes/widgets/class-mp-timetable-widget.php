@@ -14,8 +14,11 @@ class Timetable_widget extends \WP_Widget {
 	 * Defrozo_widget constructor.
 	 */
 	public function __construct() {
+		
+		$classname = Settings::get_instance()->is_plugin_template_mode() ? 'mptt-container' : 'widget_recent_entries';
+		
 		$widget_ops = array(
-			'classname' => 'mptt-container',
+			'classname' => $classname,
 			'description' => __('Display upcoming events.', 'mp-timetable')
 		);
 		parent::__construct('mp-timetable', __('Timetable', 'mp-timetable'), $widget_ops);
@@ -119,7 +122,7 @@ class Timetable_widget extends \WP_Widget {
 			Core::get_instance()->add_plugin_css('widget');
 			View::get_instance()->render_html("widgets/widget-view", $data, true);
 		} else {
-			View::get_instance()->render_html("widgets/widget-theme-view", $data, true);
+			View::get_instance()->render_html("theme/widget-upcoming-view", $data, true);
 		}
 
 		$cache[$args['widget_id']] = ob_get_flush();
