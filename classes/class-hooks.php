@@ -126,9 +126,11 @@ class Hooks extends Core {
 		Core::get_instance()->wp_ajax_route_url();
 
 		if (Settings::get_instance()->is_plugin_template_mode()) {
+			// plugin mode
 			add_filter('single_template', array(Core::get_instance(), 'include_custom_template'), 99);
 		} else {
-			add_filter('single_template', array(Core::get_instance(), 'include_pseudo_custom_template'), 99);
+			//theme mode
+			add_filter('single_template', array(Core::get_instance(), 'modify_single_template'), 99);
 		}
 //		add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
 		add_action('mp_library', array(Shortcode::get_instance(), 'integration_motopress'), 20, 1);

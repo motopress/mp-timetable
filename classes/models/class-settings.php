@@ -80,8 +80,7 @@ class Settings extends Model {
 		if (isset($_POST['mp-timetable-save-settings']) && wp_verify_nonce($_POST['mp-timetable-save-settings'], 'mp_timetable_nonce_settings')) {
 			if (!empty($_POST['theme_mode'])) {
 				$options['theme_mode'] = $_POST['theme_mode'];
-				$saved = true;
-				update_option('mp_timetable_general', $options);
+				$saved = update_option('mp_timetable_general', $options);
 			}
 		}
 

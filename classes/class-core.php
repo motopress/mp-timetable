@@ -150,24 +150,11 @@ class Core {
 	 *
 	 * @return string
 	 */
-	public function include_pseudo_custom_template($template) {
-		global $post, $taxonomy;
-
-		if (Core::get_instance()->is_embed()) {
-			return $template;
-		}
+	public function modify_single_template($template) {
+		global $post;
 
 		if (!empty($post) && in_array($post->post_type, $this->post_types)) {
 			add_action('loop_start', array($this, 'setup_pseudo_template'));
-		}
-
-		if (!empty($taxonomy) && is_tax() && in_array($taxonomy, $this->taxonomy_names)) {
-			if (basename($template) != "taxonomy-$taxonomy.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'taxonomy-' . $taxonomy . '.php';
-				if (is_tax($taxonomy) && file_exists($path)) {
-					$template = $path;
-				}
-			}
 		}
 
 		return $template;
