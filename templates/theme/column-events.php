@@ -1,7 +1,7 @@
 <?php
 $time_format = get_option('time_format');
 
-do_action('mptt_column_events_before_events');
+do_action('mptt_column_events_before_events', $events);
 
 if ( !empty($events) ) {
 	foreach ($events as $event): ?>
@@ -42,4 +42,4 @@ if ( !empty($events) ) {
 	<?php endforeach;
 }
 
-do_action('mptt_column_events_after_events');
+do_action('mptt_column_events_after_events', $events);

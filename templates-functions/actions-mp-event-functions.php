@@ -32,10 +32,11 @@ function mptt_event_template_content_time_title() {
 }
 
 function mptt_event_template_content_time_list() {
-	do_action('mptt-before-timeslots');
+	$events = mptt_get_event_data();
+	do_action('mptt-before-timeslots', $events);
 	?>
 	<ul class="mptt-event <?php echo apply_filters('mptt_events_list_class', 'events-list') ?>">
-		<?php foreach (mptt_get_event_data() as $event): ?>
+		<?php foreach ($events as $event): ?>
 			<li class="event mptt-colorized" id="event_hours_<?php echo $event->event_id ?>">
 
 				<h4 class="event-title">
@@ -64,7 +65,7 @@ function mptt_event_template_content_time_list() {
 		<?php endforeach; ?>
 	</ul>
 	<?php
-	do_action('mptt-after-timeslots');
+	do_action('mptt-after-timeslots', $events);
 }
 
 function mptt_event_template_content_comments() {

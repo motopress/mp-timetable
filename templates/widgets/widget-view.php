@@ -3,7 +3,7 @@
 if (!empty($instance['title'])) {
 	echo $args['before_title'] . $instance['title'] . $args['after_title'];
 }
-do_action('mptt_widget_template_before_content');
+do_action('mptt_widget_template_before_content', $events);
 if (!empty($events)):
 	foreach ($events as $key => $event):
 		$widget = false;
@@ -64,5 +64,5 @@ if (!empty($events)):
 else:
 	_e('no events found', "mp-timetable");
 endif;
-do_action('mptt_widget_template_after_content');
+do_action('mptt_widget_template_after_content', $events);
 echo $args['after_widget'] ?>

@@ -14,11 +14,11 @@ function mptt_column_template_content_post_content() {
 <?php }
 
 function mptt_column_template_content_events_list() {
-	do_action('mptt-before-column-events');
+	$events = mptt_get_column_events();
+	do_action('mptt-before-column-events', $events);
 	?>
-
 	<ul class="mptt-column <?php echo apply_filters('mptt_events_list_class', 'events-list') ?>">
-		<?php foreach (mptt_get_column_events() as $event): ?>
+		<?php foreach ($events as $event): ?>
 			<li class="event" id="event_columns_<?php echo $event->event_id ?>">
 
 				<?php if (has_post_thumbnail($event->event_id)) {
@@ -67,7 +67,7 @@ function mptt_column_template_content_events_list() {
 		<?php endforeach; ?>
 	</ul>
 	<?php
-	do_action('mptt-after-column-events');
+	do_action('mptt-after-column-events', $events);
 }
 
 function mptt_get_column_events() {

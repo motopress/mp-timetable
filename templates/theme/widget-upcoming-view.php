@@ -4,7 +4,7 @@
 if (!empty($instance['title'])) {
 	echo $args['before_title'] . $instance['title'] . $args['after_title'];
 }
-do_action('mptt_widget_upcoming_before_content');
+do_action('mptt_widget_upcoming_before_content', $events);
 
 $time_format = get_option('time_format');
 
@@ -45,6 +45,6 @@ else:
 	_e('no events found', "mp-timetable");
 endif;
 
-do_action('mptt_widget_upcoming_after_content');
+do_action('mptt_widget_upcoming_after_content', $events);
 
 echo $args['after_widget'] ?>
