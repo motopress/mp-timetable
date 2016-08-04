@@ -249,7 +249,7 @@ class Events extends Model {
 	public function the_category($thelist = '', $separator = '', $parents = '') {
 		global $post;
 
-		if ($post->post_type === $this->post_type) {
+		if ($post->post_type === $this->post_type && !is_admin()) {
 			$categories = wp_get_post_terms($post->ID, $this->taxonomy_names['cat']);
 			$thelist .= $this->generate_event_tags($categories, $separator, $parents);
 		}
