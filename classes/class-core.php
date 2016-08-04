@@ -24,7 +24,7 @@ class Core {
 	 */
 	public function __construct() {
 		$this->taxonomy_names = array(
-			'mp-event_category',
+			'mp-event_category', 'mp-event_tag'
 		);
 		$this->post_types = array(
 			'mp-event', 'mp-column'

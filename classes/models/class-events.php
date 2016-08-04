@@ -21,6 +21,10 @@ class Events extends Model {
 		global $wpdb;
 		$this->wpdb = $wpdb;
 		$this->post_type = 'mp-event';
+		$this->taxonomy_names = array(
+			'tag' => 'mp-event_tag',
+			'cat' => 'mp-event_category',
+		);
 		$this->table_name = $wpdb->prefix . "mp_timetable_data";
 	}
 
@@ -152,8 +156,8 @@ class Events extends Model {
 	 * @return array
 	 */
 	public function set_event_columns($columns) {
-		$columns = array_slice($columns, 0, 2, true) + array("mp-event_tag" => __('Tags', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
-		$columns = array_slice($columns, 0, 2, true) + array("mp-event_category" => __('Categories', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
+		$columns = array_slice($columns, 0, 2, true) + array($this->taxonomy_names['tag'] => __('Tags', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
+		$columns = array_slice($columns, 0, 2, true) + array($this->taxonomy_names['cat'] => __('Categories', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
 
 		return $columns;
 	}
@@ -165,59 +169,115 @@ class Events extends Model {
 	 */
 	public function get_event_taxonomy($column) {
 		global $post;
-		if ($column === 'mp-event_category') {
-			echo Taxonomy::get_instance()->get_the_term_filter_list($post, 'mp-event_category');
+		if ($column === $this->taxonomy_names['cat']) {
+			echo Taxonomy::get_instance()->get_the_term_filter_list($post, $this->taxonomy_names['cat']);
 		}
-		if ($column === 'mp-event_tag') {
-			echo Taxonomy::get_instance()->get_the_term_filter_list($post, 'mp-event_tag');
+		if ($column === $this->taxonomy_names['tag']) {
+			echo Taxonomy::get_instance()->get_the_term_filter_list($post, $this->taxonomy_names['tag']);
 		}
 	}
 
 	/**
-	 * Returns the category.
+	 * Generate HTML of the post tags
 	 *
-	 * @param string $sep (default: ', ')
-	 * @param string $before (default: '')
-	 * @param string $after (default: '')
+	 * @param $categories
+	 * @param $separator
+	 * @param $parents
+	 *
+	 * @return string
+	 */
+	public function generate_event_tags($categories, $separator, $parents) {
+		global $wp_rewrite;
+		$thelist = '';
+		$rel = (is_object($wp_rewrite) && $wp_rewrite->using_permalinks()) ? 'rel="category tag"' : 'rel="category"';
+
+		if ('' == $separator) {
+			$thelist .= '<ul class="post-categories">';
+			foreach ($categories as $category) {
+				$thelist .= "\n\t<li>";
+				switch (strtolower($parents)) {
+					case 'multiple':
+						if ($category->parent)
+							$thelist .= get_category_parents($category->parent, true, $separator);
+						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a></li>';
+						break;
+					case 'single':
+						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '"  ' . $rel . '>';
+						if ($category->parent)
+							$thelist .= get_category_parents($category->parent, false, $separator);
+						$thelist .= $category->name . '</a></li>';
+						break;
+					case '':
+					default:
+						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a></li>';
+				}
+			}
+			$thelist .= '</ul>';
+		} else {
+			$i = 0;
+			foreach ($categories as $category) {
+				if (0 < $i)
+					$thelist .= $separator;
+				switch (strtolower($parents)) {
+					case 'multiple':
+						if ($category->parent)
+							$thelist .= get_category_parents($category->parent, true, $separator);
+						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a>';
+						break;
+					case 'single':
+						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>';
+						if ($category->parent)
+							$thelist .= get_category_parents($category->parent, false, $separator);
+						$thelist .= "$category->name</a>";
+						break;
+					case '':
+					default:
+						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a>';
+				}
+				++$i;
+			}
+		}
+
+		return $thelist;
+	}
+
+	/**
+	 * Returns the category array.
 	 *
 	 * @return array
 	 */
-	public function get_category($sep = '', $before = '', $after = '') {
+	public function the_category($thelist = '', $separator, $parents) {
 		global $post;
 
-		return get_the_term_list($post->id, 'mp-event_category', $before, $sep, $after);
+		if ($post->post_type === $this->post_type) {
+			$categories = wp_get_post_terms($post->ID, $this->taxonomy_names['cat']);
+			$thelist .= $this->generate_event_tags($categories, $separator, $parents);
+		}
+
+		/**
+		 * Filter the category or list of Timetable categories.
+		 *
+		 * @param array $thelist List of categories for the current post.
+		 * @param string $separator Separator used between the categories.
+		 * @param string $parents How to display the category parents. Accepts 'multiple',
+		 *                          'single', or empty.
+		 */
+		return apply_filters('mptt_the_category', $thelist, $separator, $parents);
 	}
 
 	/**
-	 * Returns the category.
-	 *
-	 * @param string $sep (default: ', ')
-	 * @param string $before (default: '')
-	 * @param string $after (default: '')
-	 *
-	 * @return array
+	 * Returns a formatted tags.
 	 */
-	public function the_category_list($list = false, $post_id = 0) {
+	public function the_tags($tags, $before = '', $sep = '', $after = '', $id = 0) {
 		global $post;
 
-		switch ($post->post_type) {
-			case 'mp-event':
-				return Taxonomy::get_instance()->get_the_term_filter_list($post, 'mp-event_category');
-				break;
+		if ($post->post_type === $this->post_type) {
+			$id = ($id === 0) ? $post->id : $id;
+			$events_tags = get_the_term_list($id, $this->taxonomy_names['tag'], $before, $sep, $after);
+			$tags = apply_filters('mptt_the_tags', $events_tags, $tags);
 		}
-	}
 
-	/**
-	 * Returns the tags.
-	 */
-	public function the_tags($list, $before = '', $sep = ', ', $after = '', $id = 0) {
-		global $post;
-
-		switch ($post->post_type) {
-			case 'mp-event':
-				return get_the_term_list($post->id, 'mp-event_tag', $before, $sep, $after);
-				break;
-		}
+		return $tags;
 	}
 
 	/**
@@ -436,6 +496,7 @@ class Events extends Model {
 				$events[$key] = $event;
 			}
 		}
+
 		return $events;
 	}
 
