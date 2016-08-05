@@ -95,10 +95,7 @@
   }
 }
 /* theme styles */
-.event[id^="event_"] {
-  overflow: auto;
-}
-.event[id^="event_columns_"] {
+.mptt-column.events-list .event[id^="event_columns_"] {
   overflow: auto;
 }
 .mptt-main-wrapper.mp-event-item img:not(.avatar ) {
