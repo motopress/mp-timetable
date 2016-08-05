@@ -13,7 +13,7 @@
  */
 
 /*
- * use add_theme_support('mptt-templates'); in your theme to override templates;
+ * use add_theme_support('mp-timetable'); in your theme to override templates;
  */
 
 use mp_timetable\plugin_core\classes\Core;

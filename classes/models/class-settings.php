@@ -66,7 +66,7 @@ class Settings extends Model {
 	 */
 	public function is_theme_supports() {
 
-		return current_theme_supports('mptt-templates');
+		return current_theme_supports('mp-timetable');
 	}
 
 	/**
