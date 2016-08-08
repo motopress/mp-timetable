@@ -569,7 +569,7 @@ Registry.register("Event",
 						});
 
 						state.setRowspanTd();
-						
+
 						if ($('.' + MPTT.table_class).data('hide_empty_row')) {
 							state.hideEmptyRows();
 						}
