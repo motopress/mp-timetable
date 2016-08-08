@@ -16,7 +16,16 @@ class Post extends Module {
 		return self::$instance;
 	}
 
-	/*public function pre_get_posts($query) {
+	public function pre_get_posts($query) {
+		if ($query->is_author() && !is_admin()) {
+			$query->set('post_type', array('post', 'mp-event'));
+		}
+
+		return $query;
+	}
+
+	/*
+	 public function pre_get_posts($query) {
 		global $wpdb;
 
 		// if it's an author query
