@@ -249,7 +249,7 @@ class Events extends Model {
 	public function the_category($thelist = '', $separator = '', $parents = '') {
 		global $post;
 
-		if ($post->post_type === $this->post_type && !is_admin()) {
+		if ($post && $post->post_type === $this->post_type && !is_admin()) {
 			$categories = wp_get_post_terms($post->ID, $this->taxonomy_names['cat']);
 			$thelist .= $this->generate_event_tags($categories, $separator, $parents);
 		}
@@ -270,8 +270,8 @@ class Events extends Model {
 	 */
 	public function the_tags($tags, $before = '', $sep = '', $after = '', $id = 0) {
 		global $post;
-
-		if ($post->post_type === $this->post_type) {
+		
+		if ($post && $post->post_type === $this->post_type) {
 			$id = ($id === 0) ? $post->id : $id;
 			$events_tags = get_the_term_list($id, $this->taxonomy_names['tag'], $before, $sep, $after);
 			$tags = apply_filters('mptt_the_tags', $events_tags, $tags);
