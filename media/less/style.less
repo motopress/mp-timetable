@@ -212,8 +212,12 @@
 				z-index: 5;
 				overflow: hidden;
 				outline: 1px solid #fff;
-				color: #fff;
+				color: inherit;
 				//padding: 1rem;
+
+				p {
+					color: inherit;
+				}
 
 				.event-title {
 					color: inherit;
@@ -266,6 +270,23 @@
 		}
 
 	}
+	.mptt-theme-mode {
+		tbody {
+			tr:nth-child(2n+2) {
+				td {
+					&.event {
+						background-color: inherit;
+					}
+				}
+			}
+			td {
+				&.event {
+					background-color: #ffffff;
+				}
+			}
+		}
+	}
+
 	.mptt-navigation-tabs {
 		margin: 0 0 1rem;
 		li {

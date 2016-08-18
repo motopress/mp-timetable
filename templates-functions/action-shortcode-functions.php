@@ -93,8 +93,11 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 	$show_hrs = !$mptt_shortcode_data['params']['hide_hrs'];
 	$font_size = !empty($mptt_shortcode_data['params']['font_size']) ? ' font-size:' . $mptt_shortcode_data['params']['font_size'] . ';' : '';
 	$row_height = $mptt_shortcode_data['params']['row_height'];
+	$table_class = apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table');
+	$table_class .= \mp_timetable\classes\models\Settings::get_instance()->is_plugin_template_mode() ? '' : ' mptt-theme-mode';
+
 	?>
-	<table class="<?php echo apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table'); ?>"
+	<table <?php echo !empty($table_class) ? 'class="'.$table_class .'"' : ''; ?>
 	id="#<?php echo $event_id; ?>"
 	style="display:none; <?php echo $font_size; ?>"
     data-hide_empty_row="<?php echo $hide_empty_rows; ?>">
