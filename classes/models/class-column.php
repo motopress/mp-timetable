@@ -63,13 +63,13 @@ class Column extends Model {
 
 	public function clientarea_default_order($query) {
 		if (is_admin() || $query->is_main_query()) {
-			if (is_post_type_archive('mp-column')) {
+			if ($query->get('post_type') === 'mp-column') {
 				$query->set('orderby', 'menu_order');
 				$query->set('order', 'ASC');
-
-				return;
 			}
 		}
+
+		return $query;
 	}
 
 	/**

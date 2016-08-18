@@ -363,6 +363,7 @@ class Events extends Model {
 			'post_status' => 'publish',
 			'fields' => 'ids',
 			'post__in' => !empty($category_columns_ids) ? $category_columns_ids : '',
+			'orderby' => 'menu_order',
 			'meta_query' => array(
 				'relation' => 'OR',
 				array(
@@ -456,6 +457,8 @@ class Events extends Model {
 			}
 		}
 
+		$sql_reguest .= ' ORDER BY `event_start`';
+
 		$events_data = $this->wpdb->get_results($sql_reguest);
 
 		if (is_array($events_data)) {
@@ -540,8 +543,8 @@ class Events extends Model {
 
 			}
 		}
-		return $temp_events;
 
+		return $temp_events;
 	}
 
 	/**
