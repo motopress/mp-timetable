@@ -26,7 +26,7 @@ if (!empty($events)): ?>
 				<?php } ?>
 				<?php echo get_the_title($event->event_id) ?>
 				<?php if (!$disable_url) { ?>
-			</a>
+			</a><br/>
 		<?php } ?>
 			<span class="post-date">
 				<?php if ($instance['view_settings'] !== 'today' && $instance['view_settings'] !== 'current'): ?><?php echo get_the_title($event->column_id) ?>

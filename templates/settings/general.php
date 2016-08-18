@@ -17,7 +17,7 @@
 					<option value="plugin" <?php selected($theme_mode, 'plugin'); ?>><?php _e('Developer Mode', 'mp-timetable'); ?></option>
 				</select>
 
-				<p class="description"><?php _e("Choose Theme Mode to display the content with the styles of your theme. Choose Developer Mode to control appearance of the content with custom page templates, actions and filters.", 'mp-timetable'); ?><br/><?php _e("This option can't be changed if your theme is initially integrated with plugin.", 'mp-timetable'); ?></p>
+				<p class="description"><?php _e("Choose Theme Mode to display the content with the styles of your theme. Choose Developer Mode to control appearance of the content with custom page templates, actions and filters.", 'mp-timetable'); ?><br/><?php _e("This option can't be changed if your theme is initially integrated with the plugin.", 'mp-timetable'); ?></p>
 			</td>
 		</tr>
 		</tbody>
