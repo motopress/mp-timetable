@@ -270,23 +270,22 @@
 		}
 
 	}
-	.mptt-theme-mode {
-		tbody {
+	.mptt-shortcode-table {
+		&.mptt-theme-mode tbody {
 			tr:nth-child(2n+2) {
-				td {
-					&.event {
-						background-color: inherit;
-					}
+				td.event {
+					background-color: inherit;
 				}
 			}
-			td {
-				&.event {
-					background-color: #ffffff;
+			td.event {
+				background-color: #ffffff;
+
+				.event-user img {
+					position: relative;
 				}
 			}
 		}
 	}
-
 	.mptt-navigation-tabs {
 		margin: 0 0 1rem;
 		li {
@@ -403,6 +402,12 @@
 		.event-title {
 			box-shadow: none;
 		}
+	}
+}
+
+.mptt-theme-mode-event.event {
+	.event-user img {
+		position: relative;
 	}
 }
 

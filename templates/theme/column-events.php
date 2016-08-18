@@ -5,7 +5,7 @@ do_action('mptt_column_events_before_events', $events);
 
 if ( !empty($events) ) {
 	foreach ($events as $event): ?>
-		<p class="mptt-theme-mode-event event" id="event_<?php echo $event->event_id ?>">
+		<p class="event mptt-theme-mode-event" id="event_<?php echo $event->event_id ?>">
 
 			<?php if (has_post_thumbnail($event->event_id)) {
 				echo get_the_post_thumbnail($event->event_id, apply_filters('mptt_event_thumbnail_size', 'thumbnail'), array('class' => "alignleft event-thumbnail", 'alt' => get_the_title($event->event_id)));
