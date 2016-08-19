@@ -8,7 +8,7 @@ if ( !empty($events) ) {
 		<p class="event mptt-theme-mode-event" id="event_<?php echo $event->event_id ?>">
 
 			<?php if (has_post_thumbnail($event->event_id)) {
-				echo get_the_post_thumbnail($event->event_id, apply_filters('mptt_event_thumbnail_size', 'thumbnail'), array('class' => "alignleft event-thumbnail", 'alt' => get_the_title($event->event_id)));
+				echo wp_get_attachment_image( get_post_thumbnail_id($event->event_id), apply_filters('mptt_event_thumbnail_size', 'thumbnail'), false, array('class' => "alignleft event-thumbnail", 'alt' => get_the_title($event->event_id)));
 			} else { ?>
 				<img class="alignleft event-thumbnail event-thumbnail-default" src="<?php echo \Mp_Time_Table::get_plugin_url() . 'media/css/images/column_icon.png' ?>">
 			<?php } ?>

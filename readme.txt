@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
 Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer
 Requires at least: 3.6
-Tested up to: 4.5.3
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,10 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 4. Shortcode parameters
 
 == Changelog ==
+
+= 2.0.0 =
+* We dramatically improved compatibility with your theme styles in this update. If you still stick to a previous version, simply change the template mode option in the plugin settings.
+* Added the ability to set font size for timetable shortcode so you can make your content bigger or smaller
 
 = 1.1.6 =
 * Bug fix: fixed an issue with empty rows
