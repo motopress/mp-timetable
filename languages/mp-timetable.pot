@@ -1,8 +1,7 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2016-07-28 14:44+0300\n"
+"POT-Creation-Date: 2016-08-19 15:05+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.7\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: esc_attr__;esc_html__;esc_attr_e;__;_e;_n;_x\n"
 "X-Poedit-Basepath: ..\n"
@@ -40,336 +39,343 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: classes/class-core.php:304 classes/class-core.php:316
-#: classes/class-core.php:320 classes/class-shortcode.php:215
+#: classes/class-core.php:316 classes/class-core.php:328
+#: classes/class-core.php:332 classes/class-shortcode.php:216
 #: templates/popup/index.php:40
 msgid "Event categories"
 msgstr ""
 
-#: classes/class-core.php:305
+#: classes/class-core.php:317
 msgid "Event category"
 msgstr ""
 
-#: classes/class-core.php:306 classes/class-core.php:307
+#: classes/class-core.php:318 classes/class-core.php:319
 msgid "Add New Event category"
 msgstr ""
 
-#: classes/class-core.php:308
+#: classes/class-core.php:320
 msgid "Edit Event category"
 msgstr ""
 
-#: classes/class-core.php:309
+#: classes/class-core.php:321
 msgid "New Event category"
 msgstr ""
 
-#: classes/class-core.php:310
+#: classes/class-core.php:322
 msgid "All Event categories"
 msgstr ""
 
-#: classes/class-core.php:311
+#: classes/class-core.php:323
 msgid "View Event category"
 msgstr ""
 
-#: classes/class-core.php:312
+#: classes/class-core.php:324
 msgid "Search Event category"
 msgstr ""
 
-#: classes/class-core.php:313
+#: classes/class-core.php:325
 msgid "No Event categories found"
 msgstr ""
 
-#: classes/class-core.php:314
+#: classes/class-core.php:326
 msgid "No Event categories found in Trash"
 msgstr ""
 
-#: classes/class-core.php:343 classes/class-core.php:355
-#: classes/class-core.php:359
+#: classes/class-core.php:355 classes/class-core.php:367
+#: classes/class-core.php:371
 msgid "Event tags"
 msgstr ""
 
-#: classes/class-core.php:344
+#: classes/class-core.php:356
 msgid "Event tag"
 msgstr ""
 
-#: classes/class-core.php:345 classes/class-core.php:346
+#: classes/class-core.php:357 classes/class-core.php:358
 msgid "Add New Event tag"
 msgstr ""
 
-#: classes/class-core.php:347
+#: classes/class-core.php:359
 msgid "Edit Event tag"
 msgstr ""
 
-#: classes/class-core.php:348
+#: classes/class-core.php:360
 msgid "New Event tag"
 msgstr ""
 
-#: classes/class-core.php:349
+#: classes/class-core.php:361
 msgid "All Event tags"
 msgstr ""
 
-#: classes/class-core.php:350
+#: classes/class-core.php:362
 msgid "View Event tag"
 msgstr ""
 
-#: classes/class-core.php:351
+#: classes/class-core.php:363
 msgid "Search Event tag"
 msgstr ""
 
-#: classes/class-core.php:352
+#: classes/class-core.php:364
 msgid "No Event tags found"
 msgstr ""
 
-#: classes/class-core.php:353
+#: classes/class-core.php:365
 msgid "No Event tags found in Trash"
 msgstr ""
 
-#: classes/class-core.php:390 classes/class-core.php:402
-#: classes/class-hooks.php:159 classes/class-shortcode.php:211
+#: classes/class-core.php:401 classes/class-core.php:413
+#: classes/class-hooks.php:171 classes/class-shortcode.php:212
 #: templates/popup/index.php:25
 msgid "Events"
 msgstr ""
 
-#: classes/class-core.php:391
+#: classes/class-core.php:402
 msgid "Event"
 msgstr ""
 
-#: classes/class-core.php:392 classes/class-core.php:393
+#: classes/class-core.php:403 classes/class-core.php:404
 msgid "Add New Event"
 msgstr ""
 
-#: classes/class-core.php:394
+#: classes/class-core.php:405
 msgid "Edit Event"
 msgstr ""
 
-#: classes/class-core.php:395
+#: classes/class-core.php:406
 msgid "New Event"
 msgstr ""
 
-#: classes/class-core.php:396 classes/class-shortcode.php:56
-#: classes/class-shortcode.php:229
-#: templates-functions/action-shortcode-functions.php:22
-#: templates-functions/action-shortcode-functions.php:36
-#: templates-functions/action-shortcode-functions.php:38
+#: classes/class-core.php:407 classes/class-shortcode.php:56
+#: classes/class-shortcode.php:230
+#: templates-functions/action-shortcode-functions.php:28
+#: templates-functions/action-shortcode-functions.php:42
+#: templates-functions/action-shortcode-functions.php:44
 msgid "All Events"
 msgstr ""
 
-#: classes/class-core.php:397
+#: classes/class-core.php:408
 msgid "View Event"
 msgstr ""
 
-#: classes/class-core.php:398
+#: classes/class-core.php:409
 msgid "Search Event"
 msgstr ""
 
-#: classes/class-core.php:399
+#: classes/class-core.php:410
 msgid "No Events found"
 msgstr ""
 
-#: classes/class-core.php:400
+#: classes/class-core.php:411
 msgid "No Events found in Trash"
 msgstr ""
 
-#: classes/class-core.php:426 classes/class-core.php:438
-#: classes/class-hooks.php:161
+#: classes/class-core.php:437 classes/class-core.php:449
+#: classes/class-hooks.php:173
 msgid "Columns"
 msgstr ""
 
-#: classes/class-core.php:427 classes/class-shortcode.php:207
+#: classes/class-core.php:438 classes/class-shortcode.php:208
 #: templates/events/event-data.php:4 templates/popup/index.php:10
 msgid "Column"
 msgstr ""
 
-#: classes/class-core.php:428 classes/class-core.php:429
+#: classes/class-core.php:439 classes/class-core.php:440
 msgid "Add New Column"
 msgstr ""
 
-#: classes/class-core.php:430
+#: classes/class-core.php:441
 msgid "Edit Column"
 msgstr ""
 
-#: classes/class-core.php:431
+#: classes/class-core.php:442
 msgid "New Column"
 msgstr ""
 
-#: classes/class-core.php:432
+#: classes/class-core.php:443
 msgid "All Columns"
 msgstr ""
 
-#: classes/class-core.php:433
+#: classes/class-core.php:444
 msgid "View Column"
 msgstr ""
 
-#: classes/class-core.php:434
+#: classes/class-core.php:445
 msgid "Search Column"
 msgstr ""
 
-#: classes/class-core.php:435
+#: classes/class-core.php:446
 msgid "No Columns found"
 msgstr ""
 
-#: classes/class-core.php:436
+#: classes/class-core.php:447
 msgid "No Columns found in Trash"
 msgstr ""
 
-#: classes/class-hooks.php:56
+#: classes/class-hooks.php:60
 msgid "Timetable Sidebar"
 msgstr ""
 
-#: classes/class-hooks.php:58 classes/class-hooks.php:158
-#: classes/class-shortcode.php:303
-#: classes/widgets/class-mp-timetable-widget.php:20
+#: classes/class-hooks.php:62 classes/class-hooks.php:170
+#: classes/class-shortcode.php:309
+#: classes/widgets/class-mp-timetable-widget.php:24
 msgid "Timetable"
 msgstr ""
 
-#: classes/class-hooks.php:151
+#: classes/class-hooks.php:163
 msgid "Import Timetable events, categories, tags and images."
 msgstr ""
 
-#: classes/class-hooks.php:160
+#: classes/class-hooks.php:172
 msgid "Add Event"
 msgstr ""
 
-#: classes/class-hooks.php:162
+#: classes/class-hooks.php:174
 msgid "Add Column"
 msgstr ""
 
-#: classes/class-hooks.php:163
+#: classes/class-hooks.php:175
 msgid "Event Categories"
 msgstr ""
 
-#: classes/class-hooks.php:164
+#: classes/class-hooks.php:176
 msgid "Event Tags"
 msgstr ""
 
-#: classes/class-hooks.php:165
+#: classes/class-hooks.php:177 classes/modules/class-post.php:99
+msgid "Settings"
+msgstr ""
+
+#: classes/class-hooks.php:178
 msgid "Export / Import"
 msgstr ""
 
-#: classes/class-shortcode.php:219 templates/popup/index.php:56
+#: classes/class-shortcode.php:220 templates/popup/index.php:56
 msgid "Hour measure"
 msgstr ""
 
-#: classes/class-shortcode.php:220 templates/popup/index.php:60
+#: classes/class-shortcode.php:221 templates/popup/index.php:60
 msgid "Hour (1h)"
 msgstr ""
 
-#: classes/class-shortcode.php:220 templates/popup/index.php:61
+#: classes/class-shortcode.php:221 templates/popup/index.php:61
 msgid "Half hour (30min)"
 msgstr ""
 
-#: classes/class-shortcode.php:220 templates/popup/index.php:62
+#: classes/class-shortcode.php:221 templates/popup/index.php:62
 msgid "Quarter hour (15min)"
 msgstr ""
 
-#: classes/class-shortcode.php:223 templates/popup/index.php:71
+#: classes/class-shortcode.php:224 templates/popup/index.php:71
 msgid "Filter style"
 msgstr ""
 
-#: classes/class-shortcode.php:224 templates/popup/index.php:75
+#: classes/class-shortcode.php:225 templates/popup/index.php:75
 msgid "Dropdown list"
 msgstr ""
 
-#: classes/class-shortcode.php:224 templates/popup/index.php:76
+#: classes/class-shortcode.php:225 templates/popup/index.php:76
 msgid "Tabs"
 msgstr ""
 
-#: classes/class-shortcode.php:228 templates/popup/index.php:85
+#: classes/class-shortcode.php:229 templates/popup/index.php:85
 msgid "Filter label"
 msgstr ""
 
-#: classes/class-shortcode.php:233 templates/popup/index.php:96
+#: classes/class-shortcode.php:234 templates/popup/index.php:96
 msgid "Hide 'All Events' view"
 msgstr ""
 
-#: classes/class-shortcode.php:234 classes/class-shortcode.php:239
-#: classes/class-shortcode.php:244 classes/class-shortcode.php:251
-#: classes/class-shortcode.php:257 classes/class-shortcode.php:263
-#: classes/class-shortcode.php:269 classes/class-shortcode.php:275
-#: classes/class-shortcode.php:280 classes/class-shortcode.php:299
+#: classes/class-shortcode.php:235 classes/class-shortcode.php:240
+#: classes/class-shortcode.php:245 classes/class-shortcode.php:252
+#: classes/class-shortcode.php:258 classes/class-shortcode.php:264
+#: classes/class-shortcode.php:270 classes/class-shortcode.php:276
+#: classes/class-shortcode.php:281 classes/class-shortcode.php:305
 #: templates/events/metabox-event-options.php:81 templates/popup/index.php:100
 #: templates/popup/index.php:114 templates/popup/index.php:129
-#: templates/popup/index.php:157 templates/popup/index.php:209
-#: templates/widgets/gallery-list.php:50
+#: templates/popup/index.php:157 templates/popup/index.php:220
+#: templates/widgets/gallery-list.php:72
 msgid "No"
 msgstr ""
 
-#: classes/class-shortcode.php:234 classes/class-shortcode.php:239
-#: classes/class-shortcode.php:244 classes/class-shortcode.php:251
-#: classes/class-shortcode.php:257 classes/class-shortcode.php:263
-#: classes/class-shortcode.php:269 classes/class-shortcode.php:275
-#: classes/class-shortcode.php:280 classes/class-shortcode.php:299
+#: classes/class-shortcode.php:235 classes/class-shortcode.php:240
+#: classes/class-shortcode.php:245 classes/class-shortcode.php:252
+#: classes/class-shortcode.php:258 classes/class-shortcode.php:264
+#: classes/class-shortcode.php:270 classes/class-shortcode.php:276
+#: classes/class-shortcode.php:281 classes/class-shortcode.php:305
 #: templates/events/metabox-event-options.php:82 templates/popup/index.php:101
 #: templates/popup/index.php:115 templates/popup/index.php:128
-#: templates/popup/index.php:158 templates/popup/index.php:208
-#: templates/widgets/gallery-list.php:51
+#: templates/popup/index.php:158 templates/popup/index.php:219
+#: templates/widgets/gallery-list.php:74
 msgid "Yes"
 msgstr ""
 
-#: classes/class-shortcode.php:238 templates/popup/index.php:110
+#: classes/class-shortcode.php:239 templates/popup/index.php:110
 msgid "Hide first (hours) column"
 msgstr ""
 
-#: classes/class-shortcode.php:243 templates/popup/index.php:124
+#: classes/class-shortcode.php:244 templates/popup/index.php:124
 msgid "Hide empty rows"
 msgstr ""
 
-#: classes/class-shortcode.php:249 templates/popup/index.php:141
-#: templates/widgets/gallery-head-list.php:3
+#: classes/class-shortcode.php:250 templates/popup/index.php:141
 #: templates/widgets/gallery-list.php:3
 msgid "Title"
 msgstr ""
 
-#: classes/class-shortcode.php:255 templates/popup/index.php:142
+#: classes/class-shortcode.php:256 templates/popup/index.php:142
 msgid "Time"
 msgstr ""
 
-#: classes/class-shortcode.php:261 templates/popup/index.php:143
+#: classes/class-shortcode.php:262 templates/popup/index.php:143
 msgid "Subtitle"
 msgstr ""
 
-#: classes/class-shortcode.php:267 templates/events/event-data.php:7
+#: classes/class-shortcode.php:268 templates/events/event-data.php:7
 #: templates/popup/index.php:144
 msgid "Description"
 msgstr ""
 
-#: classes/class-shortcode.php:273 templates/popup/index.php:145
+#: classes/class-shortcode.php:274 templates/popup/index.php:145
 msgid "User"
 msgstr ""
 
-#: classes/class-shortcode.php:279 templates/popup/index.php:153
-#: templates/widgets/gallery-list.php:48
+#: classes/class-shortcode.php:280 templates/popup/index.php:153
+#: templates/widgets/gallery-list.php:68
 msgid "Disable event URL"
 msgstr ""
 
-#: classes/class-shortcode.php:284 templates/popup/index.php:167
+#: classes/class-shortcode.php:285 templates/popup/index.php:167
 msgid "Text align"
 msgstr ""
 
-#: classes/class-shortcode.php:285 templates/popup/index.php:171
+#: classes/class-shortcode.php:286 templates/popup/index.php:171
 msgid "center"
 msgstr ""
 
-#: classes/class-shortcode.php:285 templates/popup/index.php:172
+#: classes/class-shortcode.php:286 templates/popup/index.php:172
 msgid "left"
 msgstr ""
 
-#: classes/class-shortcode.php:285 templates/popup/index.php:173
+#: classes/class-shortcode.php:286 templates/popup/index.php:173
 msgid "right"
 msgstr ""
 
-#: classes/class-shortcode.php:289 templates/popup/index.php:182
+#: classes/class-shortcode.php:290 templates/popup/index.php:182
 msgid "Id"
 msgstr ""
 
-#: classes/class-shortcode.php:293 templates/popup/index.php:193
+#: classes/class-shortcode.php:294 templates/popup/index.php:193
 msgid "Row height (in px)"
 msgstr ""
 
-#: classes/class-shortcode.php:298 templates/popup/index.php:204
+#: classes/class-shortcode.php:299 templates/popup/index.php:204
+msgid "Base Font Size"
+msgstr ""
+
+#: classes/class-shortcode.php:304 templates/popup/index.php:215
 msgid "Responsive"
 msgstr ""
 
-#: classes/controllers/class-controller-settings.php:61
+#: classes/controllers/class-controller-settings.php:53
 msgid "Settings saved."
 msgstr ""
 
@@ -410,8 +416,8 @@ msgstr ""
 #: classes/libs/class-gump.php:468
 #, php-format
 msgid ""
-"The <span class=\"%1$s\">%2$s</span> field may only contain alpha "
-"characters(a-z)"
+"The <span class=\"%1$s\">%2$s</span> field may only contain alpha characters"
+"(a-z)"
 msgstr ""
 
 #: classes/libs/class-gump.php:471
@@ -709,11 +715,11 @@ msgstr ""
 msgid "Timeslots"
 msgstr ""
 
-#: classes/models/class-events.php:133
+#: classes/models/class-events.php:159
 msgid "Tags"
 msgstr ""
 
-#: classes/models/class-events.php:134 templates/widgets/gallery-list.php:30
+#: classes/models/class-events.php:160 templates/widgets/gallery-list.php:43
 msgid "Categories"
 msgstr ""
 
@@ -774,121 +780,111 @@ msgstr ""
 msgid "- Select -"
 msgstr ""
 
-#: classes/models/class-import.php:267
+#: classes/models/class-import.php:269
 msgid "All done."
 msgstr ""
 
-#: classes/models/class-import.php:267
+#: classes/models/class-import.php:269
 msgid "Have fun!"
 msgstr ""
 
-#: classes/models/class-import.php:268
+#: classes/models/class-import.php:270
 msgid "Remember to update the passwords and roles of imported users."
 msgstr ""
 
-#: classes/models/class-import.php:284
+#: classes/models/class-import.php:286
 msgid "Fetching attachments is not enabled"
 msgstr ""
 
-#: classes/models/class-import.php:297
+#: classes/models/class-import.php:299
 msgid "Invalid file type"
 msgstr ""
 
-#: classes/models/class-import.php:377
+#: classes/models/class-import.php:379
 msgid "Remote server did not respond"
 msgstr ""
 
-#: classes/models/class-import.php:383
+#: classes/models/class-import.php:385
 #, php-format
 msgid "Remote server returned error response %1$d %2$s"
 msgstr ""
 
-#: classes/models/class-import.php:392
+#: classes/models/class-import.php:394
 msgid "Remote file is incorrect size"
 msgstr ""
 
-#: classes/models/class-import.php:397
+#: classes/models/class-import.php:399
 msgid "Zero size file downloaded"
 msgstr ""
 
-#: classes/models/class-import.php:403
+#: classes/models/class-import.php:405
 #, php-format
 msgid "Remote file is too large, limit is %s"
 msgstr ""
 
-#: classes/models/class-import.php:420 classes/models/class-import.php:424
-#: classes/models/class-import.php:434
+#: classes/models/class-import.php:422 classes/models/class-import.php:426
+#: classes/models/class-import.php:436
 msgid "Sorry, there has been an error."
 msgstr ""
 
-#: classes/models/class-import.php:425
+#: classes/models/class-import.php:427
 #, php-format
 msgid ""
 "The export file could not be found at <code>%s</code>. It is likely that "
 "this was caused by a permissions problem."
 msgstr ""
 
-#: classes/models/class-import.php:442
+#: classes/models/class-import.php:444
 #, php-format
 msgid ""
 "This WXR file (version %s) may not be supported by this version of the "
 "importer. Please consider updating."
 msgstr ""
 
-#: classes/models/class-import.php:500
+#: classes/models/class-import.php:501
 #, php-format
 msgid ""
 "Failed to import author %s. Their posts will be attributed to the current "
 "user."
 msgstr ""
 
-#: classes/models/class-import.php:549 classes/models/class-import.php:706
+#: classes/models/class-import.php:558
+#, php-format
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+
+#: classes/models/class-import.php:609 classes/models/class-import.php:766
 #, php-format
 msgid "Failed to import %s %s"
 msgstr ""
 
-#: classes/models/class-import.php:596
+#: classes/models/class-import.php:656
 #, php-format
 msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
 msgstr ""
 
-#: classes/models/class-import.php:613
+#: classes/models/class-import.php:673
 #, php-format
 msgid "%s &#8220;%s&#8221; already exists."
 msgstr ""
 
-#: classes/models/class-import.php:672
+#: classes/models/class-import.php:732
 #, php-format
 msgid "Failed to import %s &#8220;%s&#8221;"
 msgstr ""
 
-#: classes/modules/class-post.php:74
+#: classes/modules/class-post.php:98
 msgid "Time Slots"
 msgstr ""
 
-#: classes/modules/class-post.php:75
-msgid "Settings"
-msgstr ""
-
-#: classes/modules/class-post.php:76
+#: classes/modules/class-post.php:100
 msgid "Column Type"
 msgstr ""
 
-#: classes/widgets/class-mp-timetable-head-widget.php:16
-msgid "Display upcoming head events."
-msgstr ""
-
-#: classes/widgets/class-mp-timetable-head-widget.php:18
-msgid "Timetable Head Events"
-msgstr ""
-
-#: classes/widgets/class-mp-timetable-widget.php:18
+#: classes/widgets/class-mp-timetable-widget.php:22
 msgid "Display upcoming events."
-msgstr ""
-
-#: templates-functions/actions-mp-event-functions.php:23
-#, php-format
-msgid "Event Timeslots (%s)"
 msgstr ""
 
 #: templates/column/metabox-column-options.php:10
@@ -1091,74 +1087,78 @@ msgstr ""
 msgid "Specify timetable row height in pixels."
 msgstr ""
 
-#: templates/popup/index.php:213
+#: templates/popup/index.php:210
+msgid "Base font size for the table. Example 12px, 2em, 80%."
+msgstr ""
+
+#: templates/popup/index.php:224
 msgid ""
 "Set Yes to remove a horizontal scroll bar on the desktop and display a table "
 "in a list view on mobile devices. <br> Set No to display a table with "
 "horizontal scroll bar on both desktop and mobile devices."
 msgstr ""
 
-#: templates/popup/index.php:219
+#: templates/popup/index.php:230
 msgid "Add Timetable"
 msgstr ""
 
-#: templates/popup/index.php:231
+#: templates/popup/index.php:242
 msgid "Timetable box background color"
 msgstr ""
 
-#: templates/popup/index.php:240
+#: templates/popup/index.php:251
 msgid "Timetable box hover background color"
 msgstr ""
 
-#: templates/popup/index.php:249
+#: templates/popup/index.php:260
 msgid "Timetable box text color"
 msgstr ""
 
-#: templates/popup/index.php:258
+#: templates/popup/index.php:269
 msgid "Timetable box hover text color"
 msgstr ""
 
-#: templates/popup/index.php:267
+#: templates/popup/index.php:278
 msgid "Timetable box hours text color"
 msgstr ""
 
-#: templates/popup/index.php:276
+#: templates/popup/index.php:287
 msgid "Timetable box hours hover text color"
 msgstr ""
 
-#: templates/popup/index.php:285
+#: templates/popup/index.php:296
 msgid "Filter control background color"
 msgstr ""
 
-#: templates/popup/index.php:294
+#: templates/popup/index.php:305
 msgid "Row 1 style background color"
 msgstr ""
 
-#: templates/popup/index.php:303
+#: templates/popup/index.php:314
 msgid "Row 2 style background color"
 msgstr ""
 
-#: templates/popup/index.php:324
+#: templates/popup/index.php:335
 msgid "Enter font name"
 msgstr ""
 
-#: templates/popup/index.php:332
+#: templates/popup/index.php:343
 msgid "or choose Google font"
 msgstr ""
 
-#: templates/popup/index.php:336
+#: templates/popup/index.php:347
 msgid "Default"
 msgstr ""
 
-#: templates/popup/index.php:343
+#: templates/popup/index.php:354
 msgid "Google font subset"
 msgstr ""
 
-#: templates/popup/index.php:351
+#: templates/popup/index.php:362
 msgid "Font size (in px)"
 msgstr ""
 
-#: templates/popup/index.php:365
+#: templates/popup/index.php:376
 msgid "Custom CSS"
 msgstr ""
 
@@ -1170,27 +1170,34 @@ msgstr ""
 msgid "Template Mode"
 msgstr ""
 
-#: templates/settings/general.php:15
-msgid "Theme"
-msgstr ""
-
 #: templates/settings/general.php:16
-msgid "Plugin"
+msgid "Theme Mode"
 msgstr ""
 
-#: templates/settings/general.php:18
+#: templates/settings/general.php:17
+msgid "Developer Mode"
+msgstr ""
+
+#: templates/settings/general.php:20
 msgid ""
-"Choose a page template to control the appearance of your single event and "
-"column page."
+"Choose Theme Mode to display the content with the styles of your theme. "
+"Choose Developer Mode to control appearance of the content with custom page "
+"templates, actions and filters."
 msgstr ""
 
-#: templates/settings/general.php:25
+#: templates/settings/general.php:20
+msgid ""
+"This option can't be changed if your theme is initially integrated with the "
+"plugin."
+msgstr ""
+
+#: templates/settings/general.php:26
 msgid "Save"
 msgstr ""
 
 #: templates/shortcodes/empty-search-events.php:1
-#: templates/widgets/widget-head-view.php:41
-#: templates/widgets/widget-view.php:70
+#: templates/theme/widget-upcoming-view.php:45
+#: templates/widgets/widget-view.php:65
 msgid "no events found"
 msgstr ""
 
@@ -1202,67 +1209,64 @@ msgstr ""
 msgid "All upcoming events"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:7
-msgid "User ID"
+#: templates/theme/event-timeslots.php:7
+#: templates-functions/actions-mp-event-functions.php:29
+#, php-format
+msgid "Event Timeslots (%s)"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:28
-#: templates/widgets/gallery-list.php:8
+#: templates/widgets/gallery-list.php:11
 msgid "Number of events to display"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:33
-#: templates/widgets/gallery-list.php:13
+#: templates/widgets/gallery-list.php:19
 msgid "Display settings"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:35
-#: templates/widgets/gallery-list.php:15
+#: templates/widgets/gallery-list.php:23
 msgid "today upcoming"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:36
-#: templates/widgets/gallery-list.php:16
+#: templates/widgets/gallery-list.php:25
 msgid "all upcoming"
 msgstr ""
 
-#: templates/widgets/gallery-head-list.php:37
-#: templates/widgets/gallery-list.php:17
+#: templates/widgets/gallery-list.php:27
 msgid "current events"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:23
+#: templates/widgets/gallery-list.php:33
 msgid "Enter number of days"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:26
+#: templates/widgets/gallery-list.php:38
 msgid "day"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:44
+#: templates/widgets/gallery-list.php:60
 msgid "Custom event url"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:55
+#: templates/widgets/gallery-list.php:82
 msgid "Background color"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:63
+#: templates/widgets/gallery-list.php:93
 msgid "Hover background color"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:71
+#: templates/widgets/gallery-list.php:104
 msgid "Text color"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:79
+#: templates/widgets/gallery-list.php:115
 msgid "Hover text color"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:87
+#: templates/widgets/gallery-list.php:126
 msgid "Item border color"
 msgstr ""
 
-#: templates/widgets/gallery-list.php:95
+#: templates/widgets/gallery-list.php:137
 msgid "Hover item border color"
 msgstr ""
