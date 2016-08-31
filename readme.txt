@@ -59,6 +59,9 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 
 == Changelog ==
 
+= 2.0.1 =
+* Bug fix: fixed an issue with template override
+
 = 2.0.0 =
 * We improved compatibility with your theme styles in this update. If you still stick to a previous version, simply change the template mode option in the plugin settings.
 * Added the ability to set font size for timetable shortcode so you can make your text bigger or smaller.

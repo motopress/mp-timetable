@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: http://www.getmotopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.0.0
+ * Version: 2.0.1
  * Author: MotoPress
  * Author URI: http://www.getmotopress.com
  * License: GPLv2 or later

@@ -26,14 +26,14 @@ class Hooks extends Core {
 		add_action('admin_menu', array($this, 'admin_menu'));
 		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
 		add_filter('manage_edit-mp-column_columns', array($this->get('column'), 'set_column_columns'));
+
 		// post_class filter
-		//add_filter('get_the_archive_title', array(Post::get_instance(), 'get_the_archive_title'));
 		add_filter('post_class', 'mptt_post_class', 15, 3);
 		add_action('pre_get_posts', array($this->get('column'), 'clientarea_default_order'), 9);
+		
+		// to display events with other posts on author page
 		add_filter('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9);
 
-		// author archive
-		//add_action('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9);
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
 		add_action('manage_posts_custom_column', array($this->get('column'), 'get_column_columns'));
 
@@ -128,12 +128,12 @@ class Hooks extends Core {
 
 		if (Settings::get_instance()->is_plugin_template_mode()) {
 			// plugin mode
-			add_filter('single_template', array(Core::get_instance(), 'include_custom_template'), 99);
+			add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
 		} else {
 			//theme mode
 			add_filter('single_template', array(Core::get_instance(), 'modify_single_template'), 99);
 		}
-//		add_filter('template_include', array(Core::get_instance(), 'include_custom_template'), 99);
+
 		add_action('mp_library', array(Shortcode::get_instance(), 'integration_motopress'), 20, 1);
 
 		Core::get_instance()->init_plugin_version();
