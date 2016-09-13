@@ -156,9 +156,9 @@
 
 </div>
 <script type="application/javascript">
-	(function ($) {
+	(function($) {
 		"use strict";
-		$(document).ready(function () {
+		$(document).ready(function() {
 			Registry._get("Event").initColorPicker('#widgets-right .mptt-container');
 			Registry._get("Event").displaySettings("<?php echo $widget_object->get_field_id('view_settings') ?>");
 			Registry._get("Event").timeMode("<?php echo $widget_object->get_field_id('time_settings');?>");

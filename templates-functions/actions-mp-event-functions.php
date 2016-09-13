@@ -1,7 +1,7 @@
 <?php use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes\Core;
 
-function mptt_event_template_content_title() {?>
+function mptt_event_template_content_title() { ?>
 	<h1 class="event-title"><?php the_title() ?></h1>
 	<?php
 }
@@ -40,16 +40,15 @@ function mptt_event_template_content_time_list() {
 			<li class="event mptt-colorized" id="event_hours_<?php echo $event->event_id ?>">
 
 				<h4 class="event-title">
-					<a class="event-link" href="<?php echo get_permalink($event->column_id); ?>" title="<?php the_title_attribute( array('post' => $event->event_id) ); ?>"><?php echo get_the_title($event->column_id); ?></a>
+					<a class="event-link" href="<?php echo get_permalink($event->column_id); ?>" title="<?php the_title_attribute(array('post' => $event->event_id)); ?>"><?php echo get_the_title($event->column_id); ?></a>
 				</h4>
-
 				<p class="timeslot">
 					<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php
 						echo date(get_option('time_format'), strtotime($event->event_start)); ?></time><?php
-					echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php
+					echo apply_filters('mptt_timeslot_delimiter', ' - '); ?>
+					<time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php
 						echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
 				</p>
-
 				<?php if (!empty($event->post->sub_title)) { ?>
 					<p class="event-subtitle"><?php echo $event->post->sub_title; ?></p>
 				<?php } ?>
@@ -58,7 +57,7 @@ function mptt_event_template_content_time_list() {
 					<p class="event-description"><?php echo $event->description; ?></p>
 				<?php } ?>
 				<?php if (!empty($event->user)) { ?>
-					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>"  title="<?php echo $event->user->display_name; ?>"><?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name) . ' ';
+					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>" title="<?php echo $event->user->display_name; ?>"><?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name) . ' ';
 							echo $event->user->display_name ?></a></p>
 				<?php } ?>
 			</li>

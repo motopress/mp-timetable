@@ -9,7 +9,6 @@ while (have_posts()) : the_post();
 	<div <?php post_class(apply_filters('mptt_main_wrapper_class', 'mptt-main-wrapper')) ?>>
 		<div class="<?php echo apply_filters('mptt_event_template_content_class', 'mptt-content') ?>">
 			<?php
-
 				/**
 				 * add_action('mptt_event_item_content', 'mptt_event_template_content_title', 10);
 				 * add_action('mptt_event_item_content', 'mptt_event_template_content_thumbnail', 20);
@@ -18,8 +17,6 @@ while (have_posts()) : the_post();
 				 * add_action('mptt_event_item_content', 'mptt_event_template_content_time_list', 50);
 				 */
 				do_action('mptt_event_item_content');
-
-
 			?>
 		</div>
 		<div class="<?php echo apply_filters('mptt_sidebar_class', 'mptt-sidebar') ?>">

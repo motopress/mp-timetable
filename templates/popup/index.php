@@ -324,12 +324,6 @@
 			<div id="tab-fonts" aria-labelledby="ui-id-3" class="ui-tabs-panel ui-widget-content ui-corner-bottom" role="tabpanel" style="display: none;" aria-hidden="true">
 				<table class="form-table">
 					<tbody>
-					<!--<tr>
-						<th scope="row" class="header_row" colspan="2">
-							<label>
-								Table header font									</label>
-						</th>
-					</tr>-->
 					<tr>
 						<th scope="row">
 							<label for="timetable_font_custom"><?php _e('Enter font name', 'mp-timetable'); ?></label>

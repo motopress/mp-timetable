@@ -25,7 +25,9 @@ register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
 register_uninstall_hook(__FILE__, array('Mp_Time_Table', 'on_uninstall'));
 add_action('plugins_loaded', array('Mp_Time_Table', 'init'));
 
-
+/**
+ * Class Mp_Time_Table
+ */
 class Mp_Time_Table {
 
 	protected static $instance;
@@ -155,7 +157,9 @@ class Mp_Time_Table {
 		flush_rewrite_rules();
 		//Create table in not exists
 		$charset_collate = $wpdb->get_charset_collate();
+
 		$table_name = $wpdb->prefix . "mp_timetable_data";
+
 		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `column_id` int(11) NOT NULL,
@@ -167,6 +171,7 @@ class Mp_Time_Table {
 				  PRIMARY KEY (`id`),
 				  UNIQUE KEY `id` (`id`)
 				) $charset_collate";
+
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 	}

@@ -7,9 +7,7 @@ do_action('mptt-single-before-wrapper');
 while (have_posts()) : the_post();
 	?>
 	<div <?php post_class(apply_filters('mptt_main_wrapper_class', 'mptt-main-wrapper')) ?>>
-
 		<?php
-
 		/**
 		 * add_action('mptt_single_column_template_content', 'mptt_column_template_content_title', 10);
 		 * add_action('mptt_single_column_template_content', 'mptt_column_template_content_post_content', 20);
