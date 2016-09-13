@@ -21,7 +21,7 @@ class Timetable_widget extends \WP_Widget {
 			'classname' => $classname,
 			'description' => __('Display upcoming events.', 'mp-timetable')
 		);
-		parent::__construct('mp-timetable', __('Timetable', 'mp-timetable'), $widget_ops);
+		parent::__construct('mp-timetable', __('Timetable Events', 'mp-timetable'), $widget_ops);
 		add_action('save_post', array(&$this, 'flush_widget_cache'));
 		add_action('deleted_post', array(&$this, 'flush_widget_cache'));
 		add_action('switch_theme', array(&$this, 'flush_widget_cache'));
