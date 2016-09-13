@@ -11,10 +11,7 @@
 }
 div[id^="jBoxID"].jBox-Modal .jBox-content {
   max-width: 767px;
-  padding: 12px 15px 24px 15px;
-}
-div[id^="jBoxID"].jBox-Modal .jBox-content #insert-into {
-  font-size: 120%;
+  max-height: 800px;
 }
 #add_event_options_table.form-table tr > :first-child,
 #add_event_table.form-table tr > :first-child {
