@@ -21,8 +21,7 @@ function mptt_shortcode_template_content_filter() {
 	}
 
 	if ($mptt_shortcode_data['params']['view'] == 'dropdown_list') { ?>
-		<select
-			class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>"<?php echo $style ?>>
+		<select class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>"<?php echo $style ?>>
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
 				<option
 					value="#all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
@@ -46,8 +45,7 @@ function mptt_shortcode_template_content_filter() {
 				</li>
 			<?php endif;
 			if (!empty($mptt_shortcode_data['unique_events'])): ?>
-				<?php foreach ($mptt_shortcode_data['unique_events'] as $event):
-					?>
+				<?php foreach ($mptt_shortcode_data['unique_events'] as $event): ?>
 					<li>
 						<a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_name ?>">
 							<?php echo $event->post->post_title ?>

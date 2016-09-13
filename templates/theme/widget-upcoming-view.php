@@ -42,7 +42,7 @@ if (!empty($events)): ?>
 	</ul>
 	<?php
 else:
-	_e('no events found', "mp-timetable");
+	_e('no events found', 'mp-timetable');
 endif;
 
 do_action('mptt_widget_upcoming_after_content', $events);

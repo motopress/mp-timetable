@@ -151,7 +151,9 @@
 			<tr>
 				<td></td>
 				<td>
+					<br/>
 					<input type="button" value="<?php _e('Add Timetable', 'mp-timetable'); ?>" id="insert-into" class="button button-primary button-large" name="save">
+					<br/>
 				</td>
 			</tr>
 		</table>

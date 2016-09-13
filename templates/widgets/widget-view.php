@@ -4,7 +4,9 @@
 if (!empty($instance['title'])) {
 	echo $args['before_title'] . $instance['title'] . $args['after_title'];
 }
+
 do_action('mptt_widget_template_before_content', $events);
+
 if (!empty($events)):
 	foreach ($events as $key => $event):
 		$widget = false;
@@ -41,8 +43,8 @@ if (!empty($events)):
 				$style .= !empty($event->post->color) ? ' border-left-color:' . $event->post->color . ' ;' : '';
 			endif;
 			echo $style . '"';
-			?>
-		>
+			?> >
+
 			<?php
 			$disable_url = (bool)$event->post->timetable_disable_url || (bool)$instance['disable_url'];
 			$url = ($instance['custom_url'] != "") ? $instance['custom_url'] : (($event->post->timetable_custom_url != "") ? $event->post->timetable_custom_url : get_permalink($event->event_id)); ?>
@@ -63,7 +65,9 @@ if (!empty($events)):
 
 	<?php endforeach;
 else:
-	_e('no events found', "mp-timetable");
+	_e('no events found', 'mp-timetable');
 endif;
+
 do_action('mptt_widget_template_after_content', $events);
+
 echo $args['after_widget'] ?>
