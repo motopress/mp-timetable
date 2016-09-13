@@ -6,11 +6,8 @@
 <?php \mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true) ?>
 
 <table id="add_event_table" class="form-table">
-	<tbody>
 	<tr>
-		<th>
-			<label for="weekday_id"><?php _e('Column:', 'mp-timetable') ?></label>
-		</th>
+		<td><label for="weekday_id"><?php _e('Column:', 'mp-timetable') ?></label></td>
 		<td>
 			<?php if (count($columns)) { ?>
 				<select id="weekday_id" name="events[weekday_id]">
@@ -25,35 +22,25 @@
 		</td>
 	</tr>
 	<tr>
-		<th>
-			<label for="event_start"><?php _e('Start Time:', 'mp-timetable') ?></label>
-		</th>
+		<td><label for="event_start"><?php _e('Start Time:', 'mp-timetable') ?></label></td>
 		<td>
 			<input id="event_start" type="text" value="" name="events[start_hour]" maxlength="5" size="5">
 			<span class="description"><?php _e('hh:mm', 'mp-timetable') ?></span>
 		</td>
 	</tr>
 	<tr>
-		<th>
-			<label for="event_end"><?php _e('End Time:', 'mp-timetable') ?></label>
-		</th>
+		<td><label for="event_end"><?php _e('End Time:', 'mp-timetable') ?></label></td>
 		<td>
 			<input id="event_end" type="text" value="" name="events[end_hour]" maxlength="5" size="5">
 			<span class="description"><?php _e('hh:mm', 'mp-timetable') ?></span>
 		</td>
 	</tr>
 	<tr>
-		<th>
-			<label for="description"><?php _e('Description:', 'mp-timetable') ?></label>
-		</th>
-		<td>
-			<textarea id="description" class="widefat" name="events[before_hour_text]"></textarea>
-		</td>
+		<td><label for="description"><?php _e('Description:', 'mp-timetable') ?></label></td>
+		<td><textarea id="description" class="widefat" name="events[description]"></textarea></td>
 	</tr>
 	<tr>
-		<th>
-			<label for="user_id"><?php _e('Event Head:', 'mp-timetable') ?></label>
-		</th>
+		<td><label for="user_id"><?php _e('Event Head:', 'mp-timetable') ?></label></td>
 		<td>
 			<?php wp_dropdown_users(array(
 				'show_option_none' => __('none', 'mp-timetable'),
@@ -77,12 +64,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td>
-		</td>
+		<td></td>
 		<td>
 			<input id="add_mp_event" type="button" class="button button-primary" value="<?php _e('Add Time Slot', 'mp-timetable'); ?>">
 			<span class="spinner left"></span>
 		</td>
 	</tr>
-	</tbody>
 </table>

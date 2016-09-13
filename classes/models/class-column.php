@@ -136,7 +136,6 @@ class Column extends Model {
 	 * Render meta data
 	 */
 	public function render_column_metas() {
-//		mptt_column_template_content_events_list();
 		$this->appendEvents();
 	}
 
