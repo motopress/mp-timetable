@@ -1,5 +1,5 @@
 <div class="wrap">
-	<h2><?php _e('Shortcode Settings', 'mp-timetable') ?></h2><br />
+	<h2><?php _e('Shortcode Settings', 'mp-timetable') ?></h2><br/>
 	<form id="mptt-settings" method="post">
 		<table class="form-table striped">
 			<tr>
@@ -151,6 +151,7 @@
 			<tr>
 				<td></td>
 				<td>
+
 					<input type="button" value="<?php _e('Add Timetable', 'mp-timetable'); ?>" id="insert-into" class="button button-primary button-large" name="save">
 				</td>
 			</tr>
