@@ -52,12 +52,14 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 2. Activate the plugin through the 'Plugins' menu in WordPress. You'll find 'Timetable' on your main WordPress dashboard.  
 
 == Screenshots ==
-1. Example of Timetable Frontend
-2. Example of Timetable Frontend
-3. Example of the Individual Event page and Upcoming Events widget
-4. Shortcode parameters
+1. Timetable
+2. Column
+3. Timeslots
 
 == Changelog ==
+
+= 2.0.2 =
+* Minor bugfixes and improvements
 
 = 2.0.1 =
 * Bug fix: fixed an issue with template override

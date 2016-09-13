@@ -40,7 +40,7 @@
 
 	<p>
 		<label class="widget-categories"
-		       for="<?php echo $widget_object->get_field_id('mp_categories') ?>"><?php _e('Categories', "mp-timetable") ?></label>
+		       for="<?php echo $widget_object->get_field_id('mp_categories') ?>"><?php _e('Event Categories', "mp-timetable") ?></label>
 		<select class="widefat" multiple="multiple" id="<?php echo $widget_object->get_field_id('mp_categories') ?>"
 		        name="<?php echo $widget_object->get_field_name('mp_categories') ?>[]">
 			<?php
