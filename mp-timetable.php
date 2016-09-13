@@ -18,7 +18,7 @@
 
 use mp_timetable\plugin_core\classes\Core;
 
-define("MP_TT_PLUGIN_NAME", "mp-timetable");
+define("MP_TT_PLUGIN_NAME", 'mp-timetable');
 
 register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation'));
 register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
@@ -198,7 +198,7 @@ class Mp_Time_Table {
 	 *
 	 * @return string
 	 */
-	static function get_plugin_url($path = false, $pluginName = "mp-timetable", $sync = '') {
+	static function get_plugin_url($path = false, $pluginName = 'mp-timetable', $sync = '') {
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
 }

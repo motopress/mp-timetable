@@ -53,7 +53,7 @@ class Shortcode extends Core {
 			'col' => "",
 			'increment' => "1",
 			'view' => "dropdown_list",
-			'label' => __("All Events", "mp-timetable"),
+			'label' => __("All Events", 'mp-timetable'),
 			'hide_label' => "0",
 			'title' => "0",
 			'time' => "0",

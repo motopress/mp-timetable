@@ -15,6 +15,9 @@
 						<option value="<?php echo $column->ID ?>"><?php echo $column->post_title ?></option>
 					<?php } ?>
 				</select>
+				<a target="_blank" href="<?php echo admin_url('post-new.php?post_type=mp-column') ?>" style="vertical-align:middle">
+					<button><?php _e('Add New Column', 'mp-timetable') ?></button>
+				</a>
 			<?php } else {
 				printf(__('No columns found. <a href="%s">Create at least one column first.</a>', 'mp-timetable'), admin_url('post-new.php?post_type=mp-column'));
 			}
