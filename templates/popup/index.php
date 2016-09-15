@@ -1,38 +1,37 @@
-<div class="wrap">
-	<h2><?php _e('Shortcode Settings', 'mp-timetable') ?></h2><br/>
-	<form id="mptt-settings" method="post">
+<form id="mptt-settings" method="post">
+	<div class="mptt-shortcode-settings-wrapper">
 		<table class="form-table striped">
 			<tr>
-				<td><label for="weekday"><?php _e('Columns for displaying in timetable', 'mp-timetable') ?></label></td>
+				<td><label for="weekday"><?php _e('<b>Columns</b> for displaying in timetable', 'mp-timetable') ?></label></td>
 				<td>
 					<select multiple="multiple" id="weekday" name="weekday" class="widefat">
 						<?php foreach ($data['column'] as $column): ?>
 							<option value="<?php echo $column->ID; ?>"><?php echo $column->post_title; ?></option>
 						<?php endforeach; ?>
 					</select>
-					<p class="description"><?php _e('In order to display multiple points hold CTRL/CMD button.', 'mp-timetable') ?></p>
+					<p class="description"><?php _e('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable') ?></p>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="event"><?php _e('Specific events for displaying in timetable', 'mp-timetable') ?></label></td>
+				<td><label for="event"><?php _e('Specific <b>events</b> for displaying in timetable', 'mp-timetable') ?></label></td>
 				<td>
 					<select multiple="multiple" id="event" name="event" class="widefat">
 						<?php foreach ($data['events'] as $events): ?>
 							<option value="<?php echo $events->ID; ?>"><?php echo $events->post_title; ?></option>
 						<?php endforeach; ?>
 					</select>
-					<p class="description"><?php _e('In order to display multiple points hold CTRL/CMD button.', 'mp-timetable') ?></p>
+					<p class="description"><?php _e('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable') ?></p>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="event_category"><?php _e('Event categories for displaying in timetable', 'mp-timetable'); ?></label></td>
+				<td><label for="event_category"><?php _e('Event <b>categories</b> for displaying in timetable', 'mp-timetable'); ?></label></td>
 				<td>
 					<select multiple="multiple" id="event_category" name="event_category" class="widefat">
 						<?php foreach ($data['category'] as $category): ?>
 							<option value="<?php echo $category->term_id; ?>"><?php echo $category->name; ?></option>
 						<?php endforeach; ?>
 					</select>
-					<p class="description"><?php _e('In order to display multiple points hold CTRL/CMD button.', 'mp-timetable'); ?></p>
+					<p class="description"><?php _e('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable'); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -148,13 +147,9 @@
 					<p class="description"><?php _e('Tick "List" to display events in a list view on mobile devices. Tick "Table" to display events in a table.', 'mp-timetable'); ?></p>
 				</td>
 			</tr>
-			<tr>
-				<td></td>
-				<td>
-
-					<input type="button" value="<?php _e('Add Timetable', 'mp-timetable'); ?>" id="insert-into" class="button button-primary button-large" name="save">
-				</td>
-			</tr>
 		</table>
-	</form>
-</div>
+	</div>
+	<div class="mptt-shortcode-submit-wrapper">
+		<input type="button" value="<?php _e('Add Timetable', 'mp-timetable'); ?>" id="insert-into" class="button button-primary button-large" name="save">
+	</div>
+</form>

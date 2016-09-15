@@ -45,7 +45,12 @@
 	<tr>
 		<td><label for="user_id"><?php _e('Event Head:', 'mp-timetable') ?></label></td>
 		<td>
-			<?php wp_dropdown_users(array(
+			<?php
+			
+			global $wp_version;
+			$wp_dropdown_users_show = (version_compare($wp_version, '4.5', '<')) ? 'user_login' : 'display_name_with_login';
+			
+			wp_dropdown_users(array(
 				'show_option_none' => __('none', 'mp-timetable'),
 				'show_option_all' => null,
 				'hide_if_only_one_author' => null,
@@ -54,7 +59,7 @@
 				'include' => null,
 				'exclude' => null,
 				'multi' => false,
-				'show' => 'display_name',
+				'show' => $wp_dropdown_users_show,
 				'echo' => true,
 				'selected' => false,
 				'include_selected' => false,

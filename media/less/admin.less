@@ -17,9 +17,31 @@
 
 div[id^="jBoxID"] {
   &.jBox-Modal {
+	.jBox-container {
+		overflow: hidden;
+	}
 	.jBox-content {
-	  max-width: 767px;
+	  max-width: 980px;
 	  max-height: 800px;
+	  padding: 0;
+	  overflow: hidden;
+	  & > form {
+			height: 100%;
+			overflow: hidden;
+			position: relative;
+			.mptt-shortcode-settings-wrapper {
+				height: ~"calc(100% - 60px)";
+				overflow-y: scroll;
+				padding: 0 15px 0 10px;
+			}
+			.mptt-shortcode-submit-wrapper {
+				background: #f4f5f6 none repeat scroll 0 0;
+				border-top: 1px solid #ddd;
+				padding: 15px;
+				position: relative;
+				text-align: left;
+			}
+		}
 	}
   }
 }

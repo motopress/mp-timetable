@@ -141,7 +141,8 @@ Registry.register("adminFunctions", (function($) {
 						animation: {open: 'zoomIn', close: 'zoomOut'},
 						width: width,
 						height: height,
-						closeButton: "box",
+						closeButton: "title",
+						title: 'Shortcode Settings',
 						onOpen: function() {
 							var jbox_container = $("#" + this.id);
 							open_callback.call(this, jbox_container);

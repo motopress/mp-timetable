@@ -39,7 +39,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td><label for="select-disable-url"><?php _e('Disable Link:', 'mp-timetable'); ?></label></td>
+		<td><label for="select-disable-url"><?php _e('Disable link to this event:', 'mp-timetable'); ?></label></td>
 		<td>
 			<select id="select-disable-url" name="event_meta[timetable_disable_url]">
 				<option value="0" <?php echo !($post->timetable_disable_url) ? 'selected="selected"' : '' ?> ><?php _e('No', 'mp-timetable') ?></option>

@@ -58,6 +58,10 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 
 == Changelog ==
 
+= 2.0.3 =
+* Bug fix: fixed a link to create new column from event screen
+* Improved usernames in Event Head dropdown
+
 = 2.0.2 =
 * Minor bugfixes and improvements
 
