@@ -504,9 +504,9 @@ class Core {
 		if (!empty($current_screen)) {
 			switch ($current_screen->id) {
 				case "mp-event":
-					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
+					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.min.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object");
-					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.js'), '0.3.3');
+					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.min.js'), '0.3.3');
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
@@ -520,7 +520,7 @@ class Core {
 					break;
 				case "customize":
 				case "widgets":
-					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
+					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.min.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');

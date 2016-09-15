@@ -56,6 +56,17 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 2. Column
 3. Timeslots
 
+== Credits ==
+
+Plugin bundles the following third-party resources:
+
+* GUMP, Copyright (c) 2015 wixelhq.com, MIT License
+* jQuery UI, Copyright (c) 2013 jQuery Foundation and other contributors Licensed MIT
+* Spectrum Colorpicker, by Brian Grinstead, MIT License
+* jBox, by Stephan Wagner, MIT License
+* jQuery UI Timepicker, Copyright 2010-2013, Francois Gelinas, Dual licensed under the MIT or GPL Version 2 licenses.
+
+
 == Changelog ==
 
 = 2.0.3 =
