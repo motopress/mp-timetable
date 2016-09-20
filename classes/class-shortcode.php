@@ -41,8 +41,10 @@ class Shortcode extends Core {
 	 */
 	public function show_shortcode($params) {
 		global $mptt_shortcode_data;
+
 		$this->add_plugin_js('shortcode');
 		$this->add_plugin_css('shortcode');
+
 		if (empty($params)) {
 			$params = array();
 		}
@@ -307,6 +309,7 @@ class Shortcode extends Core {
 			)
 		);
 		$mp_timetable = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);
+
 		$motopressCELibrary->addObject($mp_timetable, 'other');
 	}
 

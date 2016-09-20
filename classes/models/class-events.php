@@ -80,27 +80,6 @@ class Events extends Model {
 	}
 
 	/**
-	 * Render meta data
-	 */
-	public function render_event_metas() {
-		/*mptt_event_template_content_time_title();
-		mptt_event_template_content_time_list();*/
-		$this->appendTimeSlots();
-	}
-
-	/**
-	 * Render Timeslots by $post
-	 */
-	public function appendTimeSlots() {
-		global $post;
-		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
-		$event_data = (!empty($data)) ? $data : array();
-		$count = count($event_data);
-
-		$this->get_view()->render_html("theme/event-timeslots", array('events' => $event_data, 'count' => $count), true);
-	}
-
-	/**
 	 * Get single event data by id
 	 *
 	 * @param array $params
@@ -120,7 +99,7 @@ class Events extends Model {
 			. " ) p ON t.`column_id` = p.`ID`"
 			. " INNER JOIN ("
 			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = '{$this->post_type}' AND `post_status` = 'publish'"
+			. " WHERE `post_type` = '{$this->post_type}' "//AND `post_status` in('draft','publish')
 			. " ) e ON t.`event_id` = e.`ID`"
 			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
@@ -136,6 +115,26 @@ class Events extends Model {
 		return $event_data;
 	}
 
+	/**
+	 * Render meta data
+	 */
+	public function render_event_metas() {
+		/*mptt_event_template_content_time_title();
+		mptt_event_template_content_time_list();*/
+		$this->appendTimeSlots();
+	}
+
+	/**
+	 * Render Timeslots by $post
+	 */
+	public function appendTimeSlots() {
+		global $post;
+		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+		$event_data = (!empty($data)) ? $data : array();
+		$count = count($event_data);
+
+		$this->get_view()->render_html("theme/event-timeslots", array('events' => $event_data, 'count' => $count), true);
+	}
 
 	/**
 	 * Render event options
@@ -174,6 +173,30 @@ class Events extends Model {
 		if ($column === $this->taxonomy_names['tag']) {
 			echo Taxonomy::get_instance()->get_the_term_filter_list($post, $this->taxonomy_names['tag']);
 		}
+	}
+
+	/**
+	 * Returns the category array.
+	 *
+	 * @return array
+	 */
+	public function the_category($thelist = '', $separator = '', $parents = '') {
+		global $post;
+
+		if ($post && $post->post_type === $this->post_type && !is_admin()) {
+			$categories = wp_get_post_terms($post->ID, $this->taxonomy_names['cat']);
+			$thelist .= $this->generate_event_tags($categories, $separator, $parents);
+		}
+
+		/**
+		 * Filter the category or list of Timetable categories.
+		 *
+		 * @param array $thelist List of categories for the current post.
+		 * @param string $separator Separator used between the categories.
+		 * @param string $parents How to display the category parents. Accepts 'multiple',
+		 *                          'single', or empty.
+		 */
+		return apply_filters('mptt_the_category', $thelist, $separator, $parents);
 	}
 
 	/**
@@ -241,35 +264,11 @@ class Events extends Model {
 	}
 
 	/**
-	 * Returns the category array.
-	 *
-	 * @return array
-	 */
-	public function the_category($thelist = '', $separator = '', $parents = '') {
-		global $post;
-
-		if ($post && $post->post_type === $this->post_type && !is_admin()) {
-			$categories = wp_get_post_terms($post->ID, $this->taxonomy_names['cat']);
-			$thelist .= $this->generate_event_tags($categories, $separator, $parents);
-		}
-
-		/**
-		 * Filter the category or list of Timetable categories.
-		 *
-		 * @param array $thelist List of categories for the current post.
-		 * @param string $separator Separator used between the categories.
-		 * @param string $parents How to display the category parents. Accepts 'multiple',
-		 *                          'single', or empty.
-		 */
-		return apply_filters('mptt_the_category', $thelist, $separator, $parents);
-	}
-
-	/**
 	 * Returns a formatted tags.
 	 */
 	public function the_tags($tags, $before = '', $sep = '', $after = '', $id = 0) {
 		global $post;
-		
+
 		if ($post && $post->post_type === $this->post_type) {
 			$id = ($id === 0) ? $post->id : $id;
 			$events_tags = get_the_term_list($id, $this->taxonomy_names['tag'], $before, $sep, $after);
@@ -503,27 +502,6 @@ class Events extends Model {
 	}
 
 	/**
-	 * Filtered events by Event Head
-	 *
-	 * @param $params
-	 *
-	 * @return array
-	 */
-	protected function filter_events_by_field($params) {
-		$events = array();
-		if (!empty($params['events'])) {
-			foreach ($params['events'] as $key => $event) {
-				if ($event->$params['field'] != $params['value']) {
-					continue;
-				}
-
-				$events[$key] = $event;
-			}
-		}
-		return $events;
-	}
-
-	/**
 	 * Filter find events by select categories;
 	 *
 	 * @param array $events
@@ -639,5 +617,26 @@ class Events extends Model {
 		} else {
 			return '';
 		}
+	}
+
+	/**
+	 * Filtered events by Event Head
+	 *
+	 * @param $params
+	 *
+	 * @return array
+	 */
+	protected function filter_events_by_field($params) {
+		$events = array();
+		if (!empty($params['events'])) {
+			foreach ($params['events'] as $key => $event) {
+				if ($event->$params['field'] != $params['value']) {
+					continue;
+				}
+
+				$events[$key] = $event;
+			}
+		}
+		return $events;
 	}
 }
