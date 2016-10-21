@@ -210,15 +210,6 @@ class Core {
 	}
 
 	/**
-	 * Set state
-	 *
-	 * @param  $state
-	 */
-	public function set_state($state) {
-		$this->state = $state;
-	}
-
-	/**
 	 * Get version
 	 * @return mixed
 	 */
@@ -227,32 +218,6 @@ class Core {
 			$this->init_plugin_version();
 		}
 		return $this->version;
-	}
-
-	/**
-	 * Get plugin version
-	 */
-	public function init_plugin_version() {
-		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
-		if (!function_exists('get_plugin_data')) {
-			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-		}
-		$pluginObject = get_plugin_data($filePath);
-		$this->version = $pluginObject['Version'];
-	}
-
-	/**
-	 * Route plugin url
-	 */
-	public function wp_ajax_route_url() {
-		$controller = isset($_REQUEST["controller"]) ? $_REQUEST["controller"] : null;
-		$action = isset($_REQUEST["mptt_action"]) ? $_REQUEST["mptt_action"] : null;
-
-		if (!empty($action)) {
-			// call controller
-			Preprocessor::get_instance()->call_controller($action, $controller);
-			die();
-		}
 	}
 
 	/**
@@ -284,6 +249,41 @@ class Core {
 	 */
 	public function get_preprocessor($type = NULL) {
 		return Core::get_instance()->get_state()->get_preprocessor($type);
+	}
+
+	/**
+	 * Init plugin version
+	 */
+	public function init_plugin_version() {
+		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
+		if (!function_exists('get_plugin_data')) {
+			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+		}
+		$pluginObject = get_plugin_data($filePath);
+		$this->version = $pluginObject['Version'];
+	}
+
+	/**
+	 * Set state
+	 *
+	 * @param  $state
+	 */
+	public function set_state($state) {
+		$this->state = $state;
+	}
+
+	/**
+	 * Route plugin url
+	 */
+	public function wp_ajax_route_url() {
+		$controller = isset($_REQUEST["controller"]) ? $_REQUEST["controller"] : null;
+		$action = isset($_REQUEST["mptt_action"]) ? $_REQUEST["mptt_action"] : null;
+
+		if (!empty($action)) {
+			// call controller
+			Preprocessor::get_instance()->call_controller($action, $controller);
+			die();
+		}
 	}
 
 	/**
@@ -448,6 +448,32 @@ class Core {
 		);
 		register_post_type('mp-column', $args);
 
+	}
+
+	/**
+	 * Create Plugin table if not exists
+	 */
+	public function create_table() {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$table_name = Mp_Time_Table::get_datatable();
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
+				  `id` int(11) NOT NULL AUTO_INCREMENT,
+				  `column_id` int(11) NOT NULL,
+				  `event_id` int(11) NOT NULL,
+				  `event_start` time NOT NULL,
+				  `event_end` time NOT NULL,
+				  `user_id` int(11) NOT NULL,
+				  `description` text NOT NULL,
+				  PRIMARY KEY (`id`),
+				  UNIQUE KEY `id` (`id`)
+				) $charset_collate";
+
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
 	}
 
 	public function customizer_live_preview() {
