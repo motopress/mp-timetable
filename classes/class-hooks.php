@@ -127,7 +127,7 @@ class Hooks extends Core {
 
 		if (Settings::get_instance()->is_plugin_template_mode()) {
 			// plugin mode
-			add_filter('template_include', array(Core::get_instance(), 'template_loader'), 99);
+			add_filter('template_include', array(View::get_instance(), 'template_loader'), 99);
 		} else {
 			//theme mode
 			add_filter('single_template', array(Core::get_instance(), 'modify_single_template'), 99);

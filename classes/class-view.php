@@ -19,6 +19,8 @@ class View {
 	public function __construct() {
 		$this->template_path = Mp_Time_Table::get_template_path();
 		$this->templates_path = Mp_Time_Table::get_templates_path();
+		$this->taxonomy_names = Core::get_instance()->get_taxonomy_names();
+		$this->post_types = Core::get_instance()->get_post_types();
 	}
 
 	public static function get_instance() {
@@ -184,5 +186,62 @@ class View {
 
 		// Return what we found.
 		return apply_filters($this->prefix . '_locate_template', $template, $template_name, $template_path);
+	}
+
+
+	/**
+	 * Include template
+	 *
+	 * @param $template
+	 *
+	 * @return string
+	 */
+	public function template_loader( $template ) {
+		global $post, $taxonomy;
+
+		$find = array();
+		$file = '';
+
+		if (Core::get_instance()->is_embed()) {
+			return $template;
+		}
+
+		if (is_single() && !empty($post) && in_array($post->post_type, $this->post_types)) {
+
+			$file 	= "single-{$post->post_type}.php";
+			$find[] = $file;
+			$find[] = $this->template_path . $file;
+
+		} elseif (is_tax() && !empty($taxonomy) && in_array($taxonomy, $this->taxonomy_names)) {
+
+			$term   = get_queried_object();
+			$file = 'taxonomy-' . $taxonomy . '.php';
+
+			if (!file_exists($this->templates_path . $file)) {
+				$file = "archive.php";
+			}
+
+			$find[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+			$find[] = $this->template_path . 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+			$find[] = 'taxonomy-' . $term->taxonomy . '.php';
+			$find[] = $this->template_path . 'taxonomy-' . $term->taxonomy . '.php';
+			$find[] = $file;
+			$find[] = $this->template_path . $file;
+
+		} elseif (is_archive() && in_array($post->post_type, $this->post_types)) {
+
+			$file = "archive-{$post->post_type}.php";
+			$find[] = $file;
+			$find[] = $this->template_path . $file;
+		}
+
+		if ($file) {
+			$template = locate_template(array_unique($find));
+			if (!$template) {
+				$template = $this->templates_path . $file;
+			}
+		}
+
+		return $template;
 	}
 }
