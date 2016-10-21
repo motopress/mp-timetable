@@ -52,12 +52,29 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 2. Activate the plugin through the 'Plugins' menu in WordPress. You'll find 'Timetable' on your main WordPress dashboard.  
 
 == Screenshots ==
-1. Example of Timetable Frontend
-2. Example of Timetable Frontend
-3. Example of the Individual Event page and Upcoming Events widget
-4. Shortcode parameters
+1. Timetable
+2. Column
+3. Timeslots
+
+== Credits ==
+
+Plugin bundles the following third-party resources:
+
+* GUMP, Copyright (c) 2015 wixelhq.com, MIT License
+* jQuery UI, Copyright (c) 2013 jQuery Foundation and other contributors Licensed MIT
+* Spectrum Colorpicker, by Brian Grinstead, MIT License
+* jBox, by Stephan Wagner, MIT License
+* jQuery UI Timepicker, Copyright 2010-2013, Francois Gelinas, Dual licensed under the MIT or GPL Version 2 licenses.
+
 
 == Changelog ==
+
+= 2.0.3 =
+* Bug fix: fixed a link to create new column from event screen
+* Improved usernames in Event Head dropdown
+
+= 2.0.2 =
+* Minor bugfixes and improvements
 
 = 2.0.1 =
 * Bug fix: fixed an issue with template override

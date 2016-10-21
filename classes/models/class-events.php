@@ -65,7 +65,6 @@ class Events extends Model {
 	 * @param $metabox
 	 */
 	public function render_event_data($post, $metabox) {
-		//$date_format = get_option('date_format');
 		$time_format = get_option('time_format');
 		$data['columns'] = $this->get('column')->get_all_column();
 		if ($time_format === 'H:i') {
@@ -98,7 +97,7 @@ class Events extends Model {
 		$event_data = (!empty($data)) ? $data : array();
 		$count = count($event_data);
 
-		$this->get_view()->render_html("theme/event-timeslots", array('events' => $event_data, 'count' => $count), true);
+		$this->get_view()->get_template("theme/event-timeslots", array('events' => $event_data, 'count' => $count));
 	}
 
 	/**

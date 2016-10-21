@@ -115,33 +115,57 @@ class Core {
 	 *
 	 * @return string
 	 */
-	public function include_custom_template($template) {
+	public function template_loader( $template ) {
 		global $post, $taxonomy;
+
+		$find = array();
+		$file = '';
 
 		if (Core::get_instance()->is_embed()) {
 			return $template;
 		}
 
-		if (!empty($post) && in_array($post->post_type, $this->post_types)) {
-			if (basename($template) != "single-$post->post_type.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
-				if (file_exists($path)) {
-					$template = $path;
-				}
-			}
+		if (is_single() && !empty($post) && in_array($post->post_type, $this->post_types)) {
+
+			$file 	= "single-{$post->post_type}.php";
+			$find[] = $file;
+			$find[] = Mp_Time_Table::get_template_path() . $file;
+
+		} elseif (is_tax() && !empty($taxonomy) && in_array($taxonomy, $this->taxonomy_names)) {
+
+			$file = 'taxonomy-' . $taxonomy . '.php';
+			$term   = get_queried_object();
+
+			$find[] = 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+			$find[] = Mp_Time_Table::get_template_path() . 'taxonomy-' . $term->taxonomy . '-' . $term->slug . '.php';
+			$find[] = 'taxonomy-' . $term->taxonomy . '.php';
+			$find[] = Mp_Time_Table::get_template_path() . 'taxonomy-' . $term->taxonomy . '.php';
+			$find[] = $file;
+			$find[] = Mp_Time_Table::get_template_path() . $file;
+
+		} elseif (is_archive() && in_array($post->post_type, $this->post_types)) {
+
+			$file = "archive-{$post->post_type}.php";
+			$find[] = $file;
+			$find[] = Mp_Time_Table::get_template_path() . $file;
 		}
 
-		if (!empty($taxonomy) && is_tax() && in_array($taxonomy, $this->taxonomy_names)) {
-			if (basename($template) != "taxonomy-$taxonomy.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'taxonomy-' . $taxonomy . '.php';
-				if (is_tax($taxonomy) && file_exists($path)) {
-					$template = $path;
+		if ($file) {
+			$temp = locate_template( array_unique( $find ) );
+			if ($temp) {
+				$template = $temp;
+			} else {
+				$temp = Mp_Time_Table::get_templates_path() . $file;
+
+				if (file_exists($temp)) {
+					$template = $temp;
 				}
 			}
 		}
 
 		return $template;
 	}
+
 
 	/**
 	 * Include pseudo template
@@ -504,9 +528,9 @@ class Core {
 		if (!empty($current_screen)) {
 			switch ($current_screen->id) {
 				case "mp-event":
-					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
+					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.min.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object");
-					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.js'), '0.3.3');
+					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.min.js'), '0.3.3');
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
@@ -520,7 +544,7 @@ class Core {
 					break;
 				case "customize":
 				case "widgets":
-					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.js'), array('jquery'), '1.8.0');
+					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.min.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');

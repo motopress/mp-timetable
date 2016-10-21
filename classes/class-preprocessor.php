@@ -79,7 +79,7 @@ class Preprocessor extends GUMP {
 		}
 		$action = "action_$action";
 		$controller = Core::get_instance()->get_state()->get_controller($page);
-		// if metod exists
+		// if method exists
 		if (method_exists($controller, $action)) {
 			return $controller->$action();
 		} else {

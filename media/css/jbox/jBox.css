@@ -7,10 +7,10 @@
 
 .jBox-wrapper,
 .jBox-wrapper * {
-	/*-webkit-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;*/
+	-moz-osx-font-smoothing: grayscale;
 }
 
 .jBox-title,
@@ -124,6 +124,7 @@
 	border-bottom: 1px solid #ddd;
 	text-shadow: 0 1px 0 #fff;
 }
+
 .jBox-Modal.jBox-closeButton-title .jBox-title,
 .jBox-Confirm.jBox-closeButton-title .jBox-title {
 	padding-right: 55px;
@@ -424,8 +425,8 @@
 /* Close button in box */
 
 .jBox-closeButton-box .jBox-closeButton {
-	top: 22px;
-	right: 24px;
+	top: -8px;
+	right: -10px;
 	width: 24px;
 	height: 24px;
 	background: #fff;

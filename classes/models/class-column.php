@@ -136,7 +136,6 @@ class Column extends Model {
 	 * Render meta data
 	 */
 	public function render_column_metas() {
-//		mptt_column_template_content_events_list();
 		$this->appendEvents();
 	}
 
@@ -145,7 +144,7 @@ class Column extends Model {
 		$data = $this->get('events')->get_event_data(array('field' => 'column_id', 'id' => $post->ID));
 		$events = (!empty($data)) ? $data : array();
 
-		$this->get_view()->render_html("theme/column-events", array('events' => $events), true);
+		$this->get_view()->get_template("theme/column-events", array('events' => $events), true);
 	}
 
 	/**

@@ -22,7 +22,7 @@
 								//click on insert button
 								Registry._get("PopupEvents").init(jbox, container, function(item) {
 									var shortcode_obj = {
-										tag: "mp-timetable",
+										tag: 'mp-timetable',
 										attrs: {},
 										type: "single"
 									};

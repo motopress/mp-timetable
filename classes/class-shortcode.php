@@ -53,7 +53,7 @@ class Shortcode extends Core {
 			'col' => "",
 			'increment' => "1",
 			'view' => "dropdown_list",
-			'label' => __("All Events", "mp-timetable"),
+			'label' => __("All Events", 'mp-timetable'),
 			'hide_label' => "0",
 			'title' => "0",
 			'time' => "0",
@@ -78,9 +78,9 @@ class Shortcode extends Core {
 			}
 		}
 		if (empty($mptt_shortcode_data['events_data']['events']) && empty($mptt_shortcode_data['events_data']['column'])) {
-			return $this->get_view()->render_html('shortcodes/empty-search-events', array(), false);
+			return $this->get_view()->get_template('shortcodes/empty-search-events', array(), false);
 		} else {
-			return $this->get_view()->render_html('shortcodes/index-timetable', array(), false);
+			return $this->get_view()->get_template('shortcodes/index-timetable', array(), false);
 		}
 	}
 

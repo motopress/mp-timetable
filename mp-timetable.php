@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: http://www.getmotopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.0.2
+ * Version: 2.0.3
  * Author: MotoPress
  * Author URI: http://www.getmotopress.com
  * License: GPLv2 or later
@@ -18,14 +18,16 @@
 
 use mp_timetable\plugin_core\classes\Core;
 
-define("MP_TT_PLUGIN_NAME", "mp-timetable");
+define("MP_TT_PLUGIN_NAME", 'mp-timetable');
 
 register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation'));
 register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
 register_uninstall_hook(__FILE__, array('Mp_Time_Table', 'on_uninstall'));
 add_action('plugins_loaded', array('Mp_Time_Table', 'init'));
 
-
+/**
+ * Class Mp_Time_Table
+ */
 class Mp_Time_Table {
 
 	protected static $instance;
@@ -113,7 +115,16 @@ class Mp_Time_Table {
 	 * @return string
 	 */
 	public static function get_template_path(){
-		return apply_filters( 'mptt_template_path', 'mptt_templates/' );
+		return apply_filters( 'mptt_template_path', 'mp-timetable/' );
+	}
+
+	/**
+	 * Retrieve relative to plugin root path to templates.
+	 *
+	 * @return string
+	 */
+	public static function get_templates_path(){
+		return self::get_plugin_path() . 'templates/';
 	}
 
 	/**
@@ -155,7 +166,9 @@ class Mp_Time_Table {
 		flush_rewrite_rules();
 		//Create table in not exists
 		$charset_collate = $wpdb->get_charset_collate();
+
 		$table_name = $wpdb->prefix . "mp_timetable_data";
+
 		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `column_id` int(11) NOT NULL,
@@ -167,6 +180,7 @@ class Mp_Time_Table {
 				  PRIMARY KEY (`id`),
 				  UNIQUE KEY `id` (`id`)
 				) $charset_collate";
+
 		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 		dbDelta($sql);
 	}
@@ -193,7 +207,7 @@ class Mp_Time_Table {
 	 *
 	 * @return string
 	 */
-	static function get_plugin_url($path = false, $pluginName = "mp-timetable", $sync = '') {
+	static function get_plugin_url($path = false, $pluginName = 'mp-timetable', $sync = '') {
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
 }

@@ -9,6 +9,41 @@
 #column-options .mp-date {
   margin: 10px 0 0;
 }
+div[id^="jBoxID"].jBox-Modal .jBox-container {
+  overflow: hidden;
+}
+div[id^="jBoxID"].jBox-Modal .jBox-content {
+  max-width: 980px;
+  max-height: 800px;
+  padding: 0;
+  overflow: hidden;
+}
+div[id^="jBoxID"].jBox-Modal .jBox-content > form {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+div[id^="jBoxID"].jBox-Modal .jBox-content > form .mptt-shortcode-settings-wrapper {
+  height: calc(100% - 60px);
+  overflow-y: scroll;
+  padding: 0 15px 0 10px;
+}
+div[id^="jBoxID"].jBox-Modal .jBox-content > form .mptt-shortcode-submit-wrapper {
+  background: #f4f5f6 none repeat scroll 0 0;
+  border-top: 1px solid #ddd;
+  padding: 15px;
+  position: relative;
+  text-align: left;
+}
+#add_event_options_table.form-table tr > :first-child,
+#add_event_table.form-table tr > :first-child {
+  vertical-align: top;
+  text-align: left;
+  padding: 20px 10px 20px 0;
+  width: 200px;
+  line-height: 1.3;
+  font-weight: 600;
+}
 #events-list .active * {
   background-color: #F7FCFE;
 }

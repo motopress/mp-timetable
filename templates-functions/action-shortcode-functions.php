@@ -21,8 +21,7 @@ function mptt_shortcode_template_content_filter() {
 	}
 
 	if ($mptt_shortcode_data['params']['view'] == 'dropdown_list') { ?>
-		<select
-			class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>"<?php echo $style ?>>
+		<select class="<?php echo apply_filters('mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select') ?>"<?php echo $style ?>>
 			<?php if (!$mptt_shortcode_data['params']['hide_label']): ?>
 				<option
 					value="#all"><?php echo (strlen(trim($mptt_shortcode_data['params']['label']))) ? trim($mptt_shortcode_data['params']['label']) : __('All Events', 'mp-timetable') ?></option>
@@ -46,8 +45,7 @@ function mptt_shortcode_template_content_filter() {
 				</li>
 			<?php endif;
 			if (!empty($mptt_shortcode_data['unique_events'])): ?>
-				<?php foreach ($mptt_shortcode_data['unique_events'] as $event):
-					?>
+				<?php foreach ($mptt_shortcode_data['unique_events'] as $event): ?>
 					<li>
 						<a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_name ?>">
 							<?php echo $event->post->post_title ?>
@@ -97,81 +95,81 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 	$table_class .= \mp_timetable\classes\models\Settings::get_instance()->is_plugin_template_mode() ? '' : ' mptt-theme-mode';
 
 	?>
-	<table <?php echo !empty($table_class) ? 'class="'.$table_class .'"' : ''; ?>
-	id="#<?php echo $event_id; ?>"
-	style="display:none; <?php echo $font_size; ?>"
-    data-hide_empty_row="<?php echo $hide_empty_rows; ?>">
-	<thead>
-	<tr class="mptt-shortcode-row">
-		<?php if ($show_hrs): ?>
-			<th></th>
-		<?php endif; ?>
-		<?php foreach ($mptt_shortcode_data['events_data']['column'] as $column): ?>
-			<th data-column-id="<?php echo $column->ID ?>"><?php echo $column->post_title ?></th>
-		<?php endforeach; ?>
-	</tr>
-	</thead>
-	<tbody>
-	<?php for ($i = $bounds['start']; $i <= $bounds['end']; $i++): ?>
-		<?php
-		$tm = $i * $mptt_shortcode_data['params']['increment'];
-		if (floor($tm) == $tm) {
-			$table_cell_start = $tm . ':00';
-		} else {
-			if ($amount_rows == 46) {
-				$table_cell_start = floor($tm) . ':30';
+	<table <?php echo !empty($table_class) ? 'class="' . $table_class . '"' : ''; ?>
+		id="#<?php echo $event_id; ?>"
+		style="display:none; <?php echo $font_size; ?>"
+		data-hide_empty_row="<?php echo $hide_empty_rows; ?>">
+		<thead>
+		<tr class="mptt-shortcode-row">
+			<?php if ($show_hrs): ?>
+				<th></th>
+			<?php endif; ?>
+			<?php foreach ($mptt_shortcode_data['events_data']['column'] as $column): ?>
+				<th data-column-id="<?php echo $column->ID ?>"><?php echo $column->post_title ?></th>
+			<?php endforeach; ?>
+		</tr>
+		</thead>
+		<tbody>
+		<?php for ($i = $bounds['start']; $i <= $bounds['end']; $i++): ?>
+			<?php
+			$tm = $i * $mptt_shortcode_data['params']['increment'];
+			if (floor($tm) == $tm) {
+				$table_cell_start = $tm . ':00';
 			} else {
-				$tm_position = explode('.', $tm);
-
-				if ($tm_position[1] == 25) {
-					$mnts = ':15';
-				} elseif ($tm_position[1] == 5) {
-					$mnts = ':30';
+				if ($amount_rows == 46) {
+					$table_cell_start = floor($tm) . ':30';
 				} else {
-					$mnts = ':45';
+					$tm_position = explode('.', $tm);
+
+					if ($tm_position[1] == 25) {
+						$mnts = ':15';
+					} elseif ($tm_position[1] == 5) {
+						$mnts = ':30';
+					} else {
+						$mnts = ':45';
+					}
+					$table_cell_start = floor($tm) . $mnts;
 				}
-				$table_cell_start = floor($tm) . $mnts;
 			}
-		}
 
-		$row_has_items = mptt_shortcode_row_has_items($i, $column_events);
+			$row_has_items = mptt_shortcode_row_has_items($i, $column_events);
 
-		?>
-		<?php if ($hide_empty_rows && !$row_has_items): ?>
-			<?php continue; ?>
-		<?php else: ?>
-			<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
+			?>
+			<?php if ($hide_empty_rows && !$row_has_items): ?>
+				<?php continue; ?>
+			<?php else: ?>
+				<tr class="mptt-shortcode-row-<?php echo $i ?>" data-index="<?php echo $i ?>">
 
-			<?php if ($show_hrs) { ?>
-				<td class="mptt-shortcode-hours"
-				    style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo date(get_option('time_format'), strtotime($table_cell_start)); ?></td>
-			<?php }?>
+					<?php if ($show_hrs) { ?>
+						<td class="mptt-shortcode-hours"
+						    style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo date(get_option('time_format'), strtotime($table_cell_start)); ?></td>
+					<?php } ?>
 
 					<?php foreach ($column_events as $column_id => $events_list): ?>
-	<td class="mptt-shortcode-event"
-	    data-column-id="<?php echo $column_id ?>"
-	    rowspan=""
-	    data-row_height="<?php echo $row_height; ?>"
-	    style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
-		<?php if (!empty($column_events[$column_id])) {
-			foreach ($events_list as $key_events => $item) :
-				if ($item->start_index == $i) {
-					\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
-						array(
-							'item' => $item,
-							'params' => $mptt_shortcode_data['params']
-						), true);
-				}
-			endforeach;
-		} ?>
-	</td>
-<?php endforeach; ?>
-</tr>
-<?php endif; ?>
+						<td class="mptt-shortcode-event"
+						    data-column-id="<?php echo $column_id ?>"
+						    rowspan=""
+						    data-row_height="<?php echo $row_height; ?>"
+						    style="<?php echo 'height:' . $mptt_shortcode_data['params']['row_height'] . 'px;'; ?>">
+							<?php if (!empty($column_events[$column_id])) {
+								foreach ($events_list as $key_events => $item) :
+									if ($item->start_index == $i) {
+										\mp_timetable\plugin_core\classes\View::get_instance()->get_template('shortcodes/event-container',
+											array(
+												'item' => $item,
+												'params' => $mptt_shortcode_data['params']
+											), true);
+									}
+								endforeach;
+							} ?>
+						</td>
+					<?php endforeach; ?>
+				</tr>
+			<?php endif; ?>
 		<?php endfor; ?>
-	</tbody>
+		</tbody>
 	</table>
-<?php
+	<?php
 }
 
 function mptt_shortcode_row_has_items($i, $column_events) {
