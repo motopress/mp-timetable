@@ -122,7 +122,7 @@ class Core {
 			return $template;
 		}
 
-		if (!empty($post) && in_array($post->post_type, $this->post_types)) {
+		if (!empty($post) && is_single() && in_array($post->post_type, $this->post_types)) {
 			if (basename($template) != "single-$post->post_type.php") {
 				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
 				if (file_exists($path)) {

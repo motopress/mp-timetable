@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.0.4 =
+* Bug fix: fixed an issue with post template on search results page
+
 = 2.0.3 =
 * Bug fix: fixed a link to create new column from event screen
 * Improved usernames in Event Head dropdown
