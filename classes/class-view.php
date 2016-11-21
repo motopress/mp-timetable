@@ -236,9 +236,9 @@ class View {
 		}
 
 		if ($file) {
-			$template = locate_template(array_unique($find));
-			if (!$template) {
-				$template = $this->templates_path . $file;
+			$find_template = locate_template(array_unique($find));
+			if (!empty($find_template)) {
+				$template = $find_template;
 			}
 		}
 
