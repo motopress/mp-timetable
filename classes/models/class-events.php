@@ -74,7 +74,7 @@ class Events extends Model {
 		} else {
 			$time_format_array = array('hours' => '0,23', 'am_pm' => false);
 		}
-		$event_data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+		$event_data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID), 'event_start', false);
 
 		$this->get_view()->render_html("events/metabox-event-data", array('event_data' => $event_data, 'args' => $metabox['args'], 'columns' => $data['columns'], 'date' => array('time_format' => $time_format_array)), true);
 	}
@@ -85,14 +85,15 @@ class Events extends Model {
 	public function render_event_metas() {
 		/*mptt_event_template_content_time_title();
 		mptt_event_template_content_time_list();*/
-		$this->appendTimeSlots();
+		$this->append_time_slots();
 	}
 
 	/**
 	 * Render Timeslots by $post
 	 */
-	public function appendTimeSlots() {
+	public function append_time_slots() {
 		global $post;
+
 		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
 		$event_data = (!empty($data)) ? $data : array();
 		$count = count($event_data);
@@ -107,8 +108,8 @@ class Events extends Model {
 	 *
 	 * @return array|null|object|void
 	 */
-	public function get_event_data($params, $order_by = 'event_start') {
-
+	public function get_event_data($params, $order_by = 'event_start', $publish = true) {
+		$publish = $publish ? " AND `post_status` = 'publish'" : '';
 		$table_posts = $this->wpdb->prefix . 'posts';
 
 		$event_data = $this->wpdb->get_results(
@@ -120,7 +121,7 @@ class Events extends Model {
 			. " ) p ON t.`column_id` = p.`ID`"
 			. " INNER JOIN ("
 			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = '{$this->post_type}' AND `post_status` = 'publish'"
+			. " WHERE `post_type` = '{$this->post_type}'{$publish}"
 			. " ) e ON t.`event_id` = e.`ID`"
 			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"

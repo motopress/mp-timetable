@@ -136,10 +136,10 @@ class Column extends Model {
 	 * Render meta data
 	 */
 	public function render_column_metas() {
-		$this->appendEvents();
+		$this->append_events();
 	}
 
-	public function appendEvents() {
+	public function append_events() {
 		global $post;
 		$data = $this->get('events')->get_event_data(array('field' => 'column_id', 'id' => $post->ID));
 		$events = (!empty($data)) ? $data : array();
