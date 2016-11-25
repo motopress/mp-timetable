@@ -158,7 +158,7 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 											array(
 												'item' => $item,
 												'params' => $mptt_shortcode_data['params']
-											), true);
+											));
 									}
 								endforeach;
 							} ?>

@@ -144,7 +144,7 @@ class Column extends Model {
 		$data = $this->get('events')->get_event_data(array('field' => 'column_id', 'id' => $post->ID));
 		$events = (!empty($data)) ? $data : array();
 
-		$this->get_view()->get_template("theme/column-events", array('events' => $events), true);
+		$this->get_view()->get_template("theme/column-events", array('events' => $events));
 	}
 
 	/**
