@@ -94,7 +94,9 @@ class Events extends Model {
 	public function append_time_slots() {
 		global $post;
 
-		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+		$show_public_only = ((get_post_status($post->ID) == 'draft') && is_preview()) ? false : true;
+
+		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID), 'event_start', $show_public_only);
 		$event_data = (!empty($data)) ? $data : array();
 		$count = count($event_data);
 
