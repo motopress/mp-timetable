@@ -13,7 +13,8 @@
  */
 
 /*
- * use add_theme_support('mp-timetable'); in your theme to override templates;
+ * This pluign contains hooks that allow you to edit, add and move content without needing to edit template files. This method protects against upgrade issues.
+ * Alternatively, you can copy template files from '/mp-timetable/templates/' folder to '/your-theme/mp-timetable/' to override them.
  */
 
 use mp_timetable\plugin_core\classes\Core;
