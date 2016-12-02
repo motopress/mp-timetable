@@ -64,7 +64,7 @@ class Core {
 	 */
 	public function init_plugin($name) {
 
-		load_plugin_textdomain('mp-restaurant-menu', FALSE, Mp_Time_Table::get_plugin_path() . 'languages/');
+		load_plugin_textdomain('mp-timetable', FALSE, Mp_Time_Table::get_plugin_path() . 'languages/');
 
 		// include template for function
 		Core::include_all(Mp_Time_Table::get_plugin_part_path('templates-functions'));

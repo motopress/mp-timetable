@@ -87,7 +87,6 @@ class View {
 	public function get_template_part($slug, $name = '') {
 		$template = '';
 
-		// Look in your-theme/slug-name.php and your-theme/mp-restaurant-menu/slug-name.php
 		if ($name) {
 			$template = locate_template(array("{$slug}-{$name}.php", $this->template_path . "{$slug}-{$name}.php"));
 		}
@@ -97,7 +96,6 @@ class View {
 			$template = $this->templates_path . "{$slug}-{$name}.php";
 		}
 
-		// If template file doesn't exist, look in your-theme/slug.php and your-theme/mp-restaurant-menu/slug.php
 		if (!$template) {
 			$template = locate_template(array("{$slug}.php", $this->template_path . "{$slug}.php"));
 		}
