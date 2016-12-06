@@ -78,9 +78,10 @@ class Shortcode extends Core {
 			}
 		}
 		if (empty($mptt_shortcode_data['events_data']['events']) && empty($mptt_shortcode_data['events_data']['column'])) {
-			return $this->get_view()->get_template('shortcodes/empty-search-events', array());
+			return $this->get_view()->get_template_html('shortcodes/empty-search-events', array());
 		} else {
-			return $this->get_view()->get_template('shortcodes/index-timetable', array());
+
+			return $this->get_view()->get_template_html('shortcodes/index-timetable', array());
 		}
 	}
 
