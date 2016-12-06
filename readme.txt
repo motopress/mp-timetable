@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.1 =
+* Bug fix: fixed the issue with shortcode tempalte
+
 = 2.1.0 =
 * Added the ability to override templates in a theme. 
 * Bug fix: fixed the issue on WordPress multisite when Event wasn't saving. 
