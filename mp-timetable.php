@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: http://www.getmotopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.0.4
+ * Version: 2.1.1
  * Author: MotoPress
  * Author URI: http://www.getmotopress.com
  * License: GPLv2 or later
@@ -13,7 +13,8 @@
  */
 
 /*
- * use add_theme_support('mp-timetable'); in your theme to override templates;
+ * This pluign contains hooks that allow you to edit, add and move content without needing to edit template files. This method protects against upgrade issues.
+ * Alternatively, you can copy template files from '/mp-timetable/templates/' folder to '/your-theme/mp-timetable/' to override them.
  */
 
 use mp_timetable\plugin_core\classes\Core;
@@ -24,6 +25,8 @@ register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation')
 register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
 register_uninstall_hook(__FILE__, array('Mp_Time_Table', 'on_uninstall'));
 add_action('plugins_loaded', array('Mp_Time_Table', 'init'));
+add_action('wpmu_new_blog', array('Mp_Time_Table', 'on_create_blog'), 10, 6);
+add_filter('wpmu_drop_tables', array('Mp_Time_Table', 'on_delete_blog'));
 
 /**
  * Class Mp_Time_Table
@@ -114,8 +117,17 @@ class Mp_Time_Table {
 	 *
 	 * @return string
 	 */
-	public static function get_template_path(){
-		return apply_filters( 'mptt_template_path', 'mptt_templates/' );
+	public static function get_template_path() {
+		return apply_filters('mptt_template_path', 'mp-timetable/');
+	}
+
+	/**
+	 * Retrieve relative to plugin root path to templates.
+	 *
+	 * @return string
+	 */
+	public static function get_templates_path() {
+		return self::get_plugin_path() . 'templates/';
 	}
 
 	/**
@@ -144,6 +156,16 @@ class Mp_Time_Table {
 		return dirname(plugin_basename(__FILE__));
 	}
 
+	/**
+	 * Get data table name
+	 *
+	 * @return string
+	 */
+	public static function get_datatable() {
+		global $wpdb;
+
+		return $wpdb->prefix . "mp_timetable_data";
+	}
 
 	/**
 	 * On activation defrozo plugin
@@ -155,25 +177,9 @@ class Mp_Time_Table {
 		// Register taxonomy all
 		Core::get_instance()->register_all_taxonomies();
 		flush_rewrite_rules();
+
 		//Create table in not exists
-		$charset_collate = $wpdb->get_charset_collate();
-
-		$table_name = $wpdb->prefix . "mp_timetable_data";
-
-		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
-				  `id` int(11) NOT NULL AUTO_INCREMENT,
-				  `column_id` int(11) NOT NULL,
-				  `event_id` int(11) NOT NULL,
-				  `event_start` time NOT NULL,
-				  `event_end` time NOT NULL,
-				  `user_id` int(11) NOT NULL,
-				  `description` text NOT NULL,
-				  PRIMARY KEY (`id`),
-				  UNIQUE KEY `id` (`id`)
-				) $charset_collate";
-
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($sql);
+		Core::get_instance()->create_table();
 	}
 
 	/**
@@ -188,6 +194,29 @@ class Mp_Time_Table {
 	 */
 	public static function on_uninstall() {
 	}
+
+	/**
+	 * On blog creation
+	 */
+	public static function on_create_blog($blog_id, $user_id, $domain, $path, $site_id, $meta) {
+		if (is_plugin_active_for_network(self::get_plugin_name() . '/' . self::get_plugin_name() . '.php')) {
+			switch_to_blog($blog_id);
+			//Create table in not exists
+			Core::get_instance()->create_table();
+			restore_current_blog();
+		}
+	}
+
+	/**
+	 * On blog creation
+	 */
+	public static function on_delete_blog($tables) {
+
+		$tables[] = self::get_datatable();
+
+		return $tables;
+	}
+
 
 	/**
 	 * Get plugin url

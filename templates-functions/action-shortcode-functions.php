@@ -154,11 +154,11 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 							<?php if (!empty($column_events[$column_id])) {
 								foreach ($events_list as $key_events => $item) :
 									if ($item->start_index == $i) {
-										\mp_timetable\plugin_core\classes\View::get_instance()->render_html('shortcodes/event-container',
+										\mp_timetable\plugin_core\classes\View::get_instance()->get_template('shortcodes/event-container',
 											array(
 												'item' => $item,
 												'params' => $mptt_shortcode_data['params']
-											), true);
+											));
 									}
 								endforeach;
 							} ?>

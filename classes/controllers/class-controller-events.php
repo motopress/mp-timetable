@@ -64,7 +64,10 @@ class Controller_Events extends Controller {
 	 * @return mixed
 	 */
 	public function get_all_event_by_post($post) {
-		$result = $this->get('events')->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+		// Show draft timeslots on preview
+		$show_public_only = ((get_post_status($post->ID) == 'draft') && is_preview()) ? false : true;
+
+		$result = $this->get('events')->get_event_data(array('field' => 'event_id', 'id' => $post->ID), 'event_start', $show_public_only);
 
 		return $result;
 	}

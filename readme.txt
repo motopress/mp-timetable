@@ -69,6 +69,14 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.1 =
+* Bug fix: fixed the issue with shortcode tempalte
+
+= 2.1.0 =
+* Added the ability to override templates in a theme. 
+* Bug fix: fixed the issue on WordPress multisite when Event wasn't saving. 
+* Bug fix: fixed the issue when timeslots didn't show if Event is in the Draft status.
+
 = 2.0.4 =
 * Bug fix: fixed an issue with post template on search results page
 
