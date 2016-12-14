@@ -402,6 +402,7 @@ class Core {
 			"capability_type" => "post",
 			"menu_position" => 21,
 			"hierarchical" => false,
+			'has_archive' => true,
 			"rewrite" => array(
 				'slug' => 'timetable/event',
 				'with_front' => true,
@@ -438,6 +439,7 @@ class Core {
 			"capability_type" => "post",
 			"menu_position" => 21,
 			"hierarchical" => false,
+			'has_archive' => true,
 			"rewrite" => array(
 				'slug' => 'timetable/column',
 				'with_front' => true,

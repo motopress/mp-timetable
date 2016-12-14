@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
 Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer
 Requires at least: 3.6
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,8 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+= 2.1.2 =
+* Bug fix: fixed the issue when plugin overrides default archive template.
 
 = 2.1.1 =
 * Bug fix: fixed the issue with shortcode tempalte
