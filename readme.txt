@@ -68,6 +68,8 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+= 2.1.2 =
+* Bug fix: fixed the issue when plugin overrides default archive template.
 
 = 2.1.1 =
 * Bug fix: fixed the issue with shortcode tempalte

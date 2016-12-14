@@ -214,11 +214,12 @@ class View {
 			$find[] = $this->template_path . 'taxonomy-' . $term->taxonomy . '.php';
 			$find[] = $file;
 			$find[] = $this->template_path . $file;
-		} elseif (is_post_type_archive($post->post_type)) {
-			$file = 'archive.php';
-			$find[] = $file;
-			$find[] = $this->template_path . $file;
 		}
+//		elseif (is_post_type_archive($this->post_types)) {
+//			$file = 'archive.php';
+//			$find[] = $file;
+//			$find[] = $this->template_path . $file;
+//		}
 		if ($file) {
 			$find_template = locate_template(array_unique($find));
 			if (!empty($find_template)) {
