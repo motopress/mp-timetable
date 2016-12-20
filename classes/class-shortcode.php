@@ -166,12 +166,8 @@ class Shortcode extends Core {
 					}
 				}
 				//sort by start date
-				usort($column_events, function ($a, $b) {
-					if (strtotime($a->event_start) == strtotime($b->event_start)) {
-						return 0;
-					}
-					return (strtotime($a->event_start) < strtotime($b->event_start)) ? -1 : 1;
-				});
+				$column_events = $this->get_model('events')->sort_by_param($column_events);
+
 				$events_data['column_events'][$column->ID] = $column_events;
 			}
 		} else {
@@ -180,6 +176,13 @@ class Shortcode extends Core {
 		return $events_data;
 	}
 
+	/**
+	 * Get events Id
+	 *
+	 * @param array $data
+	 *
+	 * @return string
+	 */
 	public function get_event_ids(array $data = array()) {
 		$ids_list = array();
 		if (empty($data)) {
