@@ -568,9 +568,10 @@ class Events extends Model {
 	 */
 	public function filter_events_by_categories(array $events, array $categories) {
 		$temp_events = array();
+		$taxonomy = $this->taxonomy_names['cat'];
 
 		foreach ($events as $event) {
-			if (has_term($categories, $this->taxonomy_names['cat'], $event->post->ID)) {
+			if (@has_term($categories, $taxonomy, $event->post->ID)) {
 				$temp_events[] = $event;
 			}
 		}

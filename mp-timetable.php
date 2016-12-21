@@ -171,7 +171,6 @@ class Mp_Time_Table {
 	 * On activation defrozo plugin
 	 */
 	public static function on_activation() {
-		global $wpdb;
 		// Register post type
 		Core::get_instance()->register_all_post_type();
 		// Register taxonomy all
