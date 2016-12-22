@@ -16,6 +16,9 @@ class Events extends Model {
 	protected $table_name;
 	protected $post_type;
 
+	/**
+	 * Events constructor.
+	 */
 	function __construct() {
 		parent::__construct();
 		global $wpdb;
@@ -28,6 +31,9 @@ class Events extends Model {
 		$this->table_name = $wpdb->prefix . "mp_timetable_data";
 	}
 
+	/**
+	 * @return Events
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -43,7 +49,7 @@ class Events extends Model {
 	 * @return mixed
 	 */
 	function __get($property) {
-		return $this->$property;
+		return $this->{$property};
 	}
 
 	/**
@@ -55,7 +61,7 @@ class Events extends Model {
 	 * @return mixed
 	 */
 	function __set($property, $value) {
-		return $this->$property = $value;
+		return $this->{$property} = $value;
 	}
 
 	/**
@@ -74,20 +80,23 @@ class Events extends Model {
 		} else {
 			$time_format_array = array('hours' => '0,23', 'am_pm' => false);
 		}
-		$event_data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+		$event_data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID), 'event_start', false);
 
 		$this->get_view()->render_html("events/metabox-event-data", array('event_data' => $event_data, 'args' => $metabox['args'], 'columns' => $data['columns'], 'date' => array('time_format' => $time_format_array)), true);
 	}
 
 	/**
+	 *
 	 * Get single event data by id
 	 *
-	 * @param array $params
+	 * @param $params
+	 * @param string $order_by
+	 * @param bool $publish
 	 *
-	 * @return array|null|object|void
+	 * @return array|null|object
 	 */
-	public function get_event_data($params, $order_by = 'event_start') {
-
+	public function get_event_data($params, $order_by = 'event_start', $publish = true) {
+		$publish = $publish ? " AND `post_status` = 'publish'" : '';
 		$table_posts = $this->wpdb->prefix . 'posts';
 
 		$event_data = $this->wpdb->get_results(
@@ -99,7 +108,7 @@ class Events extends Model {
 			. " ) p ON t.`column_id` = p.`ID`"
 			. " INNER JOIN ("
 			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = '{$this->post_type}' "//AND `post_status` in('draft','publish')
+			. " WHERE `post_type` = '{$this->post_type}'{$publish}"
 			. " ) e ON t.`event_id` = e.`ID`"
 			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
@@ -119,30 +128,30 @@ class Events extends Model {
 	 * Render meta data
 	 */
 	public function render_event_metas() {
-		/*mptt_event_template_content_time_title();
-		mptt_event_template_content_time_list();*/
-		$this->appendTimeSlots();
+		$this->append_time_slots();
 	}
 
 	/**
 	 * Render Timeslots by $post
 	 */
-	public function appendTimeSlots() {
+	public function append_time_slots() {
 		global $post;
-		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID));
+
+		$show_public_only = ((get_post_status($post->ID) == 'draft') && is_preview()) ? false : true;
+
+		$data = $this->get_event_data(array('field' => 'event_id', 'id' => $post->ID), 'event_start', $show_public_only);
 		$event_data = (!empty($data)) ? $data : array();
 		$count = count($event_data);
 
-		$this->get_view()->render_html("theme/event-timeslots", array('events' => $event_data, 'count' => $count), true);
+		$this->get_view()->get_template("theme/event-timeslots", array('events' => $event_data, 'count' => $count));
 	}
 
 	/**
 	 * Render event options
 	 *
 	 * @param $post
-	 * @param $metabox
 	 */
-	public function render_event_options($post, $metabox) {
+	public function render_event_options($post) {
 		$this->get_view()->render_html("events/metabox-event-options", array('post' => $post), true);
 	}
 
@@ -176,16 +185,20 @@ class Events extends Model {
 	}
 
 	/**
-	 * Returns the category array.
+	 * Output category post
 	 *
-	 * @return array
+	 * @param string $the_list
+	 * @param string $separator
+	 * @param string $parents
+	 *
+	 * @return mixed
 	 */
-	public function the_category($thelist = '', $separator = '', $parents = '') {
+	public function the_category($the_list = '', $separator = '', $parents = '') {
 		global $post;
 
 		if ($post && $post->post_type === $this->post_type && !is_admin()) {
 			$categories = wp_get_post_terms($post->ID, $this->taxonomy_names['cat']);
-			$thelist .= $this->generate_event_tags($categories, $separator, $parents);
+			$the_list .= $this->generate_event_tags($categories, $separator, $parents);
 		}
 
 		/**
@@ -196,7 +209,7 @@ class Events extends Model {
 		 * @param string $parents How to display the category parents. Accepts 'multiple',
 		 *                          'single', or empty.
 		 */
-		return apply_filters('mptt_the_category', $thelist, $separator, $parents);
+		return apply_filters('mptt_the_category', $the_list, $separator, $parents);
 	}
 
 	/**
@@ -210,61 +223,69 @@ class Events extends Model {
 	 */
 	public function generate_event_tags($categories, $separator, $parents) {
 		global $wp_rewrite;
-		$thelist = '';
+		$the_list = '';
 		$rel = (is_object($wp_rewrite) && $wp_rewrite->using_permalinks()) ? 'rel="category tag"' : 'rel="category"';
 
 		if ('' == $separator) {
-			$thelist .= '<ul class="post-categories">';
+			$the_list .= '<ul class="post-categories">';
 			foreach ($categories as $category) {
-				$thelist .= "\n\t<li>";
+				$the_list .= "\n\t<li>";
 				switch (strtolower($parents)) {
 					case 'multiple':
 						if ($category->parent)
-							$thelist .= get_category_parents($category->parent, true, $separator);
-						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a></li>';
+							$the_list .= get_category_parents($category->parent, true, $separator);
+						$the_list .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a></li>';
 						break;
 					case 'single':
-						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '"  ' . $rel . '>';
+						$the_list .= '<a href="' . esc_url(get_category_link($category->term_id)) . '"  ' . $rel . '>';
 						if ($category->parent)
-							$thelist .= get_category_parents($category->parent, false, $separator);
-						$thelist .= $category->name . '</a></li>';
+							$the_list .= get_category_parents($category->parent, false, $separator);
+						$the_list .= $category->name . '</a></li>';
 						break;
 					case '':
 					default:
-						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a></li>';
+						$the_list .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a></li>';
 				}
 			}
-			$thelist .= '</ul>';
+			$the_list .= '</ul>';
 		} else {
 			$i = 0;
 			foreach ($categories as $category) {
 				if (0 < $i)
-					$thelist .= $separator;
+					$the_list .= $separator;
 				switch (strtolower($parents)) {
 					case 'multiple':
 						if ($category->parent)
-							$thelist .= get_category_parents($category->parent, true, $separator);
-						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a>';
+							$the_list .= get_category_parents($category->parent, true, $separator);
+						$the_list .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a>';
 						break;
 					case 'single':
-						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>';
+						$the_list .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>';
 						if ($category->parent)
-							$thelist .= get_category_parents($category->parent, false, $separator);
-						$thelist .= "$category->name</a>";
+							$the_list .= get_category_parents($category->parent, false, $separator);
+						$the_list .= "$category->name</a>";
 						break;
 					case '':
 					default:
-						$thelist .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a>';
+						$the_list .= '<a href="' . esc_url(get_category_link($category->term_id)) . '" ' . $rel . '>' . $category->name . '</a>';
 				}
 				++$i;
 			}
 		}
 
-		return $thelist;
+		return $the_list;
 	}
 
 	/**
 	 * Returns a formatted tags.
+	 *
+	 * @param $tags
+	 * @param string $before
+	 * @param string $sep
+	 * @param string $after
+	 * @param int $id
+	 *
+	 * @return mixed
 	 */
 	public function the_tags($tags, $before = '', $sep = '', $after = '', $id = 0) {
 		global $post;
@@ -353,9 +374,11 @@ class Events extends Model {
 		$weekday = strtolower(date('l', time()));
 		$current_date = date('d/m/Y', time());
 		$curent_time = date('H:i', current_time('timestamp'));
+
 		if (!empty($instance['mp_categories'])) {
 			$category_columns_ids = $this->get('column')->get_columns_by_event_category($instance['mp_categories']);
 		}
+
 		$args = array(
 			'post_type' => 'mp-column',
 			'post_status' => 'publish',
@@ -382,44 +405,56 @@ class Events extends Model {
 				if (!empty($column_post_ids)) {
 					$events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
 				}
-				$events = $this->filter_events(array('events' => $events, 'view_settings' => $instance['view_settings'], 'time' => $curent_time));
+				$events = $this->filter_events(array('events' => $events, 'view_settings' => $instance['view_settings'], 'time' => $curent_time, 'mp_categories' => $instance['mp_categories']));
 				break;
 			case 'all':
+
 				if (!empty($instance['next_days']) && $instance['next_days'] > 0) {
+					$events_array = array();
 					for ($i = 0; $i <= $instance['next_days']; $i++) {
 						// set new day week
 						$time = strtotime("+$i days");
-						$args['meta_query'][0]['value'] = strtolower(date('l', $time));
+
+						$day = strtolower(date('l', $time));
+						$date = date('d/m/Y', $time);
+
+						//set week day
+						$args['meta_query'][0]['value'] = $day;
 						//set new date
-						$args['meta_query'][1]['value'] = date('d/m/Y', $time);
+						$args['meta_query'][1]['value'] = $date;
 
 						$column_post_ids = get_posts($args);
+
 						if (!empty($column_post_ids)) {
-							$day_events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
-							$events = array_merge($events, $day_events);
+							$events_array[$i] = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
 						}
+
 						if ($i === 0) {
-							$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
+							$events_array[$i] = $this->filter_events(array('events' => $events_array[$i], 'view_settings' => 'today', 'time' => $curent_time, 'mp_categories' => $instance['mp_categories']));
 						}
 					}
+
+					foreach ($events_array as $day_events) {
+						$events = array_merge($events, $day_events);
+					}
+
 				}
+
 				break;
+
 			default:
 				$column_post_ids = get_posts($args);
 				if (!empty($column_post_ids)) {
 					$events = $this->get_events_data(array('column' => 'column_id', 'list' => $column_post_ids));
 				}
-				$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time));
+				$events = $this->filter_events(array('events' => $events, 'view_settings' => 'today', 'time' => $curent_time, 'mp_categories' => $instance['mp_categories']));
+
 				break;
 		}
-		if (!empty($instance['mp_categories'])) {
-			$events = $this->filter_events_by_categories($events, $instance['mp_categories']);
-		}
-
 		if ($instance['limit'] > 0) {
-
 			$events = array_slice($events, 0, $instance['limit']);
 		}
+
 		return $events;
 	}
 
@@ -460,16 +495,19 @@ class Events extends Model {
 		$events_data = $this->wpdb->get_results($sql_reguest);
 
 		if (is_array($events_data)) {
+
 			foreach ($events_data as $event) {
 				$post = get_post($event->event_id);
 
 				if ($post && ($post->post_type == $this->post_type) && ($post->post_status == 'publish')) {
 					$event->post = $post;
+					$event->column_post = get_post($event->column_id);
 					$event->event_start = date('H:i', strtotime($event->event_start));
 					$event->event_end = date('H:i', strtotime($event->event_end));
 					$events[] = $event;
 				}
 			}
+
 		}
 		return $events;
 	}
@@ -483,6 +521,25 @@ class Events extends Model {
 	 */
 	protected function filter_events($params) {
 		$events = array();
+
+		$events = $this->filter_by_time_period($params, $events);
+
+		if (!empty($params['mp_categories'])) {
+			$events = $this->filter_events_by_categories($events, $params['mp_categories']);
+		}
+
+		return $events;
+	}
+
+	/**
+	 * Filter by time period
+	 *
+	 * @param $params
+	 * @param $events
+	 *
+	 * @return array
+	 */
+	protected function filter_by_time_period($params, $events) {
 		if (!empty($params['events'])) {
 			foreach ($params['events'] as $key => $event) {
 				if ($params['view_settings'] === 'today' || $params['view_settings'] === 'all') {
@@ -510,18 +567,38 @@ class Events extends Model {
 	 * @return array
 	 */
 	public function filter_events_by_categories(array $events, array $categories) {
-		$eventsCategories = $this->get_events_data_by_category($categories);
 		$temp_events = array();
-		foreach ($eventsCategories as $cat_event) {
-			foreach ($events as $event) {
-				if ($cat_event->id === $event->id) {
-					$temp_events[] = $event;
-				}
+		$taxonomy = $this->taxonomy_names['cat'];
 
+		foreach ($events as $event) {
+			if (@has_term($categories, $taxonomy, $event->post->ID)) {
+				$temp_events[] = $event;
 			}
 		}
 
 		return $temp_events;
+	}
+
+	/**
+	 * Sort by params
+	 *
+	 * @param $events
+	 * @param $field
+	 * @param string $order
+	 *
+	 * @return mixed
+	 */
+	public function sort_by_param($events) {
+
+		usort($events, function ($a, $b) {
+			if (strtotime($a->event_start) == strtotime($b->event_start)) {
+				return 0;
+			}
+			return (strtotime($a->event_start) < strtotime($b->event_start)) ? -1 : 1;
+		});
+
+
+		return $events;
 	}
 
 	/**
@@ -638,5 +715,12 @@ class Events extends Model {
 			}
 		}
 		return $events;
+	}
+
+	private function cmp($a, $b) {
+		if ($a->column_post->menu_order == $b->column_post->menu_order) {
+			return 0;
+		}
+		return ($a->column_post->menu_order < $b->column_post->menu_order) ? -1 : 1;
 	}
 }

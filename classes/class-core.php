@@ -44,13 +44,27 @@ class Core {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function get_post_types() {
+		return $this->post_types;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_taxonomy_names() {
+		return $this->taxonomy_names;
+	}
+
+	/**
 	 *  Init current plugin
 	 *
 	 * @param $name
 	 */
 	public function init_plugin($name) {
 
-		load_plugin_textdomain('mp-restaurant-menu', FALSE, Mp_Time_Table::get_plugin_path() . 'languages/');
+		load_plugin_textdomain('mp-timetable', FALSE, Mp_Time_Table::get_plugin_path() . 'languages/');
 
 		// include template for function
 		Core::include_all(Mp_Time_Table::get_plugin_part_path('templates-functions'));
@@ -106,41 +120,6 @@ class Core {
 			self::$instance = new self();
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Include template
-	 *
-	 * @param $template
-	 *
-	 * @return string
-	 */
-	public function include_custom_template($template) {
-		global $post, $taxonomy;
-
-		if (Core::get_instance()->is_embed()) {
-			return $template;
-		}
-
-		if (!empty($post) && is_single() && in_array($post->post_type, $this->post_types)) {
-			if (basename($template) != "single-$post->post_type.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'single-' . $post->post_type . '.php';
-				if (file_exists($path)) {
-					$template = $path;
-				}
-			}
-		}
-
-		if (!empty($taxonomy) && is_tax() && in_array($taxonomy, $this->taxonomy_names)) {
-			if (basename($template) != "taxonomy-$taxonomy.php") {
-				$path = Mp_Time_Table::get_plugin_part_path('templates/') . 'taxonomy-' . $taxonomy . '.php';
-				if (is_tax($taxonomy) && file_exists($path)) {
-					$template = $path;
-				}
-			}
-		}
-
-		return $template;
 	}
 
 	/**
@@ -231,15 +210,6 @@ class Core {
 	}
 
 	/**
-	 * Set state
-	 *
-	 * @param  $state
-	 */
-	public function set_state($state) {
-		$this->state = $state;
-	}
-
-	/**
 	 * Get version
 	 * @return mixed
 	 */
@@ -248,32 +218,6 @@ class Core {
 			$this->init_plugin_version();
 		}
 		return $this->version;
-	}
-
-	/**
-	 * Get plugin version
-	 */
-	public function init_plugin_version() {
-		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
-		if (!function_exists('get_plugin_data')) {
-			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-		}
-		$pluginObject = get_plugin_data($filePath);
-		$this->version = $pluginObject['Version'];
-	}
-
-	/**
-	 * Route plugin url
-	 */
-	public function wp_ajax_route_url() {
-		$controller = isset($_REQUEST["controller"]) ? $_REQUEST["controller"] : null;
-		$action = isset($_REQUEST["mptt_action"]) ? $_REQUEST["mptt_action"] : null;
-
-		if (!empty($action)) {
-			// call controller
-			Preprocessor::get_instance()->call_controller($action, $controller);
-			die();
-		}
 	}
 
 	/**
@@ -305,6 +249,41 @@ class Core {
 	 */
 	public function get_preprocessor($type = NULL) {
 		return Core::get_instance()->get_state()->get_preprocessor($type);
+	}
+
+	/**
+	 * Init plugin version
+	 */
+	public function init_plugin_version() {
+		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
+		if (!function_exists('get_plugin_data')) {
+			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+		}
+		$pluginObject = get_plugin_data($filePath);
+		$this->version = $pluginObject['Version'];
+	}
+
+	/**
+	 * Set state
+	 *
+	 * @param  $state
+	 */
+	public function set_state($state) {
+		$this->state = $state;
+	}
+
+	/**
+	 * Route plugin url
+	 */
+	public function wp_ajax_route_url() {
+		$controller = isset($_REQUEST["controller"]) ? $_REQUEST["controller"] : null;
+		$action = isset($_REQUEST["mptt_action"]) ? $_REQUEST["mptt_action"] : null;
+
+		if (!empty($action)) {
+			// call controller
+			Preprocessor::get_instance()->call_controller($action, $controller);
+			die();
+		}
 	}
 
 	/**
@@ -423,6 +402,7 @@ class Core {
 			"capability_type" => "post",
 			"menu_position" => 21,
 			"hierarchical" => false,
+			'has_archive' => true,
 			"rewrite" => array(
 				'slug' => 'timetable/event',
 				'with_front' => true,
@@ -459,6 +439,7 @@ class Core {
 			"capability_type" => "post",
 			"menu_position" => 21,
 			"hierarchical" => false,
+			'has_archive' => true,
 			"rewrite" => array(
 				'slug' => 'timetable/column',
 				'with_front' => true,
@@ -469,6 +450,32 @@ class Core {
 		);
 		register_post_type('mp-column', $args);
 
+	}
+
+	/**
+	 * Create Plugin table if not exists
+	 */
+	public function create_table() {
+		global $wpdb;
+
+		$charset_collate = $wpdb->get_charset_collate();
+
+		$table_name = Mp_Time_Table::get_datatable();
+
+		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
+				  `id` int(11) NOT NULL AUTO_INCREMENT,
+				  `column_id` int(11) NOT NULL,
+				  `event_id` int(11) NOT NULL,
+				  `event_start` time NOT NULL,
+				  `event_end` time NOT NULL,
+				  `user_id` int(11) NOT NULL,
+				  `description` text NOT NULL,
+				  PRIMARY KEY (`id`),
+				  UNIQUE KEY `id` (`id`)
+				) $charset_collate";
+
+		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+		dbDelta($sql);
 	}
 
 	public function customizer_live_preview() {

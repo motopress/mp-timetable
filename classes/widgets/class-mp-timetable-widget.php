@@ -14,9 +14,9 @@ class Timetable_widget extends \WP_Widget {
 	 * Defrozo_widget constructor.
 	 */
 	public function __construct() {
-		
+
 		$classname = Settings::get_instance()->is_plugin_template_mode() ? 'mptt-container' : 'widget_recent_entries';
-		
+
 		$widget_ops = array(
 			'classname' => $classname,
 			'description' => __('Display upcoming events.', 'mp-timetable')
@@ -66,7 +66,7 @@ class Timetable_widget extends \WP_Widget {
 		$instance = $old_instance;
 		$instance['title'] = strip_tags($new_instance['title']);
 		$instance['limit'] = strip_tags($new_instance['limit']);
-		$instance['mp_categories'] = $new_instance['mp_categories'];
+		$instance['mp_categories'] = empty($new_instance['mp_categories']) ? "" : $new_instance['mp_categories'];
 		$instance['view_settings'] = strip_tags($new_instance['view_settings']);
 		$instance['next_days'] = strip_tags($new_instance['next_days']);
 		$instance['time_settings'] = empty($new_instance['time_settings']) ? "" : strip_tags($new_instance['time_settings']);
@@ -120,9 +120,9 @@ class Timetable_widget extends \WP_Widget {
 		if (Settings::get_instance()->is_plugin_template_mode()) {
 			Core::get_instance()->add_plugin_js('widget');
 			Core::get_instance()->add_plugin_css('widget');
-			View::get_instance()->render_html("widgets/widget-view", $data, true);
+			View::get_instance()->get_template("widgets/widget-view", $data);
 		} else {
-			View::get_instance()->render_html("theme/widget-upcoming-view", $data, true);
+			View::get_instance()->get_template("theme/widget-upcoming-view", $data);
 		}
 
 		$cache[$args['widget_id']] = ob_get_flush();

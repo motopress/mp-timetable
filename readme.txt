@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
 Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer
 Requires at least: 3.6
-Tested up to: 4.6
+Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -68,6 +68,26 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+= 2.1.2 =
+* Bug fix: fixed the issue when plugin overrides default archive template.
+
+= 2.1.1 =
+* Bug fix: fixed the issue with shortcode tempalte
+
+= 2.1.0 =
+* Added the ability to override templates in a theme. 
+* Bug fix: fixed the issue on WordPress multisite when Event wasn't saving. 
+* Bug fix: fixed the issue when timeslots didn't show if Event is in the Draft status.
+
+= 2.0.4 =
+* Bug fix: fixed an issue with post template on search results page
+
+= 2.0.3 =
+* Bug fix: fixed a link to create new column from event screen
+* Improved usernames in Event Head dropdown
+
+= 2.0.2 =
+* Minor bugfixes and improvements
 
 = 2.0.4 =
 * Bug fix: fixed an issue with post template on search results page
