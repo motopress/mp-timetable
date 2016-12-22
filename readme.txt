@@ -89,16 +89,6 @@ Plugin bundles the following third-party resources:
 = 2.0.2 =
 * Minor bugfixes and improvements
 
-= 2.0.4 =
-* Bug fix: fixed an issue with post template on search results page
-
-= 2.0.3 =
-* Bug fix: fixed a link to create new column from event screen
-* Improved usernames in Event Head dropdown
-
-= 2.0.2 =
-* Minor bugfixes and improvements
-
 = 2.0.1 =
 * Bug fix: fixed an issue with template override
 
