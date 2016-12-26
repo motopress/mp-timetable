@@ -75,6 +75,7 @@
 					<select id="filter_style" name="filter_style">
 						<option value="dropdown_list"><?php _e('Dropdown', 'mp-timetable'); ?></option>
 						<option value="tabs"><?php _e('Tabs', 'mp-timetable'); ?></option>
+						<option value="none"><?php _e('Hide', 'mp-timetable'); ?></option>
 					</select>
 				</td>
 			</tr>

@@ -9,6 +9,9 @@ class Model extends Core {
 
 	protected static $instance;
 
+	/**
+	 * @return Model
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -19,7 +22,7 @@ class Model extends Core {
 	/**
 	 * Install models by type
 	 */
-	static function install() {
+	public function install() {
 		// include all core models
 		Core::include_all(\Mp_Time_Table::get_plugin_part_path('classes/models'));
 	}

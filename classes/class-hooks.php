@@ -6,9 +6,16 @@ use mp_timetable\classes\models\Import;
 use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes\modules\Post;
 
+/**
+ * Class Hooks
+ * @package mp_timetable\plugin_core\classes
+ */
 class Hooks extends Core {
 	protected static $instance;
 
+	/**
+	 * @return Hooks
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -19,34 +26,25 @@ class Hooks extends Core {
 	public function install_hooks() {
 		// register custom post type and taxonomies
 		add_action('init', array($this, "init"));
-
 		add_action('admin_init', array($this->get_controller('settings'), 'action_save'));
 		add_action("admin_init", array($this, "admin_init"));
 		add_action('admin_menu', array($this, 'admin_menu'));
-		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
-		add_filter('manage_edit-mp-column_columns', array($this->get('column'), 'set_column_columns'));
-
-		// post_class filter
-		add_filter('post_class', 'mptt_post_class', 15, 3);
-		add_action('pre_get_posts', array($this->get('column'), 'clientarea_default_order'), 9);
-
-		// to display events with other posts on author page
-		add_filter('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9);
-
 		add_action('manage_posts_custom_column', array($this->get('events'), 'get_event_taxonomy'));
 		add_action('manage_posts_custom_column', array($this->get('column'), 'get_column_columns'));
-
-		add_action('customize_preview_init', array(Core::get_instance(), 'customizer_live_preview'), 11);
 		add_action('current_screen', array(Core::get_instance(), 'current_screen'));
-
+		add_action('pre_get_posts', array($this->get('column'), 'clientarea_default_order'), 9);
 		//add media in frontend WP
 		add_action('wp_enqueue_scripts', array(Core::get_instance(), "wp_enqueue_scripts"));
-
 		//add media in admin WP
 		add_action('admin_enqueue_scripts', array(Core::get_instance(), "admin_enqueue_scripts"));
-		//add_action('admin_print_scripts-post-new.php', array(Core::get_instance(), 'init_admin_scripts'), 11);
-		//add_action('admin_print_scripts-post.php', array(Core::get_instance(), 'init_admin_scripts'), 11);
 		add_action('widgets_init', array($this, 'register_widgets'));
+		// Manage event/column columns
+		add_filter('manage_edit-mp-event_columns', array($this->get('events'), 'set_event_columns'));
+		add_filter('manage_edit-mp-column_columns', array($this->get('column'), 'set_column_columns'));
+		// post_class filter
+		add_filter('post_class', 'mptt_post_class', 15, 3);
+		// to display events with other posts on author page
+		add_filter('pre_get_posts', array(Post::get_instance(), 'pre_get_posts'), 9);
 	}
 
 	/**
@@ -75,10 +73,8 @@ class Hooks extends Core {
 	public function register_template_action() {
 		add_action('mptt_sidebar', 'mptt_sidebar', 10);
 		add_filter('mptt_widget_settings', 'mptt_widget_settings', 10, 1);
-
 		add_action('mptt-single-mp-column-before-wrapper', 'mptt_theme_wrapper_before');
 		add_action('mptt-single-mp-column-after-wrapper', 'mptt_theme_wrapper_after');
-
 		add_action('mptt-single-mp-event-before-wrapper', 'mptt_theme_wrapper_before');
 		add_action('mptt-single-mp-event-after-wrapper', 'mptt_theme_wrapper_after');
 
@@ -97,11 +93,9 @@ class Hooks extends Core {
 
 		//Shortcode template action
 		add_action('mptt_shortcode_template_before_content', 'mptt_shortcode_template_before_content', 10);
-
 		add_action('mptt_shortcode_template_content', 'mptt_shortcode_template_content_filter', 10);
 		add_action('mptt_shortcode_template_content', 'mptt_shortcode_template_content_static_table', 20);
 		add_action('mptt_shortcode_template_content', 'mptt_shortcode_template_content_responsive_table', 30);
-
 		add_action('mptt_shortcode_template_after_content', 'mptt_shortcode_template_after_content', 10);
 
 		// Widget actions
@@ -138,7 +132,6 @@ class Hooks extends Core {
 		Core::get_instance()->init_plugin_version();
 
 		add_filter('body_class', array($this, 'browser_body_class'));
-
 		add_filter('the_tags', array($this->get('events'), 'the_tags'), 10, 5);
 		add_filter('the_category', array($this->get('events'), 'the_category'), 10, 3);
 	}
@@ -154,7 +147,6 @@ class Hooks extends Core {
 		Core::get_instance()->init_plugin_version();
 
 		add_action('before_delete_post', array(Post::get_instance(), 'before_delete_custom_post'));
-//		add_action('wp_trash_post', array(Post::get_instance(), 'before_delete_custom_post'));
 		add_action('add_meta_boxes', array(Post::get_instance(), 'add_meta_boxes'));
 		add_action('save_post', array(Post::get_instance(), 'save_custom_post'), 40, 2);
 		add_action('wp_ajax_route_url', array(Core::get_instance(), "wp_ajax_route_url"));
@@ -175,7 +167,6 @@ class Hooks extends Core {
 		add_submenu_page("edit.php?post_type=mp-event", __("Event Tags", 'mp-timetable'), __("Event Tags", 'mp-timetable'), "manage_categories", "edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Settings", 'mp-timetable'), __("Settings", 'mp-timetable'), "switch_themes", "admin.php?page=mptt-switch-template", array($this->get_controller('settings'), 'action_content'));
 		add_submenu_page("edit.php?post_type=mp-event", __("Export / Import", 'mp-timetable'), __("Export / Import", 'mp-timetable'), "import", "admin.php?page=mptt-import", array($this->get_controller('import'), 'action_content'));
-
 	}
 
 	/**
@@ -203,6 +194,13 @@ class Hooks extends Core {
 		return $buttons;
 	}
 
+	/**
+	 * Browser body class
+	 *
+	 * @param $classes
+	 *
+	 * @return array
+	 */
 	public function browser_body_class($classes) {
 		global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
 
@@ -216,6 +214,7 @@ class Hooks extends Core {
 		else $classes[] = '';
 
 		if ($is_iphone) $classes[] = 'mprm_iphone';
+
 		return $classes;
 	}
 }

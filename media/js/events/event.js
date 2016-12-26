@@ -1,7 +1,9 @@
-/*global jQuery:false, console:false, _:false, CommonManager:false,Registry:false, wp:false*/
+/*global jQuery:false, console:false, _:false, CommonManager:false,Registry:false, wp:false, MPTT:false*/
+
 Registry.register("Event",
-	(function ($) {
+	(function($) {
 		"use strict";
+
 		var state;
 
 		function createInstance() {
@@ -12,7 +14,7 @@ Registry.register("Event",
 				/**
 				 * Init
 				 */
-				init: function () {
+				init: function() {
 					state.initTimePicker();
 					state.addEventButton();
 					state.initDeleteButtons();
@@ -24,7 +26,7 @@ Registry.register("Event",
 				/**
 				 * Init time picker
 				 */
-				initTimePicker: function () {
+				initTimePicker: function() {
 					var timeFormat = Boolean(parseInt($('#time_format').val()));
 					$('#event_start').timepicker({
 						showPeriod: timeFormat,     // Define whether or not to show AM/PM with selected time. (default: false)
@@ -42,7 +44,7 @@ Registry.register("Event",
 				 * @param selector
 				 * @param autoScroll
 				 */
-				initSlider: function (selector, autoScroll) {
+				initSlider: function(selector, autoScroll) {
 					var play = _.isUndefined(autoScroll) ? false : Boolean(autoScroll);
 					var id = selector.replace(/^\D+/g, '');
 					$(selector).carouFredSel({
@@ -54,12 +56,12 @@ Registry.register("Event",
 							items: 1,
 							easing: "swing",
 							pauseOnHover: true,
-							onAfter: function (data) {
-								data.items.old.each(function () {
+							onAfter: function(data) {
+								data.items.old.each(function() {
 										$(this).removeClass('visible');
 									}
 								);
-								data.items.visible.each(function () {
+								data.items.visible.each(function() {
 										$(this).addClass('visible');
 									}
 								);
@@ -77,7 +79,7 @@ Registry.register("Event",
 						}
 					});
 
-					$(selector).trigger("currentVisible", function (items) {
+					$(selector).trigger("currentVisible", function(items) {
 						items.addClass("visible");
 					});
 					state.setColorSettings(selector + ' ' + '.mptt-colorized');
@@ -85,7 +87,7 @@ Registry.register("Event",
 				/**
 				 * Init color picker
 				 */
-				initColorPicker: function (parent) {
+				initColorPicker: function(parent) {
 					if (_.isUndefined(parent)) {
 						parent = '';
 					}
@@ -110,21 +112,21 @@ Registry.register("Event",
 							["#600", "#783f04", "#7f6000", "#274e13", "#0c343d", "#073763", "#20124d", "#4c1130"]
 						],
 						showPalette: true,
-						show: function (color) {
+						show: function(color) {
 							$(this).val(color);
 						},
-						hide: function (color) {
+						hide: function(color) {
 							var parent = $(this).parents('.select-color');
 							parent.find('.regular-text').val($(this).val());
 						},
-						change: function (color) {
+						change: function(color) {
 							var parent = $(this).parents('.select-color');
 							parent.find('input:not([type="hidden"])').val($(this).val());
 						}
 					});
 
 					//change color preview block
-					selectorTextInput.off('keyup').on('keyup', function () {
+					selectorTextInput.off('keyup').on('keyup', function() {
 						var parentTr = $(this).parents('.select-color');
 						var spectrumElement = parentTr.find('.clr-picker');
 						var colorElement = parentTr.find(".regular-text").val();
@@ -138,12 +140,12 @@ Registry.register("Event",
 				/**
 				 * Add event
 				 */
-				addEventButton: function () {
-					$('#add_mp_event').off('click').on('click', function () {
+				addEventButton: function() {
+					$('#add_mp_event').off('click').on('click', function() {
 						if ($(this).hasClass('edit')) {
 							state.updateEventData();
 						} else {
-							//state.renderEventsBlock();
+
 							state.validateEventData();
 							if (state.validateEventData()) {
 								state.renderEventItem();
@@ -154,8 +156,8 @@ Registry.register("Event",
 				/**
 				 * init event data delete button
 				 */
-				initDeleteButtons: function () {
-					$('#events-list #delete-event-button').off('click').on('click', function () {
+				initDeleteButtons: function() {
+					$('#events-list').find('#delete-event-button').off('click').on('click', function() {
 						var id = $(this).attr('data-id');
 						state.deleteEvent(id);
 					});
@@ -163,8 +165,8 @@ Registry.register("Event",
 				/**
 				 * init event data edit button
 				 */
-				initEditButtons: function () {
-					$('#events-list #edit-event-button').off('click').on('click', function () {
+				initEditButtons: function() {
+					$('#events-list').find('#edit-event-button').off('click').on('click', function() {
 						var id = $(this).attr('data-id'),
 							$tr = $(this).parent().parent();
 						$(this).parent().find('.spinner').addClass('is-active');
@@ -175,9 +177,11 @@ Registry.register("Event",
 								action: "get_event_data",
 								id: id
 							},
-							function (data) {
-								$('#events-list .spinner').removeClass('is-active');
-								$('#events-list tr').removeClass('active');
+							function(data) {
+								var $addMpEvent = $('#add_mp_event');
+								var $events = $('#events-list');
+								$events.find('.spinner').removeClass('is-active');
+								$events.find(' tr').removeClass('active');
 								$tr.addClass('active');
 
 								$('#event_start').val(data.event_start);
@@ -185,11 +189,13 @@ Registry.register("Event",
 								$('#description').val(data.description);
 								$('#user_id').val(data.user_id);
 								$('#weekday_id').val(data.column_id);
-								$('#add_mp_event').addClass('edit');
-								$('#add_mp_event').val('Update');
+
+								$addMpEvent.addClass('edit');
+								$addMpEvent.val('Update');
+
 								state.event_id = data.id;
 							},
-							function (data) {
+							function(data) {
 								console.warn(data);
 							}
 						);
@@ -197,21 +203,23 @@ Registry.register("Event",
 				},
 				/**
 				 * Delete event data by id
+				 *
 				 * @param id
 				 */
-				deleteEvent: function (id) {
+				deleteEvent: function(id) {
 					Registry._get("adminFunctions").wpAjax(
 						{
 							controller: "events",
 							action: "delete",
 							id: id
 						},
-						function (data) {
-							if ($('#events-list tr[data-id="' + id + '"]').length) {
-								$('#events-list tr[data-id="' + id + '"]').remove();
+						function(data) {
+							var $deleteEvent = $('#events-list').children('tr[data-id="' + id + '"]');
+							if ($deleteEvent.length) {
+								$deleteEvent.remove();
 							}
 						},
-						function (data) {
+						function(data) {
 							console.log(data);
 						}
 					);
@@ -219,13 +227,15 @@ Registry.register("Event",
 				/**
 				 * Update event item
 				 */
-				updateEventItem: function () {
-					var item = $('#events-list tr[data-id="' + state.event_id + '"]');
-					//item.removeClass('active');
-					item.find('td.event-column').text($('#weekday_id option:selected').text());
+				updateEventItem: function() {
+					var item = $('#events-list').find('tr[data-id="' + state.event_id + '"]');
+					var $userId = $('#user_id');
+
+					item.find('td.event-column').text($('#weekday_id').find('option:selected').text());
 					item.find('td.event-start').text($('#event_start').val());
 					item.find('td.event-end').text($('#event_end').val());
-					item.find('td.event-user-id').text(( $('#user_id').val() == '-1') ? '' : $('#user_id option:selected').text());
+
+					item.find('td.event-user-id').text(( $userId.val() === '-1') ? '' : $userId.find('option:selected').text());
 					item.find('td.event-description').text($('#description').val());
 
 					state.event_id = null;
@@ -234,8 +244,11 @@ Registry.register("Event",
 				/**
 				 * Update Event data
 				 */
-				updateEventData: function () {
-					$('#add_event_table .spinner').addClass('is-active');
+				updateEventData: function() {
+					var $addEventTable = $('#add_event_table').find('.spinner');
+
+					$addEventTable.addClass('is-active');
+
 					Registry._get("adminFunctions").wpAjax(
 						{
 							controller: "events",
@@ -249,13 +262,13 @@ Registry.register("Event",
 								weekday_ids: $('#weekday_id').val()
 							}
 						},
-						function (data) {
-							$('#add_event_table .spinner').removeClass('is-active');
+						function() {
+							$addEventTable.removeClass('is-active');
 							state.updateEventItem();
 							state.clearTable();
 						},
-						function (data) {
-							$('#add_event_table .spinner').removeClass('is-active');
+						function(data) {
+							$addEventTable.removeClass('is-active');
 							console.log(data);
 						}
 					);
@@ -263,8 +276,13 @@ Registry.register("Event",
 				/**
 				 * Render event item
 				 */
-				renderEventItem: function () {
-					var column_ID = $('#weekday_id option:selected').val();
+				renderEventItem: function() {
+					var $weekdayId = $('#weekday_id');
+					var $userId = $('#user_id');
+					var column_ID = $weekdayId.find('option:selected').val();
+					var $eventStart = $('#event_start');
+					var $eventEnd = $('#event_end');
+					var $description = $('#description');
 
 					var template = {
 						tag: 'tr',
@@ -287,7 +305,7 @@ Registry.register("Event",
 										attrs: {
 											'type': 'hidden',
 											'name': 'event_data[' + column_ID + '][event_start][]',
-											'value': $('#event_start').val()
+											'value': $eventStart.val()
 										}
 									},
 									{
@@ -295,7 +313,7 @@ Registry.register("Event",
 										attrs: {
 											'type': 'hidden',
 											'name': 'event_data[' + column_ID + '][event_end][]',
-											'value': $('#event_end').val()
+											'value': $eventEnd.val()
 										}
 									},
 									{
@@ -303,7 +321,7 @@ Registry.register("Event",
 										attrs: {
 											'type': 'hidden',
 											'name': 'event_data[' + column_ID + '][description][]',
-											'value': $('#description').val()
+											'value': $description.val()
 										}
 									},
 									{
@@ -311,7 +329,7 @@ Registry.register("Event",
 										attrs: {
 											'type': 'hidden',
 											'name': 'event_data[' + column_ID + '][user_id][]',
-											'value': $('#user_id').val()
+											'value': $userId.val()
 										}
 									}
 								]
@@ -321,46 +339,46 @@ Registry.register("Event",
 								attrs: {
 									'class': 'event-column'
 								},
-								content: [$('#weekday_id option:selected').text()]
+								content: [$weekdayId.find('option:selected').text()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-start'
 								},
-								content: [$('#event_start').val()]
+								content: [$eventStart.val()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-end'
 								},
-								content: [$('#event_end').val()]
+								content: [$eventEnd.val()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-description'
 								},
-								content: [$('#description').val()]
+								content: [$description.val()]
 							},
 							{
 								tag: 'td',
 								attrs: {
 									'class': 'event-user-id'
 								},
-								content: [( $('#user_id').val() == '-1') ? '' : $('#user_id option:selected').text()]
+								content: [( $userId.val() === '-1') ? '' : $userId.find('option:selected').text()]
 							},
 							{
 								tag: 'td',
 								attrs: {},
 								content: []
-							},
+							}
 						]
 					};
 
 					var htmlObject = Registry._get("adminFunctions").getHtml(template);
-					$('#events-list tbody').append(htmlObject);
+					$('#events-list').find('tbody').append(htmlObject);
 					//state.initDeleteButton();
 					state.clearTable();
 				},
@@ -369,20 +387,20 @@ Registry.register("Event",
 				 * Set user color settings
 				 * @param selector
 				 */
-				setColorSettings: function (selector) {
+				setColorSettings: function(selector) {
 					if (_.isUndefined(selector)) {
 						selector = '.mptt-colorized';
 					}
 
 					var elements = $(selector);
 					var height = '';
-					$.each(elements, function () {
+					$.each(elements, function() {
 						var element = $(this);
 						switch (element.attr('data-type')) {
 							case "column":
 							case "event":
 								element.hover(
-									function () {
+									function() {
 										var bg = $(this).attr('data-bg_hover_color'),
 											color = $(this).attr('data-hover_color');
 
@@ -399,7 +417,7 @@ Registry.register("Event",
 											$(this).addClass('mptt-full-height');
 										}
 
-									}, function () {
+									}, function() {
 										$(this).css('background-color', $(this).attr('data-bg_color'));
 										$(this).css('color', $(this).attr('data-color'));
 										$(this).removeClass('mptt-full-height');
@@ -408,13 +426,13 @@ Registry.register("Event",
 								break;
 							case "widget":
 								element.hover(
-									function () {
+									function() {
 										//height = 0;
 										$(this).css('background-color', $(this).attr('data-background-hover-color'));
 										$(this).css('color', $(this).attr('data-hover-color'));
 										$(this).css('border-left-color', $(this).attr('data-hover-border-color'));
 									},
-									function () {
+									function() {
 										//height = 0;
 										$(this).css('background-color', $(this).attr('data-background-color'));
 										$(this).css('color', $(this).attr('data-color'));
@@ -428,43 +446,50 @@ Registry.register("Event",
 
 					});
 				},
+
 				/**
 				 * Validate ?
 				 * @returns {boolean}
 				 */
-				validateEventData: function () {
+				validateEventData: function() {
 					return true;
 				},
+
 				/**
 				 * Clear input data
 				 */
-				clearTable: function () {
+				clearTable: function() {
+					var $weekdayId = $("#weekday_id");
 					$('#add_event_table input:not(.button),#add_event_table textarea').val('');
-					$("#weekday_id").val($("#weekday_id option:first").attr('value'));
+					$weekdayId.val($weekdayId.find('option:first').attr('value'));
 				},
+
 				/**
 				 * init Delete Button
 				 */
-				initDeleteButton: function () {
-					$('#events-list li.event i.operation-button.dashicons-no.dashicons').off('click').on('click', function () {
-						if ($('#events-list li.event').length > 1) {
+				initDeleteButton: function() {
+					var $events = $('#events-list');
+
+					$events.find('li.event').find('i.operation-button.dashicons-no.dashicons').off('click').on('click', function() {
+						if ($events.find('li.event').length > 1) {
 							$(this).parents('li.event').remove();
 						} else {
-							$('#events-list').remove();
+							$events.remove();
 						}
-
 					});
 				},
+
 				/**
-				 * SetRowspan
+				 * get Row span
+				 *
 				 * @param events
 				 * @returns {number}
 				 */
-				getRowspan: function (events) {
+				getRowspan: function(events) {
 					var arrMax = [];
 					var arrMin = [];
 
-					$.each(events, function (index) {
+					$.each(events, function(index) {
 						var start = $(this).attr('data-start');
 						var end = $(this).attr('data-end');
 						arrMin[index] = start;
@@ -480,10 +505,10 @@ Registry.register("Event",
 
 				/**
 				 * Responsive filter
-				 * @param eventID
-				 * @param parentShortcode
+				 *
+				 * @param element
 				 */
-				responsiveFilter: function (element) {
+				responsiveFilter: function(element) {
 					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
 					var eventID = '#all';
 
@@ -493,24 +518,30 @@ Registry.register("Event",
 						eventID = element.attr('href');
 					}
 
+
+					var $listEvent = $('.mptt-shortcode-wrapper').find('.mptt-list-event');
+
 					if (eventID !== '#all') {
-						$('.mptt-shortcode-wrapper .mptt-list-event').hide();
+						$listEvent.hide();
 						$('.mptt-shortcode-wrapper .mptt-list-event[data-event-id="' + eventID + '"]').show();
 					} else {
-						$('.mptt-shortcode-wrapper .mptt-list-event').show();
+						$listEvent.show();
 					}
-					$.each($('.mptt-shortcode-wrapper .mptt-column'), function () {
+
+					$.each($('.mptt-shortcode-wrapper .mptt-column'), function() {
 						$(this).show();
 						if ($(this).find('.mptt-list-event:visible').length < 1) {
 							$(this).hide();
 						}
 					});
+
 				},
 				/**
-				 * Filter
+				 * Filter static version
+				 *
 				 * @param element
 				 */
-				filterStatic: function (element) {
+				filterStatic: function(element) {
 					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
 					var eventID = '#all';
 
@@ -522,16 +553,15 @@ Registry.register("Event",
 
 					window.location.hash = eventID;
 
-					jQuery('.mptt-shortcode-wrapper table').hide();
-					jQuery('table[id="' + eventID + '"]').fadeIn();
+					$('.mptt-shortcode-wrapper table').hide();
+					$('table[id="' + eventID + '"]').fadeIn();
 					state.setEventHeight();
-					return;
 				},
 				/**
 				 * Fill all posible height in ceil
 				 */
-				setEventHeight: function () {
-					$.each($('.mptt-shortcode-wrapper table td.event'), function () {
+				setEventHeight: function() {
+					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
 						var events = $('.mptt-event-container', $(this));
 						var eventCount = events.length;
 						var heightItem = 0;
@@ -540,7 +570,7 @@ Registry.register("Event",
 
 							heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
 
-							$.each(events, function () {
+							$.each(events, function() {
 								$(this).height(heightItem + "%");
 								$(this).css('top', top + "%");
 								$(this).removeClass('mptt-hidden');
@@ -550,7 +580,7 @@ Registry.register("Event",
 
 							var tdHeight = $(this).height();
 							heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
-							$.each(events, function () {
+							$.each(events, function() {
 								$(this).height(heightItem + "px");
 								$(this).css('top', top + "px");
 								$(this).removeClass('mptt-hidden');
@@ -560,11 +590,11 @@ Registry.register("Event",
 					});
 				},
 
-				filterShortcodeEvents: function () {
+				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
 					if (selector.length) {
 
-						$.each($('.mptt-event-container'), function (index, value) {
+						$.each($('.mptt-event-container'), function() {
 							$(this).parents('td').addClass('event');
 						});
 
@@ -574,21 +604,22 @@ Registry.register("Event",
 							state.hideEmptyRows();
 						}
 
-						selector.off('change').on('change', function () {
+						selector.off('change').on('change', function() {
 							state.filterStatic($(this));
 							state.responsiveFilter($(this));
 						});
 
-						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function () {
+						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
+
 							$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
 							$(this).parents('li').addClass('active');
 							state.filterStatic($(this));
+
 							state.responsiveFilter($(this));
 						});
 					}
-					return;
 				},
-				getFilterByHash: function () {
+				getFilterByHash: function() {
 					var hash = window.location.hash;
 
 					if ($('table[id="' + hash + '"]').length) {
@@ -607,8 +638,8 @@ Registry.register("Event",
 				/**
 				 * Set rowspan td
 				 */
-				setRowspanTd: function () {
-					$.each($('.' + MPTT.table_class + ' td.event'), function () {
+				setRowspanTd: function() {
+					$.each($('.' + MPTT.table_class + ' td.event'), function() {
 						var events = $(this).find('.mptt-event-container'),
 							columnId = $(this).attr('data-column-id'),
 							rowHeight = $(this).attr('data-row_height'),
@@ -652,15 +683,14 @@ Registry.register("Event",
 				/**
 				 * Remove empty rows
 				 */
-				hideEmptyRows: function () {
+				hideEmptyRows: function() {
 					var trs = $('.' + MPTT.table_class + ' tbody tr'),
-						col_count = $('.' + MPTT.table_class).first(). find('th').length;
+						col_count = $('.' + MPTT.table_class).first().find('th').length;
 
-					$.each(trs, function (index, value) {
+					$.each(trs, function(index, value) {
 
 						// if all columns in the row are empty
-						if ($(value).find('td.event').length == 0
-							&& $(value).find('td').length == col_count) {
+						if ($(value).find('td.event').length === 0 && $(value).find('td').length === col_count) {
 							$(value).remove();
 						}
 					});
@@ -668,9 +698,10 @@ Registry.register("Event",
 				/**
 				 * Widget settings
 				 */
-				displaySettings: function () {
-					if ($('.view_settings').length) {
-						$('.view_settings').change(function () {
+				displaySettings: function() {
+					var $viewSettings = $('.view_settings');
+					if ($viewSettings.length) {
+						$viewSettings.change(function() {
 							if ($(this).val() === "all") {
 								var id = $(this).attr('id');
 								$(this).parents('.mptt-container').find('.next-days').css("display", "block");
@@ -685,9 +716,9 @@ Registry.register("Event",
 				 * Widget time settings
 				 * @param selector
 				 */
-				timeMode: function (selector) {
+				timeMode: function(selector) {
 					if (selector) {
-						$('#' + selector).change(function () {
+						$('#' + selector).change(function() {
 							if ($(this).val() === "server") {
 								var id = $(this).attr('id');
 								$(this).parents('.mptt-container').find("." + $(this).attr('id')).css("display", "block");
@@ -701,33 +732,38 @@ Registry.register("Event",
 				/**
 				 * init Datepicker for column
 				 */
-				initDatePicker: function () {
-					var datepicker = $("#datepicker");
-					if (datepicker.length) {
-						datepicker.datepicker({
+				initDatePicker: function() {
+					var $date_picker = $("#datepicker");
+
+					if ($date_picker.length) {
+						$date_picker.datepicker({
 							dateFormat: 'd/m/yy',
-							setDate: Date.parse(datepicker.val())
+							setDate: Date.parse($date_picker.val())
 						});
 					}
 				},
 				/**
 				 *  init Column  radio box change
 				 */
-				columnRadioBox: function () {
-					if ($('input.option-input[name="column[column_option]"]').length) {
-						$('input.option-input[name="column[column_option]"]').on('change', function () {
+				columnRadioBox: function() {
+					var $date_picker = $('#datepicker');
+					var $column_option = $('input.option-input[name="column[column_option]"]');
+					var $weekday = $('select.mp-weekday');
+
+					if ($column_option.length) {
+						$column_option.on('change', function() {
 							switch ($(this).val()) {
 								case 'simple':
-									$('select.mp-weekday').prop("disabled", true);
-									$('#datepicker').prop("disabled", true);
+									$weekday.prop("disabled", true);
+									$date_picker.prop("disabled", true);
 									break;
 								case 'weekday':
-									$('select.mp-weekday').prop("disabled", false);
-									$('#datepicker').val('').prop("disabled", true);
+									$weekday.prop("disabled", false);
+									$date_picker.val('').prop("disabled", true);
 									break;
 								case 'date':
-									$('select.mp-weekday').prop("disabled", true);
-									$('#datepicker').prop("disabled", false);
+									$weekday.prop("disabled", true);
+									$date_picker.prop("disabled", false);
 									break;
 							}
 						});
@@ -737,7 +773,7 @@ Registry.register("Event",
 		}
 
 		return {
-			getInstance: function () {
+			getInstance: function() {
 				if (!state) {
 					state = createInstance();
 				}

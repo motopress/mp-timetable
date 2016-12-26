@@ -5,10 +5,18 @@ namespace mp_timetable\plugin_core\classes;
 use mp_timetable\classes\models\Column;
 use mp_timetable\classes\models\Events;
 
+/**
+ * Class Shortcode
+ *
+ * @package mp_timetable\plugin_core\classes
+ */
 class Shortcode extends Core {
 
 	protected static $instance;
 
+	/**
+	 * Shortcode constructor.
+	 */
 	public function __construct() {
 		$this->init_plugin_version();
 		parent::__construct();
@@ -16,6 +24,7 @@ class Shortcode extends Core {
 
 	/**
 	 * Return instance
+	 *
 	 * @return Shortcode
 	 */
 	public static function get_instance() {
@@ -48,7 +57,9 @@ class Shortcode extends Core {
 		if (empty($params)) {
 			$params = array();
 		}
+
 		$mptt_shortcode_data = array();
+
 		$mptt_shortcode_data['params'] = $params = shortcode_atts(array(
 			'events' => "",
 			'event_categ' => "",
@@ -82,7 +93,6 @@ class Shortcode extends Core {
 		if (empty($mptt_shortcode_data['events_data']['events']) && empty($mptt_shortcode_data['events_data']['column'])) {
 			return $this->get_view()->get_template_html('shortcodes/empty-search-events', array());
 		} else {
-
 			return $this->get_view()->get_template_html('shortcodes/index-timetable', array());
 		}
 	}
