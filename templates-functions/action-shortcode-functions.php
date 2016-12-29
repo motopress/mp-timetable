@@ -106,7 +106,6 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 	$row_height = $mptt_shortcode_data['params']['row_height'];
 	$table_class = apply_filters('mptt_shortcode_static_table_class', 'mptt-shortcode-table') . ' ' . $mptt_shortcode_data['params']['custom_class'];
 	$table_class .= Settings::get_instance()->is_plugin_template_mode() ? '' : ' mptt-theme-mode';
-	$events_group = group_events($bounds, $column_events);
 
 	?>
 	<table class="<?php echo !empty($table_class) ? $table_class : ''; ?>" id="#<?php echo $event_id; ?>"
@@ -168,7 +167,6 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 
 									if ($item->start_index == $i) {
 										View::get_instance()->get_template('shortcodes/event-container', array('item' => $item, 'params' => $mptt_shortcode_data['params']));
-
 									}
 
 								endforeach;
@@ -309,42 +307,3 @@ function mptt_shortcode_template_content_responsive_table() {
 		</div>
 	<?php }
 }
-
-/**
- * Add group attribute to event
- *
- * @param $bounds
- * @param $events_array
- *
- * @return mixed
- */
-function group_events($bounds, $events_array) {
-	$output_array = array();
-
-	foreach ($events_array as $column_id => $events_list) {
-
-		if (!empty($events_array[$column_id])) {
-
-			foreach ($events_list as $key_events => $item) {
-
-				if ($bounds['end'] <= $item->end_index && $bounds['start'] >= $item->start_index) {
-					continue;
-				} else {
-					$key_count = $item->start_index . '_' . $item->event_id . '_' . $item->end_index;
-
-					if (!isset($output_array[$key_count])) {
-						$output_array[$key_count] = array('count' => 0, 'output' => false);
-						$output_array[$key_count]['count']++;
-					} else {
-						$output_array[$key_count]['count']++;
-					}
-
-				}
-			}
-		}
-	}
-
-	return $output_array;
-}
-
-?>
