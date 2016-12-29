@@ -75,6 +75,7 @@
 					<select id="filter_style" name="filter_style">
 						<option value="dropdown_list"><?php _e('Dropdown', 'mp-timetable'); ?></option>
 						<option value="tabs"><?php _e('Tabs', 'mp-timetable'); ?></option>
+						<option value="none"><?php _e('Hide', 'mp-timetable'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -135,6 +136,13 @@
 				<td>
 					<input type="text" name="id" id="id" value="" class="regular-text">
 					<p class="description"><?php _e('If you use more than one table on a page specify the unique ID for a timetable. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'mp-timetable'); ?></p>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="id"><?php _e('Custom class', 'mp-timetable'); ?></label></td>
+				<td>
+					<input type="text" name="custom_class" id="id" value="" class="regular-text">
+					<p class="description"><?php _e('If you use more than one table on a page specify the custom class for a timetable. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'mp-timetable'); ?></p>
 				</td>
 			</tr>
 			<tr>

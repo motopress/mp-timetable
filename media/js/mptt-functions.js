@@ -1,4 +1,4 @@
-/* global console:false,$:false,jQuery:false, _:false, Registry:false, wp:false,pagenow:false,typenow:false */
+/* global console:false,$:false,jQuery:false, _:false, Registry:false, wp:false,pagenow:false,typenow:false, jBox:false */
 window.Registry = (function() {
 	"use strict";
 	var modules = {};
@@ -10,11 +10,13 @@ window.Registry = (function() {
 	 * @private
 	 */
 	function _testModule(module) {
-		if (module.getInstance && typeof module.getInstance === 'function') {
-			return true;
-		} else {
-			return false;
+		var status = false;
+
+		if (typeof module.getInstance === 'function') {
+			status = true;
 		}
+
+		return status;
 	}
 
 	/**
@@ -84,12 +86,11 @@ window.Registry = (function() {
 
 Registry.register("adminFunctions", (function($) {
 	"use strict";
-	var state;
+
+	var state, $jBox, container;
 
 	function createInstance() {
 		return {
-			init: function() {
-			},
 			/**
 			 * WP Ajax
 			 *
@@ -99,9 +100,13 @@ Registry.register("adminFunctions", (function($) {
 			 * @returns {undefined}
 			 */
 			wpAjax: function(params, callbackSuccess, callbackError) {
+
 				params.mptt_action = params.action;
+
 				delete params.action;
+
 				wp.ajax.send("route_url", {
+
 					success: function(data) {
 						if (!_.isUndefined(callbackError) && _.isFunction(callbackError)) {
 							callbackSuccess(data);
@@ -118,13 +123,34 @@ Registry.register("adminFunctions", (function($) {
 				});
 			},
 			/**
+			 * Init Jbox
+			 *
+			 * @param jbox
+			 * @param html_container
+			 * @param buttonCallback
+			 */
+			initJBox: function(jbox, html_container, buttonCallback) {
+				$jBox = jbox;
+				container = html_container;
+				state.buttonEvents(buttonCallback);
+			},
+			/**
+			 * Button save event
+			 * @param buttonCallback
+			 */
+			buttonEvents: function(buttonCallback) {
+				container.find("#insert-into").off("click").on("click", function() {
+					buttonCallback($(this).parents('form').serializeArray());
+				});
+			},
+			/**
 			 * Open popup window function
 			 *
 			 * @param start_content
 			 * @param open_callback
+			 * @param args
 			 */
 			callModal: function(start_content, open_callback, args) {
-				start_content = (_.isEmpty(start_content)) ? spinner : start_content;
 				var height = $(window).outerHeight() - 60,
 					width = $(window).outerWidth() - 60,
 					spinner = wp.html.string({
@@ -145,6 +171,7 @@ Registry.register("adminFunctions", (function($) {
 						title: 'Shortcode Settings',
 						onOpen: function() {
 							var jbox_container = $("#" + this.id);
+
 							open_callback.call(this, jbox_container);
 						},
 						onClose: function() {
@@ -155,9 +182,12 @@ Registry.register("adminFunctions", (function($) {
 				if (!_.isUndefined(args)) {
 					$.extend(params, args);
 				}
+
 				var popup = new jBox('Modal', params);
+
 				popup.open();
-			}, /**
+			},
+			/**
 			 * Parse Url Request
 			 *
 			 * @param {type} value - get params name
@@ -225,7 +255,7 @@ Registry.register("adminFunctions", (function($) {
 				return result;
 			},
 			/**
-			 * Put the data to hetml code and return here
+			 * Put the data to html code and return here
 			 *
 			 * @param $template
 			 * @param $data
@@ -265,9 +295,13 @@ Registry.register("adminFunctions", (function($) {
 	};
 })(jQuery));
 
+
 (function($) {
 	"use strict";
+
 	$(document).ready(function() {
+		var short_code_wrapper = $('.mptt-shortcode-wrapper');
+
 		if ((typeof typenow) !== "undefined") {
 			if (pagenow === typenow) {
 				switch (typenow) {
@@ -283,12 +317,19 @@ Registry.register("adminFunctions", (function($) {
 				}
 			}
 		}
-		if ($('.mptt-shortcode-wrapper').length) {
+
+		if (short_code_wrapper.length) {
+			// Registry._get("Event").groupEvents();
+
 			Registry._get("Event").filterShortcodeEvents();
 			Registry._get("Event").getFilterByHash();
+
+			$('.mptt-shortcode-wrapper').show();
 		}
-		if ($('.upcoming-events-widget').length || $('.mptt-shortcode-wrapper').length) {
+
+		if ($('.upcoming-events-widget').length || short_code_wrapper.length) {
 			Registry._get("Event").setColorSettings();
 		}
+
 	});
 })(jQuery);

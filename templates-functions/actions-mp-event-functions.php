@@ -115,6 +115,10 @@ function mptt_theme_wrapper_before() {
 	}
 }
 
+/**
+ * Theme popular class
+ * @return string
+ */
 function mptt_popular_theme_class() {
 	/*if(!Settings::get_instance()->is_plugin_template_mode())
 		return '';

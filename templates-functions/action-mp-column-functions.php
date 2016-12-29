@@ -1,13 +1,11 @@
 <?php
 use mp_timetable\classes\controllers\Controller_Column;
 
-function mptt_column_template_content_title() {
-	?>
+function mptt_column_template_content_title() { ?>
 	<h1 class="column-title"><?php the_title(); ?></h1>
 <?php }
 
-function mptt_column_template_content_post_content() {
-	?>
+function mptt_column_template_content_post_content() { ?>
 	<div class="column-content">
 		<?php the_content(); ?>
 	</div>
@@ -45,8 +43,7 @@ function mptt_column_template_content_events_list() {
 				<p class="timeslot">
 					<time datetime="<?php echo $event->event_start; ?>"
 					      class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></time><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?>
-					<time datetime="<?php echo $event->event_end; ?>"
-					      class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
+					<time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
 				</p>
 
 				<?php if (!empty($event->post->sub_title)) { ?>
@@ -70,6 +67,11 @@ function mptt_column_template_content_events_list() {
 	do_action('mptt-after-column-events', $events);
 }
 
+/**
+ * Get column events
+ *
+ * @return array
+ */
 function mptt_get_column_events() {
 	global $post;
 	$data = Controller_Column::get_instance()->action_page_view($post);

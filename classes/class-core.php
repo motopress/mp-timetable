@@ -5,7 +5,6 @@ namespace mp_timetable\plugin_core\classes;
 use Mp_Time_Table;
 use mp_timetable\classes\models\Column;
 use mp_timetable\classes\models\Events;
-use mp_timetable\plugin_core\classes;
 
 /**
  * Class main state
@@ -98,7 +97,7 @@ class Core {
 					include_once($folder . "/" . $include);
 				} else {
 					if ($include != "." && $include != ".." && $inFolder) {
-						Core::include_all($folder . "/" . $include);
+						self::include_all($folder . "/" . $include);
 					}
 				}
 			}
@@ -115,6 +114,9 @@ class Core {
 		Core::get_instance()->set_state(new State_Factory($name));
 	}
 
+	/**
+	 * @return Core
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -139,20 +141,31 @@ class Core {
 		return $template;
 	}
 
+	/**
+	 * Setup pseudo template
+	 *
+	 * @param $query
+	 */
 	public function setup_pseudo_template($query) {
 		global $post;
 
 		if ($query->is_main_query()) {
 			if (!empty($post) && in_array($post->post_type, $this->post_types)) {
-				add_filter('the_content', array($this, 'append_post_metas'));
+				add_filter('the_content', array($this, 'append_post_meta'));
 			}
 			remove_action('loop_start', array($this, 'setup_pseudo_template'));
 		}
 	}
 
-	public function append_post_metas($content) {
+	/**
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	public function append_post_meta($content) {
 		// run only once
-		remove_filter('the_content', array($this, 'append_post_metas'));
+		remove_filter('the_content', array($this, 'append_post_meta'));
 
 		global $post;
 
@@ -210,6 +223,15 @@ class Core {
 	}
 
 	/**
+	 * Set state
+	 *
+	 * @param  $state
+	 */
+	public function set_state($state) {
+		$this->state = $state;
+	}
+
+	/**
 	 * Get version
 	 * @return mixed
 	 */
@@ -218,6 +240,20 @@ class Core {
 			$this->init_plugin_version();
 		}
 		return $this->version;
+	}
+
+	/**
+	 * Init plugin version
+	 */
+	public function init_plugin_version() {
+		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
+
+		if (!function_exists('get_plugin_data')) {
+			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+		}
+
+		$pluginObject = get_plugin_data($filePath);
+		$this->version = $pluginObject['Version'];
 	}
 
 	/**
@@ -249,27 +285,6 @@ class Core {
 	 */
 	public function get_preprocessor($type = NULL) {
 		return Core::get_instance()->get_state()->get_preprocessor($type);
-	}
-
-	/**
-	 * Init plugin version
-	 */
-	public function init_plugin_version() {
-		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
-		if (!function_exists('get_plugin_data')) {
-			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
-		}
-		$pluginObject = get_plugin_data($filePath);
-		$this->version = $pluginObject['Version'];
-	}
-
-	/**
-	 * Set state
-	 *
-	 * @param  $state
-	 */
-	public function set_state($state) {
-		$this->state = $state;
 	}
 
 	/**
@@ -376,25 +391,23 @@ class Core {
 	 */
 	public function register_all_post_type() {
 
-		$labels = array(
-			'name' => __('Events', 'mp-timetable'),
-			'singular_name' => __('Event', 'mp-timetable'),
-			'add_new' => __('Add New Event', 'mp-timetable'),
-			'add_new_item' => __('Add New Event', 'mp-timetable'),
-			'edit_item' => __('Edit Event', 'mp-timetable'),
-			'new_item' => __('New Event', 'mp-timetable'),
-			'all_items' => __('All Events', 'mp-timetable'),
-			'view_item' => __('View Event', 'mp-timetable'),
-			'search_items' => __('Search Event', 'mp-timetable'),
-			'not_found' => __('No Events found', 'mp-timetable'),
-			'not_found_in_trash' => __('No Events found in Trash', 'mp-timetable'),
-			'parent_item_colon' => 'media',
-			'menu_name' => __('Events', 'mp-timetable')
-		);
-
-		$args = array(
+		register_post_type('mp-event', array(
 			'label' => 'mp-event',
-			'labels' => $labels,
+			'labels' => array(
+				'name' => __('Events', 'mp-timetable'),
+				'singular_name' => __('Event', 'mp-timetable'),
+				'add_new' => __('Add New Event', 'mp-timetable'),
+				'add_new_item' => __('Add New Event', 'mp-timetable'),
+				'edit_item' => __('Edit Event', 'mp-timetable'),
+				'new_item' => __('New Event', 'mp-timetable'),
+				'all_items' => __('All Events', 'mp-timetable'),
+				'view_item' => __('View Event', 'mp-timetable'),
+				'search_items' => __('Search Event', 'mp-timetable'),
+				'not_found' => __('No Events found', 'mp-timetable'),
+				'not_found_in_trash' => __('No Events found in Trash', 'mp-timetable'),
+				'parent_item_colon' => 'media',
+				'menu_name' => __('Events', 'mp-timetable')
+			),
 			"public" => true,
 			'show_ui' => true,
 			'show_in_menu' => false,
@@ -410,28 +423,25 @@ class Core {
 			),
 			"supports" => array("title", "editor", 'comments', "excerpt", 'author', "thumbnail", "page-attributes"),
 			"show_in_admin_bar" => true
-		);
-		register_post_type('mp-event', $args);
+		));
 
-		$labels = array(
-			'name' => __('Columns', 'mp-timetable'),
-			'singular_name' => __('Column', 'mp-timetable'),
-			'add_new' => __('Add New Column', 'mp-timetable'),
-			'add_new_item' => __('Add New Column', 'mp-timetable'),
-			'edit_item' => __('Edit Column', 'mp-timetable'),
-			'new_item' => __('New Column', 'mp-timetable'),
-			'all_items' => __('All Columns', 'mp-timetable'),
-			'view_item' => __('View Column', 'mp-timetable'),
-			'search_items' => __('Search Column', 'mp-timetable'),
-			'not_found' => __('No Columns found', 'mp-timetable'),
-			'not_found_in_trash' => __('No Columns found in Trash', 'mp-timetable'),
-			'parent_item_colon' => 'media',
-			'menu_name' => __('Columns', 'mp-timetable')
-		);
-
-		$args = array(
+		register_post_type('mp-column', array(
 			'label' => 'mp-column',
-			'labels' => $labels,
+			'labels' => array(
+				'name' => __('Columns', 'mp-timetable'),
+				'singular_name' => __('Column', 'mp-timetable'),
+				'add_new' => __('Add New Column', 'mp-timetable'),
+				'add_new_item' => __('Add New Column', 'mp-timetable'),
+				'edit_item' => __('Edit Column', 'mp-timetable'),
+				'new_item' => __('New Column', 'mp-timetable'),
+				'all_items' => __('All Columns', 'mp-timetable'),
+				'view_item' => __('View Column', 'mp-timetable'),
+				'search_items' => __('Search Column', 'mp-timetable'),
+				'not_found' => __('No Columns found', 'mp-timetable'),
+				'not_found_in_trash' => __('No Columns found in Trash', 'mp-timetable'),
+				'parent_item_colon' => 'media',
+				'menu_name' => __('Columns', 'mp-timetable')
+			),
 			"public" => true,
 			'show_ui' => true,
 			'show_in_menu' => false,
@@ -447,8 +457,7 @@ class Core {
 			),
 			"supports" => array("title", "editor", "page-attributes"),
 			"show_in_admin_bar" => true
-		);
-		register_post_type('mp-column', $args);
+		));
 
 	}
 
@@ -478,9 +487,6 @@ class Core {
 		dbDelta($sql);
 	}
 
-	public function customizer_live_preview() {
-
-	}
 
 	/**
 	 * Hook admin_enqueue_scripts
@@ -496,7 +502,7 @@ class Core {
 	 * @param \WP_Screen $current_screen
 	 */
 	public function current_screen(\WP_Screen $current_screen) {
-		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event' . $this->get_prefix() . '.js'), array('jquery'), $this->version);
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
@@ -505,19 +511,20 @@ class Core {
 
 		wp_enqueue_script('underscore');
 		wp_enqueue_style('mptt-admin-style', Mp_Time_Table::get_plugin_url('media/css/admin.css'), array(), $this->version);
-		wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions.js'), array(), $this->version);
+		wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions' . $this->get_prefix() . '.js'), array(), $this->version);
 
 
 		if (!empty($current_screen)) {
 			switch ($current_screen->id) {
 				case "mp-event":
-					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.min.js'), array('jquery'), '1.8.0');
+					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum' . $this->get_prefix() . '.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object");
-					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker.min.js'), '0.3.3');
+					wp_enqueue_script("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/js/lib/jquery.ui.timepicker' . $this->get_prefix() . '.js'), '0.3.3');
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
 					wp_enqueue_style("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/css/jquery.ui.timepicker.css'), array(), '0.3.3');
+
 					break;
 				case "mp-column":
 					wp_enqueue_script('jquery-ui-datepicker');
@@ -527,11 +534,12 @@ class Core {
 					break;
 				case "customize":
 				case "widgets":
-					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum.min.js'), array('jquery'), '1.8.0');
+					wp_enqueue_script("spectrum", Mp_Time_Table::get_plugin_url('media/js/lib/spectrum' . $this->get_prefix() . '.js'), array('jquery'), '1.8.0');
 					wp_enqueue_script("mptt-event-object");
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
+
 					break;
 			}
 
@@ -539,14 +547,25 @@ class Core {
 				case "post":
 				case "page":
 					wp_enqueue_script("jquery-ui-tabs");
-					wp_enqueue_script("jBox", Mp_Time_Table::get_plugin_url('media/js/lib/jBox.min.js'), array('jquery'), '0.2.1');
-					wp_enqueue_script("mptt-popup-events", Mp_Time_Table::get_plugin_url('media/js/popup/popup-events.js'), array('jquery'), $this->version);
+					wp_enqueue_script("jBox", Mp_Time_Table::get_plugin_url('media/js/lib/jBox' . $this->get_prefix() . '.js'), array('jquery'), '0.2.1');
+
 					wp_enqueue_style('jBox', Mp_Time_Table::get_plugin_url('media/css/jbox/jBox.css'), array(), '1.8.0');
+
 					break;
 				default:
 					break;
 			}
 		}
+	}
+
+	/**
+	 *  Get prefix
+	 *
+	 * @return string
+	 */
+	public function get_prefix() {
+		$prefix = !MP_TT_DEBUG ? '.min' : '';
+		return $prefix;
 	}
 
 	/**
@@ -560,7 +579,6 @@ class Core {
 			$this->add_plugin_js('shortcode');
 			$this->add_plugin_css('shortcode');
 		}
-
 	}
 
 	/**
@@ -569,7 +587,7 @@ class Core {
 	 * @param bool $type
 	 */
 	public function add_plugin_js($type = false) {
-		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event.js'), array('jquery'), $this->version);
+		wp_register_script("mptt-event-object", Mp_Time_Table::get_plugin_url('media/js/events/event' . $this->get_prefix() . '.js'), array('jquery'), $this->version);
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
@@ -580,7 +598,7 @@ class Core {
 			case"shortcode":
 			case"widget":
 				wp_enqueue_script('underscore');
-				wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions.js'), array("jquery"), $this->version);
+				wp_enqueue_script("mptt-functions", Mp_Time_Table::get_plugin_url('media/js/mptt-functions' . $this->get_prefix() . '.js'), array("jquery"), $this->version);
 				wp_enqueue_script("mptt-event-object");
 				break;
 		}
@@ -608,7 +626,6 @@ class Core {
 	 * @return bool
 	 */
 	public function is_embed() {
-
 		global $wp_version;
 
 		if (!function_exists('is_embed')) {

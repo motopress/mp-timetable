@@ -4,6 +4,10 @@ namespace mp_timetable\plugin_core\classes;
 
 use Mp_Time_Table;
 
+/**
+ * Class Module
+ * @package mp_timetable\plugin_core\classes
+ */
 class Module extends Core {
 
 	/**

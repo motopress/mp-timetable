@@ -20,6 +20,7 @@
 use mp_timetable\plugin_core\classes\Core;
 
 define("MP_TT_PLUGIN_NAME", 'mp-timetable');
+define('MP_TT_DEBUG', TRUE);
 
 register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation'));
 register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
@@ -35,14 +36,6 @@ class Mp_Time_Table {
 
 	protected static $instance;
 
-	public static function init() {
-		if (null === self::$instance) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
-
-
 	/**
 	 * Mp_Time_Table constructor.
 	 */
@@ -54,7 +47,7 @@ class Mp_Time_Table {
 	/**
 	 * Include all files
 	 */
-	public static function include_all() {
+	public function include_all() {
 		/**
 		 * Include Gump
 		 */
@@ -113,6 +106,23 @@ class Mp_Time_Table {
 	}
 
 	/**
+	 * Get plugin path
+	 */
+	public static function get_plugin_path() {
+		return plugin_dir_path(__FILE__);
+	}
+
+	/**
+	 * @return Mp_Time_Table
+	 */
+	public static function init() {
+		if (null === self::$instance) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
 	 * Retrieve relative to theme root path to templates.
 	 *
 	 * @return string
@@ -131,13 +141,6 @@ class Mp_Time_Table {
 	}
 
 	/**
-	 * Get plugin path
-	 */
-	public static function get_plugin_path() {
-		return plugin_dir_path(__FILE__);
-	}
-
-	/**
 	 * Get plugin part path
 	 *
 	 * @param string $part
@@ -146,25 +149,6 @@ class Mp_Time_Table {
 	 */
 	public static function get_plugin_part_path($part = '') {
 		return self::get_plugin_path() . $part;
-	}
-
-	/**
-	 * Get plugin name
-	 * @return string
-	 */
-	public static function get_plugin_name() {
-		return dirname(plugin_basename(__FILE__));
-	}
-
-	/**
-	 * Get data table name
-	 *
-	 * @return string
-	 */
-	public static function get_datatable() {
-		global $wpdb;
-
-		return $wpdb->prefix . "mp_timetable_data";
 	}
 
 	/**
@@ -195,7 +179,14 @@ class Mp_Time_Table {
 	}
 
 	/**
-	 * On blog creation
+	 * On create blog
+	 *
+	 * @param $blog_id
+	 * @param $user_id
+	 * @param $domain
+	 * @param $path
+	 * @param $site_id
+	 * @param $meta
 	 */
 	public static function on_create_blog($blog_id, $user_id, $domain, $path, $site_id, $meta) {
 		if (is_plugin_active_for_network(self::get_plugin_name() . '/' . self::get_plugin_name() . '.php')) {
@@ -204,6 +195,14 @@ class Mp_Time_Table {
 			Core::get_instance()->create_table();
 			restore_current_blog();
 		}
+	}
+
+	/**
+	 * Get plugin name
+	 * @return string
+	 */
+	public static function get_plugin_name() {
+		return dirname(plugin_basename(__FILE__));
 	}
 
 	/**
@@ -216,6 +215,16 @@ class Mp_Time_Table {
 		return $tables;
 	}
 
+	/**
+	 * Get data table name
+	 *
+	 * @return string
+	 */
+	public static function get_datatable() {
+		global $wpdb;
+
+		return $wpdb->prefix . "mp_timetable_data";
+	}
 
 	/**
 	 * Get plugin url

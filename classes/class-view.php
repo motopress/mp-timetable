@@ -2,7 +2,7 @@
 
 namespace mp_timetable\plugin_core\classes;
 
-use \Mp_Time_Table;
+use Mp_Time_Table;
 
 /**
  * View class
@@ -15,7 +15,9 @@ class View {
 	protected $prefix = 'mptt';
 	private $data;
 
-
+	/**
+	 * View constructor.
+	 */
 	public function __construct() {
 		$this->template_path = Mp_Time_Table::get_template_path();
 		$this->templates_path = Mp_Time_Table::get_templates_path();
@@ -23,6 +25,9 @@ class View {
 		$this->post_types = Core::get_instance()->get_post_types();
 	}
 
+	/**
+	 * @return View
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -194,7 +199,7 @@ class View {
 	 *
 	 * @return string
 	 */
-	public function template_loader( $template ) {
+	public function template_loader($template) {
 		global $post, $taxonomy;
 		$file = '';
 		$find = array();

@@ -1,7 +1,9 @@
 <?php
+use mp_timetable\classes\models\Settings;
+
 function mptt_widget_template_before_content() {
 	$wrapper_class = mptt_popular_theme_class();
-	if (\mp_timetable\classes\models\Settings::get_instance()->is_plugin_template_mode()) {
+	if (Settings::get_instance()->is_plugin_template_mode()) {
 		?>
 		<div class="<?php echo apply_filters('mptt_widget_wrapper_class', 'upcoming-events-widget' . $wrapper_class) ?>">
 		<ul class="mptt-widget <?php echo apply_filters('mptt_events_list_class', 'events-list') ?>">
@@ -17,7 +19,7 @@ function mptt_widget_template_before_content() {
 function mptt_widget_template_after_content() { ?>
 	</ul>
 	</div>
-	<?php if(\mp_timetable\classes\models\Settings::get_instance()->is_plugin_template_mode()):?>
+	<?php if(Settings::get_instance()->is_plugin_template_mode()):?>
 		<div class="mptt-clearfix"></div><?php
 	endif;
 }
