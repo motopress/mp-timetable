@@ -524,6 +524,7 @@ class Core {
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
 					wp_enqueue_style("jquery-ui-timepicker", Mp_Time_Table::get_plugin_url('media/css/jquery.ui.timepicker.css'), array(), '0.3.3');
+
 					break;
 				case "mp-column":
 					wp_enqueue_script('jquery-ui-datepicker');
@@ -538,6 +539,7 @@ class Core {
 
 					wp_enqueue_style("jquery-ui-core", Mp_Time_Table::get_plugin_url('media/css/jquery-ui-1.10.0.custom.min.css'), array(), '1.10.0');
 					wp_enqueue_style('spectrum', Mp_Time_Table::get_plugin_url('media/css/spectrum.css'), array(), '1.8.0');
+
 					break;
 			}
 
@@ -546,7 +548,9 @@ class Core {
 				case "page":
 					wp_enqueue_script("jquery-ui-tabs");
 					wp_enqueue_script("jBox", Mp_Time_Table::get_plugin_url('media/js/lib/jBox' . $this->get_prefix() . '.js'), array('jquery'), '0.2.1');
+
 					wp_enqueue_style('jBox', Mp_Time_Table::get_plugin_url('media/css/jbox/jBox.css'), array(), '1.8.0');
+
 					break;
 				default:
 					break;

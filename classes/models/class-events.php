@@ -583,11 +583,10 @@ class Events extends Model {
 	 * Sort by params
 	 *
 	 * @param $events
-	 * @param $field
-	 * @param string $order
 	 *
 	 * @return mixed
 	 */
+
 	public function sort_by_param($events) {
 
 		usort($events, function ($a, $b) {
@@ -715,12 +714,5 @@ class Events extends Model {
 			}
 		}
 		return $events;
-	}
-
-	private function cmp($a, $b) {
-		if ($a->column_post->menu_order == $b->column_post->menu_order) {
-			return 0;
-		}
-		return ($a->column_post->menu_order < $b->column_post->menu_order) ? -1 : 1;
 	}
 }

@@ -42,7 +42,7 @@ class Settings extends Model {
 	/**
 	 * Get Settings
 	 *
-	 * @return mixed|void
+	 * @return mixed
 	 */
 	public function get_settings() {
 

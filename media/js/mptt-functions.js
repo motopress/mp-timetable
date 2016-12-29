@@ -319,8 +319,12 @@ Registry.register("adminFunctions", (function($) {
 		}
 
 		if (short_code_wrapper.length) {
+			// Registry._get("Event").groupEvents();
+
 			Registry._get("Event").filterShortcodeEvents();
 			Registry._get("Event").getFilterByHash();
+
+			$('.mptt-shortcode-wrapper').show();
 		}
 
 		if ($('.upcoming-events-widget').length || short_code_wrapper.length) {

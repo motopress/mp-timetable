@@ -177,7 +177,7 @@ class Hooks extends Core {
 	 * @return mixed
 	 */
 	public function mce_external_plugins($plugin_array) {
-		$path = Mp_Time_Table::get_plugin_url('media/js/mce-timeTable-buttons.js');
+		$path = Mp_Time_Table::get_plugin_url('media/js/mce-timeTable-buttons' . $this->get_prefix() . '.js');
 		$plugin_array['mp_timetable'] = $path;
 		return $plugin_array;
 	}

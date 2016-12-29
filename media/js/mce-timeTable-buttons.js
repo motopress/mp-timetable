@@ -95,6 +95,9 @@
 											case 'id':
 												shortcode_obj.attrs.id = parameters.value;
 												break;
+											case 'custom_class':
+												shortcode_obj.attrs.custom_class = parameters.value;
+												break;
 											case 'row_height':
 												shortcode_obj.attrs.row_height = parameters.value;
 												break;

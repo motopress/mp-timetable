@@ -38,5 +38,4 @@ class Model extends Core {
 	public function get_arr($data = array(), $success = false) {
 		return array('success' => $success, 'data' => $data);
 	}
-
 }

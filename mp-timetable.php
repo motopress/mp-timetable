@@ -20,7 +20,7 @@
 use mp_timetable\plugin_core\classes\Core;
 
 define("MP_TT_PLUGIN_NAME", 'mp-timetable');
-define('MP_TT_DEBUG', FALSE);
+define('MP_TT_DEBUG', TRUE);
 
 register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation'));
 register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
@@ -179,7 +179,14 @@ class Mp_Time_Table {
 	}
 
 	/**
-	 * On blog creation
+	 * On create blog
+	 *
+	 * @param $blog_id
+	 * @param $user_id
+	 * @param $domain
+	 * @param $path
+	 * @param $site_id
+	 * @param $meta
 	 */
 	public static function on_create_blog($blog_id, $user_id, $domain, $path, $site_id, $meta) {
 		if (is_plugin_active_for_network(self::get_plugin_name() . '/' . self::get_plugin_name() . '.php')) {

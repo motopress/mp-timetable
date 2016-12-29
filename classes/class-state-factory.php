@@ -2,8 +2,6 @@
 
 namespace mp_timetable\plugin_core\classes;
 
-use mp_timetable\plugin_core\classes\Model;
-
 /**
  * Singleton factory
  */
@@ -12,10 +10,18 @@ class State_Factory {
 	protected static $instance;
 	protected $namespace;
 
+	/**
+	 * State_Factory constructor.
+	 *
+	 * @param string $namespace
+	 */
 	public function __construct($namespace = 'plugin_core') {
 		$this->namespace = $namespace;
 	}
 
+	/**
+	 * @return State_Factory
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -26,9 +32,9 @@ class State_Factory {
 	/**
 	 * Get register instance object
 	 *
-	 * @param type $value
+	 * @param null $value
 	 *
-	 * @return type
+	 * @return bool|\mp_timetable\plugin_core\classes\Model
 	 */
 	public function get_model($value = null) {
 		$model = false;
@@ -46,9 +52,9 @@ class State_Factory {
 	/**
 	 * Get controller instance object
 	 *
-	 * @param type $value
+	 * @param null $value
 	 *
-	 * @return type
+	 * @return bool
 	 */
 	public function get_controller($value = null) {
 		$controller = false;
@@ -62,9 +68,9 @@ class State_Factory {
 	/**
 	 *  Get Preprocessor instance object
 	 *
-	 * @param type $value
+	 * @param null $value
 	 *
-	 * @return type
+	 * @return bool
 	 */
 	public function get_preprocessor($value = null) {
 		$preprocessor = false;

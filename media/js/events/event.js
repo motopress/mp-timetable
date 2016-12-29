@@ -33,6 +33,7 @@ Registry.register("Event",
 						showPeriodLabels: timeFormat,
 						defaultTime: '00:00'
 					});
+
 					$('#event_end').timepicker({
 						showPeriod: timeFormat,     // Define whether or not to show AM/PM with selected time. (default: false)
 						showPeriodLabels: timeFormat,
@@ -171,8 +172,7 @@ Registry.register("Event",
 							$tr = $(this).parent().parent();
 						$(this).parent().find('.spinner').addClass('is-active');
 
-						Registry._get("adminFunctions").wpAjax(
-							{
+						Registry._get("adminFunctions").wpAjax({
 								controller: "events",
 								action: "get_event_data",
 								id: id
@@ -249,8 +249,7 @@ Registry.register("Event",
 
 					$addEventTable.addClass('is-active');
 
-					Registry._get("adminFunctions").wpAjax(
-						{
+					Registry._get("adminFunctions").wpAjax({
 							controller: "events",
 							action: "update_event_data",
 							data: {
@@ -379,10 +378,8 @@ Registry.register("Event",
 
 					var htmlObject = Registry._get("adminFunctions").getHtml(template);
 					$('#events-list').find('tbody').append(htmlObject);
-					//state.initDeleteButton();
 					state.clearTable();
 				},
-
 				/**
 				 * Set user color settings
 				 * @param selector
@@ -446,7 +443,6 @@ Registry.register("Event",
 
 					});
 				},
-
 				/**
 				 * Validate ?
 				 * @returns {boolean}
@@ -454,7 +450,6 @@ Registry.register("Event",
 				validateEventData: function() {
 					return true;
 				},
-
 				/**
 				 * Clear input data
 				 */
@@ -509,26 +504,25 @@ Registry.register("Event",
 				 * @param element
 				 */
 				responsiveFilter: function(element) {
-					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
 					var eventID = '#all';
+					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
 
 					if (element.is("select")) {
 						eventID = element.val();
 					} else {
-						eventID = element.attr('href');
+						eventID = element.attr('href').replace("#", "");
 					}
 
-
-					var $listEvent = $('.mptt-shortcode-wrapper').find('.mptt-list-event');
+					var $listEvent = parentShortcode.find('.mptt-list-event');
 
 					if (eventID !== '#all') {
 						$listEvent.hide();
-						$('.mptt-shortcode-wrapper .mptt-list-event[data-event-id="' + eventID + '"]').show();
+						parentShortcode.find('.mptt-list-event[data-event-id="' + eventID + '"]').show();
 					} else {
 						$listEvent.show();
 					}
 
-					$.each($('.mptt-shortcode-wrapper .mptt-column'), function() {
+					$.each(parentShortcode.find('.mptt-column'), function() {
 						$(this).show();
 						if ($(this).find('.mptt-list-event:visible').length < 1) {
 							$(this).hide();
@@ -542,23 +536,32 @@ Registry.register("Event",
 				 * @param element
 				 */
 				filterStatic: function(element) {
-					//var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+
 					var eventID = '#all';
 
 					if (element.is("select")) {
 						eventID = element.val();
 					} else {
-						eventID = element.attr('href');
+						eventID = element.attr('href').replace("#", "");
 					}
 
-					window.location.hash = eventID;
+					var id = _.isEmpty(parentShortcode.attr('id')) ? 'no-setup' : parentShortcode.attr('id');
 
-					$('.mptt-shortcode-wrapper table').hide();
-					$('table[id="' + eventID + '"]').fadeIn();
+					window.location.hash = id + ':' + eventID;
+
+					parentShortcode.find('table').hide();
+
+					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
+
+					// $('html, body').animate({
+					// 	scrollTop: parentShortcode.offset().top
+					// }, 2000);
+
 					state.setEventHeight();
 				},
 				/**
-				 * Fill all posible height in ceil
+				 * Fill all possible height in ceil
 				 */
 				setEventHeight: function() {
 					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
@@ -589,9 +592,33 @@ Registry.register("Event",
 						}
 					});
 				},
+				groupEvents: function() {
+					var shortCodeWrappers = $('.mptt-shortcode-wrapper');
+					if (shortCodeWrappers.length) {
+						$.each(shortCodeWrappers, function($index, $object) {
+							var tables = $($object).find('table');
+							$.each(tables, function($index, table) {
+								var tds = $(table).find('td');
+								$.each(tds, function($td_index, td) {
+									var $td = $(td);
+									if (!$td.children().length && _.isUndefined($td.text())) {
+										$td.remove();
+									} else {
+										var count = $td.find('div.mptt-event-container').data('count');
+										$td.attr('colspan', count);
+									}
+								});
 
+							});
+						});
+					}
+				},
+				/**
+				 *
+				 */
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
+
 					if (selector.length) {
 
 						$.each($('.mptt-event-container'), function() {
@@ -611,32 +638,54 @@ Registry.register("Event",
 
 						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
 
-							$(this).parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
-							$(this).parents('li').addClass('active');
-							state.filterStatic($(this));
+							var $currentTab = $(this);
+							$currentTab.parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
 
-							state.responsiveFilter($(this));
+							$currentTab.parents('li').addClass('active');
+							state.filterStatic($currentTab);
+
+							state.responsiveFilter($currentTab);
+
 						});
+
 					}
 				},
+				/**
+				 * Filter by hash
+				 */
 				getFilterByHash: function() {
+
 					var hash = window.location.hash;
 
-					if ($('table[id="' + hash + '"]').length) {
-						if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
-							$('.mptt-navigation-tabs').find('a[href="' + hash + '"]').click();
-						} else {
-							$('.mptt-navigation-select').val(hash).change();
-						}
-					} else {
-						$('table[id="#all"]').fadeIn();
-						state.setEventHeight();
-					}
+					if (!_.isUndefined(hash)) {
+						var HashArray = hash.split(':');
+						var id = HashArray[0];
+						var event = HashArray[1];
 
+						$.each($('.mptt-shortcode-wrapper'), function(index, object) {
+							var element = $(object);
+							var element_id = '#' + element.attr('id');
+
+							if (element_id === id) {
+								if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+									element.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
+								} else {
+									element.find('.mptt-navigation-select').val(event).change();
+								}
+							} else {
+								var table = element.find('table[id="#all"]');
+
+								table.fadeIn();
+							}
+						});
+
+					}
+					state.setEventHeight();
 				},
 
+
 				/**
-				 * Set rowspan td
+				 * Set row-span td
 				 */
 				setRowspanTd: function() {
 					$.each($('.' + MPTT.table_class + ' td.event'), function() {
@@ -645,7 +694,6 @@ Registry.register("Event",
 							rowHeight = $(this).attr('data-row_height'),
 							rowSpan = state.getRowspan(events),
 							tableContainer = $(this).parents('.' + MPTT.table_class);
-
 
 						if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 
@@ -678,7 +726,6 @@ Registry.register("Event",
 						$(this).attr('rowspan', rowSpan);
 
 					});
-
 				},
 				/**
 				 * Remove empty rows
@@ -688,7 +735,6 @@ Registry.register("Event",
 						col_count = $('.' + MPTT.table_class).first().find('th').length;
 
 					$.each(trs, function(index, value) {
-
 						// if all columns in the row are empty
 						if ($(value).find('td.event').length === 0 && $(value).find('td').length === col_count) {
 							$(value).remove();

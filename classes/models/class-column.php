@@ -12,12 +12,18 @@ class Column extends Model {
 	protected static $instance;
 	protected $wpdb;
 
+	/**
+	 * Column constructor.
+	 */
 	public function __construct() {
 		parent::__construct();
 		global $wpdb;
 		$this->wpdb = $wpdb;
 	}
 
+	/**
+	 * @return Column
+	 */
 	public static function get_instance() {
 		if (null === self::$instance) {
 			self::$instance = new self();
@@ -54,6 +60,13 @@ class Column extends Model {
 
 	}
 
+	/**
+	 * Count events
+	 *
+	 * @param $post
+	 *
+	 * @return int
+	 */
 	public function count_events($post) {
 		$table_name = $this->get('events')->table_name;
 		$count = $this->wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE `column_id` = {$post->ID}");
@@ -61,6 +74,13 @@ class Column extends Model {
 		return intval($count);
 	}
 
+	/**
+	 * Client area order
+	 *
+	 * @param object $query
+	 *
+	 * @return mixed
+	 */
 	public function clientarea_default_order($query) {
 		if (is_admin() || $query->is_main_query()) {
 			if ($query->get('post_type') === 'mp-column') {
@@ -91,6 +111,13 @@ class Column extends Model {
 		return get_posts($args);
 	}
 
+	/**
+	 * Columns by event category
+	 *
+	 * @param $terms
+	 *
+	 * @return array
+	 */
 	public function get_columns_by_event_category($terms) {
 		$columns = array();
 		if (!is_array($terms)) {
@@ -165,9 +192,11 @@ class Column extends Model {
 	}
 
 	/**
-	 * Delete timeslots of the Column
+	 * Delete time-slots of the Column
 	 *
-	 * @param array $params
+	 * @param $post_id
+	 *
+	 * @return false|int
 	 */
 	public function before_delete_column($post_id) {
 		$table_name = $this->get('events')->table_name;

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Widget settings
+ *
+ * @param $params
+ *
+ * @return array
+ */
 function mptt_widget_settings($params) {
 	$params = shortcode_atts(array(
 		'title' => '',
