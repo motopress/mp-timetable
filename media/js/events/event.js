@@ -592,27 +592,27 @@ Registry.register("Event",
 						}
 					});
 				},
-				groupEvents: function() {
-					var shortCodeWrappers = $('.mptt-shortcode-wrapper');
-					if (shortCodeWrappers.length) {
-						$.each(shortCodeWrappers, function($index, $object) {
-							var tables = $($object).find('table');
-							$.each(tables, function($index, table) {
-								var tds = $(table).find('td');
-								$.each(tds, function($td_index, td) {
-									var $td = $(td);
-									if (!$td.children().length && _.isUndefined($td.text())) {
-										$td.remove();
-									} else {
-										var count = $td.find('div.mptt-event-container').data('count');
-										$td.attr('colspan', count);
-									}
-								});
-
-							});
-						});
-					}
-				},
+				// groupEvents: function() {
+				// 	var shortCodeWrappers = $('.mptt-shortcode-wrapper');
+				// 	if (shortCodeWrappers.length) {
+				// 		$.each(shortCodeWrappers, function($index, $object) {
+				// 			var tables = $($object).find('table');
+				// 			$.each(tables, function($index, table) {
+				// 				var tds = $(table).find('td');
+				// 				$.each(tds, function($td_index, td) {
+				// 					var $td = $(td);
+				// 					if (!$td.children().length && _.isUndefined($td.text())) {
+				// 						$td.remove();
+				// 					} else {
+				// 						var count = $td.find('div.mptt-event-container').data('count');
+				// 						$td.attr('colspan', count);
+				// 					}
+				// 				});
+				//
+				// 			});
+				// 		});
+				// 	}
+				// },
 				/**
 				 *
 				 */
