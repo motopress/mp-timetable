@@ -70,6 +70,7 @@ class Shortcode extends Core {
 			'hide_label' => "0",
 			'title' => "0",
 			'time' => "0",
+			'group' => "0",
 			'sub-title' => "0",
 			'description' => "0",
 			'user' => "0",
@@ -113,7 +114,7 @@ class Shortcode extends Core {
 		$step = $params['increment'] === '1' ? 60 : (60 * $params['increment']);
 		$cache_key = 'event_data_' . $key_by_param;
 
-		if (false === ($events_data = get_transient($cache_key))) {
+//		if (false === ($events_data = get_transient($cache_key))) {
 			$events_data = array('events' => array(), 'column' => array());
 
 			//get event by id
@@ -188,8 +189,8 @@ class Shortcode extends Core {
 				$events_data['events'] = array();
 			}
 
-			set_transient($cache_key, $events_data, 900);
-		}
+//			set_transient($cache_key, $events_data, 900);
+//		}
 
 		return $events_data;
 	}

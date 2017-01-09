@@ -142,7 +142,7 @@ Registry.register("Event",
 				 * Add event
 				 */
 				addEventButton: function() {
-					$('#add_mp_event').off('click').on('click', function() {
+					$(document).on('click.admin', '#add_mp_event', function() {
 						if ($(this).hasClass('edit')) {
 							state.updateEventData();
 						} else {
@@ -158,7 +158,7 @@ Registry.register("Event",
 				 * init event data delete button
 				 */
 				initDeleteButtons: function() {
-					$('#events-list').find('#delete-event-button').off('click').on('click', function() {
+					$(document).on('click.admin', '#events-list .delete-event-button', function() {
 						var id = $(this).attr('data-id');
 						state.deleteEvent(id);
 					});
@@ -167,7 +167,7 @@ Registry.register("Event",
 				 * init event data edit button
 				 */
 				initEditButtons: function() {
-					$('#events-list').find('#edit-event-button').off('click').on('click', function() {
+					$(document).on('click.admin', '#events-list .edit-event-button', function() {
 						var id = $(this).attr('data-id'),
 							$tr = $(this).parent().parent();
 						$(this).parent().find('.spinner').addClass('is-active');
@@ -214,7 +214,7 @@ Registry.register("Event",
 							id: id
 						},
 						function(data) {
-							var $deleteEvent = $('#events-list').children('tr[data-id="' + id + '"]');
+							var $deleteEvent = $('#events-list').find('tr[data-id="' + id + '"]');
 							if ($deleteEvent.length) {
 								$deleteEvent.remove();
 							}
@@ -554,10 +554,6 @@ Registry.register("Event",
 
 					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
 
-					// $('html, body').animate({
-					// 	scrollTop: parentShortcode.offset().top
-					// }, 2000);
-
 					state.setEventHeight();
 				},
 				/**
@@ -592,27 +588,6 @@ Registry.register("Event",
 						}
 					});
 				},
-				// groupEvents: function() {
-				// 	var shortCodeWrappers = $('.mptt-shortcode-wrapper');
-				// 	if (shortCodeWrappers.length) {
-				// 		$.each(shortCodeWrappers, function($index, $object) {
-				// 			var tables = $($object).find('table');
-				// 			$.each(tables, function($index, table) {
-				// 				var tds = $(table).find('td');
-				// 				$.each(tds, function($td_index, td) {
-				// 					var $td = $(td);
-				// 					if (!$td.children().length && _.isUndefined($td.text())) {
-				// 						$td.remove();
-				// 					} else {
-				// 						var count = $td.find('div.mptt-event-container').data('count');
-				// 						$td.attr('colspan', count);
-				// 					}
-				// 				});
-				//
-				// 			});
-				// 		});
-				// 	}
-				// },
 				/**
 				 *
 				 */

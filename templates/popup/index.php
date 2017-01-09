@@ -5,7 +5,7 @@
 				<td><label for="weekday"><?php _e('<b>Columns</b> for displaying in timetable', 'mp-timetable') ?></label></td>
 				<td>
 					<select multiple="multiple" id="weekday" name="weekday" class="widefat">
-						<?php foreach ($data['column'] as $column): ?>
+						<?php foreach ($data[ 'column' ] as $column): ?>
 							<option value="<?php echo $column->ID; ?>"><?php echo $column->post_title; ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -16,7 +16,7 @@
 				<td><label for="event"><?php _e('Specific <b>events</b> for displaying in timetable', 'mp-timetable') ?></label></td>
 				<td>
 					<select multiple="multiple" id="event" name="event" class="widefat">
-						<?php foreach ($data['events'] as $events): ?>
+						<?php foreach ($data[ 'events' ] as $events): ?>
 							<option value="<?php echo $events->ID; ?>"><?php echo $events->post_title; ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -27,7 +27,7 @@
 				<td><label for="event_category"><?php _e('Event <b>categories</b> for displaying in timetable', 'mp-timetable'); ?></label></td>
 				<td>
 					<select multiple="multiple" id="event_category" name="event_category" class="widefat">
-						<?php foreach ($data['category'] as $category): ?>
+						<?php foreach ($data[ 'category' ] as $category): ?>
 							<option value="<?php echo $category->term_id; ?>"><?php echo $category->name; ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -110,6 +110,15 @@
 					<select id="hide_empty" name="hide_empty">
 						<option value="1"><?php _e('Yes', 'mp-timetable') ?></option>
 						<option value="0"><?php _e('No', 'mp-timetable') ?></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="group_events"><?php _e('Grouped events', 'mp-timetable'); ?></label></td>
+				<td>
+					<select id="group_events" name="group_events">
+						<option value="0"><?php _e('No', 'mp-timetable') ?></option>
+						<option value="1"><?php _e('Yes', 'mp-timetable') ?></option>
 					</select>
 				</td>
 			</tr>

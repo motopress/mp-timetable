@@ -166,9 +166,22 @@
 /*====== Widget End ======*/
 
 /* ====== Shortcode start ====== */
-
 .mptt-shortcode-wrapper {
-  /* overflow-y: hidden; */
+  .mptt-shortcode-event {
+	&.mptt-grouped-event {
+	  .mptt-event-container {
+		display: flex;
+		justify-content: center;
+		align-content: center;
+		flex-direction: column;
+		&:hover {
+		  min-height: 100%;
+		  display: flex;
+		}
+	  }
+	}
+  }
+
   .mptt-shortcode-table {
 	margin-top: 1rem;
 
@@ -266,9 +279,6 @@
 	  opacity: 0;
 	  clear: both;
 	}
-
-  }
-  .mptt-shortcode-table {
 	&.mptt-theme-mode tbody {
 	  tr:nth-child(2n+2) {
 		td.event {
@@ -347,7 +357,6 @@
 /* ====== Shortcode end ====== */
 
 /* ====== Media start ===== */
-
 @media (max-width: 767px) {
 
   .mptt-main-wrapper {

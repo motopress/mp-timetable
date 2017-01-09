@@ -12,6 +12,7 @@ use mp_timetable\classes\models\Events;
 class Core {
 
 	protected static $instance;
+	
 	protected $version;
 	/**
 	 * Current state
@@ -144,7 +145,7 @@ class Core {
 	/**
 	 * Setup pseudo template
 	 *
-	 * @param $query
+	 * @param object $query
 	 */
 	public function setup_pseudo_template($query) {
 		global $post;
@@ -158,7 +159,7 @@ class Core {
 	}
 
 	/**
-	 *
+	 * Append post meta
 	 * @param $content
 	 *
 	 * @return string
@@ -487,7 +488,6 @@ class Core {
 		dbDelta($sql);
 	}
 
-
 	/**
 	 * Hook admin_enqueue_scripts
 	 */
@@ -640,5 +640,4 @@ class Core {
 
 		return is_embed();
 	}
-
 }

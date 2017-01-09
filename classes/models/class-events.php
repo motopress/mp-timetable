@@ -501,14 +501,13 @@ class Events extends Model {
 
 				if ($post && ($post->post_type == $this->post_type) && ($post->post_status == 'publish')) {
 					$event->post = $post;
-					$event->column_post = get_post($event->column_id);
 					$event->event_start = date('H:i', strtotime($event->event_start));
 					$event->event_end = date('H:i', strtotime($event->event_end));
 					$events[] = $event;
 				}
 			}
-
 		}
+
 		return $events;
 	}
 
