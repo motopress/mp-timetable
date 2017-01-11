@@ -45,12 +45,10 @@ function mptt_make_data_shortcode($bounds, $mptt_shortcode_data, $column_events)
 				$table_cell_start = floor($tm) . $mnts;
 			}
 		}
+		
 		$row_events = mptt_get_row_events($column_events, $row_index);
 		
 		if ($mptt_shortcode_data[ 'params' ][ 'group' ]) {
-			
-			//group event in cell( column and row intersection )
-			//$row_events = mptt_group_identical_event($row_events);
 			// group events by row
 			$row_events = mptt_group_identical_row_events($row_events);
 		}
@@ -59,14 +57,14 @@ function mptt_make_data_shortcode($bounds, $mptt_shortcode_data, $column_events)
 		$data[ 'rows' ][ $row_index ][ 'show' ] = true;
 		
 		if (!$mptt_shortcode_data[ 'params' ][ 'hide_hrs' ]) {
-			array_unshift($data[ 'rows' ][ $row_index ][ 'events' ], array('event' => false, 'title' => date(get_option('time_format'), strtotime($table_cell_start))));
+			array_unshift($data[ 'rows' ][ $row_index ][ 'events' ], array('time_cell' => true, 'title' => date(get_option('time_format'), strtotime($table_cell_start))));
 		}
 		
 		if ($mptt_shortcode_data[ 'params' ][ 'hide_empty_rows' ]) {
 			$show = false;
 			
 			foreach ($data[ 'rows' ][ $row_index ][ 'events' ] as $event) {
-				if (isset($event[ 'id' ]) && $event[ 'id' ]) {
+				if (filter_var($event[ 'id' ], FILTER_VALIDATE_INT)) {
 					$show = true;
 					break;
 				}
@@ -149,22 +147,24 @@ function mptt_get_header_row($mptt_shortcode_data) {
 function mptt_get_row_events($column_events, $row_index) {
 	$events = array();
 	$default_count = 1;
+	$i = 0;
 	foreach ($column_events as $column_id => $events_list) {
 		$empty = true;
-		$cell = $row_index . '_' . $column_id;
-		foreach ($events_list as $key_events => $item) {
+		
+		foreach ($events_list as $event_key => $item) {
 			
 			if ($item->start_index == $row_index) {
 				
 				$temp = (array)$item;
+				
 				if ($temp[ 'id' ]) {
 					unset($temp[ 'id' ]);
 					unset($temp[ 'column_id' ]);
 				}
-				$events[ $cell ][] = array(
+				
+				$event = array(
 					'id' => $item->id,
 					'hash' => md5(serialize($temp)),
-					'count' => $default_count,
 					'start_index' => ($item->start_index),
 					'end_index' => ($item->end_index),
 					'event_start' => ($item->event_start),
@@ -173,20 +173,40 @@ function mptt_get_row_events($column_events, $row_index) {
 					'event_id' => $item->event_id,
 					'event' => true,
 					'user_id' => $item->user_id,
-					'description' => trim($item->description)
+					'description' => trim($item->description),
+					'order' => $event_key
 				);
+				
+				$events[ $i ][ 'events' ][ $event[ 'hash' ] ] = $event;
+				$events[ $i ][ 'count' ] = $default_count;
+				$events[ $i ][ 'grouped' ] = false;
+				
 				$empty = false;
 			}
 		}
+		
 		if ($empty) {
-			$events[ $cell ][] = array(
+			$events[ $i ][ 'events' ][] = array(
 				'id' => false,
 				'start_index' => $row_index,
 				'end_index' => $row_index,
 				'column_id' => $column_id,
 				'event' => true,
 			);
+			$events[ $i ][ 'count' ] = $default_count;
 		}
+		$i++;
+	}
+	
+	foreach ($events as $cell => $event_data) {
+		usort($event_data[ 'events' ], function ($a, $b) {
+			if ($a[ 'order' ] == $b[ 'order' ]) {
+				return 0;
+			}
+			
+			return ($a[ 'order' ] < $b[ 'order' ]) ? -1 : 1;
+		});
+		$events[ $cell ][ 'events' ] = $event_data[ 'events' ];
 	}
 	
 	return $events;
@@ -250,72 +270,39 @@ function mptt_check_exists_column($needle, $events) {
  * @return array|mixed
  */
 function mptt_group_identical_row_events($events) {
-	$data = array();
-	$default_count = 1;
-//	foreach ($column_events as $column_id => $events_list) {
-	foreach ($events as $cell => $events_in_cell) {
-		$events[ $cell ] = mptt_group_identical_event($events_in_cell);
-//		$temp = $event;
-
-//		if ($temp[ 'id' ]) {
-//			unset($temp[ 'id' ]);
-//			unset($temp[ 'column_id' ]);
-//		}
-//		$events[ $key ][ 'hash' ] = md5(serialize($temp));
-//		$events[ $key ][ 'order' ] = $key;
-//		$events[ $key ][ 'end_row_index' ] = $key;
-//		$events[ $key ][ 'count' ] = $default_count;
-//		$events[ $key ][ 'start_row_index' ] = $key;
+	$data = $events;
+	$length = count($events);
+	
+	for ($i = 0; $i < $length - 1; $i++) {
+		if (!isset($events[ ($i + 1) ])) {
+			continue;
+		}
+		$events_current_data = $events[ $i ];
+		$events_current_count = count($events_current_data[ 'events' ]);
+		
+		$events_next_data = $events[ ($i + 1) ];
+		$events_next_count = count($events_next_data[ 'events' ]);
+		
+		if ($events_next_count > 1 || $events_current_count > 1) {
+			continue;
+		} else {
+			if (filter_var($events_current_data[ 'events' ][ 0 ][ 'id' ], FILTER_VALIDATE_INT) && filter_var($events_next_data[ 'events' ][ 0 ][ 'id' ], FILTER_VALIDATE_INT)) {
+				$hash_current = $events_current_data[ 'events' ][ 0 ][ 'hash' ];
+				$hash_next = $events_next_data[ 'events' ][ 0 ][ 'hash' ];
+				
+				if ($hash_current === $hash_next) {
+					$data[ $i ][ 'count' ] += 1;
+					$data[ $i ][ 'grouped' ] = true;
+					$data[ $i ] = $events_current_data;
+					$data[ $i + 1 ][ 'output' ] = false;
+				}
+			}
+		}
 		
 	}
-//	}
-
-
-//	$events = grouped_by_column($events);
-
-//	usort($events, function ($a, $b) {
-//		if ($a[ 'order' ] == $b[ 'order' ]) {
-//			return 0;
-//		}
-//
-//		return ($a[ 'order' ] < $b[ 'order' ]) ? -1 : 1;
-//	});
-//
-//	end($events);
-//	$last_key = key($events);
-//	$data = $events;
-//
-//	foreach ($events as $key => $event) {
-//
-//		if (!isset($current_hash)) {
-//			$current_hash = $events[ $key ][ 'hash' ];
-//			$first_hash_element_key = $key;
-//		}
-//
-//		if ($current_hash === $events[ $key ][ 'hash' ]) {
-//
-//			$next_key = $key + 1;
-//
-//			if (isset($events[ $next_key ])) {
-//
-//				if ($current_hash === $events[ $next_key ][ 'hash' ]) {
-//
-//					$data[ $first_hash_element_key ][ 'count' ]++;
-//					$data[ $first_hash_element_key ][ 'end_row_index' ] = $key;
-//					$data[ $first_hash_element_key ][ 'grouped' ] = true;
-//					unset($data[ $next_key ]);
-//
-//				}
-//			}
-//
-//		} else {
-//			$current_hash = $events[ $key ][ 'hash' ];
-//			$first_hash_element_key = $key;
-//		}
-//	}
-//
 	
-	return $events;
+	
+	return $data;
 }
 
 /**
