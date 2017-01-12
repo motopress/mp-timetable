@@ -1,6 +1,9 @@
 <?php
 use mp_timetable\plugin_core\classes\View;
 
+/**
+ * Sidebar
+ */
 function mptt_sidebar() {
 	global $post;
 	View::get_instance()->get_template('templates-actions/action-sidebar', array('post' => $post));
@@ -69,7 +72,6 @@ function mptt_make_data_shortcode($bounds, $mptt_shortcode_data, $column_events)
 					break;
 				}
 			}
-			
 			$data[ 'rows' ][ $row_index ][ 'show' ] = $show;
 		}
 	}
@@ -180,6 +182,7 @@ function mptt_get_row_events($column_events, $row_index) {
 				$events[ $i ][ 'events' ][ $event[ 'hash' ] ] = $event;
 				$events[ $i ][ 'count' ] = $default_count;
 				$events[ $i ][ 'grouped' ] = false;
+				$events[ $i ][ 'column_id' ] = $column_id;
 				
 				$empty = false;
 			}
@@ -194,6 +197,7 @@ function mptt_get_row_events($column_events, $row_index) {
 				'event' => true,
 			);
 			$events[ $i ][ 'count' ] = $default_count;
+			$events[ $i ][ 'column_id' ] = $column_id;
 		}
 		$i++;
 	}
@@ -265,44 +269,58 @@ function mptt_check_exists_column($needle, $events) {
 /**
  * Group event in row
  *
- * @param $events
+ * @param $events_row_data
  *
  * @return array|mixed
  */
-function mptt_group_identical_row_events($events) {
-	$data = $events;
-	$length = count($events);
+function mptt_group_identical_row_events($events_row_data) {
+	
+	$length = count($events_row_data);
 	
 	for ($i = 0; $i < $length - 1; $i++) {
-		if (!isset($events[ ($i + 1) ])) {
+		if (!isset($events_row_data[ ($i + 1) ])) {
 			continue;
 		}
-		$events_current_data = $events[ $i ];
+		
+		$events_current_data = $events_row_data[ $i ];
 		$events_current_count = count($events_current_data[ 'events' ]);
 		
-		$events_next_data = $events[ ($i + 1) ];
+		$events_next_data = $events_row_data[ ($i + 1) ];
 		$events_next_count = count($events_next_data[ 'events' ]);
+		
 		
 		if ($events_next_count > 1 || $events_current_count > 1) {
 			continue;
 		} else {
 			if (filter_var($events_current_data[ 'events' ][ 0 ][ 'id' ], FILTER_VALIDATE_INT) && filter_var($events_next_data[ 'events' ][ 0 ][ 'id' ], FILTER_VALIDATE_INT)) {
+				
 				$hash_current = $events_current_data[ 'events' ][ 0 ][ 'hash' ];
 				$hash_next = $events_next_data[ 'events' ][ 0 ][ 'hash' ];
 				
+				if (!isset($current_data)) {
+					$current_data = array('key' => $i, 'hash' => $hash_current);
+				}
+				
 				if ($hash_current === $hash_next) {
-					$data[ $i ][ 'count' ] += 1;
-					$data[ $i ][ 'grouped' ] = true;
-					$data[ $i ] = $events_current_data;
-					$data[ $i + 1 ][ 'output' ] = false;
+					if ($current_data[ 'hash' ] !== $hash_current) {
+						$current_data = array('key' => $i, 'hash' => $hash_current);
+					} else {
+						if ($current_data[ 'key' ] === $i) {
+							$events_current_data[ 'count' ]++;
+							$events_current_data[ 'grouped' ] = true;
+							$events_row_data[ $i ] = $events_current_data;
+							$events_row_data[ $i + 1 ][ 'hide' ] = true;
+						} else {
+							$events_row_data[ $current_data[ 'key' ] ][ 'count' ]++;
+							$events_row_data[ $i + 1 ][ 'hide' ] = true;
+						}
+					}
 				}
 			}
 		}
-		
 	}
 	
-	
-	return $data;
+	return $events_row_data;
 }
 
 /**

@@ -663,44 +663,53 @@ Registry.register("Event",
 				 * Set row-span td
 				 */
 				setRowspanTd: function() {
-					$.each($('.' + MPTT.table_class + ' td.event'), function() {
-						var events = $(this).find('.mptt-event-container'),
-							columnId = $(this).attr('data-column-id'),
-							rowHeight = $(this).attr('data-row_height'),
-							rowSpan = state.getRowspan(events),
-							tableContainer = $(this).parents('.' + MPTT.table_class);
 
-						if (!_.isUndefined(rowSpan) && rowSpan > 1) {
+					$.each($('.' + MPTT.table_class), function() {
+						var $table = $(this);
 
-							var index = $(this).parents('tr').attr('data-index'),
-								torowSpan = rowSpan + parseInt(index) - 1;
+						$.each($table.find('td.event'), function() {
+							var td = $(this);
 
-							for (index; index < torowSpan; index++) {
+							var events = td.find('.mptt-event-container'),
+								columnId = td.attr('data-column-id'),
+								rowHeight = td.attr('data-row_height'),
+								rowSpan = state.getRowspan(events);
 
-								var row = tableContainer.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1));
 
-								if (row.length) {
-									row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
+							if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 
-									if (row.find('td.event[data-column-id="' + columnId + '"]').length) {
-										rowSpan -= (torowSpan - index);
+								var index = td.parents('tr').attr('data-index'),
+									toRowSpan = rowSpan + parseInt(index) - 1;
 
-										if (rowSpan < 2) {
-											rowSpan = 1;
-											break;
+								for (index; index < toRowSpan; index++) {
+
+									var row = $table.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1));
+
+									if (row.length) {
+
+
+										if (row.find('td.event[data-column-id="' + columnId + '"]').length) {
+											rowSpan -= (toRowSpan - index);
+
+											if (rowSpan < 2) {
+												rowSpan = 1;
+												break;
+											}
 										}
+										row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
 									}
+								}
+
+								if (!isNaN(rowHeight)) {
+									td.css('height', rowSpan * rowHeight);
 								}
 							}
 
-							if (!isNaN(rowHeight)) {
-								$(this).css('height', rowSpan * rowHeight);
-							}
-						}
-
-						$(this).attr('rowspan', rowSpan);
+							td.attr('rowspan', rowSpan);
+						});
 
 					});
+
 				},
 				/**
 				 * Remove empty rows
