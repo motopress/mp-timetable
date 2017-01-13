@@ -56,23 +56,10 @@ function mptt_make_data_shortcode($bounds, $mptt_shortcode_data, $column_events)
 		}
 		
 		$data[ 'rows' ][ $row_index ][ 'cells' ] = $row_cells;
-		$data[ 'rows' ][ $row_index ][ 'show' ] = true;
+		$data[ 'rows' ][ $row_index ][ 'show' ] = mptt_shortcode_row_has_items($row_index, $column_events);
 		
 		if (!$mptt_shortcode_data[ 'params' ][ 'hide_hrs' ]) {
 			array_unshift($data[ 'rows' ][ $row_index ][ 'cells' ], array('time_cell' => true, 'title' => date(get_option('time_format'), strtotime($table_cell_start))));
-		}
-		
-		if ($mptt_shortcode_data[ 'params' ][ 'hide_empty_rows' ]) {
-			foreach ($data[ 'rows' ][ $row_index ][ 'cells' ] as $cell_key => $cell) {
-				$show = false;
-				foreach ($cell[ 'events' ] as $cell_event) {
-					if (!empty($cell_event[ 'id' ]) && filter_var($cell_event[ 'id' ], FILTER_VALIDATE_INT)) {
-						$show = true;
-						break;
-					}
-				}
-				$data[ 'rows' ][ $row_index ][ 'show' ] = $show;
-			}
 		}
 	}
 	

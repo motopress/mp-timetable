@@ -101,7 +101,7 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 		<?php echo View::get_instance()->get_template_html('shortcodes/table-header', array('header_items' => $data_grouped_by_row[ 'table_header' ], 'params' => $params)); ?>
 		<tbody>
 		<?php foreach ($data_grouped_by_row[ 'rows' ] as $key => $row) {
-			if (!$row[ 'show' ]) {
+			if (!$row[ 'show' ] && $params[ 'hide_empty_rows' ]) {
 				continue;
 			} ?>
 			<tr class="mptt-shortcode-row-<?php echo $key ?>" data-index="<?php echo $key ?>">
