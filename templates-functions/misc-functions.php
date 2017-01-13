@@ -64,12 +64,14 @@ function mptt_make_data_shortcode($bounds, $mptt_shortcode_data, $column_events)
 		
 		if ($mptt_shortcode_data[ 'params' ][ 'hide_empty_rows' ]) {
 			foreach ($data[ 'rows' ][ $row_index ][ 'cells' ] as $cell_key => $cell) {
-				foreach ($cell as $cell_event) {
+				$show = false;
+				foreach ($cell[ 'events' ] as $cell_event) {
 					if (!empty($cell_event[ 'id' ]) && filter_var($cell_event[ 'id' ], FILTER_VALIDATE_INT)) {
-						$data[ 'rows' ][ $row_index ][ $cell_key ][ 'show' ] = true;
+						$show = true;
 						break;
 					}
 				}
+				$data[ 'rows' ][ $row_index ][ 'show' ] = $show;
 			}
 		}
 	}
