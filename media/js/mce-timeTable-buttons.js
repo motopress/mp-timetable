@@ -95,6 +95,9 @@
 											case 'text_align':
 												shortcode_obj.attrs.text_align = parameters.value;
 												break;
+											case 'text_align_vertical':
+												shortcode_obj.attrs.text_align_vertical = parameters.value;
+												break;
 											case 'id':
 												shortcode_obj.attrs.id = parameters.value;
 												break;

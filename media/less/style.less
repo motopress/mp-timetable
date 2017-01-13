@@ -168,23 +168,33 @@
 /* ====== Shortcode start ====== */
 .mptt-shortcode-wrapper {
   .mptt-shortcode-event {
-	//&.mptt-grouped-event {
-	//  .mptt-event-container {
-	//	display: flex;
-	//	justify-content: center;
-	//	align-content: center;
-	//	flex-direction: column;
-	//	&:hover {
-	//	  min-height: 100%;
-	//	  display: flex;
-	//	}
-	//  }
-	//}
+	.mptt-event-container {
+	  display: flex;
+	  justify-content: center;
+	  align-content: center;
+	  flex-direction: column;
+	  &:hover {
+		min-height: 100%;
+		display: flex;
+	  }
+
+	}
+	&.mptt-event-start {
+	  .mptt-event-container {
+		justify-content: flex-start;
+		align-content: flex-start;
+	  }
+	}
+	&.mptt-event-end {
+	  .mptt-event-container {
+		justify-content: flex-end;
+		align-content: flex-end;
+	  }
+	}
   }
 
   .mptt-shortcode-table {
 	margin-top: 1rem;
-
 	tr.mptt-shortcode-row {
 	  th {
 		background-color: #f0f0f0;
@@ -224,7 +234,6 @@
 		overflow: hidden;
 		outline: 1px solid #fff;
 		color: inherit;
-		//padding: 1rem;
 
 		p {
 		  color: inherit;
@@ -261,7 +270,7 @@
 	  .mptt-event-container:hover {
 		//width: 100%;
 		background-color: inherit;
-		display: inline-block;
+		//display: inline-block;
 		height: auto !important;
 		overflow: visible;
 		z-index: 10;
