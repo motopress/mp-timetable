@@ -49,30 +49,28 @@ function mptt_make_data_shortcode($bounds, $mptt_shortcode_data, $column_events)
 			}
 		}
 		
-		$row_events = mptt_get_row_events($column_events, $row_index);
+		$row_cells = mptt_get_row_events($column_events, $row_index);
 		
 		if ($mptt_shortcode_data[ 'params' ][ 'group' ]) {
-			// group events by row
-			$row_events = mptt_group_identical_row_events($row_events);
+			$row_cells = mptt_group_identical_row_events($row_cells);
 		}
 		
-		$data[ 'rows' ][ $row_index ][ 'events' ] = $row_events;
+		$data[ 'rows' ][ $row_index ][ 'cells' ] = $row_cells;
 		$data[ 'rows' ][ $row_index ][ 'show' ] = true;
 		
 		if (!$mptt_shortcode_data[ 'params' ][ 'hide_hrs' ]) {
-			array_unshift($data[ 'rows' ][ $row_index ][ 'events' ], array('time_cell' => true, 'title' => date(get_option('time_format'), strtotime($table_cell_start))));
+			array_unshift($data[ 'rows' ][ $row_index ][ 'cells' ], array('time_cell' => true, 'title' => date(get_option('time_format'), strtotime($table_cell_start))));
 		}
 		
 		if ($mptt_shortcode_data[ 'params' ][ 'hide_empty_rows' ]) {
-			$show = false;
-			
-			foreach ($data[ 'rows' ][ $row_index ][ 'events' ] as $event) {
-				if (filter_var($event[ 'id' ], FILTER_VALIDATE_INT)) {
-					$show = true;
-					break;
+			foreach ($data[ 'rows' ][ $row_index ][ 'cells' ] as $cell_key => $cell) {
+				foreach ($cell as $cell_event) {
+					if (!empty($cell_event[ 'id' ]) && filter_var($cell_event[ 'id' ], FILTER_VALIDATE_INT)) {
+						$data[ 'rows' ][ $row_index ][ $cell_key ][ 'show' ] = true;
+						break;
+					}
 				}
 			}
-			$data[ 'rows' ][ $row_index ][ 'show' ] = $show;
 		}
 	}
 	
@@ -302,19 +300,21 @@ function mptt_group_identical_row_events($events_row_data) {
 				}
 				
 				if ($hash_current === $hash_next) {
+					
 					if ($current_data[ 'hash' ] !== $hash_current) {
 						$current_data = array('key' => $i, 'hash' => $hash_current);
-					} else {
-						if ($current_data[ 'key' ] === $i) {
-							$events_current_data[ 'count' ]++;
-							$events_current_data[ 'grouped' ] = true;
-							$events_row_data[ $i ] = $events_current_data;
-							$events_row_data[ $i + 1 ][ 'hide' ] = true;
-						} else {
-							$events_row_data[ $current_data[ 'key' ] ][ 'count' ]++;
-							$events_row_data[ $i + 1 ][ 'hide' ] = true;
-						}
 					}
+					
+					if ($current_data[ 'key' ] === $i) {
+						$events_current_data[ 'count' ]++;
+						$events_current_data[ 'grouped' ] = true;
+						$events_row_data[ $i ] = $events_current_data;
+						$events_row_data[ $i + 1 ][ 'hide' ] = true;
+					} else {
+						$events_row_data[ $current_data[ 'key' ] ][ 'count' ]++;
+						$events_row_data[ $i + 1 ][ 'hide' ] = true;
+					}
+					
 				}
 			}
 		}

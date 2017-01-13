@@ -105,26 +105,19 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 				continue;
 			} ?>
 			<tr class="mptt-shortcode-row-<?php echo $key ?>" data-index="<?php echo $key ?>">
-				<?php $events = $data_grouped_by_row[ 'rows' ][ $key ][ 'events' ];
-				
-				foreach ($events as $key_event => $event_item) {
-					
-					if (isset($event_item[ 'time_cell' ]) && filter_var($event_item[ 'time_cell' ], FILTER_VALIDATE_BOOLEAN, array('options' => array('default' => false)))) { ?>
-						<td class="mptt-shortcode-hours" style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo $event_item[ 'title' ] ?></td>
+				<?php $cells = $data_grouped_by_row[ 'rows' ][ $key ][ 'cells' ];
+				foreach ($cells as $key_event => $cell) {
+					if (isset($cell[ 'time_cell' ]) && filter_var($cell[ 'time_cell' ], FILTER_VALIDATE_BOOLEAN, array('options' => array('default' => false)))) { ?>
+						<td class="mptt-shortcode-hours" style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo $cell[ 'title' ] ?></td>
 						<?php continue;
 					}
-					
-					if (!isset($event_item[ 'hide' ])) { ?>
-						<td class="mptt-shortcode-event <?php echo mptt_is_grouped_event_class($event_item) ?>" data-column-id="<?php echo $event_item[ 'column_id' ] ?>" rowspan="" colspan="<?php echo !isset($event_item[ 'count' ]) ? '' : $event_item[ 'count' ] ?>" data-row_height="<?php echo $row_height; ?>" style="<?php echo 'height:' . $row_height . 'px;'; ?>">
-							<?php
-							
-							foreach ($event_item[ 'events' ] as $event) {
-								if (isset($event[ 'id' ]) && filter_var($event[ 'id' ], FILTER_VALIDATE_INT)) {
+					if (!isset($cell[ 'hide' ])) { ?>
+						<td class="mptt-shortcode-event <?php echo mptt_is_grouped_event_class($cell) ?>" data-column-id="<?php echo $cell[ 'column_id' ] ?>" rowspan="" colspan="<?php echo !isset($cell[ 'count' ]) ? '' : $cell[ 'count' ] ?>" data-row_height="<?php echo $row_height; ?>" style="<?php echo 'height:' . $row_height . 'px;'; ?>">
+							<?php foreach ($cell[ 'events' ] as $event) {
+								if (!empty($event[ 'id' ]) && filter_var($event[ 'id' ], FILTER_VALIDATE_INT)) {
 									View::get_instance()->get_template('shortcodes/event-container', array('item' => $event, 'params' => $params));
 								}
-							}
-							
-							?>
+							} ?>
 						</td>
 					<?php }
 				} ?>
