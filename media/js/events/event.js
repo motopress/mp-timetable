@@ -384,6 +384,65 @@ Registry.register("Event",
 				 * Set user color settings
 				 * @param selector
 				 */
+				// setColorSettings: function(selector) {
+				// 	if (_.isUndefined(selector)) {
+				// 		selector = '.mptt-colorized';
+				// 	}
+				//
+				// 	var elements = $(selector);
+				// 	var height = '';
+				// 	$.each(elements, function() {
+				// 		var element = $(this);
+				// 		switch (element.attr('data-type')) {
+				// 			case "column":
+				// 			case "event":
+				// 				element.hover(
+				// 					function() {
+				// 						var bg = $(this).attr('data-bg_hover_color'),
+				// 							color = $(this).attr('data-hover_color');
+				//
+				// 						if (!_.isEmpty(bg)) {
+				// 							$(this).css('background-color', bg);
+				// 						}
+				// 						if (!_.isEmpty(color)) {
+				// 							$(this).css('color', color);
+				// 						}
+				//
+				// 						var parentHeight = $(this).parent().height();
+				// 						var elementHeight = $(this).height();
+				// 						if (parentHeight > elementHeight) {
+				// 							$(this).addClass('mptt-full-height');
+				// 						}
+				//
+				// 					}, function() {
+				// 						$(this).css('background-color', $(this).attr('data-bg_color'));
+				// 						$(this).css('color', $(this).attr('data-color'));
+				// 						$(this).removeClass('mptt-full-height');
+				// 					}
+				// 				);
+				// 				break;
+				// 			case "widget":
+				// 				element.hover(
+				// 					function() {
+				// 						//height = 0;
+				// 						$(this).css('background-color', $(this).attr('data-background-hover-color'));
+				// 						$(this).css('color', $(this).attr('data-hover-color'));
+				// 						$(this).css('border-left-color', $(this).attr('data-hover-border-color'));
+				// 					},
+				// 					function() {
+				// 						//height = 0;
+				// 						$(this).css('background-color', $(this).attr('data-background-color'));
+				// 						$(this).css('color', $(this).attr('data-color'));
+				// 						$(this).css('border-left-color', $(this).attr('data-border-color'));
+				// 					}
+				// 				);
+				// 				break;
+				// 			default:
+				// 				break;
+				// 		}
+				//
+				// 	});
+				// },
 				setColorSettings: function(selector) {
 					if (_.isUndefined(selector)) {
 						selector = '.mptt-colorized';
@@ -392,55 +451,57 @@ Registry.register("Event",
 					var elements = $(selector);
 					var height = '';
 					$.each(elements, function() {
-						var element = $(this);
+						var element = $(this),
+							bg = element.attr('data-bg_hover_color'),
+							color = element.attr('data-hover_color'),
+							tdParent = element.parent(),
+							parentHeight = tdParent.height(),
+							elementHeight = element.css('display', 'inline-block').css('position', 'relative').height();
+							element.css('display', '').css('position', '');
+							console.log(elementHeight);
 						switch (element.attr('data-type')) {
 							case "column":
 							case "event":
 								element.hover(
 									function() {
-										var bg = $(this).attr('data-bg_hover_color'),
-											color = $(this).attr('data-hover_color');
-
 										if (!_.isEmpty(bg)) {
-											$(this).css('background-color', bg);
+											element.css('background-color', bg);
 										}
 										if (!_.isEmpty(color)) {
-											$(this).css('color', color);
+											element.css('color', color);
 										}
 
-										var parentHeight = $(this).parent().height();
-										var elementHeight = $(this).height();
-										if (parentHeight > elementHeight) {
-											$(this).addClass('mptt-full-height');
+										element.height(elementHeight);
+
+										if (parentHeight >= elementHeight) {
+											element.addClass('mptt-full-height');
 										}
 
 									}, function() {
-										$(this).css('background-color', $(this).attr('data-bg_color'));
-										$(this).css('color', $(this).attr('data-color'));
-										$(this).removeClass('mptt-full-height');
+										state.recalculate_Height(tdParent);
+										element.css('background-color', element.attr('data-bg_color'));
+										element.css('color', element.attr('data-color'));
+										element.removeClass('mptt-full-height');
 									}
 								);
 								break;
 							case "widget":
 								element.hover(
 									function() {
-										//height = 0;
-										$(this).css('background-color', $(this).attr('data-background-hover-color'));
-										$(this).css('color', $(this).attr('data-hover-color'));
-										$(this).css('border-left-color', $(this).attr('data-hover-border-color'));
+										element.css('background-color', element.attr('data-background-hover-color'));
+										element.css('color', $(this).attr('data-hover-color'));
+										element.css('border-left-color', element.attr('data-hover-border-color'));
 									},
 									function() {
-										//height = 0;
-										$(this).css('background-color', $(this).attr('data-background-color'));
-										$(this).css('color', $(this).attr('data-color'));
-										$(this).css('border-left-color', $(this).attr('data-border-color'));
+										element.css('background-color', element.attr('data-background-color'));
+										element.css('color', element.attr('data-color'));
+										element.css('border-left-color', element.attr('data-border-color'));
 									}
 								);
 								break;
 							default:
 								break;
 						}
-
 					});
 				},
 				/**
@@ -556,36 +617,39 @@ Registry.register("Event",
 
 					state.setEventHeight();
 				},
-				/**
+				recalculate_Height: function(tdParent) {
+					var events = $('.mptt-event-container', tdParent);
+					var eventCount = events.length;
+					var heightItem = 0;
+					var top = 0;
+					if (!$('body').hasClass('mprm_ie')) {
+
+						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
+
+						$.each(events, function() {
+							$(this).height(heightItem + "%");
+							$(this).css('top', top + "%");
+							$(this).removeClass('mptt-hidden');
+							top += heightItem;
+						});
+					} else {
+						var tdHeight = tdParent.height();
+						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
+
+						$.each(events, function() {
+							$(this).height(heightItem + "px");
+							$(this).css('top', top + "px");
+							$(this).removeClass('mptt-hidden');
+							top += heightItem;
+						});
+					}
+				}, /**
 				 * Fill all possible height in ceil
 				 */
 				setEventHeight: function() {
 					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
-						var events = $('.mptt-event-container', $(this));
-						var eventCount = events.length;
-						var heightItem = 0;
-						var top = 0;
-						if (!$('body').hasClass('mprm_ie')) {
-
-							heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
-
-							$.each(events, function() {
-								$(this).height(heightItem + "%");
-								$(this).css('top', top + "%");
-								$(this).removeClass('mptt-hidden');
-								top += heightItem;
-							});
-						} else {
-
-							var tdHeight = $(this).height();
-							heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
-							$.each(events, function() {
-								$(this).height(heightItem + "px");
-								$(this).css('top', top + "px");
-								$(this).removeClass('mptt-hidden');
-								top += heightItem;
-							});
-						}
+						var td = $(this);
+						state.recalculate_Height(td);
 					});
 				},
 				/**

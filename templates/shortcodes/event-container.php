@@ -10,8 +10,7 @@
      style="<?php echo $params[ 'text_align' ] ? 'text-align:' . $params[ 'text_align' ] . ';' : '' ?>
      <?php echo $item[ 'post' ]->color ? 'background-color:' . $item[ 'post' ]->color . ';' : '' ?>
      <?php echo $item[ 'post' ]->text_color ? 'color:' . $item[ 'post' ]->text_color : '' ?>">
-	<?php
-	if ($params[ 'title' ]) {
+	<?php if ($params[ 'title' ]) {
 		$disable_url = (bool)$item[ 'post' ]->timetable_disable_url || (bool)$params[ 'disable_event_url' ];
 		
 		if (!$disable_url) { ?>
@@ -47,4 +46,5 @@
 			} ?>
 		</p>
 	<?php endif; ?>
+
 </div>
