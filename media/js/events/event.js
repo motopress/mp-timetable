@@ -380,7 +380,18 @@ Registry.register("Event",
 					$('#events-list').find('tbody').append(htmlObject);
 					state.clearTable();
 				},
-				/**
+				setEventHeight: function(element) {
+					element.css('height', 'auto');
+					element.css('width', '100%');
+					element.css('position', 'relative');
+
+					var elementHeight = element.height();
+					element.css('position', '').css('width', '');
+
+					element.height(elementHeight);
+
+					return elementHeight;
+				}, /**
 				 * Set user color settings
 				 * @param selector
 				 */
@@ -412,14 +423,7 @@ Registry.register("Event",
 											element.css('color', color);
 										}
 
-										element.css('height', 'auto');
-										element.css('width', '100%');
-										element.css('position', 'relative');
-
-										elementHeight = element.outerHeight();
-										element.css('position', '').css('width', '');
-
-										element.height(elementHeight);
+										elementHeight = state.setEventHeight(element);
 
 										if (parentHeight >= elementHeight) {
 											element.addClass('mptt-full-height');
@@ -563,38 +567,44 @@ Registry.register("Event",
 
 					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
 
-					state.setEventHeight();
+					state.setEventsHeight();
 				},
 				recalculate_Height: function(tdParent) {
-					var events = $('.mptt-event-container', tdParent);
-					var eventCount = events.length;
-					var heightItem = 0;
-					var top = 0;
+					var events = $('.mptt-event-container', tdParent),
+						eventCount = events.length,
+						heightItem = 0,
+						top = 0,
+						tdHeight = tdParent.height();
+
 					if (!$('body').hasClass('mprm_ie')) {
 
 						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
 
 						$.each(events, function() {
-							$(this).height(heightItem + "%");
-							$(this).css('top', top + "%");
-							$(this).removeClass('mptt-hidden');
+							var $event = $(this);
+							$event.height(heightItem + "%");
+							$event.css('top', top + "%");
+							$event.removeClass('mptt-hidden');
 							top += heightItem;
 						});
+
 					} else {
-						var tdHeight = tdParent.height();
+
 						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
 
 						$.each(events, function() {
-							$(this).height(heightItem + "px");
-							$(this).css('top', top + "px");
-							$(this).removeClass('mptt-hidden');
+							var $event = $(this);
+							$event.height(heightItem);
+							$event.css('top', top + "px");
+							$event.removeClass('mptt-hidden');
 							top += heightItem;
 						});
+
 					}
 				}, /**
 				 * Fill all possible height in ceil
 				 */
-				setEventHeight: function() {
+				setEventsHeight: function() {
 					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
 						var td = $(this);
 						state.recalculate_Height(td);
@@ -667,7 +677,7 @@ Registry.register("Event",
 						});
 
 					}
-					state.setEventHeight();
+					state.setEventsHeight();
 				},
 
 
