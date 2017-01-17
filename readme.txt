@@ -1,7 +1,7 @@
 === Timetable and Event Schedule by MotoPress ===
 Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
-Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer
+Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer,classes,gym,school,scheduler,table
 Requires at least: 3.6
 Tested up to: 4.7
 Stable tag: trunk
@@ -69,10 +69,16 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.3 =
+* Added the ability to merge cells with common events.
+* Added the ability to set vertical alignment in the table.
+* Added the ability to set custom CSS class for table shortcode.
+* Added the ability to hide filter control on the top of the table.
+* Bug fix: fixed the issue when table ID didn't output on the site.
+
 = 2.1.2 =
 * Bug fix: fixed the issue when plugin overrides default archive template.
 * Bug fix: fixed the issue in upcoming events widget when events were not sorted by days.
-
 
 = 2.1.1 =
 * Bug fix: fixed the issue with shortcode tempalte

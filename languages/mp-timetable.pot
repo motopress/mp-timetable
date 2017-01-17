@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-01-17 12:06+0200\n"
+"POT-Creation-Date: 2017-01-17 15:09+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -263,7 +263,7 @@ msgstr ""
 msgid "Quarter hour (15min)"
 msgstr ""
 
-#: classes/class-shortcode.php:244 templates/popup/index.php:73
+#: classes/class-shortcode.php:244
 msgid "Filter style"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: classes/class-shortcode.php:294 templates/popup/index.php:44
+#: classes/class-shortcode.php:294
 msgid "User"
 msgstr ""
 
@@ -943,7 +943,7 @@ msgstr ""
 msgid "End"
 msgstr ""
 
-#: templates/events/event-data.php:8
+#: templates/events/event-data.php:8 templates/popup/index.php:44
 msgid "Event Head"
 msgstr ""
 
@@ -1026,7 +1026,7 @@ msgid "Disable link to this event:"
 msgstr ""
 
 #: templates/popup/index.php:5
-msgid "<b>Columns</b> for displaying in timetable"
+msgid "<b>Columns</b> (required)"
 msgstr ""
 
 #: templates/popup/index.php:12 templates/popup/index.php:23
@@ -1035,11 +1035,11 @@ msgid "In order to display multiple points hold ctrl/cmd button."
 msgstr ""
 
 #: templates/popup/index.php:16
-msgid "Specific <b>events</b> for displaying in timetable"
+msgid "Specific <b>events</b>"
 msgstr ""
 
 #: templates/popup/index.php:27
-msgid "Event <b>categories</b> for displaying in timetable"
+msgid "Event <b>categories</b>"
 msgstr ""
 
 #: templates/popup/index.php:38
@@ -1047,9 +1047,7 @@ msgid "Fields to display:"
 msgstr ""
 
 #: templates/popup/index.php:45
-msgid ""
-"Check the event parameter(s) to be displayed for a certain event in the "
-"timetable."
+msgid "Check the event parameter(s) to be displayed in the timetable."
 msgstr ""
 
 #: templates/popup/index.php:49
@@ -1072,12 +1070,16 @@ msgstr ""
 msgid "Time frame for event"
 msgstr ""
 
+#: templates/popup/index.php:73
+msgid "Filter events style"
+msgstr ""
+
 #: templates/popup/index.php:76
 msgid "Dropdown"
 msgstr ""
 
 #: templates/popup/index.php:78
-msgid "Hide"
+msgid "None"
 msgstr ""
 
 #: templates/popup/index.php:83
@@ -1097,19 +1099,19 @@ msgid "Do not display empty rows"
 msgstr ""
 
 #: templates/popup/index.php:117
-msgid "Grouped events"
+msgid "Merge cells with common events"
 msgstr ""
 
-#: templates/popup/index.php:126
-msgid "Disable the event link"
+#: templates/popup/index.php:126 templates/widgets/gallery-list.php:56
+msgid "Disable event link"
 msgstr ""
 
 #: templates/popup/index.php:135
-msgid "Text alignment in event blocks"
+msgid "Horizontal align"
 msgstr ""
 
 #: templates/popup/index.php:144
-msgid "Text vertical align in event blocks"
+msgid "Vertical align"
 msgstr ""
 
 #: templates/popup/index.php:146
@@ -1136,35 +1138,28 @@ msgid ""
 msgstr ""
 
 #: templates/popup/index.php:160
-msgid "Custom class"
+msgid "CSS class"
 msgstr ""
 
-#: templates/popup/index.php:163
-msgid ""
-"If you use more than one table on a page specify the custom class for a "
-"timetable. It is usually all lowercase and contains only letters, numbers, "
-"and hyphens."
-msgstr ""
-
-#: templates/popup/index.php:167
+#: templates/popup/index.php:166
 msgid "Mobile behavior"
 msgstr ""
 
-#: templates/popup/index.php:170
+#: templates/popup/index.php:169
 msgid "List"
 msgstr ""
 
-#: templates/popup/index.php:171
+#: templates/popup/index.php:170
 msgid "Table"
 msgstr ""
 
-#: templates/popup/index.php:173
+#: templates/popup/index.php:172
 msgid ""
 "Tick \"List\" to display events in a list view on mobile devices. Tick "
 "\"Table\" to display events in a table."
 msgstr ""
 
-#: templates/popup/index.php:179
+#: templates/popup/index.php:178
 msgid "Add Timetable"
 msgstr ""
 
@@ -1239,10 +1234,6 @@ msgstr ""
 
 #: templates/widgets/gallery-list.php:49
 msgid "Number of events to display"
-msgstr ""
-
-#: templates/widgets/gallery-list.php:56
-msgid "Disable event link"
 msgstr ""
 
 #: templates/widgets/gallery-list.php:67
