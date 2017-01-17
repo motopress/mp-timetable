@@ -412,14 +412,12 @@ Registry.register("Event",
 											element.css('color', color);
 										}
 
-										element.css('display', 'inline-block');
 										element.css('height', 'auto');
 										element.css('width', '100%');
 										element.css('position', 'relative');
 
-										elementHeight = element.height();
-
-										element.css('display', '').css('position', '').css('width', '');
+										elementHeight = element.outerHeight();
+										element.css('position', '').css('width', '');
 
 										element.height(elementHeight);
 
