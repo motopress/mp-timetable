@@ -77,7 +77,7 @@ class Shortcode extends Core {
 			'user' => "0",
 			'hide_hrs' => "0",
 			'hide_empty_rows' => "1",
-			'text_align_vertical' => "start",
+			'text_align_vertical' => "top",
 			'row_height' => "45",
 			'font_size' => "",
 			'disable_event_url' => "0",

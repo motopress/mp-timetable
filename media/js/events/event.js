@@ -398,14 +398,7 @@ Registry.register("Event",
 							color = element.attr('data-hover_color'),
 							tdParent = element.parent(),
 							parentHeight = tdParent.height(),
-
-							elementHeight = element.css('display', 'inline-block').css('position', 'relative').height();
-						var elementHeightTemp = element.height();
-						console.log(elementHeight);
-						console.log(elementHeightTemp);
-
-						element.css('display', '').css('position', '');
-						console.log(elementHeight);
+							elementHeight = '';
 
 						switch (element.attr('data-type')) {
 							case "column":
@@ -418,6 +411,7 @@ Registry.register("Event",
 										if (!_.isEmpty(color)) {
 											element.css('color', color);
 										}
+
 										element.css('display', 'inline-block');
 										element.css('height', 'auto');
 										element.css('width', '100%');

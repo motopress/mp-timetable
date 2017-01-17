@@ -143,9 +143,9 @@
 			<tr>
 				<td><label for="text_align"><?php _e('Text vertical align in event blocks', 'mp-timetable') ?> </label></td>
 				<td><select id="text_align" name="text_align_vertical">
-						<option value="center"><?php _e('center', 'mp-timetable') ?></option>
-						<option value="start"><?php _e('top', 'mp-timetable') ?></option>
-						<option value="end"><?php _e('bottom', 'mp-timetable') ?></option>
+						<option value="top"><?php _e('top', 'mp-timetable') ?></option>
+						<option value="middle"><?php _e('middle', 'mp-timetable') ?></option>
+						<option value="bottom"><?php _e('bottom', 'mp-timetable') ?></option>
 					</select>
 				</td>
 			</tr>
