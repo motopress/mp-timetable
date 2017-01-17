@@ -6,8 +6,7 @@ function mptt_event_template_content_title() { ?>
 	<?php
 }
 
-function mptt_event_template_content_thumbnail() {
-	?>
+function mptt_event_template_content_thumbnail() { ?>
 	<div class="thumbnail-wrapper">
 		<?php if (has_post_thumbnail()) {
 			the_post_thumbnail(apply_filters('mptt_event_template_content_thumbnail_size', 'large'), array('class' => "event-thumbnail"));
@@ -16,8 +15,7 @@ function mptt_event_template_content_thumbnail() {
 	<?php
 }
 
-function mptt_event_template_content_post_content() {
-	?>
+function mptt_event_template_content_post_content() { ?>
 	<div class="event-content"><?php the_content(); ?></div>
 	<?php
 }
@@ -75,17 +73,14 @@ function mptt_event_template_content_comments() {
 }
 
 /**
- * get post Event data
+ * Get post event data
+ *
  * @return array
  */
 function mptt_get_event_data() {
 	global $post;
 	$data = Core::get_instance()->get_controller('events')->get_all_event_by_post($post);
-	if (!empty($data)) {
-		return $data;
-	} else {
-		return array();
-	}
+	return !empty($data) ? $data : array();
 }
 
 function mptt_theme_wrapper_before() {
@@ -120,11 +115,8 @@ function mptt_theme_wrapper_before() {
  * @return string
  */
 function mptt_popular_theme_class() {
-	/*if(!Settings::get_instance()->is_plugin_template_mode())
-		return '';
-	*/
-
 	$template = get_option('template');
+
 	switch ($template) {
 		case 'twentyeleven' :
 			$class = ' twentyeleven';

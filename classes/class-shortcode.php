@@ -11,9 +11,9 @@ use mp_timetable\classes\models\Events;
  * @package mp_timetable\plugin_core\classes
  */
 class Shortcode extends Core {
-
+	
 	protected static $instance;
-
+	
 	/**
 	 * Shortcode constructor.
 	 */
@@ -21,7 +21,7 @@ class Shortcode extends Core {
 		$this->init_plugin_version();
 		parent::__construct();
 	}
-
+	
 	/**
 	 * Return instance
 	 *
@@ -31,16 +31,17 @@ class Shortcode extends Core {
 		if (null === self::$instance) {
 			self::$instance = new self();
 		}
+		
 		return self::$instance;
 	}
-
+	
 	/**
 	 * Init
 	 */
 	public function init() {
 		add_shortcode('mp-timetable', array($this, "show_shortcode"));
 	}
-
+	
 	/**
 	 * Show shortcode
 	 *
@@ -50,17 +51,17 @@ class Shortcode extends Core {
 	 */
 	public function show_shortcode($params) {
 		global $mptt_shortcode_data;
-
+		
 		$this->add_plugin_js('shortcode');
 		$this->add_plugin_css('shortcode');
-
+		
 		if (empty($params)) {
 			$params = array();
 		}
-
+		
 		$mptt_shortcode_data = array();
-
-		$mptt_shortcode_data['params'] = $params = shortcode_atts(array(
+		
+		$mptt_shortcode_data[ 'params' ] = $params = shortcode_atts(array(
 			'events' => "",
 			'event_categ' => "",
 			'col' => "",
@@ -70,11 +71,13 @@ class Shortcode extends Core {
 			'hide_label' => "0",
 			'title' => "0",
 			'time' => "0",
+			'group' => "0",
 			'sub-title' => "0",
 			'description' => "0",
 			'user' => "0",
 			'hide_hrs' => "0",
 			'hide_empty_rows' => "1",
+			'text_align_vertical' => "top",
 			'row_height' => "45",
 			'font_size' => "",
 			'disable_event_url' => "0",
@@ -83,22 +86,22 @@ class Shortcode extends Core {
 			'custom_class' => "",
 			'responsive' => "1"
 		), $params);
-
-		$mptt_shortcode_data['events_data'] = $this->get_shortcode_events($params);
-
-		if (!empty($mptt_shortcode_data['events_data'])) {
-			foreach ($mptt_shortcode_data['events_data']['events'] as $event) {
-				$mptt_shortcode_data['unique_events'][$event->event_id] = $event;
+		
+		$mptt_shortcode_data[ 'events_data' ] = $this->get_shortcode_events($params);
+		
+		if (!empty($mptt_shortcode_data[ 'events_data' ])) {
+			foreach ($mptt_shortcode_data[ 'events_data' ][ 'events' ] as $event) {
+				$mptt_shortcode_data[ 'unique_events' ][ $event->event_id ] = $event;
 			}
 		}
-
-		if (empty($mptt_shortcode_data['events_data']['events']) && empty($mptt_shortcode_data['events_data']['column'])) {
+		
+		if (empty($mptt_shortcode_data[ 'events_data' ][ 'events' ]) && empty($mptt_shortcode_data[ 'events_data' ][ 'column' ])) {
 			return $this->get_view()->get_template_html('shortcodes/empty-search-events', array());
 		} else {
 			return $this->get_view()->get_template_html('shortcodes/index-timetable', array());
 		}
 	}
-
+	
 	/**
 	 * Get shortcode events
 	 *
@@ -108,92 +111,86 @@ class Shortcode extends Core {
 	 */
 	public function get_shortcode_events($params) {
 		$columns_ids = $events_categ = $events = array();
-		$key_by_param = md5(serialize($params));
-
-		$step = $params['increment'] === '1' ? 60 : (60 * $params['increment']);
-		$cache_key = 'event_data_' . $key_by_param;
-
-		if (false === ($events_data = get_transient($cache_key))) {
-			$events_data = array('events' => array(), 'column' => array());
-
-			//get event by id
-			if (!empty($params['events']) && empty($params['col']) && empty($params['event_categ'])) {
-				$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
-			}
-
-			// get event by category
-			if (!empty($params['event_categ'])) {
-				$events_categ = $this->get('events')->get_events_data_by_category($params['event_categ']);
-			}
-
-			// get event by column
-			if (!empty($params['col']) && empty($params['event_categ']) && empty($params['events'])) {
-				$events = $this->get('events')->get_events_data(array('column' => 'column_id', 'list' => $params['col']));
-			}
-
-			//Columns + events
-			if (!empty($params['events']) && !empty($params['col']) && empty($params['event_categ'])) {
-				$events = $this->get('events')->get_events_data(array('column' => array('column_id', 'event_id'), 'list' => array('column_id' => $params['col'], 'event_id' => $params['events'])));
-			}
-
-			//Events +  Categories
-			if (!empty($params['events']) && !empty($params['event_categ']) && empty($params['col'])) {
-				$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
-			}
-
-			//if all params empty
-			if (empty($params['col']) && empty($params['event_categ']) && empty($params['events'])) {
-				$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'all' => true));
-				$events_categ = $this->get('events')->get_events_data_by_category('');
-			}
-			// select all event option
-			if (!empty($params['col']) && !empty($params['event_categ']) && !empty($params['events'])) {
-				$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params['events']));
-			}
-
-			$events_data['events'] = array_merge($events_data['events'], $events_categ, $events);
-
-			//Create column array;
-			if (empty($params['col'])) {
-				foreach ($events_data['events'] as $event) {
-					$columns_ids[] = $event->column_id;
-				}
-				$columns_ids = array_unique($columns_ids);
-			} else {
-				$columns_ids = explode(',', $params['col']);
-			}
-
-			//Sort column by menu order
-			$events_data['column'] = $this->get('column')->get_all_column(array('post__in' => $columns_ids));
-			if (!empty($events_data['column'])) {
-				foreach ($events_data['column'] as $key => $column) {
-					$column_events = array();
-					// add to column  events
-					foreach ($events_data['events'] as $event_key => $event) {
-						if ($column->ID == $event->column_id) {
-							$start_index = date('G', strtotime($event->event_start)) / $params['increment'] + floor(date('i', strtotime($event->event_start)) / $step);
-							$end_index = date('G', strtotime($event->event_end)) / $params['increment'] + ceil(date('i', strtotime($event->event_end)) / $step);
-							$event->output = false;
-							$event->start_index = $start_index;
-							$event->end_index = $end_index;
-							$column_events[$event->id] = $event;
-						}
-					}
-					//sort by start date
-					$column_events = $this->get_model('events')->sort_by_param($column_events);
-
-					$events_data['column_events'][$column->ID] = $column_events;
-				}
-			} else {
-				$events_data['events'] = array();
-			}
-
-			set_transient($cache_key, $events_data, 900);
+		
+		$step = $params[ 'increment' ] === '1' ? 60 : (60 * $params[ 'increment' ]);
+		
+		$events_data = array('events' => array(), 'column' => array());
+		
+		//get event by id
+		if (!empty($params[ 'events' ]) && empty($params[ 'col' ]) && empty($params[ 'event_categ' ])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params[ 'events' ]));
 		}
-
+		
+		// get event by category
+		if (!empty($params[ 'event_categ' ])) {
+			$events_categ = $this->get('events')->get_events_data_by_category($params[ 'event_categ' ]);
+		}
+		
+		// get event by column
+		if (!empty($params[ 'col' ]) && empty($params[ 'event_categ' ]) && empty($params[ 'events' ])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'column_id', 'list' => $params[ 'col' ]));
+		}
+		
+		//Columns + events
+		if (!empty($params[ 'events' ]) && !empty($params[ 'col' ]) && empty($params[ 'event_categ' ])) {
+			$events = $this->get('events')->get_events_data(array('column' => array('column_id', 'event_id'), 'list' => array('column_id' => $params[ 'col' ], 'event_id' => $params[ 'events' ])));
+		}
+		
+		//Events +  Categories
+		if (!empty($params[ 'events' ]) && !empty($params[ 'event_categ' ]) && empty($params[ 'col' ])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params[ 'events' ]));
+		}
+		
+		//if all params empty
+		if (empty($params[ 'col' ]) && empty($params[ 'event_categ' ]) && empty($params[ 'events' ])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'all' => true));
+			$events_categ = $this->get('events')->get_events_data_by_category('');
+		}
+		// select all event option
+		if (!empty($params[ 'col' ]) && !empty($params[ 'event_categ' ]) && !empty($params[ 'events' ])) {
+			$events = $this->get('events')->get_events_data(array('column' => 'event_id', 'list' => $params[ 'events' ]));
+		}
+		
+		$events_data[ 'events' ] = array_merge($events_data[ 'events' ], $events_categ, $events);
+		
+		//Create column array;
+		if (empty($params[ 'col' ])) {
+			foreach ($events_data[ 'events' ] as $event) {
+				$columns_ids[] = $event->column_id;
+			}
+			$columns_ids = array_unique($columns_ids);
+		} else {
+			$columns_ids = explode(',', $params[ 'col' ]);
+		}
+		
+		//Sort column by menu order
+		$events_data[ 'column' ] = $this->get('column')->get_all_column(array('post__in' => $columns_ids));
+		if (!empty($events_data[ 'column' ])) {
+			foreach ($events_data[ 'column' ] as $key => $column) {
+				$column_events = array();
+				// add to column  events
+				foreach ($events_data[ 'events' ] as $event_key => $event) {
+					if ($column->ID == $event->column_id) {
+						$start_index = date('G', strtotime($event->event_start)) / $params[ 'increment' ] + floor(date('i', strtotime($event->event_start)) / $step);
+						$end_index = date('G', strtotime($event->event_end)) / $params[ 'increment' ] + ceil(date('i', strtotime($event->event_end)) / $step);
+						$event->output = false;
+						$event->start_index = $start_index;
+						$event->end_index = $end_index;
+						$column_events[ $event->id ] = $event;
+					}
+				}
+				//sort by start date
+				$column_events = $this->get_model('events')->sort_by_param($column_events);
+				
+				$events_data[ 'column_events' ][ $column->ID ] = $column_events;
+			}
+		} else {
+			$events_data[ 'events' ] = array();
+		}
+		
 		return $events_data;
 	}
-
+	
 	/**
 	 * Get events Id
 	 *
@@ -209,10 +206,11 @@ class Shortcode extends Core {
 			foreach ($data as $event) {
 				$ids_list[] = $event->id;
 			}
+			
 			return implode(',', $ids_list);
 		}
 	}
-
+	
 	/**
 	 * Integration in motopress
 	 *
@@ -223,7 +221,7 @@ class Shortcode extends Core {
 		$events = $this->create_list_motopress(Events::get_instance()->get_all_events());
 		$categories = get_terms('mp-event_category', 'orderby=count&hide_empty=0');
 		$categories = $this->create_list_motopress($categories, 'term');
-
+		
 		$attributes = array(
 			'col' => array(
 				'type' => 'select-multiple',
@@ -329,10 +327,10 @@ class Shortcode extends Core {
 			)
 		);
 		$mp_timetable = new \MPCEObject('mp-timetable', __('Timetable', 'mp-timetable'), '', $attributes);
-
+		
 		$motopressCELibrary->addObject($mp_timetable, 'other');
 	}
-
+	
 	/**
 	 * @param array $data_array
 	 * @param string $type
@@ -344,17 +342,18 @@ class Shortcode extends Core {
 		switch ($type) {
 			case "post":
 				foreach ($data_array as $item) {
-					$list_array[$item->ID] = $item->post_title;
+					$list_array[ $item->ID ] = $item->post_title;
 				}
 				break;
 			case "term":
 				foreach ($data_array as $item) {
-					$list_array[$item->term_id] = $item->name;
+					$list_array[ $item->term_id ] = $item->name;
 				}
 				break;
 			default:
 				break;
 		}
+		
 		return $list_array;
 	}
 }

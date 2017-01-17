@@ -9,9 +9,6 @@
 	  height: auto;
 	}
   }
-  &.mp-column-item {
-
-  }
   .mptt-content {
 	width: 66.999%;
 	margin-right: 3%;
@@ -84,7 +81,6 @@
 	.event {
 	  list-style: none;
 	  padding: 1rem;
-	  //border-left: 3px solid @default_color;
 
 	  .event-thumbnail {
 		float: left;
@@ -115,7 +111,6 @@
 	  }
 	}
   }
-
 }
 
 .upcoming-events-widget {
@@ -166,12 +161,39 @@
 /*====== Widget End ======*/
 
 /* ====== Shortcode start ====== */
-
 .mptt-shortcode-wrapper {
-  /* overflow-y: hidden; */
+  .mptt-shortcode-event {
+	.mptt-event-container {
+	  display: flex;
+	  flex-direction: column;
+	  &:hover {
+		min-height: 100%;
+		display: flex;
+	  }
+	}
+
+	&.mptt-event-vertical-top {
+	  .mptt-event-container {
+		justify-content: flex-start;
+		align-content: flex-start;
+	  }
+	}
+	&.mptt-event-vertical-middle {
+	  .mptt-event-container {
+		justify-content: center;
+		align-content: center;
+	  }
+	}
+	&.mptt-event-vertical-bottom {
+	  .mptt-event-container {
+		justify-content: flex-end;
+		align-content: flex-end;
+	  }
+	}
+  }
+
   .mptt-shortcode-table {
 	margin-top: 1rem;
-
 	tr.mptt-shortcode-row {
 	  th {
 		background-color: #f0f0f0;
@@ -211,7 +233,6 @@
 		overflow: hidden;
 		outline: 1px solid #fff;
 		color: inherit;
-		//padding: 1rem;
 
 		p {
 		  color: inherit;
@@ -246,18 +267,12 @@
 		}
 	  }
 	  .mptt-event-container:hover {
-		//width: 100%;
 		background-color: inherit;
-		display: inline-block;
-		height: auto !important;
 		overflow: visible;
 		z-index: 10;
 		.event-title {
 		  text-decoration: underline;
 		}
-	  }
-	  .mptt-event-container.mptt-full-height:hover {
-		height: 100% !important;
 	  }
 	}
 
@@ -266,9 +281,6 @@
 	  opacity: 0;
 	  clear: both;
 	}
-
-  }
-  .mptt-shortcode-table {
 	&.mptt-theme-mode tbody {
 	  tr:nth-child(2n+2) {
 		td.event {
@@ -339,7 +351,6 @@
 	}
 	thead, tbody {
 	  width: 100%;
-
 	}
   }
 }
@@ -347,7 +358,6 @@
 /* ====== Shortcode end ====== */
 
 /* ====== Media start ===== */
-
 @media (max-width: 767px) {
 
   .mptt-main-wrapper {
@@ -409,19 +419,6 @@
   }
 }
 
-body {
-  &.mprm_ie {
-	.mptt-shortcode-table {
-	  .mptt-event-container:hover {
-		//position: static;
-	  }
-	  .mptt-event-container.mptt-full-height:hover {
-		height: auto !important;
-	  }
-	}
-  }
-}
-
 .twentyfifteen {
   &.mptt-shortcode-wrapper {
 	.event-title {
@@ -434,8 +431,5 @@ body {
   .mptt-content {
 	width: 100%;
 	margin: 0;
-  }
-  .mptt-sidebar {
-	//display: none;
   }
 }

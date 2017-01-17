@@ -68,6 +68,9 @@
 											case 'hide_hours_column':
 												shortcode_obj.attrs.hide_hrs = parameters.value;
 												break;
+											case 'group_events':
+												shortcode_obj.attrs.group = parameters.value;
+												break;
 											case 'hide_empty':
 												shortcode_obj.attrs.hide_empty_rows = parameters.value;
 												break;
@@ -91,6 +94,9 @@
 												break;
 											case 'text_align':
 												shortcode_obj.attrs.text_align = parameters.value;
+												break;
+											case 'text_align_vertical':
+												shortcode_obj.attrs.text_align_vertical = parameters.value;
 												break;
 											case 'id':
 												shortcode_obj.attrs.id = parameters.value;

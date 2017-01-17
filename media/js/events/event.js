@@ -142,7 +142,7 @@ Registry.register("Event",
 				 * Add event
 				 */
 				addEventButton: function() {
-					$('#add_mp_event').off('click').on('click', function() {
+					$(document).on('click.admin', '#add_mp_event', function() {
 						if ($(this).hasClass('edit')) {
 							state.updateEventData();
 						} else {
@@ -158,7 +158,7 @@ Registry.register("Event",
 				 * init event data delete button
 				 */
 				initDeleteButtons: function() {
-					$('#events-list').find('#delete-event-button').off('click').on('click', function() {
+					$(document).on('click.admin', '#events-list .delete-event-button', function() {
 						var id = $(this).attr('data-id');
 						state.deleteEvent(id);
 					});
@@ -167,7 +167,7 @@ Registry.register("Event",
 				 * init event data edit button
 				 */
 				initEditButtons: function() {
-					$('#events-list').find('#edit-event-button').off('click').on('click', function() {
+					$(document).on('click.admin', '#events-list .edit-event-button', function() {
 						var id = $(this).attr('data-id'),
 							$tr = $(this).parent().parent();
 						$(this).parent().find('.spinner').addClass('is-active');
@@ -214,7 +214,7 @@ Registry.register("Event",
 							id: id
 						},
 						function(data) {
-							var $deleteEvent = $('#events-list').children('tr[data-id="' + id + '"]');
+							var $deleteEvent = $('#events-list').find('tr[data-id="' + id + '"]');
 							if ($deleteEvent.length) {
 								$deleteEvent.remove();
 							}
@@ -384,6 +384,7 @@ Registry.register("Event",
 				 * Set user color settings
 				 * @param selector
 				 */
+
 				setColorSettings: function(selector) {
 					if (_.isUndefined(selector)) {
 						selector = '.mptt-colorized';
@@ -392,55 +393,65 @@ Registry.register("Event",
 					var elements = $(selector);
 					var height = '';
 					$.each(elements, function() {
-						var element = $(this);
+						var element = $(this),
+							bg = element.attr('data-bg_hover_color'),
+							color = element.attr('data-hover_color'),
+							tdParent = element.parent(),
+							parentHeight = tdParent.height(),
+							elementHeight = '';
+
 						switch (element.attr('data-type')) {
 							case "column":
 							case "event":
 								element.hover(
 									function() {
-										var bg = $(this).attr('data-bg_hover_color'),
-											color = $(this).attr('data-hover_color');
-
 										if (!_.isEmpty(bg)) {
-											$(this).css('background-color', bg);
+											element.css('background-color', bg);
 										}
 										if (!_.isEmpty(color)) {
-											$(this).css('color', color);
+											element.css('color', color);
 										}
 
-										var parentHeight = $(this).parent().height();
-										var elementHeight = $(this).height();
-										if (parentHeight > elementHeight) {
-											$(this).addClass('mptt-full-height');
+										element.css('display', 'inline-block');
+										element.css('height', 'auto');
+										element.css('width', '100%');
+										element.css('position', 'relative');
+
+										elementHeight = element.height();
+
+										element.css('display', '').css('position', '').css('width', '');
+
+										element.height(elementHeight);
+
+										if (parentHeight >= elementHeight) {
+											element.addClass('mptt-full-height');
 										}
 
 									}, function() {
-										$(this).css('background-color', $(this).attr('data-bg_color'));
-										$(this).css('color', $(this).attr('data-color'));
-										$(this).removeClass('mptt-full-height');
+										state.recalculate_Height(tdParent);
+										element.css('background-color', element.attr('data-bg_color'));
+										element.css('color', element.attr('data-color'));
+										element.removeClass('mptt-full-height');
 									}
 								);
 								break;
 							case "widget":
 								element.hover(
 									function() {
-										//height = 0;
-										$(this).css('background-color', $(this).attr('data-background-hover-color'));
-										$(this).css('color', $(this).attr('data-hover-color'));
-										$(this).css('border-left-color', $(this).attr('data-hover-border-color'));
+										element.css('background-color', element.attr('data-background-hover-color'));
+										element.css('color', $(this).attr('data-hover-color'));
+										element.css('border-left-color', element.attr('data-hover-border-color'));
 									},
 									function() {
-										//height = 0;
-										$(this).css('background-color', $(this).attr('data-background-color'));
-										$(this).css('color', $(this).attr('data-color'));
-										$(this).css('border-left-color', $(this).attr('data-border-color'));
+										element.css('background-color', element.attr('data-background-color'));
+										element.css('color', element.attr('data-color'));
+										element.css('border-left-color', element.attr('data-border-color'));
 									}
 								);
 								break;
 							default:
 								break;
 						}
-
 					});
 				},
 				/**
@@ -554,64 +565,42 @@ Registry.register("Event",
 
 					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
 
-					// $('html, body').animate({
-					// 	scrollTop: parentShortcode.offset().top
-					// }, 2000);
-
 					state.setEventHeight();
 				},
-				/**
+				recalculate_Height: function(tdParent) {
+					var events = $('.mptt-event-container', tdParent);
+					var eventCount = events.length;
+					var heightItem = 0;
+					var top = 0;
+					if (!$('body').hasClass('mprm_ie')) {
+
+						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
+
+						$.each(events, function() {
+							$(this).height(heightItem + "%");
+							$(this).css('top', top + "%");
+							$(this).removeClass('mptt-hidden');
+							top += heightItem;
+						});
+					} else {
+						var tdHeight = tdParent.height();
+						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
+
+						$.each(events, function() {
+							$(this).height(heightItem + "px");
+							$(this).css('top', top + "px");
+							$(this).removeClass('mptt-hidden');
+							top += heightItem;
+						});
+					}
+				}, /**
 				 * Fill all possible height in ceil
 				 */
 				setEventHeight: function() {
 					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
-						var events = $('.mptt-event-container', $(this));
-						var eventCount = events.length;
-						var heightItem = 0;
-						var top = 0;
-						if (!$('body').hasClass('mprm_ie')) {
-
-							heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
-
-							$.each(events, function() {
-								$(this).height(heightItem + "%");
-								$(this).css('top', top + "%");
-								$(this).removeClass('mptt-hidden');
-								top += heightItem;
-							});
-						} else {
-
-							var tdHeight = $(this).height();
-							heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
-							$.each(events, function() {
-								$(this).height(heightItem + "px");
-								$(this).css('top', top + "px");
-								$(this).removeClass('mptt-hidden');
-								top += heightItem;
-							});
-						}
+						var td = $(this);
+						state.recalculate_Height(td);
 					});
-				},
-				groupEvents: function() {
-					var shortCodeWrappers = $('.mptt-shortcode-wrapper');
-					if (shortCodeWrappers.length) {
-						$.each(shortCodeWrappers, function($index, $object) {
-							var tables = $($object).find('table');
-							$.each(tables, function($index, table) {
-								var tds = $(table).find('td');
-								$.each(tds, function($td_index, td) {
-									var $td = $(td);
-									if (!$td.children().length && _.isUndefined($td.text())) {
-										$td.remove();
-									} else {
-										var count = $td.find('div.mptt-event-container').data('count');
-										$td.attr('colspan', count);
-									}
-								});
-
-							});
-						});
-					}
 				},
 				/**
 				 *
@@ -688,44 +677,53 @@ Registry.register("Event",
 				 * Set row-span td
 				 */
 				setRowspanTd: function() {
-					$.each($('.' + MPTT.table_class + ' td.event'), function() {
-						var events = $(this).find('.mptt-event-container'),
-							columnId = $(this).attr('data-column-id'),
-							rowHeight = $(this).attr('data-row_height'),
-							rowSpan = state.getRowspan(events),
-							tableContainer = $(this).parents('.' + MPTT.table_class);
 
-						if (!_.isUndefined(rowSpan) && rowSpan > 1) {
+					$.each($('.' + MPTT.table_class), function() {
+						var $table = $(this);
 
-							var index = $(this).parents('tr').attr('data-index'),
-								torowSpan = rowSpan + parseInt(index) - 1;
+						$.each($table.find('td.event'), function() {
+							var td = $(this);
 
-							for (index; index < torowSpan; index++) {
+							var events = td.find('.mptt-event-container'),
+								columnId = td.attr('data-column-id'),
+								rowHeight = td.attr('data-row_height'),
+								rowSpan = state.getRowspan(events);
 
-								var row = tableContainer.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1));
 
-								if (row.length) {
-									row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
+							if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 
-									if (row.find('td.event[data-column-id="' + columnId + '"]').length) {
-										rowSpan -= (torowSpan - index);
+								var index = td.parents('tr').attr('data-index'),
+									toRowSpan = rowSpan + parseInt(index) - 1;
 
-										if (rowSpan < 2) {
-											rowSpan = 1;
-											break;
+								for (index; index < toRowSpan; index++) {
+
+									var row = $table.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1));
+
+									if (row.length) {
+
+
+										if (row.find('td.event[data-column-id="' + columnId + '"]').length) {
+											rowSpan -= (toRowSpan - index);
+
+											if (rowSpan < 2) {
+												rowSpan = 1;
+												break;
+											}
 										}
+										row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
 									}
+								}
+
+								if (!isNaN(rowHeight)) {
+									td.css('height', rowSpan * rowHeight);
 								}
 							}
 
-							if (!isNaN(rowHeight)) {
-								$(this).css('height', rowSpan * rowHeight);
-							}
-						}
-
-						$(this).attr('rowspan', rowSpan);
+							td.attr('rowspan', rowSpan);
+						});
 
 					});
+
 				},
 				/**
 				 * Remove empty rows

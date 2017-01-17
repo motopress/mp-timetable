@@ -20,7 +20,7 @@
 use mp_timetable\plugin_core\classes\Core;
 
 define("MP_TT_PLUGIN_NAME", 'mp-timetable');
-define('MP_TT_DEBUG', TRUE);
+define('MP_TT_DEBUG', false);
 
 register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation'));
 register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
@@ -33,9 +33,9 @@ add_filter('wpmu_drop_tables', array('Mp_Time_Table', 'on_delete_blog'));
  * Class Mp_Time_Table
  */
 class Mp_Time_Table {
-
+	
 	protected static $instance;
-
+	
 	/**
 	 * Mp_Time_Table constructor.
 	 */
@@ -43,7 +43,7 @@ class Mp_Time_Table {
 		$this->include_all();
 		Core::get_instance()->init_plugin('mp_timetable');
 	}
-
+	
 	/**
 	 * Include all files
 	 */
@@ -72,7 +72,7 @@ class Mp_Time_Table {
 		 * Include Model
 		 */
 		require_once self::get_plugin_path() . 'classes/class-model.php';
-
+		
 		/**
 		 * Include Controller
 		 */
@@ -81,12 +81,12 @@ class Mp_Time_Table {
 		 * Include State factory
 		 */
 		require_once self::get_plugin_path() . 'classes/class-state-factory.php';
-
+		
 		/**
 		 * Include Preprocessor
 		 */
 		require_once self::get_plugin_path() . 'classes/class-preprocessor.php';
-
+		
 		/**
 		 * include shortcodes
 		 */
@@ -104,14 +104,14 @@ class Mp_Time_Table {
 		 */
 		require_once self::get_plugin_path() . 'classes/class-hooks.php';
 	}
-
+	
 	/**
 	 * Get plugin path
 	 */
 	public static function get_plugin_path() {
 		return plugin_dir_path(__FILE__);
 	}
-
+	
 	/**
 	 * @return Mp_Time_Table
 	 */
@@ -119,9 +119,10 @@ class Mp_Time_Table {
 		if (null === self::$instance) {
 			self::$instance = new self();
 		}
+		
 		return self::$instance;
 	}
-
+	
 	/**
 	 * Retrieve relative to theme root path to templates.
 	 *
@@ -130,7 +131,7 @@ class Mp_Time_Table {
 	public static function get_template_path() {
 		return apply_filters('mptt_template_path', 'mp-timetable/');
 	}
-
+	
 	/**
 	 * Retrieve relative to plugin root path to templates.
 	 *
@@ -139,7 +140,7 @@ class Mp_Time_Table {
 	public static function get_templates_path() {
 		return self::get_plugin_path() . 'templates/';
 	}
-
+	
 	/**
 	 * Get plugin part path
 	 *
@@ -150,7 +151,7 @@ class Mp_Time_Table {
 	public static function get_plugin_part_path($part = '') {
 		return self::get_plugin_path() . $part;
 	}
-
+	
 	/**
 	 * On activation defrozo plugin
 	 */
@@ -160,24 +161,24 @@ class Mp_Time_Table {
 		// Register taxonomy all
 		Core::get_instance()->register_all_taxonomies();
 		flush_rewrite_rules();
-
+		
 		//Create table in not exists
 		Core::get_instance()->create_table();
 	}
-
+	
 	/**
 	 * On deactivation defrozo plugin
 	 */
 	public static function on_deactivation() {
 		flush_rewrite_rules();
 	}
-
+	
 	/**
 	 * On uninstall
 	 */
 	public static function on_uninstall() {
 	}
-
+	
 	/**
 	 * On create blog
 	 *
@@ -196,7 +197,7 @@ class Mp_Time_Table {
 			restore_current_blog();
 		}
 	}
-
+	
 	/**
 	 * Get plugin name
 	 * @return string
@@ -204,17 +205,17 @@ class Mp_Time_Table {
 	public static function get_plugin_name() {
 		return dirname(plugin_basename(__FILE__));
 	}
-
+	
 	/**
 	 * On blog creation
 	 */
 	public static function on_delete_blog($tables) {
-
+		
 		$tables[] = self::get_datatable();
-
+		
 		return $tables;
 	}
-
+	
 	/**
 	 * Get data table name
 	 *
@@ -222,10 +223,10 @@ class Mp_Time_Table {
 	 */
 	public static function get_datatable() {
 		global $wpdb;
-
+		
 		return $wpdb->prefix . "mp_timetable_data";
 	}
-
+	
 	/**
 	 * Get plugin url
 	 *

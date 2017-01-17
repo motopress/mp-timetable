@@ -27,6 +27,7 @@ function mptt_column_template_content_events_list() {
 						false,
 						array('class' => "alignleft event-thumbnail", 'alt' => get_the_title($event->event_id))
 					);
+
 				} else { ?>
 					<img class="event-thumbnail event-thumbnail-default"
 					     src="<?php echo Mp_Time_Table::get_plugin_url() . 'media/css/images/column_icon.png' ?>"
@@ -75,9 +76,5 @@ function mptt_column_template_content_events_list() {
 function mptt_get_column_events() {
 	global $post;
 	$data = Controller_Column::get_instance()->action_page_view($post);
-	if (!empty($data)) {
-		return $data;
-	} else {
-		return array();
-	}
+	return !empty($data) ? $data : array();
 }

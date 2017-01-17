@@ -319,7 +319,6 @@ Registry.register("adminFunctions", (function($) {
 		}
 
 		if (short_code_wrapper.length) {
-			// Registry._get("Event").groupEvents();
 
 			Registry._get("Event").filterShortcodeEvents();
 			Registry._get("Event").getFilterByHash();
