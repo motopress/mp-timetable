@@ -2,7 +2,7 @@
 	<div class="mptt-shortcode-settings-wrapper">
 		<table class="form-table striped">
 			<tr>
-				<td><label for="weekday"><?php _e('<b>Columns</b> for displaying in timetable', 'mp-timetable') ?></label></td>
+				<td><label for="weekday"><?php _e('<b>Columns</b> (required)', 'mp-timetable') ?></label></td>
 				<td>
 					<select multiple="multiple" id="weekday" name="weekday" class="widefat">
 						<?php foreach ($data[ 'column' ] as $column): ?>
@@ -13,7 +13,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="event"><?php _e('Specific <b>events</b> for displaying in timetable', 'mp-timetable') ?></label></td>
+				<td><label for="event"><?php _e('Specific <b>events</b>', 'mp-timetable') ?></label></td>
 				<td>
 					<select multiple="multiple" id="event" name="event" class="widefat">
 						<?php foreach ($data[ 'events' ] as $events): ?>
@@ -24,7 +24,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="event_category"><?php _e('Event <b>categories</b> for displaying in timetable', 'mp-timetable'); ?></label></td>
+				<td><label for="event_category"><?php _e('Event <b>categories</b>', 'mp-timetable'); ?></label></td>
 				<td>
 					<select multiple="multiple" id="event_category" name="event_category" class="widefat">
 						<?php foreach ($data[ 'category' ] as $category): ?>
@@ -41,8 +41,8 @@
 					<label for="time" class="label_width"><input type="checkbox" name="time" checked value="1"/><?php _e('Time', 'mp-timetable'); ?></label><br/>
 					<label for="sub-title" class="label_width"><input type="checkbox" name="sub-title" checked value="1"/><?php _e('Subtitle', 'mp-timetable'); ?></label><br/>
 					<label for="description" class="label_width"><input type="checkbox" name="description" value="1"/><?php _e('Description', 'mp-timetable'); ?></label><br/>
-					<label for="user" class="label_width"><input type="checkbox" name="user" value="1"/><?php _e('User', 'mp-timetable'); ?></label>
-					<p class="description"><?php _e('Check the event parameter(s) to be displayed for a certain event in the timetable.', 'mp-timetable'); ?></p>
+					<label for="user" class="label_width"><input type="checkbox" name="user" value="1"/><?php _e('Event Head', 'mp-timetable'); ?></label>
+					<p class="description"><?php _e('Check the event parameter(s) to be displayed in the timetable.', 'mp-timetable'); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -70,12 +70,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="filter_style"><?php _e('Filter style', 'mp-timetable'); ?>     </label></td>
+				<td><label for="filter_style"><?php _e('Filter events style', 'mp-timetable'); ?>     </label></td>
 				<td>
 					<select id="filter_style" name="filter_style">
 						<option value="dropdown_list"><?php _e('Dropdown', 'mp-timetable'); ?></option>
 						<option value="tabs"><?php _e('Tabs', 'mp-timetable'); ?></option>
-						<option value="none"><?php _e('Hide', 'mp-timetable'); ?></option>
+						<option value="none"><?php _e('None', 'mp-timetable'); ?></option>
 					</select>
 				</td>
 			</tr>
@@ -114,7 +114,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="group_events"><?php _e('Grouped events', 'mp-timetable'); ?></label></td>
+				<td><label for="group_events"><?php _e('Merge cells with common events', 'mp-timetable'); ?></label></td>
 				<td>
 					<select id="group_events" name="group_events">
 						<option value="0"><?php _e('No', 'mp-timetable') ?></option>
@@ -123,7 +123,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="disable_event_url"><?php _e('Disable the event link', 'mp-timetable'); ?></label></td>
+				<td><label for="disable_event_url"><?php _e('Disable event link', 'mp-timetable'); ?></label></td>
 				<td>
 					<select id="disable_event_url" name="disable_event_url">
 						<option value="0"><?php _e('No', 'mp-timetable') ?></option>
@@ -132,7 +132,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="text_align"><?php _e('Text alignment in event blocks', 'mp-timetable') ?> </label></td>
+				<td><label for="text_align"><?php _e('Horizontal align', 'mp-timetable') ?> </label></td>
 				<td><select id="text_align" name="text_align">
 						<option value="center"><?php _e('center', 'mp-timetable') ?></option>
 						<option value="left"><?php _e('left', 'mp-timetable') ?></option>
@@ -141,8 +141,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="text_align"><?php _e('Text vertical align in event blocks', 'mp-timetable') ?> </label></td>
-				<td><select id="text_align" name="text_align_vertical">
+				<td><label for="text_align_vertical"><?php _e('Vertical align', 'mp-timetable') ?> </label></td>
+				<td><select id="text_align_vertical" name="text_align_vertical">
 						<option value="top"><?php _e('top', 'mp-timetable') ?></option>
 						<option value="middle"><?php _e('middle', 'mp-timetable') ?></option>
 						<option value="bottom"><?php _e('bottom', 'mp-timetable') ?></option>
@@ -157,10 +157,9 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="id"><?php _e('Custom class', 'mp-timetable'); ?></label></td>
+				<td><label for="custom_class"><?php _e('CSS class', 'mp-timetable'); ?></label></td>
 				<td>
-					<input type="text" name="custom_class" id="id" value="" class="regular-text">
-					<p class="description"><?php _e('If you use more than one table on a page specify the custom class for a timetable. It is usually all lowercase and contains only letters, numbers, and hyphens.', 'mp-timetable'); ?></p>
+					<input type="text" name="custom_class" id="custom_class" value="" class="regular-text">
 				</td>
 			</tr>
 			<tr>
