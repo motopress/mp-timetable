@@ -384,65 +384,7 @@ Registry.register("Event",
 				 * Set user color settings
 				 * @param selector
 				 */
-				// setColorSettings: function(selector) {
-				// 	if (_.isUndefined(selector)) {
-				// 		selector = '.mptt-colorized';
-				// 	}
-				//
-				// 	var elements = $(selector);
-				// 	var height = '';
-				// 	$.each(elements, function() {
-				// 		var element = $(this);
-				// 		switch (element.attr('data-type')) {
-				// 			case "column":
-				// 			case "event":
-				// 				element.hover(
-				// 					function() {
-				// 						var bg = $(this).attr('data-bg_hover_color'),
-				// 							color = $(this).attr('data-hover_color');
-				//
-				// 						if (!_.isEmpty(bg)) {
-				// 							$(this).css('background-color', bg);
-				// 						}
-				// 						if (!_.isEmpty(color)) {
-				// 							$(this).css('color', color);
-				// 						}
-				//
-				// 						var parentHeight = $(this).parent().height();
-				// 						var elementHeight = $(this).height();
-				// 						if (parentHeight > elementHeight) {
-				// 							$(this).addClass('mptt-full-height');
-				// 						}
-				//
-				// 					}, function() {
-				// 						$(this).css('background-color', $(this).attr('data-bg_color'));
-				// 						$(this).css('color', $(this).attr('data-color'));
-				// 						$(this).removeClass('mptt-full-height');
-				// 					}
-				// 				);
-				// 				break;
-				// 			case "widget":
-				// 				element.hover(
-				// 					function() {
-				// 						//height = 0;
-				// 						$(this).css('background-color', $(this).attr('data-background-hover-color'));
-				// 						$(this).css('color', $(this).attr('data-hover-color'));
-				// 						$(this).css('border-left-color', $(this).attr('data-hover-border-color'));
-				// 					},
-				// 					function() {
-				// 						//height = 0;
-				// 						$(this).css('background-color', $(this).attr('data-background-color'));
-				// 						$(this).css('color', $(this).attr('data-color'));
-				// 						$(this).css('border-left-color', $(this).attr('data-border-color'));
-				// 					}
-				// 				);
-				// 				break;
-				// 			default:
-				// 				break;
-				// 		}
-				//
-				// 	});
-				// },
+
 				setColorSettings: function(selector) {
 					if (_.isUndefined(selector)) {
 						selector = '.mptt-colorized';
@@ -456,9 +398,15 @@ Registry.register("Event",
 							color = element.attr('data-hover_color'),
 							tdParent = element.parent(),
 							parentHeight = tdParent.height(),
+
 							elementHeight = element.css('display', 'inline-block').css('position', 'relative').height();
-							element.css('display', '').css('position', '');
-							console.log(elementHeight);
+						var elementHeightTemp = element.height();
+						console.log(elementHeight);
+						console.log(elementHeightTemp);
+
+						element.css('display', '').css('position', '');
+						console.log(elementHeight);
+
 						switch (element.attr('data-type')) {
 							case "column":
 							case "event":
@@ -470,6 +418,14 @@ Registry.register("Event",
 										if (!_.isEmpty(color)) {
 											element.css('color', color);
 										}
+										element.css('display', 'inline-block');
+										element.css('height', 'auto');
+										element.css('width', '100%');
+										element.css('position', 'relative');
+
+										elementHeight = element.height();
+
+										element.css('display', '').css('position', '').css('width', '');
 
 										element.height(elementHeight);
 
