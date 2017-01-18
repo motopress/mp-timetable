@@ -658,20 +658,21 @@ Registry.register("Event",
 						var HashArray = hash.split(':');
 						var id = HashArray[0];
 						var event = HashArray[1];
+						var shortcode_wrapper = $('.mptt-shortcode-wrapper');
 
-						$.each($('.mptt-shortcode-wrapper'), function(index, object) {
+						$.each(shortcode_wrapper, function(index, object) {
 							var element = $(object);
+							var table = false;
 							var element_id = '#' + element.attr('id');
-
 							if (element_id === id) {
-								if ($('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+								if (element.find('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+									console.log('asd1234');
 									element.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
 								} else {
 									element.find('.mptt-navigation-select').val(event).change();
 								}
 							} else {
-								var table = element.find('table[id="#all"]');
-
+								table = element.find('table[id="#all"]');
 								table.fadeIn();
 							}
 						});
@@ -679,8 +680,6 @@ Registry.register("Event",
 					}
 					state.setEventsHeight();
 				},
-
-
 				/**
 				 * Set row-span td
 				 */
