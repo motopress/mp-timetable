@@ -106,11 +106,13 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 			} ?>
 			<tr class="mptt-shortcode-row-<?php echo $key ?>" data-index="<?php echo $key ?>">
 				<?php $cells = $data_grouped_by_row[ 'rows' ][ $key ][ 'cells' ];
+				
 				foreach ($cells as $key_event => $cell) {
 					if (isset($cell[ 'time_cell' ]) && filter_var($cell[ 'time_cell' ], FILTER_VALIDATE_BOOLEAN, array('options' => array('default' => false)))) { ?>
 						<td class="mptt-shortcode-hours" style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo $cell[ 'title' ] ?></td>
 						<?php continue;
 					}
+					
 					if (!isset($cell[ 'hide' ])) { ?>
 						<td class="mptt-shortcode-event <?php echo mptt_is_grouped_event_class($cell) ?> mptt-event-vertical-<?php echo $params[ 'text_align_vertical' ] ?>" data-column-id="<?php echo $cell[ 'column_id' ] ?>" rowspan="" colspan="<?php echo !isset($cell[ 'count' ]) ? '' : $cell[ 'count' ] ?>" data-row_height="<?php echo $row_height; ?>" style="<?php echo 'height:' . $row_height . 'px;'; ?>">
 							<?php foreach ($cell[ 'events' ] as $event) {
@@ -120,6 +122,7 @@ function mptt_shortcode_template_event($mptt_shortcode_data, $post = 'all') {
 							} ?>
 						</td>
 					<?php }
+					
 				} ?>
 			</tr>
 		<?php } ?>

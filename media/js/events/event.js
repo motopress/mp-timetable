@@ -380,6 +380,11 @@ Registry.register("Event",
 					$('#events-list').find('tbody').append(htmlObject);
 					state.clearTable();
 				},
+				/**
+				 * Set event height
+				 *
+				 * @param element
+				 */
 				setEventHeight: function(element) {
 					element.css('height', 'auto');
 					element.css('width', '100%');
@@ -389,13 +394,13 @@ Registry.register("Event",
 					element.css('position', '').css('width', '');
 
 					element.height(elementHeight);
-
+					console.log('x');
 					return elementHeight;
-				}, /**
+				},
+				/**
 				 * Set user color settings
 				 * @param selector
 				 */
-
 				setColorSettings: function(selector) {
 					if (_.isUndefined(selector)) {
 						selector = '.mptt-colorized';
@@ -471,7 +476,6 @@ Registry.register("Event",
 					$('#add_event_table input:not(.button),#add_event_table textarea').val('');
 					$weekdayId.val($weekdayId.find('option:first').attr('value'));
 				},
-
 				/**
 				 * init Delete Button
 				 */
@@ -486,7 +490,6 @@ Registry.register("Event",
 						}
 					});
 				},
-
 				/**
 				 * get Row span
 				 *
@@ -510,7 +513,6 @@ Registry.register("Event",
 
 					return rowSpan < 1 ? 1 : rowSpan;
 				},
-
 				/**
 				 * Responsive filter
 				 *
@@ -610,23 +612,26 @@ Registry.register("Event",
 						state.recalculate_Height(td);
 					});
 				},
-				/**
+				setClassTd: function() {
+					$.each($('.mptt-event-container'), function() {
+						$(this).parents('td').addClass('event');
+					});
+				},
+				initTableData: function() {
+					state.setClassTd();
+					state.setRowspanTd();
+
+					if ($('.' + MPTT.table_class).data('hide_empty_row')) {
+						state.hideEmptyRows();
+					}
+				}, /**
 				 *
 				 */
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
 
 					if (selector.length) {
-
-						$.each($('.mptt-event-container'), function() {
-							$(this).parents('td').addClass('event');
-						});
-
-						state.setRowspanTd();
-
-						if ($('.' + MPTT.table_class).data('hide_empty_row')) {
-							state.hideEmptyRows();
-						}
+						// state.initTableData();
 
 						selector.off('change').on('change', function() {
 							state.filterStatic($(this));
@@ -684,7 +689,6 @@ Registry.register("Event",
 				 * Set row-span td
 				 */
 				setRowspanTd: function() {
-
 					$.each($('.' + MPTT.table_class), function() {
 						var $table = $(this);
 
@@ -730,7 +734,6 @@ Registry.register("Event",
 						});
 
 					});
-
 				},
 				/**
 				 * Remove empty rows
