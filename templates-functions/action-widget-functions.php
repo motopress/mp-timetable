@@ -1,5 +1,4 @@
-<?php
-use mp_timetable\classes\models\Settings;
+<?php use mp_timetable\classes\models\Settings;
 
 function mptt_widget_template_before_content() {
 	$wrapper_class = mptt_popular_theme_class();

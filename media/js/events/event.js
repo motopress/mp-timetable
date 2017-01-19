@@ -392,9 +392,8 @@ Registry.register("Event",
 
 					var elementHeight = element.height();
 					element.css('position', '').css('width', '');
-
 					element.height(elementHeight);
-					console.log('x');
+
 					return elementHeight;
 				},
 				/**
@@ -617,9 +616,12 @@ Registry.register("Event",
 						$(this).parents('td').addClass('event');
 					});
 				},
+				/**
+				 * Init TimeTable
+				 */
 				initTableData: function() {
 					state.setClassTd();
-					state.setRowspanTd();
+					state.setRowSpanTd();
 
 					if ($('.' + MPTT.table_class).data('hide_empty_row')) {
 						state.hideEmptyRows();
@@ -686,16 +688,69 @@ Registry.register("Event",
 					state.setEventsHeight();
 				},
 				/**
-				 * Set row-span td
+				 * Clear table after change colSpan
+				 *
+				 * @param columnIndex
+				 * @param toColSpan
+				 * @param $table
+				 * @param row
 				 */
-				setRowspanTd: function() {
+				removeCellsAfterChangeColSpan: function(columnIndex, toColSpan, $table, row) {
+					for (columnIndex; columnIndex < toColSpan; columnIndex++) {
+						var columnId = $table.find('th[data-index="' + columnIndex + '"]').data('column-id');
+						row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
+					}
+				},
+				/**
+				 * Set rowSpan
+				 *
+				 * @param td
+				 * @param rowSpan
+				 * @param $table
+				 * @param columnId
+				 * @returns rowSpan
+				 */
+				removeCellsAfterChangeRowSpan: function(td, rowSpan, $table, columnId) {
+					var index = td.parents('tr').attr('data-index'),
+						toRowSpan = rowSpan + parseInt(index) - 1,
+						colSpan = td.attr('colspan'),
+						columnIndex = $table.find('th[data-column-id="' + columnId + '"]').data('index'),
+						toColSpan = parseInt(columnIndex) + parseInt(colSpan);
+
+					for (index; index < toRowSpan; index++) {
+
+						var row = $table.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1));
+
+						if (row.length) {
+
+							if (row.find('td.event[data-column-id="' + columnId + '"]').length) {
+								rowSpan -= (toRowSpan - index);
+
+								if (rowSpan < 2) {
+									rowSpan = 1;
+									break;
+								}
+							}
+
+							if (colSpan > 1) {
+								state.removeCellsAfterChangeColSpan(columnIndex, toColSpan, $table, row);
+							}
+
+							row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
+						}
+					}
+					return rowSpan;
+				},
+				/**
+				 * Set rowSpan td
+				 */
+				setRowSpanTd: function() {
 					$.each($('.' + MPTT.table_class), function() {
 						var $table = $(this);
 
 						$.each($table.find('td.event'), function() {
-							var td = $(this);
-
-							var events = td.find('.mptt-event-container'),
+							var td = $(this),
+								events = td.find('.mptt-event-container'),
 								columnId = td.attr('data-column-id'),
 								rowHeight = td.attr('data-row_height'),
 								rowSpan = state.getRowspan(events);
@@ -703,27 +758,7 @@ Registry.register("Event",
 
 							if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 
-								var index = td.parents('tr').attr('data-index'),
-									toRowSpan = rowSpan + parseInt(index) - 1;
-
-								for (index; index < toRowSpan; index++) {
-
-									var row = $table.find('tr.mptt-shortcode-row-' + (parseInt(index) + 1));
-
-									if (row.length) {
-
-
-										if (row.find('td.event[data-column-id="' + columnId + '"]').length) {
-											rowSpan -= (toRowSpan - index);
-
-											if (rowSpan < 2) {
-												rowSpan = 1;
-												break;
-											}
-										}
-										row.find('td:not(.event)[data-column-id="' + columnId + '"]').remove();
-									}
-								}
+								rowSpan = state.removeCellsAfterChangeRowSpan(td, rowSpan, $table, columnId);
 
 								if (!isNaN(rowHeight)) {
 									td.css('height', rowSpan * rowHeight);
@@ -732,9 +767,9 @@ Registry.register("Event",
 
 							td.attr('rowspan', rowSpan);
 						});
-
 					});
 				},
+				// remove
 				/**
 				 * Remove empty rows
 				 */
