@@ -219,6 +219,7 @@ class Shortcode extends Core {
 	public function integration_motopress($motopressCELibrary) {
 		$columns = $this->create_list_motopress(Column::get_instance()->get_all_column());
 		$events = $this->create_list_motopress(Events::get_instance()->get_all_events());
+		
 		$categories = get_terms('mp-event_category', 'orderby=count&hide_empty=0');
 		$categories = $this->create_list_motopress($categories, 'term');
 		

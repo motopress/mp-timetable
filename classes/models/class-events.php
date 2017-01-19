@@ -474,15 +474,19 @@ class Events extends Model {
 		if ((!empty($params[ 'all' ]) && $params[ 'all' ]) || empty($params[ 'list' ])) {
 			
 		} elseif (!is_array($params[ 'column' ])) {
+			
 			if (isset($params[ 'list' ]) && is_array($params[ 'list' ])) {
 				$params[ 'list' ] = implode(',', $params[ 'list' ]);
 			}
+			
 			$sql_reguest .= " WHERE " . $params[ 'column' ] . " IN (" . $params[ 'list' ] . ")";
+			
 		} elseif (is_array($params[ 'column' ]) && is_array($params[ 'column' ])) {
 			
 			$sql_reguest .= " WHERE ";
 			
 			$last_key = key(array_slice($params[ 'column' ], -1, 1, TRUE));
+			
 			foreach ($params[ 'column' ] as $key => $column) {
 				if (isset($params[ 'list' ][ $column ]) && is_array($params[ 'list' ][ $column ])) {
 					$params[ 'list' ][ $column ] = implode(',', $params[ 'list' ][ $column ]);
@@ -490,6 +494,7 @@ class Events extends Model {
 				$sql_reguest .= $column . " IN (" . $params[ 'list' ][ $column ] . ")";
 				$sql_reguest .= ($last_key != $key) ? ' AND ' : '';
 			}
+			
 		}
 		
 		$sql_reguest .= ' ORDER BY `event_start`';
