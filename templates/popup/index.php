@@ -143,6 +143,7 @@
 			<tr>
 				<td><label for="text_align_vertical"><?php _e('Vertical align', 'mp-timetable') ?> </label></td>
 				<td><select id="text_align_vertical" name="text_align_vertical">
+						<option value="default"><?php _e('default', 'mp-timetable') ?></option>
 						<option value="top"><?php _e('top', 'mp-timetable') ?></option>
 						<option value="middle"><?php _e('middle', 'mp-timetable') ?></option>
 						<option value="bottom"><?php _e('bottom', 'mp-timetable') ?></option>
