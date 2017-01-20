@@ -564,7 +564,7 @@ Registry.register("Event",
 						eventID = element.attr('href').replace("#", "");
 					}
 
-					var id = _.isEmpty(parentShortcode.attr('id')) ? 'no-setup' : parentShortcode.attr('id');
+					var id = _.isEmpty(parentShortcode.attr('id')) ? 'not-set' : parentShortcode.attr('id');
 
 					window.location.hash = id + ':' + eventID;
 
@@ -600,7 +600,7 @@ Registry.register("Event",
 						$.each(events, function() {
 
 							var $event = $(this);
-							var elementHeight =state.setEventHeight($event);
+							var elementHeight = state.setEventHeight($event);
 
 							$event.height(elementHeight);
 							$event.css('top', top + 'px');
@@ -660,11 +660,17 @@ Registry.register("Event",
 
 					}
 				},
-				/**
+				showCurrentEvent: function(shortcode_wrapper, event) {
+					if (shortcode_wrapper.find('.mptt-menu').hasClass('mptt-navigation-tabs')) {
+						shortcode_wrapper.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
+					} else {
+						shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
+					}
+				}, /**
 				 * Filter by hash
 				 */
 				getFilterByHash: function() {
-
+					var is_single = 1;
 					var hash = window.location.hash;
 
 					if (!_.isUndefined(hash)) {
@@ -672,23 +678,24 @@ Registry.register("Event",
 						var id = HashArray[0];
 						var event = HashArray[1];
 						var shortcode_wrapper = $('.mptt-shortcode-wrapper');
+						event = _.isUndefined(event) ? 'all' : event;
 
-						$.each(shortcode_wrapper, function(index, object) {
-							var element = $(object);
-							var table = false;
-							var element_id = '#' + element.attr('id');
-							if (element_id === id) {
-								if (element.find('.mptt-menu').hasClass('mptt-navigation-tabs')) {
-									console.log('asd1234');
-									element.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
+						if (shortcode_wrapper.length === is_single) {
+							state.showCurrentEvent(shortcode_wrapper, event);
+
+						} else {
+							$.each(shortcode_wrapper, function(index, object) {
+								var element = $(object);
+								var table = false;
+								var element_id = '#' + element.attr('id');
+								if (element_id === id) {
+									state.showCurrentEvent(element, event);
 								} else {
-									element.find('.mptt-navigation-select').val(event).change();
+									table = element.find('table[id="#all"]');
+									table.fadeIn();
 								}
-							} else {
-								table = element.find('table[id="#all"]');
-								table.fadeIn();
-							}
-						});
+							});
+						}
 
 					}
 
