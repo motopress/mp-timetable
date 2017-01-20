@@ -86,6 +86,20 @@ Registry.register("Event",
 					state.setColorSettings(selector + ' ' + '.mptt-colorized');
 				},
 				/**
+				 * init Delete Button
+				 */
+				initDeleteButton: function() {
+					var $events = $('#events-list');
+
+					$events.find('li.event').find('i.operation-button.dashicons-no.dashicons').off('click').on('click', function() {
+						if ($events.find('li.event').length > 1) {
+							$(this).parents('li.event').remove();
+						} else {
+							$events.remove();
+						}
+					});
+				},
+				/**
 				 * Init color picker
 				 */
 				initColorPicker: function(parent) {
@@ -146,11 +160,7 @@ Registry.register("Event",
 						if ($(this).hasClass('edit')) {
 							state.updateEventData();
 						} else {
-
-							state.validateEventData();
-							if (state.validateEventData()) {
-								state.renderEventItem();
-							}
+							state.renderEventItem();
 						}
 					});
 				},
@@ -386,7 +396,7 @@ Registry.register("Event",
 				 * @param element
 				 */
 				setEventHeight: function(element) {
-					var parent_height = element.parent().height(),
+					var parent_height = element.parent().outerHeight(),
 						parent_width = element.parent().width();
 
 					element.css('height', 'auto');
@@ -394,11 +404,64 @@ Registry.register("Event",
 					element.css('position', 'relative');
 
 					var elementHeight = element.height();
+					var outerHeight = element.outerHeight();
 
 					element.css('position', '').css('width', '').css('min-height', '');
-					element.height(elementHeight);
 
-					return elementHeight;
+					if (parent_height < elementHeight) {
+						element.height(elementHeight);
+					}
+
+					/** IE block **/
+					if ($('body').hasClass('mprm_ie')) {
+						element.height(outerHeight);
+					}
+				},
+				/**
+				 * Recalculate Height
+				 * @param tdParent
+				 */
+				recalculate_Height: function(tdParent) {
+					var events = $('.mptt-event-container', tdParent),
+						eventCount = events.length,
+						heightItem = 0,
+						top = 0,
+						tdHeight = tdParent.height();
+
+					if (!$('body').hasClass('mprm_ie')) {
+
+						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
+
+						$.each(events, function() {
+							var $event = $(this);
+							$event.height(heightItem + '%');
+							$event.css('top', top + '%');
+							$event.removeClass('mptt-hidden');
+							top += heightItem;
+						});
+
+					} else {
+
+						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
+
+						$.each(events, function() {
+							var $event = $(this);
+							$event.height(heightItem);
+							$event.css('top', top + 'px');
+							$event.removeClass('mptt-hidden');
+							top += heightItem;
+						});
+
+					}
+				},
+				/**
+				 * Fill all possible height in ceil
+				 */
+				setEventsHeight: function() {
+					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
+						var td = $(this);
+						state.recalculate_Height(td);
+					});
 				},
 				/**
 				 * Set user color settings
@@ -465,13 +528,6 @@ Registry.register("Event",
 					});
 				},
 				/**
-				 * Validate ?
-				 * @returns {boolean}
-				 */
-				validateEventData: function() {
-					return true;
-				},
-				/**
 				 * Clear input data
 				 */
 				clearTable: function() {
@@ -480,26 +536,12 @@ Registry.register("Event",
 					$weekdayId.val($weekdayId.find('option:first').attr('value'));
 				},
 				/**
-				 * init Delete Button
-				 */
-				initDeleteButton: function() {
-					var $events = $('#events-list');
-
-					$events.find('li.event').find('i.operation-button.dashicons-no.dashicons').off('click').on('click', function() {
-						if ($events.find('li.event').length > 1) {
-							$(this).parents('li.event').remove();
-						} else {
-							$events.remove();
-						}
-					});
-				},
-				/**
 				 * get Row span
 				 *
 				 * @param events
 				 * @returns {number}
 				 */
-				getRowspan: function(events) {
+				getRowSpan: function(events) {
 					var arrMax = [];
 					var arrMin = [];
 
@@ -574,50 +616,9 @@ Registry.register("Event",
 
 					state.setEventsHeight();
 				},
-				recalculate_Height: function(tdParent) {
-					var events = $('.mptt-event-container', tdParent),
-						eventCount = events.length,
-						heightItem = 0,
-						top = 0,
-						tdHeight = tdParent.height();
-
-					if (!$('body').hasClass('mprm_ie')) {
-
-						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
-
-						$.each(events, function() {
-							var $event = $(this);
-							$event.height(heightItem + '%');
-							$event.css('top', top + '%');
-							$event.removeClass('mptt-hidden');
-							top += heightItem;
-						});
-
-					} else {
-
-						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
-
-						$.each(events, function() {
-
-							var $event = $(this);
-							var elementHeight = state.setEventHeight($event);
-
-							$event.height(elementHeight);
-							$event.css('top', top + 'px');
-							$event.removeClass('mptt-hidden');
-							top += heightItem;
-						});
-
-					}
-				}, /**
-				 * Fill all possible height in ceil
+				/**
+				 * Add class if exists events in <TD>
 				 */
-				setEventsHeight: function() {
-					$.each($('.mptt-shortcode-wrapper table td.event'), function() {
-						var td = $(this);
-						state.recalculate_Height(td);
-					});
-				},
 				setClassTd: function() {
 					$.each($('.mptt-event-container'), function() {
 						$(this).parents('td').addClass('event');
@@ -633,8 +634,9 @@ Registry.register("Event",
 					if ($('.' + MPTT.table_class).data('hide_empty_row')) {
 						state.hideEmptyRows();
 					}
-				}, /**
-				 *
+				},
+				/**
+				 *  init Filters
 				 */
 				filterShortcodeEvents: function() {
 					var selector = $('.mptt-menu');
@@ -660,13 +662,19 @@ Registry.register("Event",
 
 					}
 				},
+				/**
+				 * Show events in shortcode container by current event
+				 * @param shortcode_wrapper
+				 * @param event
+				 */
 				showCurrentEvent: function(shortcode_wrapper, event) {
 					if (shortcode_wrapper.find('.mptt-menu').hasClass('mptt-navigation-tabs')) {
 						shortcode_wrapper.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
 					} else {
 						shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
 					}
-				}, /**
+				},
+				/**
 				 * Filter by hash
 				 */
 				getFilterByHash: function() {
@@ -682,7 +690,6 @@ Registry.register("Event",
 
 						if (shortcode_wrapper.length === is_single) {
 							state.showCurrentEvent(shortcode_wrapper, event);
-
 						} else {
 							$.each(shortcode_wrapper, function(index, object) {
 								var element = $(object);
@@ -696,9 +703,7 @@ Registry.register("Event",
 								}
 							});
 						}
-
 					}
-
 					state.setEventsHeight();
 				},
 				/**
@@ -766,8 +771,7 @@ Registry.register("Event",
 								events = td.find('.mptt-event-container'),
 								columnId = td.attr('data-column-id'),
 								rowHeight = td.attr('data-row_height'),
-								rowSpan = state.getRowspan(events);
-
+								rowSpan = state.getRowSpan(events);
 
 							if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 
@@ -782,7 +786,6 @@ Registry.register("Event",
 						});
 					});
 				},
-				// remove
 				/**
 				 * Remove empty rows
 				 */
