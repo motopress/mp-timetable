@@ -386,12 +386,16 @@ Registry.register("Event",
 				 * @param element
 				 */
 				setEventHeight: function(element) {
+					var parent_height = element.parent().height(),
+						parent_width = element.parent().width();
+
 					element.css('height', 'auto');
-					element.css('width', '100%');
+					element.css('width', parent_width);
 					element.css('position', 'relative');
 
 					var elementHeight = element.height();
-					element.css('position', '').css('width', '');
+
+					element.css('position', '').css('width', '').css('min-height', '');
 					element.height(elementHeight);
 
 					return elementHeight;
@@ -518,7 +522,7 @@ Registry.register("Event",
 				 * @param element
 				 */
 				responsiveFilter: function(element) {
-					var eventID = '#all';
+					var eventID = 'all';
 					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
 
 					if (element.is("select")) {
@@ -529,7 +533,7 @@ Registry.register("Event",
 
 					var $listEvent = parentShortcode.find('.mptt-list-event');
 
-					if (eventID !== '#all') {
+					if (eventID !== 'all') {
 						$listEvent.hide();
 						parentShortcode.find('.mptt-list-event[data-event-id="' + eventID + '"]').show();
 					} else {
@@ -583,8 +587,8 @@ Registry.register("Event",
 
 						$.each(events, function() {
 							var $event = $(this);
-							$event.height(heightItem + "%");
-							$event.css('top', top + "%");
+							$event.height(heightItem + '%');
+							$event.css('top', top + '%');
 							$event.removeClass('mptt-hidden');
 							top += heightItem;
 						});
@@ -594,9 +598,12 @@ Registry.register("Event",
 						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
 
 						$.each(events, function() {
+
 							var $event = $(this);
-							$event.height(heightItem);
-							$event.css('top', top + "px");
+							var elementHeight =state.setEventHeight($event);
+
+							$event.height(elementHeight);
+							$event.css('top', top + 'px');
 							$event.removeClass('mptt-hidden');
 							top += heightItem;
 						});
@@ -633,7 +640,6 @@ Registry.register("Event",
 					var selector = $('.mptt-menu');
 
 					if (selector.length) {
-						// state.initTableData();
 
 						selector.off('change').on('change', function() {
 							state.filterStatic($(this));
@@ -685,6 +691,7 @@ Registry.register("Event",
 						});
 
 					}
+
 					state.setEventsHeight();
 				},
 				/**
@@ -703,7 +710,6 @@ Registry.register("Event",
 				},
 				/**
 				 * Set rowSpan
-				 *
 				 * @param td
 				 * @param rowSpan
 				 * @param $table

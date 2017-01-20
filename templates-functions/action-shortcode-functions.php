@@ -10,7 +10,7 @@ function mptt_shortcode_template_before_content() {
 	$wrapper_class = mptt_popular_theme_class();
 	$id = empty($mptt_shortcode_data[ 'params' ][ 'id' ]) ? '' : $mptt_shortcode_data[ 'params' ][ 'id' ];
 	?>
-	<div id="<?php echo $id ?>" style="display: none" class="<?php echo apply_filters('mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . $wrapper_class . ($mptt_shortcode_data[ 'params' ][ 'responsive' ] == '0' ? ' mptt-table-fixed' : '')) ?>">
+	<div id="<?php echo $id ?>" class="<?php echo apply_filters('mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . $wrapper_class . ($mptt_shortcode_data[ 'params' ][ 'responsive' ] == '0' ? ' mptt-table-fixed' : ' mptt-table-responsive')) ?>">
 	<?php
 }
 

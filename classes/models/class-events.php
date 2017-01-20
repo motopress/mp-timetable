@@ -97,7 +97,7 @@ class Events extends Model {
 	 * @return array|null|object
 	 */
 	public function get_event_data($params, $order_by = 'event_start', $publish = true) {
-		$publish = $publish ? " AND `post_status` = 'publish'" : '';
+		$publish_query_part = $publish ? " AND `post_status` = 'publish'" : '';
 		$table_posts = $this->wpdb->prefix . 'posts';
 		
 		$event_data = $this->wpdb->get_results(
@@ -109,7 +109,7 @@ class Events extends Model {
 			. " ) p ON t.`column_id` = p.`ID`"
 			. " INNER JOIN ("
 			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = '{$this->post_type}'{$publish}"
+			. " WHERE `post_type` = '{$this->post_type}'{$publish_query_part}"
 			. " ) e ON t.`event_id` = e.`ID`"
 			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"

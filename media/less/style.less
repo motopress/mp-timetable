@@ -376,18 +376,21 @@
 	.mptt-shortcode-list {
 	  display: block;
 	}
-	.mptt-shortcode-table {
-	  display: none !important;
-	}
+
 	&.mptt-table-fixed {
 	  .mptt-shortcode-list {
 		display: none !important;;
 	  }
 	  .mptt-shortcode-table {
-		display: table !important;
+		display: table;
 		td.event {
 		  min-width: 200px;
 		}
+	  }
+	}
+	&.mptt-table-responsive {
+	  .mptt-shortcode-table {
+		display: none !important;
 	  }
 	}
   }

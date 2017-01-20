@@ -50,7 +50,8 @@ class Controller_Events extends Controller {
 	 * Get single event data
 	 */
 	public function action_get_event_data() {
-		$result = $this->get('events')->get_event_data(array('field' => 'id', 'id' => filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT), 'event_start', false));
+		$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+		$result = $this->get('events')->get_event_data(array('field' => 'id', 'id' => $id), 'event_start', false);
 		if (!empty($result)) {
 			wp_send_json_success($result[ 0 ]);
 		} else {
