@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-01-17 15:09+0200\n"
+"POT-Creation-Date: 2017-01-20 15:29+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -41,7 +41,7 @@ msgid "Import"
 msgstr ""
 
 #: classes/class-core.php:311 classes/class-core.php:323
-#: classes/class-core.php:327 classes/class-shortcode.php:236
+#: classes/class-core.php:327 classes/class-shortcode.php:237
 msgid "Event categories"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgid "No Event tags found in Trash"
 msgstr ""
 
 #: classes/class-core.php:398 classes/class-core.php:410
-#: classes/class-hooks.php:162 classes/class-shortcode.php:232
+#: classes/class-hooks.php:162 classes/class-shortcode.php:233
 msgid "Events"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgid "New Event"
 msgstr ""
 
 #: classes/class-core.php:404 classes/class-shortcode.php:70
-#: classes/class-shortcode.php:250
+#: classes/class-shortcode.php:251
 #: templates-functions/action-shortcode-functions.php:38
 #: templates-functions/action-shortcode-functions.php:50
 #: templates-functions/action-shortcode-functions.php:51
@@ -172,7 +172,7 @@ msgstr ""
 msgid "Columns"
 msgstr ""
 
-#: classes/class-core.php:433 classes/class-shortcode.php:228
+#: classes/class-core.php:433 classes/class-shortcode.php:229
 #: templates/events/event-data.php:4
 msgid "Column"
 msgstr ""
@@ -215,7 +215,7 @@ msgid "Timetable Sidebar"
 msgstr ""
 
 #: classes/class-hooks.php:59 classes/class-hooks.php:161
-#: classes/class-shortcode.php:329
+#: classes/class-shortcode.php:330
 msgid "Timetable"
 msgstr ""
 
@@ -247,47 +247,47 @@ msgstr ""
 msgid "Export / Import"
 msgstr ""
 
-#: classes/class-shortcode.php:240
+#: classes/class-shortcode.php:241
 msgid "Hour measure"
 msgstr ""
 
-#: classes/class-shortcode.php:241 templates/popup/index.php:66
+#: classes/class-shortcode.php:242 templates/popup/index.php:66
 msgid "Hour (1h)"
 msgstr ""
 
-#: classes/class-shortcode.php:241 templates/popup/index.php:67
+#: classes/class-shortcode.php:242 templates/popup/index.php:67
 msgid "Half hour (30min)"
 msgstr ""
 
-#: classes/class-shortcode.php:241 templates/popup/index.php:68
+#: classes/class-shortcode.php:242 templates/popup/index.php:68
 msgid "Quarter hour (15min)"
 msgstr ""
 
-#: classes/class-shortcode.php:244
+#: classes/class-shortcode.php:245
 msgid "Filter style"
 msgstr ""
 
-#: classes/class-shortcode.php:245
+#: classes/class-shortcode.php:246
 msgid "Dropdown list"
 msgstr ""
 
-#: classes/class-shortcode.php:245 templates/popup/index.php:77
+#: classes/class-shortcode.php:246 templates/popup/index.php:77
 msgid "Tabs"
 msgstr ""
 
-#: classes/class-shortcode.php:249
+#: classes/class-shortcode.php:250
 msgid "Filter label"
 msgstr ""
 
-#: classes/class-shortcode.php:254
+#: classes/class-shortcode.php:255
 msgid "Hide 'All Events' view"
 msgstr ""
 
-#: classes/class-shortcode.php:255 classes/class-shortcode.php:260
-#: classes/class-shortcode.php:265 classes/class-shortcode.php:272
-#: classes/class-shortcode.php:278 classes/class-shortcode.php:284
-#: classes/class-shortcode.php:290 classes/class-shortcode.php:296
-#: classes/class-shortcode.php:301 classes/class-shortcode.php:325
+#: classes/class-shortcode.php:256 classes/class-shortcode.php:261
+#: classes/class-shortcode.php:266 classes/class-shortcode.php:273
+#: classes/class-shortcode.php:279 classes/class-shortcode.php:285
+#: classes/class-shortcode.php:291 classes/class-shortcode.php:297
+#: classes/class-shortcode.php:302 classes/class-shortcode.php:326
 #: templates/events/metabox-event-options.php:45 templates/popup/index.php:93
 #: templates/popup/index.php:102 templates/popup/index.php:112
 #: templates/popup/index.php:120 templates/popup/index.php:129
@@ -295,11 +295,11 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: classes/class-shortcode.php:255 classes/class-shortcode.php:260
-#: classes/class-shortcode.php:265 classes/class-shortcode.php:272
-#: classes/class-shortcode.php:278 classes/class-shortcode.php:284
-#: classes/class-shortcode.php:290 classes/class-shortcode.php:296
-#: classes/class-shortcode.php:301 classes/class-shortcode.php:325
+#: classes/class-shortcode.php:256 classes/class-shortcode.php:261
+#: classes/class-shortcode.php:266 classes/class-shortcode.php:273
+#: classes/class-shortcode.php:279 classes/class-shortcode.php:285
+#: classes/class-shortcode.php:291 classes/class-shortcode.php:297
+#: classes/class-shortcode.php:302 classes/class-shortcode.php:326
 #: templates/events/metabox-event-options.php:46 templates/popup/index.php:94
 #: templates/popup/index.php:103 templates/popup/index.php:111
 #: templates/popup/index.php:121 templates/popup/index.php:130
@@ -307,69 +307,69 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: classes/class-shortcode.php:259
+#: classes/class-shortcode.php:260
 msgid "Hide first (hours) column"
 msgstr ""
 
-#: classes/class-shortcode.php:264
+#: classes/class-shortcode.php:265
 msgid "Hide empty rows"
 msgstr ""
 
-#: classes/class-shortcode.php:270 templates/popup/index.php:40
+#: classes/class-shortcode.php:271 templates/popup/index.php:40
 #: templates/widgets/gallery-list.php:3
 msgid "Title"
 msgstr ""
 
-#: classes/class-shortcode.php:276 templates/popup/index.php:41
+#: classes/class-shortcode.php:277 templates/popup/index.php:41
 msgid "Time"
 msgstr ""
 
-#: classes/class-shortcode.php:282 templates/popup/index.php:42
+#: classes/class-shortcode.php:283 templates/popup/index.php:42
 msgid "Subtitle"
 msgstr ""
 
-#: classes/class-shortcode.php:288 templates/events/event-data.php:7
+#: classes/class-shortcode.php:289 templates/events/event-data.php:7
 #: templates/popup/index.php:43
 msgid "Description"
 msgstr ""
 
-#: classes/class-shortcode.php:294
+#: classes/class-shortcode.php:295
 msgid "User"
 msgstr ""
 
-#: classes/class-shortcode.php:300
+#: classes/class-shortcode.php:301
 msgid "Disable event URL"
 msgstr ""
 
-#: classes/class-shortcode.php:305
+#: classes/class-shortcode.php:306
 msgid "Text align"
 msgstr ""
 
-#: classes/class-shortcode.php:306 templates/popup/index.php:137
+#: classes/class-shortcode.php:307 templates/popup/index.php:137
 msgid "center"
 msgstr ""
 
-#: classes/class-shortcode.php:306 templates/popup/index.php:138
+#: classes/class-shortcode.php:307 templates/popup/index.php:138
 msgid "left"
 msgstr ""
 
-#: classes/class-shortcode.php:306 templates/popup/index.php:139
+#: classes/class-shortcode.php:307 templates/popup/index.php:139
 msgid "right"
 msgstr ""
 
-#: classes/class-shortcode.php:310
+#: classes/class-shortcode.php:311
 msgid "Id"
 msgstr ""
 
-#: classes/class-shortcode.php:314
+#: classes/class-shortcode.php:315
 msgid "Row height (in px)"
 msgstr ""
 
-#: classes/class-shortcode.php:319
+#: classes/class-shortcode.php:320
 msgid "Base Font Size"
 msgstr ""
 
-#: classes/class-shortcode.php:324
+#: classes/class-shortcode.php:325
 msgid "Responsive"
 msgstr ""
 
@@ -713,11 +713,11 @@ msgstr ""
 msgid "Timeslots"
 msgstr ""
 
-#: classes/models/class-events.php:166
+#: classes/models/class-events.php:167
 msgid "Tags"
 msgstr ""
 
-#: classes/models/class-events.php:167
+#: classes/models/class-events.php:168
 msgid "Categories"
 msgstr ""
 
@@ -1115,51 +1115,55 @@ msgid "Vertical align"
 msgstr ""
 
 #: templates/popup/index.php:146
-msgid "top"
+msgid "default"
 msgstr ""
 
 #: templates/popup/index.php:147
-msgid "middle"
+msgid "top"
 msgstr ""
 
 #: templates/popup/index.php:148
+msgid "middle"
+msgstr ""
+
+#: templates/popup/index.php:149
 msgid "bottom"
 msgstr ""
 
-#: templates/popup/index.php:153
+#: templates/popup/index.php:154
 msgid "Unique ID"
 msgstr ""
 
-#: templates/popup/index.php:156
+#: templates/popup/index.php:157
 msgid ""
 "If you use more than one table on a page specify the unique ID for a "
 "timetable. It is usually all lowercase and contains only letters, numbers, "
 "and hyphens."
 msgstr ""
 
-#: templates/popup/index.php:160
+#: templates/popup/index.php:161
 msgid "CSS class"
 msgstr ""
 
-#: templates/popup/index.php:166
+#: templates/popup/index.php:167
 msgid "Mobile behavior"
 msgstr ""
 
-#: templates/popup/index.php:169
+#: templates/popup/index.php:170
 msgid "List"
 msgstr ""
 
-#: templates/popup/index.php:170
+#: templates/popup/index.php:171
 msgid "Table"
 msgstr ""
 
-#: templates/popup/index.php:172
+#: templates/popup/index.php:173
 msgid ""
 "Tick \"List\" to display events in a list view on mobile devices. Tick "
 "\"Table\" to display events in a table."
 msgstr ""
 
-#: templates/popup/index.php:178
+#: templates/popup/index.php:179
 msgid "Add Timetable"
 msgstr ""
 
