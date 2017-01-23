@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.4 =
+* Bug fix: fixed internal issue
+
 = 2.1.3 =
 * Added the ability to merge cells with common events.
 * Added the ability to set vertical alignment in the table.
