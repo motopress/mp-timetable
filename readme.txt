@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.5 =
+* Bug fix: fixed the issue when table is not visible if events filter is set to 'none'
+
 = 2.1.4 =
 * Bug fix: fixed internal issue
 
