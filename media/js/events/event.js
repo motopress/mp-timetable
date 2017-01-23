@@ -670,8 +670,10 @@ Registry.register("Event",
 				showCurrentEvent: function(shortcode_wrapper, event) {
 					if (shortcode_wrapper.find('.mptt-menu').hasClass('mptt-navigation-tabs')) {
 						shortcode_wrapper.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
-					} else {
+					} else if (shortcode_wrapper.find('.mptt-menu').hasClass('mptt-navigation-select')) {
 						shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
+					} else {
+						shortcode_wrapper.find('table[id="#all"]').fadeIn();
 					}
 				},
 				/**
@@ -693,13 +695,11 @@ Registry.register("Event",
 						} else {
 							$.each(shortcode_wrapper, function(index, object) {
 								var element = $(object);
-								var table = false;
 								var element_id = '#' + element.attr('id');
 								if (element_id === id) {
 									state.showCurrentEvent(element, event);
 								} else {
-									table = element.find('table[id="#all"]');
-									table.fadeIn();
+									state.showCurrentEvent(element, 'all');
 								}
 							});
 						}
