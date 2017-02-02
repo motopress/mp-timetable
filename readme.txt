@@ -70,7 +70,7 @@ Plugin bundles the following third-party resources:
 == Changelog ==
 
 = 2.1.6 =
-* New dasboard icons
+* New dashboard icons
 
 = 2.1.5 =
 * Bug fix: fixed the issue when table is not visible if events filter is set to 'none'
