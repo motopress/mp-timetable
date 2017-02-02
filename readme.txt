@@ -2,7 +2,7 @@
 Contributors: MotoPress
 Donate link: http://www.getmotopress.com/
 Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer,classes,gym,school,scheduler,table
-Requires at least: 3.6
+Requires at least: 3.8
 Tested up to: 4.7
 Stable tag: trunk
 License: GPLv2 or later
@@ -68,6 +68,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.1.6 =
+* New dasboard icons
 
 = 2.1.5 =
 * Bug fix: fixed the issue when table is not visible if events filter is set to 'none'

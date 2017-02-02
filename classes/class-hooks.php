@@ -158,7 +158,7 @@ class Hooks extends Core {
 	 * Registered page in admin wp
 	 */
 	public function admin_menu() {
-		add_menu_page(__('Timetable', 'mp-timetable'), __('Timetable', 'mp-timetable'), 'edit_posts', "edit.php?post_type=mp-event", "", Mp_Time_Table::get_plugin_url('media/img/icon.png'), '59.51');
+		add_menu_page(__('Timetable', 'mp-timetable'), __('Timetable', 'mp-timetable'), 'edit_posts', "edit.php?post_type=mp-event", "", "dashicons-calendar", '59.51');
 		add_submenu_page('edit.php?post_type=mp-event', __("Events", 'mp-timetable'), __("Events", 'mp-timetable'), 'edit_posts', 'edit.php?post_type=mp-event');
 		add_submenu_page("edit.php?post_type=mp-event", __("Add Event", 'mp-timetable'), __("Add Event", 'mp-timetable'), "edit_posts", "post-new.php?post_type=mp-event");
 		add_submenu_page("edit.php?post_type=mp-event", __("Columns", 'mp-timetable'), __("Columns", 'mp-timetable'), "edit_posts", "edit.php?post_type=mp-column");
