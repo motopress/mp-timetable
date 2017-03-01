@@ -19,15 +19,15 @@
 
 use mp_timetable\plugin_core\classes\Core;
 
-define("MP_TT_PLUGIN_NAME", 'mp-timetable');
-define('MP_TT_DEBUG', FALSE);
+define( "MP_TT_PLUGIN_NAME", 'mp-timetable' );
+define( 'MP_TT_DEBUG', false );
 
-register_activation_hook(__FILE__, array(Mp_Time_Table::init(), 'on_activation'));
-register_deactivation_hook(__FILE__, array('Mp_Time_Table', 'on_deactivation'));
-register_uninstall_hook(__FILE__, array('Mp_Time_Table', 'on_uninstall'));
-add_action('plugins_loaded', array('Mp_Time_Table', 'init'));
-add_action('wpmu_new_blog', array('Mp_Time_Table', 'on_create_blog'), 10, 6);
-add_filter('wpmu_drop_tables', array('Mp_Time_Table', 'on_delete_blog'));
+register_activation_hook( __FILE__, array( Mp_Time_Table::init(), 'on_activation' ) );
+register_deactivation_hook( __FILE__, array( 'Mp_Time_Table', 'on_deactivation' ) );
+register_uninstall_hook( __FILE__, array( 'Mp_Time_Table', 'on_uninstall' ) );
+add_action( 'plugins_loaded', array( 'Mp_Time_Table', 'init' ) );
+add_action( 'wpmu_new_blog', array( 'Mp_Time_Table', 'on_create_blog' ), 10, 6 );
+add_filter( 'wpmu_drop_tables', array( 'Mp_Time_Table', 'on_delete_blog' ) );
 
 /**
  * Class Mp_Time_Table
@@ -41,7 +41,7 @@ class Mp_Time_Table {
 	 */
 	public function __construct() {
 		$this->include_all();
-		Core::get_instance()->init_plugin('mp_timetable');
+		Core::get_instance()->init_plugin( 'mp_timetable' );
 	}
 	
 	/**
@@ -90,7 +90,7 @@ class Mp_Time_Table {
 		/**
 		 * include shortcodes
 		 */
-		require_once(self::get_plugin_path() . 'classes/class-shortcode.php');
+		require_once( self::get_plugin_path() . 'classes/class-shortcode.php' );
 		/**
 		 * include Widgets
 		 */
@@ -109,14 +109,14 @@ class Mp_Time_Table {
 	 * Get plugin path
 	 */
 	public static function get_plugin_path() {
-		return plugin_dir_path(__FILE__);
+		return plugin_dir_path( __FILE__ );
 	}
 	
 	/**
 	 * @return Mp_Time_Table
 	 */
 	public static function init() {
-		if (null === self::$instance) {
+		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
 		
@@ -129,7 +129,7 @@ class Mp_Time_Table {
 	 * @return string
 	 */
 	public static function get_template_path() {
-		return apply_filters('mptt_template_path', 'mp-timetable/');
+		return apply_filters( 'mptt_template_path', 'mp-timetable/' );
 	}
 	
 	/**
@@ -148,7 +148,7 @@ class Mp_Time_Table {
 	 *
 	 * @return string
 	 */
-	public static function get_plugin_part_path($part = '') {
+	public static function get_plugin_part_path( $part = '' ) {
 		return self::get_plugin_path() . $part;
 	}
 	
@@ -189,9 +189,9 @@ class Mp_Time_Table {
 	 * @param $site_id
 	 * @param $meta
 	 */
-	public static function on_create_blog($blog_id, $user_id, $domain, $path, $site_id, $meta) {
-		if (is_plugin_active_for_network(self::get_plugin_name() . '/' . self::get_plugin_name() . '.php')) {
-			switch_to_blog($blog_id);
+	public static function on_create_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
+		if ( is_plugin_active_for_network( self::get_plugin_name() . '/' . self::get_plugin_name() . '.php' ) ) {
+			switch_to_blog( $blog_id );
 			//Create table in not exists
 			Core::get_instance()->create_table();
 			restore_current_blog();
@@ -203,13 +203,13 @@ class Mp_Time_Table {
 	 * @return string
 	 */
 	public static function get_plugin_name() {
-		return dirname(plugin_basename(__FILE__));
+		return dirname( plugin_basename( __FILE__ ) );
 	}
 	
 	/**
 	 * On blog creation
 	 */
-	public static function on_delete_blog($tables) {
+	public static function on_delete_blog( $tables ) {
 		
 		$tables[] = self::get_datatable();
 		
@@ -236,7 +236,7 @@ class Mp_Time_Table {
 	 *
 	 * @return string
 	 */
-	static function get_plugin_url($path = false, $pluginName = 'mp-timetable', $sync = '') {
+	static function get_plugin_url( $path = false, $pluginName = 'mp-timetable', $sync = '' ) {
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
 }

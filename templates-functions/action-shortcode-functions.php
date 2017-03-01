@@ -45,14 +45,13 @@ function mptt_shortcode_template_content_filter() {
 		</select>
 	<?php } elseif ( $mptt_shortcode_data[ 'params' ][ 'view' ] == 'tabs' ) { ?>
 		<ul class="<?php echo apply_filters( 'mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs' ) ?>" <?php echo $style ?>>
-			<?php if ( ! $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ): ?>
-				<li>
-					<a title="<?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>"
-					   href="#all" onclick="event.preventDefault();"><?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>
-					</a>
-				</li>
-			<?php endif;
-			if ( ! empty( $mptt_shortcode_data[ 'unique_events' ] ) ): ?>
+			<?php $display_label = $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ? 'display: none' : ''; ?>
+			<li style="<?php echo $display_label ?>">
+				<a title="<?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>"
+				   href="#all" onclick="event.preventDefault();"><?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>
+				</a>
+			</li>
+			<?php if ( ! empty( $mptt_shortcode_data[ 'unique_events' ] ) ): ?>
 				<?php foreach ( $mptt_shortcode_data[ 'unique_events' ] as $event ): ?>
 					<li><a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_name ?>" onclick="event.preventDefault();"><?php echo $event->post->post_title ?></a></li>
 				<?php endforeach;
@@ -86,7 +85,9 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 	$params = $mptt_shortcode_data[ 'params' ];
 	
 	$column_events = mptt_get_columns_events( $mptt_shortcode_data, $post );
-	$bounds        = mptt_shortcode_get_table_cell_bounds( $column_events, $params );
+	
+	// Get  start / end  row index
+	$bounds = mptt_shortcode_get_table_cell_bounds( $column_events, $params );
 	
 	$hide_empty_rows = $params[ 'hide_empty_rows' ];
 	$font_size       = ! empty( $params[ 'font_size' ] ) ? ' font-size:' . $params[ 'font_size' ] . ';' : '';
@@ -100,8 +101,8 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 	<table class="<?php echo ! empty( $table_class ) ? $table_class : ''; ?>" id="#<?php echo is_object( $post ) ? $post->post_name : $post; ?>" style="display:none; <?php echo $font_size; ?>" data-hide_empty_row="<?php echo $hide_empty_rows; ?>">
 		<?php echo View::get_instance()->get_template_html( 'shortcodes/table-header', array( 'header_items' => $data_grouped_by_row[ 'table_header' ], 'params' => $params ) ); ?>
 		<tbody>
-		<?php
-		if ( isset( $data_grouped_by_row[ 'rows' ] ) ) {
+		<?php if ( isset( $data_grouped_by_row[ 'rows' ] ) ) {
+			
 			foreach ( $data_grouped_by_row[ 'rows' ] as $key => $row ) {
 				if ( ! $row[ 'show' ] && $params[ 'hide_empty_rows' ] ) {
 					continue;
@@ -124,7 +125,6 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 								} ?>
 							</td>
 						<?php }
-						
 					} ?>
 				</tr>
 			<?php }
@@ -273,37 +273,15 @@ function mptt_sidebar() {
  * @return array
  */
 function mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events ) {
-	$data = array();
-	
-	$amount_rows = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
-	
+	$data                   = array();
+	$amount_rows            = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
 	$data[ 'table_header' ] = mptt_get_header_row( $mptt_shortcode_data );
 	
 	for ( $row_index = $bounds[ 'start' ]; $row_index <= $bounds[ 'end' ]; $row_index ++ ) {
 		
-		$tm = $row_index * $mptt_shortcode_data[ 'params' ][ 'increment' ];
+		$table_time_cell = get_time_cell( $row_index, $amount_rows, $mptt_shortcode_data[ 'params' ][ 'increment' ] );
 		
-		if ( floor( $tm ) == $tm ) {
-			$table_cell_start = $tm . ':00';
-		} else {
-			if ( $amount_rows == 46 ) {
-				$table_cell_start = floor( $tm ) . ':30';
-			} else {
-				$tm_position = explode( '.', $tm );
-				
-				if ( $tm_position[ 1 ] == 25 ) {
-					$mnts = ':15';
-				} elseif ( $tm_position[ 1 ] == 5 ) {
-					$mnts = ':30';
-				} else {
-					$mnts = ':45';
-				}
-				
-				$table_cell_start = floor( $tm ) . $mnts;
-			}
-		}
-		
-		$row_cells = mptt_get_row_events( $column_events, $row_index );
+		list( $row_cells, $column_events ) = mptt_get_row_events( $column_events, $row_index );
 		
 		if ( $mptt_shortcode_data[ 'params' ][ 'group' ] ) {
 			$row_cells = mptt_group_identical_row_events( $row_cells );
@@ -313,11 +291,50 @@ function mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events
 		$data[ 'rows' ][ $row_index ][ 'show' ]  = mptt_shortcode_row_has_items( $row_index, $column_events );
 		
 		if ( ! $mptt_shortcode_data[ 'params' ][ 'hide_hrs' ] ) {
-			array_unshift( $data[ 'rows' ][ $row_index ][ 'cells' ], array( 'time_cell' => true, 'title' => date( get_option( 'time_format' ), strtotime( $table_cell_start ) ) ) );
+			array_unshift( $data[ 'rows' ][ $row_index ][ 'cells' ], array( 'time_cell' => true, 'title' => date( get_option( 'time_format' ), strtotime( $table_time_cell ) ) ) );
 		}
 	}
 	
 	return $data;
+}
+
+/**
+ * Get time cell
+ *
+ * @param $row_index
+ * @param $amount_rows
+ * @param $increment
+ *
+ * @return string
+ */
+function get_time_cell( $row_index, $amount_rows, $increment ) {
+	$tm = $row_index * $increment;
+	
+	if ( floor( $tm ) == $tm ) {
+		$time = $tm . ':00';
+		
+		return $time;
+	} else {
+		if ( $amount_rows == 46 ) {
+			$time = floor( $tm ) . ':30';
+			
+			return $time;
+		} else {
+			$tm_position = explode( '.', $tm );
+			
+			if ( $tm_position[ 1 ] == 25 ) {
+				$mnts = ':15';
+			} elseif ( $tm_position[ 1 ] == 5 ) {
+				$mnts = ':30';
+			} else {
+				$mnts = ':45';
+			}
+			
+			$time = floor( $tm ) . $mnts;
+			
+			return $time;
+		}
+	}
 }
 
 /**
@@ -391,15 +408,21 @@ function mptt_get_row_events( $column_events, $row_index ) {
 	$events        = array();
 	$default_count = 1;
 	$i             = 0;
+	
 	foreach ( $column_events as $column_id => $events_list ) {
 		$empty = true;
 		
 		foreach ( $events_list as $event_key => $item ) {
+//			if(){
+//
+//			}
 			
 			if ( $item->start_index == $row_index ) {
 				
+				//create temp event data for generate hash
 				$temp = (array) $item;
 				
+				//clear data before   make hash to compare
 				if ( $temp[ 'id' ] ) {
 					unset( $temp[ 'id' ] );
 					unset( $temp[ 'column_id' ] );
@@ -408,10 +431,10 @@ function mptt_get_row_events( $column_events, $row_index ) {
 				$event = array(
 					'id'          => $item->id,
 					'hash'        => md5( serialize( $temp ) ),
-					'start_index' => ( $item->start_index ),
-					'end_index'   => ( $item->end_index ),
-					'event_start' => ( $item->event_start ),
-					'event_end'   => ( $item->event_end ),
+					'start_index' => $item->start_index,
+					'end_index'   => $item->end_index,
+					'event_start' => $item->event_start,
+					'event_end'   => $item->event_end,
 					'column_id'   => $item->column_id,
 					'event_id'    => $item->event_id,
 					'event'       => true,
@@ -427,24 +450,47 @@ function mptt_get_row_events( $column_events, $row_index ) {
 				$events[ $i ][ 'hide' ]                       = false;
 				
 				$empty = false;
+				
+				if ( empty( $current ) ) {
+					$current = array( 'start_index' => $item->start_index, 'end_index' => $item->end_index );
+				} else {
+					$current[ 'start_index' ] = $current[ 'start_index' ] > $item->start_index ? $item->start_index : $current[ 'start_index' ];
+					$current[ 'end_index' ]   = $current[ 'end_index' ] < $item->end_index ? $item->end_index : $current[ 'end_index' ];
+				}
 			}
 		}
 		
 		if ( $empty ) {
-			$events[ $i ][ 'events' ][]  = array(
+			
+			$events[ $i ][ 'events' ][] = array(
 				'id'          => false,
 				'start_index' => $row_index,
 				'end_index'   => $row_index,
 				'column_id'   => $column_id,
 				'event'       => true,
 			);
+			
 			$events[ $i ][ 'count' ]     = $default_count;
 			$events[ $i ][ 'column_id' ] = $column_id;
 			$events[ $i ][ 'hide' ]      = false;
+			
 		}
 		$i ++;
 	}
 	
+	$events = sort_events_data_by_order( $events );
+	
+	return array( $events, $column_events );
+}
+
+/**
+ * Sort events by order
+ *
+ * @param $events
+ *
+ * @return mixed
+ */
+function sort_events_data_by_order( $events ) {
 	foreach ( $events as $cell => $event_data ) {
 		usort( $event_data[ 'events' ], function ( $a, $b ) {
 			if ( $a[ 'order' ] == $b[ 'order' ] ) {
@@ -460,6 +506,8 @@ function mptt_get_row_events( $column_events, $row_index ) {
 }
 
 /**
+ * Get columns events
+ *
  * @param $mptt_shortcode_data
  *
  * @param $post

@@ -34,6 +34,7 @@ function mptt_widget_template_content() {
  * @return array
  */
 function mptt_widget_settings($params) {
+	
 	$params = shortcode_atts(array(
 		'title' => '',
 		'limit' => '3',
@@ -50,5 +51,6 @@ function mptt_widget_settings($params) {
 		'item_border_color' => '',
 		'hover_item_border_color' => '',
 	), $params);
+	
 	return $params;
 }
