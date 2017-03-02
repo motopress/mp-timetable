@@ -20,7 +20,7 @@
 use mp_timetable\plugin_core\classes\Core;
 
 define( "MP_TT_PLUGIN_NAME", 'mp-timetable' );
-define( 'MP_TT_DEBUG', false );
+define( 'MP_TT_DEBUG', TRUE );
 
 register_activation_hook( __FILE__, array( Mp_Time_Table::init(), 'on_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Mp_Time_Table', 'on_deactivation' ) );
@@ -161,7 +161,6 @@ class Mp_Time_Table {
 		// Register taxonomy all
 		Core::get_instance()->register_all_taxonomies();
 		flush_rewrite_rules();
-		
 		//Create table in not exists
 		Core::get_instance()->create_table();
 	}
@@ -200,6 +199,7 @@ class Mp_Time_Table {
 	
 	/**
 	 * Get plugin name
+	 *
 	 * @return string
 	 */
 	public static function get_plugin_name() {

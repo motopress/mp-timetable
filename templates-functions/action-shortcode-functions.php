@@ -101,7 +101,7 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 	<table class="<?php echo ! empty( $table_class ) ? $table_class : ''; ?>" id="#<?php echo is_object( $post ) ? $post->post_name : $post; ?>" style="display:none; <?php echo $font_size; ?>" data-hide_empty_row="<?php echo $hide_empty_rows; ?>">
 		<?php echo View::get_instance()->get_template_html( 'shortcodes/table-header', array( 'header_items' => $data_grouped_by_row[ 'table_header' ], 'params' => $params ) ); ?>
 		<tbody>
-		<?php if ( isset( $data_grouped_by_row[ 'rows' ] ) ) {
+		<?php if ( isset( $data_grouped_by_row[ 'rows' ] ) && is_array( $data_grouped_by_row[ 'rows' ] ) ) {
 			
 			foreach ( $data_grouped_by_row[ 'rows' ] as $key => $row ) {
 				if ( ! $row[ 'show' ] && $params[ 'hide_empty_rows' ] ) {
@@ -111,6 +111,7 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 					<?php $cells = $data_grouped_by_row[ 'rows' ][ $key ][ 'cells' ];
 					
 					foreach ( $cells as $key_event => $cell ) {
+						
 						if ( isset( $cell[ 'time_cell' ] ) && filter_var( $cell[ 'time_cell' ], FILTER_VALIDATE_BOOLEAN, array( 'options' => array( 'default' => false ) ) ) ) { ?>
 							<td class="mptt-shortcode-hours" style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo $cell[ 'title' ] ?></td>
 							<?php continue;
@@ -125,7 +126,9 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 								} ?>
 							</td>
 						<?php }
-					} ?>
+					}
+					
+					?>
 				</tr>
 			<?php }
 		} ?>
@@ -207,8 +210,7 @@ function mptt_shortcode_template_content_responsive_table() {
 							<?php if ( ! empty( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] ) ):
 								foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] as $event ) : ?>
 									<li class="mptt-list-event" data-event-id="<?php echo $event->post->post_name ?>"
-										<?php
-										if ( ! empty( $event->post->color ) ) {
+										<?php if ( ! empty( $event->post->color ) ) {
 											echo 'style="border-left-color:' . $event->post->color . ';"';
 										} ?>>
 										<?php if ( $mptt_shortcode_data[ 'params' ][ 'title' ] ):
@@ -276,6 +278,15 @@ function mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events
 	$data                   = array();
 	$amount_rows            = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
 	$data[ 'table_header' ] = mptt_get_header_row( $mptt_shortcode_data );
+	
+	foreach ( $column_events as $column_id => $events_list ) {
+		
+		foreach ( $events_list as $event_key => $item ) {
+			if ( isset( $item->resolve ) ) {
+				unset( $item->resolve );
+			}
+		}
+	}
 	
 	for ( $row_index = $bounds[ 'start' ]; $row_index <= $bounds[ 'end' ]; $row_index ++ ) {
 		
@@ -389,9 +400,11 @@ function mptt_get_header_row( $mptt_shortcode_data ) {
 		$header_array[ 0 ] = array( 'output' => true, 'id' => '', 'title' => '' );
 	endif;
 	
-	foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column' ] as $column ):
-		$header_array[] = array( 'output' => true, 'id' => $column->ID, 'title' => $column->post_title );
-	endforeach;
+	if ( ! empty( $mptt_shortcode_data[ 'events_data' ][ 'column' ] ) ) {
+		foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column' ] as $column ):
+			$header_array[] = array( 'output' => true, 'id' => $column->ID, 'title' => $column->post_title );
+		endforeach;
+	}
 	
 	return $header_array;
 }
@@ -413,11 +426,18 @@ function mptt_get_row_events( $column_events, $row_index ) {
 		$empty = true;
 		
 		foreach ( $events_list as $event_key => $item ) {
-//			if(){
-//
-//			}
+			if ( isset( $item->resolve ) && $item->resolve ) {
+				
+				continue;
+			}
+			$group = false;
+			if ( ! empty( $current ) ) {
+				if ( ( $item->end_index <= $current[ 'end_index' ] ) ) {
+					$group = true;
+				}
+			}
 			
-			if ( $item->start_index == $row_index ) {
+			if ( $item->start_index == $row_index || $group ) {
 				
 				//create temp event data for generate hash
 				$temp = (array) $item;
@@ -440,14 +460,25 @@ function mptt_get_row_events( $column_events, $row_index ) {
 					'event'       => true,
 					'user_id'     => $item->user_id,
 					'description' => trim( $item->description ),
-					'order'       => $event_key
+					'order'       => $event_key,
+					'hide'        => $group ? true : false
 				);
 				
-				$events[ $i ][ 'events' ][ $event[ 'hash' ] ] = $event;
-				$events[ $i ][ 'count' ]                      = $default_count;
-				$events[ $i ][ 'grouped' ]                    = false;
-				$events[ $i ][ 'column_id' ]                  = $column_id;
-				$events[ $i ][ 'hide' ]                       = false;
+				if ( ! $group ) {
+					$events[ $i ][ 'events' ][ $event[ 'hash' ] ] = $event;
+					$events[ $i ][ 'count' ]                      = $default_count;
+					$events[ $i ][ 'grouped' ]                    = false;
+					$events[ $i ][ 'column_id' ]                  = $column_id;
+					$events[ $i ][ 'hide' ]                       = false;
+					$events[ $i ][ 'child' ]                      = false;
+				} else {
+					$event[ 'start_index' ]                       = $current[ 'start_index' ];
+					$events[ $i ][ 'hide' ]                       = false;
+					$events[ $i ][ 'column_id' ]                  = $column_id;
+					$events[ $i ][ 'events' ][ $event[ 'hash' ] ] = $event;
+				}
+				
+				$column_events[ $column_id ][ $event_key ]->resolve = true;
 				
 				$empty = false;
 				
