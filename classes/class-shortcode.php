@@ -90,8 +90,9 @@ class Shortcode extends Core {
 		$mptt_shortcode_data[ 'events_data' ] = $this->get_shortcode_events( $params );
 		
 		if ( ! empty( $mptt_shortcode_data[ 'events_data' ] ) ) {
-			foreach ( $mptt_shortcode_data[ 'events_data' ][ 'events' ] as $event ) {
-				$mptt_shortcode_data[ 'unique_events' ][ $event->event_id ] = $event;
+			$mptt_shortcode_data[ 'unique_events' ] = $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ];
+			if ( isset( $mptt_shortcode_data[ 'events_data' ][ 'events' ] ) ) {
+				unset( $mptt_shortcode_data[ 'events_data' ][ 'events' ] );
 			}
 		}
 		
@@ -165,6 +166,7 @@ class Shortcode extends Core {
 		
 		//Sort column by menu order
 		$events_data[ 'column' ] = $this->get( 'column' )->get_all_column( array( 'post__in' => $columns_ids ) );
+		
 		if ( ! empty( $events_data[ 'column' ] ) ) {
 			foreach ( $events_data[ 'column' ] as $key => $column ) {
 				$column_events = array();
@@ -172,12 +174,13 @@ class Shortcode extends Core {
 				
 				foreach ( $events_data[ 'events' ] as $event_key => $event ) {
 					if ( $column->ID == $event->column_id ) {
-						$start_index                 = $this->get_event_index( $params[ 'increment' ], $event->event_start, $step, 'start' );
-						$end_index                   = $this->get_event_index( $params[ 'increment' ], $event->event_end, $step, 'end' );
-						$event->output               = false;
-						$event->start_index          = $start_index;
-						$event->end_index            = ( $end_index < $start_index ) ? $this->get_event_index( $params[ 'increment' ], '23:59', $step, 'end' ) : $end_index;
-						$column_events[ $event->id ] = $event;
+						$start_index                                        = $this->get_event_index( $params[ 'increment' ], $event->event_start, $step, 'start' );
+						$end_index                                          = $this->get_event_index( $params[ 'increment' ], $event->event_end, $step, 'end' );
+						$event->output                                      = false;
+						$event->start_index                                 = $start_index;
+						$event->end_index                                   = ( $end_index < $start_index ) ? $this->get_event_index( $params[ 'increment' ], '23:59', $step, 'end' ) : $end_index;
+						$column_events[ $event->id ]                        = $event;
+						$events_data[ 'unique_events' ][ $event->event_id ] = $event;
 					}
 				}
 				

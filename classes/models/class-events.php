@@ -646,8 +646,9 @@ class Events extends Model {
 				)
 			)
 		);
-		$ids         = implode( ',', $posts_array );
-		$event_data  = $this->get_events_data( array( 'column' => 'event_id', 'list' => $ids ) );
+		
+		$ids        = implode( ',', $posts_array );
+		$event_data = $this->get_events_data( array( 'column' => 'event_id', 'list' => $ids ) );
 		
 		return $event_data;
 	}

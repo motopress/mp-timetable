@@ -20,7 +20,7 @@
 use mp_timetable\plugin_core\classes\Core;
 
 define( "MP_TT_PLUGIN_NAME", 'mp-timetable' );
-define( 'MP_TT_DEBUG', TRUE );
+define( 'MP_TT_DEBUG', false );
 
 register_activation_hook( __FILE__, array( Mp_Time_Table::init(), 'on_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Mp_Time_Table', 'on_deactivation' ) );

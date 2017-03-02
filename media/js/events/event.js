@@ -671,7 +671,11 @@ Registry.register("Event",
 					if (shortcode_wrapper.find('.mptt-menu').hasClass('mptt-navigation-tabs')) {
 						shortcode_wrapper.find('.mptt-navigation-tabs').find('a[href="#' + event + '"]').click();
 					} else if (shortcode_wrapper.find('.mptt-menu').hasClass('mptt-navigation-select')) {
-						shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
+						if (shortcode_wrapper.find('.mptt-navigation-select option[value="' + event + '"]')) {
+							shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
+						} else {
+							shortcode_wrapper.find('table[id="#all"]').fadeIn();
+						}
 					} else {
 						shortcode_wrapper.find('table[id="#all"]').fadeIn();
 					}
@@ -693,15 +697,18 @@ Registry.register("Event",
 						if (shortcode_wrapper.length === is_single) {
 							state.showCurrentEvent(shortcode_wrapper, event);
 						} else {
+
 							$.each(shortcode_wrapper, function(index, object) {
 								var element = $(object);
 								var element_id = '#' + element.attr('id');
+
 								if (element_id === id) {
 									state.showCurrentEvent(element, event);
 								} else {
 									state.showCurrentEvent(element, 'all');
 								}
 							});
+
 						}
 					}
 					state.setEventsHeight();

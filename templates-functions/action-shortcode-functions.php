@@ -26,33 +26,35 @@ function mptt_shortcode_template_after_content() { ?>
  */
 function mptt_shortcode_template_content_filter() {
 	global $mptt_shortcode_data;
-	
-	$style = '';
-	if ( empty( $mptt_shortcode_data[ 'unique_events' ] ) || count( $mptt_shortcode_data[ 'unique_events' ] ) < 2 ) {
+	$unique_events = empty( $mptt_shortcode_data[ 'unique_events' ] ) ? array() : $mptt_shortcode_data[ 'unique_events' ];
+	$style         = '';
+	if ( count( $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ] ) < 2 ) {
 		$style = ' style="display:none;"';
 	}
+	$display_label = $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ? 'display: none' : '';
 	
 	if ( $mptt_shortcode_data[ 'params' ][ 'view' ] == 'dropdown_list' ) { ?>
 		<select class="<?php echo apply_filters( 'mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select' ) ?>"<?php echo $style ?>>
-			<?php if ( ! $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ): ?>
+			<?php if ( ! $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ) { ?>
 				<option value="all"><?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?></option>
-			<?php endif;
-			if ( ! empty( $mptt_shortcode_data[ 'unique_events' ] ) ):
-				foreach ( $mptt_shortcode_data[ 'unique_events' ] as $event ): ?>
+			<?php } else { ?>
+				<option value="all"></option>
+			<?php }
+			if ( ! empty( $unique_events ) ):
+				foreach ( $unique_events as $event ): ?>
 					<option value="<?php echo $event->post->post_name ?>"><?php echo $event->post->post_title ?></option>
 				<?php endforeach;
 			endif; ?>
 		</select>
 	<?php } elseif ( $mptt_shortcode_data[ 'params' ][ 'view' ] == 'tabs' ) { ?>
 		<ul class="<?php echo apply_filters( 'mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs' ) ?>" <?php echo $style ?>>
-			<?php $display_label = $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ? 'display: none' : ''; ?>
 			<li style="<?php echo $display_label ?>">
 				<a title="<?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>"
 				   href="#all" onclick="event.preventDefault();"><?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>
 				</a>
 			</li>
-			<?php if ( ! empty( $mptt_shortcode_data[ 'unique_events' ] ) ): ?>
-				<?php foreach ( $mptt_shortcode_data[ 'unique_events' ] as $event ): ?>
+			<?php if ( ! empty( $unique_events ) ): ?>
+				<?php foreach ( $unique_events as $event ): ?>
 					<li><a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_name ?>" onclick="event.preventDefault();"><?php echo $event->post->post_title ?></a></li>
 				<?php endforeach;
 			endif; ?>
@@ -103,12 +105,12 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 		<tbody>
 		<?php if ( isset( $data_grouped_by_row[ 'rows' ] ) && is_array( $data_grouped_by_row[ 'rows' ] ) ) {
 			
-			foreach ( $data_grouped_by_row[ 'rows' ] as $key => $row ) {
+			foreach ( $data_grouped_by_row[ 'rows' ] as $row_key => $row ) {
 				if ( ! $row[ 'show' ] && $params[ 'hide_empty_rows' ] ) {
 					continue;
 				} ?>
-				<tr class="mptt-shortcode-row-<?php echo $key ?>" data-index="<?php echo $key ?>">
-					<?php $cells = $data_grouped_by_row[ 'rows' ][ $key ][ 'cells' ];
+				<tr class="mptt-shortcode-row-<?php echo $row_key ?>" data-index="<?php echo $row_key ?>">
+					<?php $cells = $data_grouped_by_row[ 'rows' ][ $row_key ][ 'cells' ];
 					
 					foreach ( $cells as $key_event => $cell ) {
 						
@@ -131,6 +133,7 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 					?>
 				</tr>
 			<?php }
+			
 		} ?>
 		</tbody>
 	</table>
@@ -275,8 +278,9 @@ function mptt_sidebar() {
  * @return array
  */
 function mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events ) {
-	$data                   = array();
-	$amount_rows            = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
+	$data        = array();
+	$amount_rows = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
+	
 	$data[ 'table_header' ] = mptt_get_header_row( $mptt_shortcode_data );
 	
 	foreach ( $column_events as $column_id => $events_list ) {
@@ -470,12 +474,12 @@ function mptt_get_row_events( $column_events, $row_index ) {
 					$events[ $i ][ 'grouped' ]                    = false;
 					$events[ $i ][ 'column_id' ]                  = $column_id;
 					$events[ $i ][ 'hide' ]                       = false;
-					$events[ $i ][ 'child' ]                      = false;
 				} else {
-					$event[ 'start_index' ]                       = $current[ 'start_index' ];
+					
 					$events[ $i ][ 'hide' ]                       = false;
 					$events[ $i ][ 'column_id' ]                  = $column_id;
 					$events[ $i ][ 'events' ][ $event[ 'hash' ] ] = $event;
+					
 				}
 				
 				$column_events[ $column_id ][ $event_key ]->resolve = true;
@@ -485,11 +489,12 @@ function mptt_get_row_events( $column_events, $row_index ) {
 				if ( empty( $current ) ) {
 					$current = array( 'start_index' => $item->start_index, 'end_index' => $item->end_index );
 				} else {
-					$current[ 'start_index' ] = $current[ 'start_index' ] > $item->start_index ? $item->start_index : $current[ 'start_index' ];
-					$current[ 'end_index' ]   = $current[ 'end_index' ] < $item->end_index ? $item->end_index : $current[ 'end_index' ];
+					$current[ 'start_index' ] = $current[ 'start_index' ] >= $item->start_index ? $item->start_index : $current[ 'start_index' ];
+					$current[ 'end_index' ]   = $current[ 'end_index' ] <= $item->end_index ? $item->end_index : $current[ 'end_index' ];
 				}
 			}
 		}
+		
 		
 		if ( $empty ) {
 			
@@ -506,6 +511,7 @@ function mptt_get_row_events( $column_events, $row_index ) {
 			$events[ $i ][ 'hide' ]      = false;
 			
 		}
+		unset( $current );
 		$i ++;
 	}
 	
