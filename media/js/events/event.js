@@ -397,31 +397,51 @@ Registry.register("Event",
 				 */
 				setEventHeight: function(element) {
 					var parent_height = element.parent().outerHeight(),
-						parent_width = element.parent().width();
+						// parent_width = element.parent().width(),
+						body = $('body');
 
-					element.css('height', 'auto');
-					element.css('width', parent_width);
-					element.css('position', 'relative');
+
+					// element.css('height', 'auto');
+					// element.css('width', parent_width);
+					// element.css('position', 'relative');
 
 					var elementHeight = element.height();
 					var outerHeight = element.outerHeight();
+					var min_height = element.data('min-height');
+
+					var inner_height = element.find('.mptt-inner-event-content').height();
 
 					element.css('position', '').css('width', '').css('min-height', '');
+
+					if (!body.hasClass('mprm_ie')) {
+						if (inner_height <= min_height) {
+							element.css('min-height', min_height);
+						} else {
+							element.css('min-height', inner_height);
+						}
+					} else {
+						if (inner_height <= min_height) {
+							element.css('max-height', min_height);
+						} else {
+							element.css('max-height', inner_height);
+						}
+					}
 
 					if (parent_height < elementHeight) {
 						element.height(elementHeight);
 					}
 
 					/** IE block **/
-					if ($('body').hasClass('mprm_ie')) {
+					if (body.hasClass('mprm_ie')) {
 						element.height(outerHeight);
 					}
 				},
 				/**
 				 * Recalculate Height
 				 * @param tdParent
+				 * @param element
 				 */
-				recalculate_Height: function(tdParent) {
+				recalculate_Height: function(tdParent, element) {
 					var events = $('.mptt-event-container', tdParent),
 						eventCount = events.length,
 						heightItem = 0,
@@ -432,26 +452,45 @@ Registry.register("Event",
 
 						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
 
-						$.each(events, function() {
-							var $event = $(this);
-							$event.height(heightItem + '%');
-							$event.css('top', top + '%');
-							$event.removeClass('mptt-hidden');
-							top += heightItem;
-						});
+						if (!_.isUndefined(element)) {
+							element.height(heightItem + '%');
+
+						} else {
+
+							$.each(events, function() {
+								var $event = $(this);
+								$event.height(heightItem + '%');
+
+								if (_.isEmpty($event.data('min-height'))) {
+									$event.data('min-height', $event.height());
+								}
+
+								$event.css('top', top + '%');
+								$event.removeClass('mptt-hidden');
+								top += heightItem;
+							});
+						}
 
 					} else {
 
 						heightItem = tdHeight / ((eventCount > 0) ? eventCount : 1);
 
-						$.each(events, function() {
-							var $event = $(this);
-							$event.height(heightItem);
-							$event.css('top', top + 'px');
-							$event.removeClass('mptt-hidden');
-							top += heightItem;
-						});
+						if (!_.isUndefined(element)) {
+							element.height(heightItem);
+						} else {
+							$.each(events, function() {
+								var $event = $(this);
+								$event.height(heightItem);
 
+								if (_.isEmpty($event.data('min-height'))) {
+									$event.data('min-height', $event.height());
+								}
+
+								$event.css('top', top + 'px');
+								$event.removeClass('mptt-hidden');
+								top += heightItem;
+							});
+						}
 					}
 				},
 				/**
@@ -473,14 +512,14 @@ Registry.register("Event",
 					}
 
 					var elements = $(selector);
-					var height = '';
+					// var height = '';
 					$.each(elements, function() {
 						var element = $(this),
 							bg = element.attr('data-bg_hover_color'),
 							color = element.attr('data-hover_color'),
-							tdParent = element.parent(),
-							parentHeight = tdParent.height(),
-							elementHeight = '';
+							tdParent = element.parent();
+						// parentHeight = tdParent.height(),
+						// elementHeight = '';
 
 						switch (element.attr('data-type')) {
 							case "column":
@@ -494,17 +533,14 @@ Registry.register("Event",
 											element.css('color', color);
 										}
 
-										elementHeight = state.setEventHeight(element);
-
-										if (parentHeight >= elementHeight) {
-											element.addClass('mptt-full-height');
-										}
+										state.setEventHeight(element);
 
 									}, function() {
-										state.recalculate_Height(tdParent);
+										element.css('max-height', '').css('min-height', '');
+										state.recalculate_Height(tdParent, element);
+
 										element.css('background-color', element.attr('data-bg_color'));
 										element.css('color', element.attr('data-color'));
-										element.removeClass('mptt-full-height');
 									}
 								);
 								break;

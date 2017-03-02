@@ -278,7 +278,7 @@ function mptt_sidebar() {
  * @return array
  */
 function mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events ) {
-	$data        = array();
+	$data        = array( 'rows' => array() );
 	$amount_rows = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
 	
 	$data[ 'table_header' ] = mptt_get_header_row( $mptt_shortcode_data );

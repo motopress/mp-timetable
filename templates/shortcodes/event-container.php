@@ -7,6 +7,7 @@
      data-bg_color="<?php echo $item[ 'post' ]->color ? $item[ 'post' ]->color : '' ?>"
      data-hover_color="<?php echo $item[ 'post' ]->hover_text_color ? $item[ 'post' ]->hover_text_color : '' ?>"
      data-color="<?php echo $item[ 'post' ]->text_color ? $item[ 'post' ]->text_color : '' ?>"
+     data-min-height=""
      style="<?php echo $params[ 'text_align' ] ? 'text-align:' . $params[ 'text_align' ] . ';' : '' ?>
      <?php echo $item[ 'post' ]->color ? 'background-color:' . $item[ 'post' ]->color . ';' : '' ?>
      <?php echo $item[ 'post' ]->text_color ? 'color:' . $item[ 'post' ]->text_color : '' ?>">
