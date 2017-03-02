@@ -397,16 +397,17 @@ Registry.register("Event",
 				 */
 				setEventHeight: function(element) {
 					var parent_height = element.parent().outerHeight(),
-						// parent_width = element.parent().width(),
+						parent_width = element.parent().width(),
 						body = $('body');
 
-
-					// element.css('height', 'auto');
-					// element.css('width', parent_width);
-					// element.css('position', 'relative');
-
+					// if (body.hasClass('mprm_ie')) {
+					// 	element.css('height', 'auto');
+					// 	element.css('width', parent_width);
+					// 	element.css('position', 'relative');
+					// 	var outerHeight = element.outerHeight();
+					// }
 					var elementHeight = element.height();
-					var outerHeight = element.outerHeight();
+
 					var min_height = element.data('min-height');
 
 					var inner_height = element.find('.mptt-inner-event-content').height();
@@ -423,6 +424,7 @@ Registry.register("Event",
 						if (inner_height <= min_height) {
 							element.css('max-height', min_height);
 						} else {
+							element.css('height', '');
 							element.css('max-height', inner_height);
 						}
 					}
@@ -432,9 +434,9 @@ Registry.register("Event",
 					}
 
 					/** IE block **/
-					if (body.hasClass('mprm_ie')) {
-						element.height(outerHeight);
-					}
+					// if (body.hasClass('mprm_ie')) {
+					// 	element.height(outerHeight);
+					// }
 				},
 				/**
 				 * Recalculate Height
