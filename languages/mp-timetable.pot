@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-03-14 15:24+0200\n"
+"POT-Creation-Date: 2017-03-14 16:40+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -123,7 +123,7 @@ msgid "No Event tags found in Trash"
 msgstr ""
 
 #: classes/class-core.php:398 classes/class-core.php:410
-#: classes/class-hooks.php:164 classes/class-shortcode.php:257
+#: classes/class-hooks.php:165 classes/class-shortcode.php:257
 msgid "Events"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgid "No Events found in Trash"
 msgstr ""
 
 #: classes/class-core.php:432 classes/class-core.php:444
-#: classes/class-hooks.php:166
+#: classes/class-hooks.php:167
 msgid "Columns"
 msgstr ""
 
@@ -210,40 +210,40 @@ msgstr ""
 msgid "No Columns found in Trash"
 msgstr ""
 
-#: classes/class-hooks.php:58
+#: classes/class-hooks.php:60
 msgid "Timetable Sidebar"
 msgstr ""
 
-#: classes/class-hooks.php:60 classes/class-hooks.php:163
+#: classes/class-hooks.php:62 classes/class-hooks.php:164
 #: classes/class-shortcode.php:357
 msgid "Timetable"
 msgstr ""
 
-#: classes/class-hooks.php:156
+#: classes/class-hooks.php:157
 msgid "Import Timetable events, categories, tags and images."
 msgstr ""
 
-#: classes/class-hooks.php:165
+#: classes/class-hooks.php:166
 msgid "Add Event"
 msgstr ""
 
-#: classes/class-hooks.php:167
+#: classes/class-hooks.php:168
 msgid "Add Column"
 msgstr ""
 
-#: classes/class-hooks.php:168
+#: classes/class-hooks.php:169
 msgid "Event Categories"
 msgstr ""
 
-#: classes/class-hooks.php:169
+#: classes/class-hooks.php:170
 msgid "Event Tags"
 msgstr ""
 
-#: classes/class-hooks.php:170 classes/modules/class-post.php:32
+#: classes/class-hooks.php:171 classes/modules/class-post.php:32
 msgid "Settings"
 msgstr ""
 
-#: classes/class-hooks.php:171
+#: classes/class-hooks.php:172
 msgid "Export / Import"
 msgstr ""
 

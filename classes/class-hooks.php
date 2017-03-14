@@ -27,6 +27,8 @@ class Hooks extends Core {
 	public function install_hooks() {
 		// register custom post type and taxonomies
 		add_action( 'init', array( $this, "init" ) );
+		add_action( 'wp_head', array( $this, "set_html_js_class" ) );
+		
 		add_action( 'admin_init', array( $this->get_controller( 'settings' ), 'action_save' ) );
 		add_action( "admin_init", array( $this, "admin_init" ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
@@ -133,7 +135,6 @@ class Hooks extends Core {
 		Core::get_instance()->init_plugin_version();
 		
 		add_filter( 'body_class', array( $this, 'browser_body_class' ) );
-		add_filter( 'body_class', array( $this, 'set_class_no_js' ) );
 		add_filter( 'the_tags', array( $this->get( 'events' ), 'the_tags' ), 10, 5 );
 		add_filter( 'the_category', array( $this->get( 'events' ), 'the_category' ), 10, 3 );
 	}
@@ -233,18 +234,7 @@ class Hooks extends Core {
 		return $classes;
 	}
 	
-	/**
-	 * Set class no js
-	 *
-	 * @param $classes
-	 *
-	 * @return array
-	 */
-	public function set_class_no_js( $classes ) {
-		if ( is_array( $classes ) ) {
-			$classes[] = 'mptt_no_js';
-		}
-		
-		return $classes;
+	public function set_html_js_class() {
+		echo '<script>document.documentElement.className = document.documentElement.className.replace("no-js","mptt_js no-js");</script>' . "\n";
 	}
 }

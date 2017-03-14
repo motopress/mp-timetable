@@ -300,13 +300,8 @@ Registry.register("adminFunctions", (function($) {
 	"use strict";
 
 	$(document).ready(function() {
+
 		var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
-		var $body = $('body');
-
-		if ($body.hasClass('mptt_no_js')) {
-			$body.removeClass('mptt_no_js');
-		}
-
 		if ((typeof typenow) !== "undefined") {
 			if (pagenow === typenow) {
 				switch (typenow) {
