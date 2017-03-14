@@ -300,7 +300,12 @@ Registry.register("adminFunctions", (function($) {
 	"use strict";
 
 	$(document).ready(function() {
-		var short_code_wrapper = $('.mptt-shortcode-wrapper');
+		var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
+		var $body = $('body');
+
+		if ($body.hasClass('mptt_no_js')) {
+			$body.removeClass('mptt_no_js');
+		}
 
 		if ((typeof typenow) !== "undefined") {
 			if (pagenow === typenow) {
@@ -318,15 +323,16 @@ Registry.register("adminFunctions", (function($) {
 			}
 		}
 
-		if (short_code_wrapper.length) {
+		if ($mptt_shortcode_wrapper.length) {
+
 			Registry._get("Event").initTableData();
 			Registry._get("Event").filterShortcodeEvents();
 			Registry._get("Event").getFilterByHash();
 
-			$('.mptt-shortcode-wrapper').show();
+			$mptt_shortcode_wrapper.show();
 		}
 
-		if ($('.upcoming-events-widget').length || short_code_wrapper.length) {
+		if ($('.upcoming-events-widget').length || $mptt_shortcode_wrapper.length) {
 			Registry._get("Event").setColorSettings();
 		}
 

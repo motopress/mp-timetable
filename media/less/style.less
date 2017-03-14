@@ -1,7 +1,7 @@
 @default_color: #3b5998;
 
 @import 'theme.less';
-
+@import "no-js";
 .mptt-main-wrapper {
   &.mp-event-item {
 	img:not(.avatar ) {
@@ -154,6 +154,12 @@
   }
 }
 
+.mptt-hidden {
+  display: none;
+  opacity: 0;
+  clear: both;
+}
+
 .mptt-container {
   list-style: none;
 }
@@ -229,10 +235,12 @@
 		top: 0;
 		right: 0;
 		left: 0;
-		z-index: 5;
+		z-index: 3;
 		overflow: hidden;
 		outline: 1px solid #fff;
 		color: inherit;
+		word-break: break-all;
+		word-wrap: break-word;
 
 		&:hover {
 		  background-color: inherit;
@@ -253,6 +261,7 @@
 		  margin: 0.5rem 0.25rem 0.25rem 0.25rem;
 		  text-decoration: none;
 		  font-size: 1.1em;
+		  word-break: break-all;
 		}
 		.event-subtitle {
 		  margin: 0.25rem;
@@ -277,11 +286,6 @@
 	  }
 	}
 
-	.mptt-hidden {
-	  display: none;
-	  opacity: 0;
-	  clear: both;
-	}
 	&.mptt-theme-mode tbody {
 	  tr:nth-child(2n+2) {
 		td.event {
@@ -299,7 +303,9 @@
   }
   .mptt-navigation-tabs {
 	margin: 0 0 1rem;
+	list-style-type: none;
 	li {
+
 	  display: inline-block;
 	  padding: 0.25rem 0.5rem 0.25rem 0;
 	}
