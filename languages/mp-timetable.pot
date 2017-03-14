@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-02-17 16:00+0200\n"
+"POT-Creation-Date: 2017-03-14 15:24+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -41,7 +41,7 @@ msgid "Import"
 msgstr ""
 
 #: classes/class-core.php:311 classes/class-core.php:323
-#: classes/class-core.php:327 classes/class-shortcode.php:259
+#: classes/class-core.php:327 classes/class-shortcode.php:262
 msgid "Event categories"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgid "No Event tags found in Trash"
 msgstr ""
 
 #: classes/class-core.php:398 classes/class-core.php:410
-#: classes/class-hooks.php:162 classes/class-shortcode.php:254
+#: classes/class-hooks.php:164 classes/class-shortcode.php:257
 msgid "Events"
 msgstr ""
 
@@ -144,10 +144,10 @@ msgid "New Event"
 msgstr ""
 
 #: classes/class-core.php:404 classes/class-shortcode.php:70
-#: classes/class-shortcode.php:275
-#: templates-functions/action-shortcode-functions.php:38
-#: templates-functions/action-shortcode-functions.php:50
-#: templates-functions/action-shortcode-functions.php:51
+#: classes/class-shortcode.php:278
+#: templates-functions/action-shortcode-functions.php:39
+#: templates-functions/action-shortcode-functions.php:52
+#: templates-functions/action-shortcode-functions.php:53
 msgid "All Events"
 msgstr ""
 
@@ -168,11 +168,11 @@ msgid "No Events found in Trash"
 msgstr ""
 
 #: classes/class-core.php:432 classes/class-core.php:444
-#: classes/class-hooks.php:164
+#: classes/class-hooks.php:166
 msgid "Columns"
 msgstr ""
 
-#: classes/class-core.php:433 classes/class-shortcode.php:249
+#: classes/class-core.php:433 classes/class-shortcode.php:252
 #: templates/events/event-data.php:4
 msgid "Column"
 msgstr ""
@@ -210,84 +210,84 @@ msgstr ""
 msgid "No Columns found in Trash"
 msgstr ""
 
-#: classes/class-hooks.php:57
+#: classes/class-hooks.php:58
 msgid "Timetable Sidebar"
 msgstr ""
 
-#: classes/class-hooks.php:59 classes/class-hooks.php:161
-#: classes/class-shortcode.php:354
+#: classes/class-hooks.php:60 classes/class-hooks.php:163
+#: classes/class-shortcode.php:357
 msgid "Timetable"
 msgstr ""
 
-#: classes/class-hooks.php:154
+#: classes/class-hooks.php:156
 msgid "Import Timetable events, categories, tags and images."
 msgstr ""
 
-#: classes/class-hooks.php:163
+#: classes/class-hooks.php:165
 msgid "Add Event"
 msgstr ""
 
-#: classes/class-hooks.php:165
+#: classes/class-hooks.php:167
 msgid "Add Column"
 msgstr ""
 
-#: classes/class-hooks.php:166
+#: classes/class-hooks.php:168
 msgid "Event Categories"
 msgstr ""
 
-#: classes/class-hooks.php:167
+#: classes/class-hooks.php:169
 msgid "Event Tags"
 msgstr ""
 
-#: classes/class-hooks.php:168 classes/modules/class-post.php:32
+#: classes/class-hooks.php:170 classes/modules/class-post.php:32
 msgid "Settings"
 msgstr ""
 
-#: classes/class-hooks.php:169
+#: classes/class-hooks.php:171
 msgid "Export / Import"
 msgstr ""
 
-#: classes/class-shortcode.php:264
+#: classes/class-shortcode.php:267
 msgid "Hour measure"
 msgstr ""
 
-#: classes/class-shortcode.php:265 templates/popup/index.php:66
+#: classes/class-shortcode.php:268 templates/popup/index.php:66
 msgid "Hour (1h)"
 msgstr ""
 
-#: classes/class-shortcode.php:265 templates/popup/index.php:67
+#: classes/class-shortcode.php:268 templates/popup/index.php:67
 msgid "Half hour (30min)"
 msgstr ""
 
-#: classes/class-shortcode.php:265 templates/popup/index.php:68
+#: classes/class-shortcode.php:268 templates/popup/index.php:68
 msgid "Quarter hour (15min)"
 msgstr ""
 
-#: classes/class-shortcode.php:269
+#: classes/class-shortcode.php:272
 msgid "Filter style"
 msgstr ""
 
-#: classes/class-shortcode.php:270
+#: classes/class-shortcode.php:273
 msgid "Dropdown list"
 msgstr ""
 
-#: classes/class-shortcode.php:270 templates/popup/index.php:77
+#: classes/class-shortcode.php:273 templates/popup/index.php:77
 msgid "Tabs"
 msgstr ""
 
-#: classes/class-shortcode.php:274
+#: classes/class-shortcode.php:277
 msgid "Filter label"
 msgstr ""
 
-#: classes/class-shortcode.php:279
+#: classes/class-shortcode.php:282
 msgid "Hide 'All Events' view"
 msgstr ""
 
-#: classes/class-shortcode.php:280 classes/class-shortcode.php:285
-#: classes/class-shortcode.php:290 classes/class-shortcode.php:297
-#: classes/class-shortcode.php:303 classes/class-shortcode.php:309
-#: classes/class-shortcode.php:315 classes/class-shortcode.php:321
-#: classes/class-shortcode.php:326 classes/class-shortcode.php:350
+#: classes/class-shortcode.php:283 classes/class-shortcode.php:288
+#: classes/class-shortcode.php:293 classes/class-shortcode.php:300
+#: classes/class-shortcode.php:306 classes/class-shortcode.php:312
+#: classes/class-shortcode.php:318 classes/class-shortcode.php:324
+#: classes/class-shortcode.php:329 classes/class-shortcode.php:353
 #: templates/events/metabox-event-options.php:45 templates/popup/index.php:93
 #: templates/popup/index.php:102 templates/popup/index.php:112
 #: templates/popup/index.php:120 templates/popup/index.php:129
@@ -295,11 +295,11 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: classes/class-shortcode.php:280 classes/class-shortcode.php:285
-#: classes/class-shortcode.php:290 classes/class-shortcode.php:297
-#: classes/class-shortcode.php:303 classes/class-shortcode.php:309
-#: classes/class-shortcode.php:315 classes/class-shortcode.php:321
-#: classes/class-shortcode.php:326 classes/class-shortcode.php:350
+#: classes/class-shortcode.php:283 classes/class-shortcode.php:288
+#: classes/class-shortcode.php:293 classes/class-shortcode.php:300
+#: classes/class-shortcode.php:306 classes/class-shortcode.php:312
+#: classes/class-shortcode.php:318 classes/class-shortcode.php:324
+#: classes/class-shortcode.php:329 classes/class-shortcode.php:353
 #: templates/events/metabox-event-options.php:46 templates/popup/index.php:94
 #: templates/popup/index.php:103 templates/popup/index.php:111
 #: templates/popup/index.php:121 templates/popup/index.php:130
@@ -307,69 +307,69 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: classes/class-shortcode.php:284
+#: classes/class-shortcode.php:287
 msgid "Hide first (hours) column"
 msgstr ""
 
-#: classes/class-shortcode.php:289
+#: classes/class-shortcode.php:292
 msgid "Hide empty rows"
 msgstr ""
 
-#: classes/class-shortcode.php:295 templates/popup/index.php:40
+#: classes/class-shortcode.php:298 templates/popup/index.php:40
 #: templates/widgets/gallery-list.php:3
 msgid "Title"
 msgstr ""
 
-#: classes/class-shortcode.php:301 templates/popup/index.php:41
+#: classes/class-shortcode.php:304 templates/popup/index.php:41
 msgid "Time"
 msgstr ""
 
-#: classes/class-shortcode.php:307 templates/popup/index.php:42
+#: classes/class-shortcode.php:310 templates/popup/index.php:42
 msgid "Subtitle"
 msgstr ""
 
-#: classes/class-shortcode.php:313 templates/events/event-data.php:7
+#: classes/class-shortcode.php:316 templates/events/event-data.php:7
 #: templates/popup/index.php:43
 msgid "Description"
 msgstr ""
 
-#: classes/class-shortcode.php:319
+#: classes/class-shortcode.php:322
 msgid "User"
 msgstr ""
 
-#: classes/class-shortcode.php:325
+#: classes/class-shortcode.php:328
 msgid "Disable event URL"
 msgstr ""
 
-#: classes/class-shortcode.php:330
+#: classes/class-shortcode.php:333
 msgid "Text align"
 msgstr ""
 
-#: classes/class-shortcode.php:331 templates/popup/index.php:137
+#: classes/class-shortcode.php:334 templates/popup/index.php:137
 msgid "center"
 msgstr ""
 
-#: classes/class-shortcode.php:331 templates/popup/index.php:138
+#: classes/class-shortcode.php:334 templates/popup/index.php:138
 msgid "left"
 msgstr ""
 
-#: classes/class-shortcode.php:331 templates/popup/index.php:139
+#: classes/class-shortcode.php:334 templates/popup/index.php:139
 msgid "right"
 msgstr ""
 
-#: classes/class-shortcode.php:335
+#: classes/class-shortcode.php:338
 msgid "Id"
 msgstr ""
 
-#: classes/class-shortcode.php:339
+#: classes/class-shortcode.php:342
 msgid "Row height (in px)"
 msgstr ""
 
-#: classes/class-shortcode.php:344
+#: classes/class-shortcode.php:347
 msgid "Base Font Size"
 msgstr ""
 
-#: classes/class-shortcode.php:349
+#: classes/class-shortcode.php:352
 msgid "Responsive"
 msgstr ""
 
