@@ -159,6 +159,8 @@ Registry.register("Event",
 					$(document).on('click.admin', '#add_mp_event', function() {
 						if ($(this).hasClass('edit')) {
 							state.updateEventData();
+						} else {
+							state.renderEventItem();
 						}
 					});
 				},
@@ -279,6 +281,114 @@ Registry.register("Event",
 							console.log(data);
 						}
 					);
+				},
+				/**
+				 * Render event item
+				 */
+				renderEventItem: function() {
+					var $weekdayId = $('#weekday_id');
+					var $userId = $('#user_id');
+					var column_ID = $weekdayId.find('option:selected').val();
+					var $eventStart = $('#event_start');
+					var $eventEnd = $('#event_end');
+					var $description = $('#description');
+
+					var template = {
+						tag: 'tr',
+						attrs: {},
+						content: [
+							{
+								tag: 'td',
+								attrs: {'style': 'display:none;'},
+								content: [
+									{
+										tag: 'input',
+										attrs: {
+											'type': 'hidden',
+											'name': 'event_data[' + column_ID + '][weekday_ids][]',
+											'value': column_ID
+										}
+									},
+									{
+										tag: 'input',
+										attrs: {
+											'type': 'hidden',
+											'name': 'event_data[' + column_ID + '][event_start][]',
+											'value': $eventStart.val()
+										}
+									},
+									{
+										tag: 'input',
+										attrs: {
+											'type': 'hidden',
+											'name': 'event_data[' + column_ID + '][event_end][]',
+											'value': $eventEnd.val()
+										}
+									},
+									{
+										tag: 'input',
+										attrs: {
+											'type': 'hidden',
+											'name': 'event_data[' + column_ID + '][description][]',
+											'value': $description.val()
+										}
+									},
+									{
+										tag: 'input',
+										attrs: {
+											'type': 'hidden',
+											'name': 'event_data[' + column_ID + '][user_id][]',
+											'value': $userId.val()
+										}
+									}
+								]
+							},
+							{
+								tag: 'td',
+								attrs: {
+									'class': 'event-column'
+								},
+								content: [$weekdayId.find('option:selected').text()]
+							},
+							{
+								tag: 'td',
+								attrs: {
+									'class': 'event-start'
+								},
+								content: [$eventStart.val()]
+							},
+							{
+								tag: 'td',
+								attrs: {
+									'class': 'event-end'
+								},
+								content: [$eventEnd.val()]
+							},
+							{
+								tag: 'td',
+								attrs: {
+									'class': 'event-description'
+								},
+								content: [$description.val()]
+							},
+							{
+								tag: 'td',
+								attrs: {
+									'class': 'event-user-id'
+								},
+								content: [( $userId.val() === '-1') ? '' : $userId.find('option:selected').text()]
+							},
+							{
+								tag: 'td',
+								attrs: {},
+								content: []
+							}
+						]
+					};
+
+					var htmlObject = Registry._get("adminFunctions").getHtml(template);
+					$('#events-list').find('tbody').append(htmlObject);
+					state.clearTable();
 				},
 				/**
 				 * Set event height
