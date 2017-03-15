@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.7 =
+* Minor bugfixes and improvements
+
 = 2.1.6 =
 * New dashboard icons
 
