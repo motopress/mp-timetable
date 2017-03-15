@@ -447,97 +447,97 @@ class GUMP {
 
 			switch ($e['rule']) {
 				case 'mismatch' :
-					$resp[] = sprintf( __( 'There is no validation rule for <span class="%1$s">%2$s</span>', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'There is no validation rule for <span class="%1$s">%2$s</span>', $field_class, $field );
 					break;
 				case 'validate_required' :
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field is required', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field is required', $field_class, $field );
 					break;
 				case 'validate_valid_email':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field is required to be a valid email address', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field is required to be a valid email address', $field_class, $field );
 					break;
 				case 'validate_max_len':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be %d or shorter in length', 'mp-timetable'), $field_class, $field, $param );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be %d or shorter in length', $field_class, $field, $param );
 					break;
 				case 'validate_min_len':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be %d or longer in length', 'mp-timetable'), $field_class, $field, $param );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be %d or longer in length', $field_class, $field, $param );
 					break;
 				case 'validate_exact_len':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be exactly %d characters in length', 'mp-timetable'), $field_class, $field, $param );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be exactly %d characters in length', $field_class, $field, $param );
 					break;
 				case 'validate_alpha':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain alpha characters(a-z)', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain alpha characters(a-z)', $field_class, $field );
 					break;
 				case 'validate_alpha_numeric':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain alpha-numeric characters', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain alpha-numeric characters', $field_class, $field );
 					break;
 				case 'validate_alpha_dash':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain alpha characters &amp; dashes', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain alpha characters &amp; dashes', $field_class, $field );
 					break;
 				case 'validate_numeric':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain numeric characters', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain numeric characters', $field_class, $field );
 					break;
 				case 'validate_integer':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain a numeric value', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain a numeric value', $field_class, $field );
 					break;
 				case 'validate_boolean':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain a true or false value', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain a true or false value', $field_class, $field );
 					break;
 				case 'validate_float':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field may only contain a float value', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field may only contain a float value', $field_class, $field );
 					break;
 				case 'validate_valid_url':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field is required to be a valid URL', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field is required to be a valid URL', $field_class, $field );
 					break;
 				case 'validate_url_exists':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> URL does not exist', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> URL does not exist', $field_class, $field );
 					break;
 				case 'validate_valid_ip':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to contain a valid IP address', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to contain a valid IP address', $field_class, $field );
 					break;
 				case 'validate_valid_cc':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to contain a valid credit card number', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to contain a valid credit card number', $field_class, $field );
 					break;
 				case 'validate_valid_name':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to contain a valid human name', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to contain a valid human name', $field_class, $field );
 					break;
 				case 'validate_contains':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to contain one of these values:', 'mp-timetable'), $field_class, $field ) . ' ' . implode(', ', $param);
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to contain one of these values:', $field_class, $field ) . ' ' . implode(', ', $param);
 					break;
 				case 'validate_contains_list':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs contain a value from its drop down list', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs contain a value from its drop down list', $field_class, $field );
 					break;
 				case 'validate_doesnt_contain_list':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field contains a value that is not accepted', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field contains a value that is not accepted', $field_class, $field );
 					break;
 				case 'validate_street_address':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be a valid street address', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be a valid street address', $field_class, $field );
 					break;
 				case 'validate_date':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be a valid date', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be a valid date', $field_class, $field );
 					break;
 				case 'validate_min_numeric':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be a numeric value, equal to, or higher than', 'mp-timetable'), $field_class, $field ) . $param;
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be a numeric value, equal to, or higher than', $field_class, $field ) . $param;
 					break;
 				case 'validate_max_numeric':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to be a numeric value, equal to, or lower than', 'mp-timetable'), $field_class, $field ) . ' ' . $param;
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to be a numeric value, equal to, or lower than', $field_class, $field ) . ' ' . $param;
 					break;
 				case 'validate_starts':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to start with', 'mp-timetable'), $field_class, $field ) . ' ' . $param;
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to start with', $field_class, $field ) . ' ' . $param;
 					break;
 				case 'validate_extension':
-					$resp[] = sprintf( __( 'The <span class"%1$s">%2$s</span> field can have the following extensions', 'mp-timetable'), $field_class, $field ) . ' '. $param;
+					$resp[] = sprintf( 'The <span class"%1$s">%2$s</span> field can have the following extensions', $field_class, $field ) . ' '. $param;
 					break;
 				case 'validate_required_file':
-					$resp[] = sprintf( __( 'The <span class"%1$s">%2$s</span> field is required', 'mp-timetable'), $field_class, $field ) .' ' . $param;
+					$resp[] = sprintf( 'The <span class"%1$s">%2$s</span> field is required', $field_class, $field ) .' ' . $param;
 					break;
 				case 'validate_equalsfield':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field does not equal %d field', 'mp-timetable'), $field_class, $field, $param ) ;
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field does not equal %d field', $field_class, $field, $param ) ;
 					break;
 				case 'validate_min_age':
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field needs to have an age greater than or equal to', 'mp-timetable'), $field_class, $field ) . ' '. $param;;
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field needs to have an age greater than or equal to', $field_class, $field ) . ' '. $param;;
 					break;
 				default:
-					$resp[] = sprintf( __( 'The <span class="%1$s">%2$s</span> field is invalid', 'mp-timetable'), $field_class, $field );
+					$resp[] = sprintf( 'The <span class="%1$s">%2$s</span> field is invalid', $field_class, $field );
 			}
 		}
 
@@ -578,79 +578,79 @@ class GUMP {
 
 			switch ($e['rule']) {
 				case 'mismatch' :
-					$resp[$field] = __( 'There is no validation rule for', 'mp-timetable') . ' ' . $field;
+					$resp[$field] = 'There is no validation rule for' . ' ' . $field;
 					break;
 				case 'validate_required':
-					$resp[$field] = sprintf( __( 'The %s field is required', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field is required', $field);
 					break;
 				case 'validate_valid_email':
-					$resp[$field] = sprintf( __( 'The %s field is required to be a valid email address', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field is required to be a valid email address', $field);
 					break;
 				case 'validate_max_len':
-					$resp[$field] = sprintf( __( 'The %s field needs to be %d or shorter in length', 'mp-timetable'), $field, $param);
+					$resp[$field] = sprintf( 'The %s field needs to be %d or shorter in length', $field, $param);
 					break;
 				case 'validate_min_len':
-					$resp[$field] = sprintf( __( 'The %s field needs to be %d or longer in length', 'mp-timetable'), $field, $param);
+					$resp[$field] = sprintf( 'The %s field needs to be %d or longer in length', $field, $param);
 					break;
 				case 'validate_exact_len':
-					$resp[$field] = sprintf( __( 'The %s field needs to be exactly %d characters in length', 'mp-timetable'), $field, $param);
+					$resp[$field] = sprintf( 'The %s field needs to be exactly %d characters in length', $field, $param);
 					break;
 				case 'validate_alpha':
-					$resp[$field] = sprintf( __( 'The %s field may only contain alpha characters(a-z)', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain alpha characters(a-z)', $field);
 					break;
 				case 'validate_alpha_numeric':
-					$resp[$field] = sprintf( __( 'The %s field may only contain alpha-numeric characters', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain alpha-numeric characters', $field);
 					break;
 				case 'validate_alpha_dash':
-					$resp[$field] = sprintf( __( 'The %s field may only contain alpha characters &amp; dashes', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain alpha characters &amp; dashes', $field);
 					break;
 				case 'validate_numeric':
-					$resp[$field] = sprintf( __( 'The %s field may only contain numeric characters', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain numeric characters', $field);
 					break;
 				case 'validate_integer':
-					$resp[$field] = sprintf( __( 'The %s field may only contain a numeric value', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain a numeric value', $field);
 					break;
 				case 'validate_boolean':
-					$resp[$field] = sprintf( __( 'The %s field may only contain a true or false value', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain a true or false value', $field);
 					break;
 				case 'validate_float':
-					$resp[$field] = sprintf( __( 'The %s field may only contain a float value', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field may only contain a float value', $field);
 					break;
 				case 'validate_valid_url':
-					$resp[$field] = sprintf( __( 'The %s field is required to be a valid URL', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field is required to be a valid URL', $field);
 					break;
 				case 'validate_url_exists':
-					$resp[$field] = sprintf( __( 'The %s URL does not exist', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s URL does not exist', $field);
 					break;
 				case 'validate_valid_ip':
-					$resp[$field] = sprintf( __( 'The %s field needs to contain a valid IP address', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field needs to contain a valid IP address', $field);
 					break;
 				case 'validate_valid_cc':
-					$resp[$field] = sprintf( __( 'The %s field needs to contain a valid credit card number', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field needs to contain a valid credit card number', $field);
 					break;
 				case 'validate_valid_name':
-					$resp[$field] = sprintf( __( 'The %s field needs to contain a valid human name', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field needs to contain a valid human name', $field);
 					break;
 				case 'validate_contains':
-					$resp[$field] = sprintf( __( 'The %s field needs to contain one of these values:', 'mp-timetable'), $field) . ' ' . implode(', ', $param);
+					$resp[$field] = sprintf( 'The %s field needs to contain one of these values:', $field) . ' ' . implode(', ', $param);
 					break;
 				case 'validate_street_address':
-					$resp[$field] = sprintf( __( 'The %s field needs to be a valid street address', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field needs to be a valid street address', $field);
 					break;
 				case 'validate_date':
-					$resp[$field] = sprintf( __( 'The %s field needs to be a valid date', 'mp-timetable'), $field);
+					$resp[$field] = sprintf( 'The %s field needs to be a valid date', $field);
 					break;
 				case 'validate_min_numeric':
-					$resp[$field] = sprintf( __( 'The %s field needs to be a numeric value, equal to, or higher than %d', 'mp-timetable'), $field, $param);
+					$resp[$field] = sprintf( 'The %s field needs to be a numeric value, equal to, or higher than %d', $field, $param);
 					break;
 				case 'validate_max_numeric':
-					$resp[$field] = sprintf( __( 'The %s field needs to be a numeric value, equal to, or lower than %d', 'mp-timetable'), $field, $param);
+					$resp[$field] = sprintf( 'The %s field needs to be a numeric value, equal to, or lower than %d', $field, $param);
 					break;
 				case 'validate_min_age':
-					$resp[$field] = sprintf( __( 'The %s field needs to have an age greater than or equal to %d', 'mp-timetable' ), $field, $param);
+					$resp[$field] = sprintf( 'The %s field needs to have an age greater than or equal to %d', $field, $param);
 					break;
 				default:
-					$resp[$field] = sprintf( __( 'The %s field is invalid', 'mp-timetable'), $field );
+					$resp[$field] = sprintf( 'The %s field is invalid', $field );
 			}
 		}
 
