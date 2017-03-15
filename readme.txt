@@ -70,16 +70,18 @@ Plugin bundles the following third-party resources:
 == Changelog ==
 
 = 2.1.7 =
-* Minor bugfixes and improvements
+* Bug fix: fixed the issue when events were not filtered by the selected category in a widget.
+* Bug fix: fixed the issue when event was not visible in the timetable if it ends the next day.
+* Minor bugfixes and improvements.
 
 = 2.1.6 =
-* New dashboard icons
+* New dashboard icons.
 
 = 2.1.5 =
-* Bug fix: fixed the issue when table is not visible if events filter is set to 'none'
+* Bug fix: fixed the issue when table is not visible if events filter is set to 'none'.
 
 = 2.1.4 =
-* Bug fix: fixed internal issue
+* Bug fix: fixed internal issue.
 
 = 2.1.3 =
 * Added the ability to merge cells with common events.
@@ -93,7 +95,7 @@ Plugin bundles the following third-party resources:
 * Bug fix: fixed the issue in upcoming events widget when events were not sorted by days.
 
 = 2.1.1 =
-* Bug fix: fixed the issue with shortcode tempalte
+* Bug fix: fixed the issue with shortcode tempalte.
 
 = 2.1.0 =
 * Added the ability to override templates in a theme. 
@@ -101,54 +103,54 @@ Plugin bundles the following third-party resources:
 * Bug fix: fixed the issue when timeslots didn't show if Event is in the Draft status.
 
 = 2.0.4 =
-* Bug fix: fixed an issue with post template on search results page
+* Bug fix: fixed an issue with post template on search results page.
 
 = 2.0.3 =
-* Bug fix: fixed a link to create new column from event screen
-* Improved usernames in Event Head dropdown
+* Bug fix: fixed a link to create new column from event screen.
+* Improved usernames in Event Head dropdown.
 
 = 2.0.2 =
-* Minor bugfixes and improvements
+* Minor bugfixes and improvements.
 
 = 2.0.1 =
-* Bug fix: fixed an issue with template override
+* Bug fix: fixed an issue with template override.
 
 = 2.0.0 =
 * We improved compatibility with your theme styles in this update. If you still stick to a previous version, simply change the template mode option in the plugin settings.
 * Added the ability to set font size for timetable shortcode so you can make your text bigger or smaller.
 
 = 1.1.6 =
-* Bug fix: fixed an issue with empty rows
+* Bug fix: fixed an issue with empty rows.
 
 = 1.1.5 =
-* Bug fix: fixed an issue with post view in search results
+* Bug fix: fixed an issue with post view in search results.
 
 = 1.1.4 =
-* Improved compatibility with Polylang plugin
+* Improved compatibility with Polylang plugin.
 
 = 1.1.3 =
-* Fixed an issue with categories filter in widget
+* Fixed an issue with categories filter in widget.
 
 = 1.1.2 =
-* Fixed an issue with posts order
+* Fixed an issue with posts order.
 
 = 1.1.0 =
-* Improved events sorting
-* Minor bugfixes and improvements
+* Improved events sorting.
+* Minor bugfixes and improvements.
 
 = 1.0.7 =
-* Improved events and columns sorting by date
-* Comments section added to event
-* Minor bugfixes and improvements
+* Improved events and columns sorting by date.
+* Comments section added to event.
+* Minor bugfixes and improvements.
 
 = 1.0.6 =
-* Fixed an issue in column view
+* Fixed an issue in column view.
 
 = 1.0.5 =
 * Improved compatibility with IE10+
 
 = 1.0.4 =
-* Minor bugfixes and improvements
+* Minor bugfixes and improvements.
 
 = 1.0.3 =
-* Minor bugfixes and improvements
+* Minor bugfixes and improvements.
