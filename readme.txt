@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.8 =
+* Improved compatibility with javascript-disabled browsers.
+
 = 2.1.7 =
 * Bug fix: fixed the issue when events were not filtered by the selected category in a widget.
 * Bug fix: fixed the issue when event was not visible in the timetable if it ends the next day.
