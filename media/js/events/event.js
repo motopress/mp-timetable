@@ -646,7 +646,7 @@ Registry.register("Event",
 
 					parentShortcode.find('table').hide();
 
-					parentShortcode.find('table[id="#' + eventID + '"]').show();
+					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
 
 					state.setEventsHeight();
 				},
@@ -709,10 +709,10 @@ Registry.register("Event",
 						if (shortcode_wrapper.find('.mptt-navigation-select option[value="' + event + '"]')) {
 							shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
 						} else {
-							shortcode_wrapper.find('table[id="#all"]').show();
+							shortcode_wrapper.find('table[id="#all"]').fadeIn();
 						}
 					} else {
-						shortcode_wrapper.find('table[id="#all"]').show();
+						shortcode_wrapper.find('table[id="#all"]').fadeIn();
 					}
 				},
 				/**

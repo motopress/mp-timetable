@@ -244,13 +244,6 @@ class Hooks extends Core {
 	 * Set js
 	 */
 	public function set_html_js_class() {
-		echo '<script>
-		window.onload = function() {
-  		var wrappers = document.querySelectorAll(".mptt-shortcode-wrapper");
-			for (var i = 0, len = wrappers.length; i < len; i++) {
-					wrappers[i].className = wrappers[i].className.replace("mptt-no-js", "mptt-js");
-			}
-        };
-		</script>' . "\n";
+		echo View::get_instance()->get_template_html('events/no-script');
 	}
 }
