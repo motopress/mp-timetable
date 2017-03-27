@@ -53,7 +53,6 @@ class Shortcode extends Core {
 		global $mptt_shortcode_data;
 		
 		$this->add_plugin_js( 'shortcode' );
-		$this->add_plugin_css( 'shortcode' );
 		
 		if ( empty( $params ) ) {
 			$params = array();

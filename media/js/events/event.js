@@ -646,7 +646,7 @@ Registry.register("Event",
 
 					parentShortcode.find('table').hide();
 
-					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
+					parentShortcode.find('table[id="#' + eventID + '"]').show();
 
 					state.setEventsHeight();
 				},
@@ -664,8 +664,9 @@ Registry.register("Event",
 				initTableData: function() {
 					state.setClassTd();
 					state.setRowSpanTd();
+					var table_class = '.' + MPTT.table_class;
 
-					if ($('.' + MPTT.table_class).data('hide_empty_row')) {
+					if ($(table_class).data('hide_empty_row')) {
 						state.hideEmptyRows();
 					}
 				},
@@ -708,10 +709,10 @@ Registry.register("Event",
 						if (shortcode_wrapper.find('.mptt-navigation-select option[value="' + event + '"]')) {
 							shortcode_wrapper.find('.mptt-navigation-select').val(event).change();
 						} else {
-							shortcode_wrapper.find('table[id="#all"]').fadeIn();
+							shortcode_wrapper.find('table[id="#all"]').show();
 						}
 					} else {
-						shortcode_wrapper.find('table[id="#all"]').fadeIn();
+						shortcode_wrapper.find('table[id="#all"]').show();
 					}
 				},
 				/**
@@ -804,7 +805,8 @@ Registry.register("Event",
 				 * Set rowSpan td
 				 */
 				setRowSpanTd: function() {
-					$.each($('.' + MPTT.table_class), function() {
+					var table_class = '.' + MPTT.table_class;
+					$.each($(table_class), function() {
 						var $table = $(this);
 
 						$.each($table.find('td.event'), function() {
@@ -831,8 +833,10 @@ Registry.register("Event",
 				 * Remove empty rows
 				 */
 				hideEmptyRows: function() {
-					var trs = $('.' + MPTT.table_class + ' tbody tr'),
-						col_count = $('.' + MPTT.table_class).first().find('th').length;
+					var table_class = '.' + MPTT.table_class;
+
+					var trs = $(table_class + ' tbody tr'),
+						col_count = $(table_class).first().find('th').length;
 
 					$.each(trs, function(index, value) {
 						// if all columns in the row are empty
@@ -864,19 +868,20 @@ Registry.register("Event",
 				 */
 				timeMode: function(selector) {
 					if (selector) {
+						var selector_id = "." + $(this).attr('id');
 						$('#' + selector).change(function() {
 							if ($(this).val() === "server") {
 								var id = $(this).attr('id');
-								$(this).parents('.mptt-container').find("." + $(this).attr('id')).css("display", "block");
+								$(this).parents('.mptt-container').find(selector_id).css("display", "block");
 							}
 							else {
-								$(this).parents('.mptt-container').find("." + $(this).attr('id')).css("display", "none");
+								$(this).parents('.mptt-container').find(selector_id).css("display", "none");
 							}
 						});
 					}
 				},
 				/**
-				 * init Datepicker for column
+				 * init DatePicker for column
 				 */
 				initDatePicker: function() {
 					var $date_picker = $("#datepicker");

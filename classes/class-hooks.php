@@ -1,4 +1,5 @@
 <?php
+
 namespace mp_timetable\plugin_core\classes;
 
 use Mp_Time_Table;
@@ -11,6 +12,7 @@ use mp_timetable\plugin_core\classes\modules\Post;
  * @package mp_timetable\plugin_core\classes
  */
 class Hooks extends Core {
+	
 	protected static $instance;
 	
 	/**
@@ -24,9 +26,13 @@ class Hooks extends Core {
 		return self::$instance;
 	}
 	
+	/**
+	 * Install hooks
+	 */
 	public function install_hooks() {
 		// register custom post type and taxonomies
 		add_action( 'init', array( $this, "init" ) );
+		add_action( 'wp_enqueue_scripts', array( Core::get_instance(), "add_plugin_css" ) );
 		add_action( 'wp_head', array( $this, "set_html_js_class" ) );
 		
 		add_action( 'admin_init', array( $this->get_controller( 'settings' ), 'action_save' ) );
@@ -234,7 +240,17 @@ class Hooks extends Core {
 		return $classes;
 	}
 	
+	/**
+	 * Set js
+	 */
 	public function set_html_js_class() {
-		echo '<script>document.documentElement.className = document.documentElement.className.replace("no-js","mptt_js no-js");</script>' . "\n";
+		echo '<script>
+		window.onload = function() {
+  		var wrappers = document.querySelectorAll(".mptt-shortcode-wrapper");
+			for (var i = 0, len = wrappers.length; i < len; i++) {
+					wrappers[i].className = wrappers[i].className.replace("mptt-no-js", "mptt-js");
+			}
+        };
+		</script>' . "\n";
 	}
 }

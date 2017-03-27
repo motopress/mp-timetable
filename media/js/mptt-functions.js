@@ -302,6 +302,7 @@ Registry.register("adminFunctions", (function($) {
 	$(document).ready(function() {
 
 		var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
+
 		if ((typeof typenow) !== "undefined") {
 			if (pagenow === typenow) {
 				switch (typenow) {
