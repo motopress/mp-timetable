@@ -28,7 +28,7 @@ class Post extends Module {
 	 * add meta _boxes
 	 */
 	public function add_meta_boxes() {
-		add_meta_box('mp-event_data', __('Time Slots', 'mp-timetable'), array($this->get('events'), 'render_event_data'), 'mp-event', 'normal', 'high', array('post_type' => 'mp-event'));
+		add_meta_box('mp-event_data', __('Timeslots', 'mp-timetable'), array($this->get('events'), 'render_event_data'), 'mp-event', 'normal', 'high', array('post_type' => 'mp-event'));
 		add_meta_box('mp_event_options', __('Settings', 'mp-timetable'), array($this->get('events'), 'render_event_options'), 'mp-event', 'normal', 'high', array('post_type' => 'mp-event'));
 		add_meta_box('mp-columns', __('Column Type', 'mp-timetable'), array($this->get('column'), 'render_column_options'), 'mp-column', 'normal', 'high', array('post_type' => 'mp-column'));
 	}

@@ -7,6 +7,58 @@
   .spinner.left {
 	float: none;
   }
+
+  .events-list-wrapper {
+	max-height: 360px;
+	overflow-y: auto;
+	margin-bottom: 1em;
+  }
+  #events-list {
+		
+		.active {
+			* {
+				background-color: #F7FCFE;
+			}
+			td:first-child {
+				border-left: 4px solid #0091cd;
+			}
+		}
+
+		.edit-event-button, .delete-event-button {
+			margin: 0 5px 10px 0;
+			position: relative;
+			width: 2em;
+			height: 2em;
+
+			&.icon:before {
+				font-family: Dashicons;
+				font-variant: normal;
+				font-weight: 400;
+				height: 100%;
+				left: 0;
+				line-height: 1.85;
+				margin: 0;
+				position: absolute;
+				text-align: center;
+				text-indent: 0;
+				text-transform: none;
+				top: 0;
+				width: 100%;
+			}
+		}
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	#mp-event_data {
+		#events-list {
+			.event-description {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
 }
 
 #column-options {
@@ -61,11 +113,3 @@ div[id^="jBoxID"] {
   }
 }
 
-#events-list .active {
-  * {
-	background-color: #F7FCFE;
-  }
-  td:first-child {
-	border-left: 4px solid #0091cd;
-  }
-}

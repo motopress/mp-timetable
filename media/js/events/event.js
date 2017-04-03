@@ -249,7 +249,7 @@ Registry.register("Event",
 					item.find('td.event-description').text($('#description').val());
 
 					state.event_id = null;
-					$('#add_mp_event').removeClass('edit').val('Add Time Slot');
+					$('#add_mp_event').removeClass('edit').val('Add New');
 				},
 				/**
 				 * Update Event data
@@ -388,6 +388,7 @@ Registry.register("Event",
 
 					var htmlObject = Registry._get("adminFunctions").getHtml(template);
 					$('#events-list').find('tbody').append(htmlObject);
+					$('.events-list-wrapper').scrollTop(1E10);
 					state.clearTable();
 				},
 				/**

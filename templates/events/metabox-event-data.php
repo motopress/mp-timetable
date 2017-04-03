@@ -5,7 +5,7 @@
 
 <?php \mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true) ?>
 
-<table id="add_event_table" class="form-table">
+<table id="add_event_table" class="widefat">
 	<tr>
 		<td><label for="weekday_id"><?php _e('Column:', 'mp-timetable') ?></label></td>
 		<td>
@@ -15,9 +15,7 @@
 						<option value="<?php echo $column->ID ?>"><?php echo $column->post_title ?></option>
 					<?php } ?>
 				</select>
-				<a target="_blank" href="<?php echo admin_url('post-new.php?post_type=mp-column') ?>" style="vertical-align:middle">
-					<?php _e('Add New Column', 'mp-timetable') ?>
-				</a>
+				<span class="description"><?php printf(__('Select column or <a target="_blank" href="%s">Add New</a>.', 'mp-timetable'), admin_url('post-new.php?post_type=mp-column') ); ?></span>
 			<?php } else {
 				printf(__('No columns found. <a href="%s">Create at least one column first.</a>', 'mp-timetable'), admin_url('post-new.php?post_type=mp-column'));
 			}
@@ -40,7 +38,7 @@
 	</tr>
 	<tr>
 		<td><label for="description"><?php _e('Description:', 'mp-timetable') ?></label></td>
-		<td><textarea id="description" class="widefat" name="events[description]"></textarea></td>
+		<td><textarea id="description" class="widefat" name="events[description]" rows="2"></textarea></td>
 	</tr>
 	<tr>
 		<td><label for="user_id"><?php _e('Event Head:', 'mp-timetable') ?></label></td>
@@ -74,7 +72,7 @@
 	<tr>
 		<td></td>
 		<td>
-			<input id="add_mp_event" type="button" class="button button-primary" value="<?php _e('Add Time Slot', 'mp-timetable'); ?>">
+			<input id="add_mp_event" type="button" class="button button-primary" value="<?php _e('Add New', 'mp-timetable'); ?>">
 			<span class="spinner left"></span>
 		</td>
 	</tr>
