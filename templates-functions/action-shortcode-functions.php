@@ -186,7 +186,7 @@ function mptt_shortcode_get_table_cell_bounds( $column_events, $params ) {
 		$max = - 1;
 		foreach ( $column_events as $events ) {
 			foreach ( $events as $item ) {
-				if ( $item->start_index && $item->end_index ) {
+				if ( isset($item->start_index) && isset($item->end_index) ) {
 					$min = ( $min === - 1 ) ? $item->start_index : $min;
 					$max = ( $max === - 1 ) ? $item->end_index : $max;
 					$min = ( $item->start_index < $min ) ? $item->start_index : $min;

@@ -1,9 +1,9 @@
 === Timetable and Event Schedule by MotoPress ===
 Contributors: MotoPress
-Donate link: http://www.getmotopress.com/
+Donate link: https://www.getmotopress.com/
 Tags: schedule,timetable,event management,calendar,event calendar,event categories,organizer,classes,gym,school,scheduler,table
 Requires at least: 3.8
-Tested up to: 4.7
+Tested up to: 4.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,8 +13,8 @@ Smart event organizer and time-management tool with a clean minimalist design fo
 == Description ==
 MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free. The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
 
-* Check [Timetable and Event Schedule Plugin Demo](http://mpttdemo.getmotopress.com/)
-* Please find the step-by-step instructions of working with the plugin [here](http://www.getmotopress.com/files/motopress-timetable-plugin-documentation.pdf)
+* Check [Timetable and Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)
+* Please find the step-by-step instructions of working with the plugin [here](https://www.getmotopress.com/files/motopress-timetable-plugin-documentation.pdf)
 
 = Key advantages =
 
@@ -68,6 +68,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.1.9 =
+* Bug fix: fixed the issue when event was not visible in the timetable if it starts at 00:00.
 
 = 2.1.8 =
 * Improved compatibility with javascript-disabled browsers.
