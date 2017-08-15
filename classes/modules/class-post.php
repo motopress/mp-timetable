@@ -17,8 +17,17 @@ class Post extends Module {
 	}
 
 	public function pre_get_posts($query) {
-		if ($query->is_author() && !is_admin()) {
-			$query->set('post_type', array('post', 'mp-event'));
+		if ($query->is_author() && $query->is_main_query() && !is_admin()) {
+
+			$post_types = $query->get('post_type');
+			if ( !is_array($post_types) && !empty($post_types) ) {
+				$post_types = explode(',', $post_types);
+			}
+			if ( empty($post_types) )
+				$post_types = array('post');
+			
+			$post_types[] = 'mp-event';
+			$query->set('post_type', $post_types);
 		}
 
 		return $query;

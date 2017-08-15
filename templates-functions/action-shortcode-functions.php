@@ -10,7 +10,7 @@ function mptt_shortcode_template_before_content() {
 	$wrapper_class = mptt_popular_theme_class();
 	$id            = empty( $mptt_shortcode_data[ 'params' ][ 'id' ] ) ? '' : $mptt_shortcode_data[ 'params' ][ 'id' ];
 	?>
-	<div id="<?php echo $id ?>" class="<?php echo apply_filters( 'mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . $wrapper_class . ( $mptt_shortcode_data[ 'params' ][ 'responsive' ] == '0' ? ' mptt-table-fixed' : ' mptt-table-responsive' ) ) ?>">
+	<div <?php if ( !empty($id) ) echo 'id="' . $id . '" '; ?>class="<?php echo apply_filters( 'mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . $wrapper_class . ( $mptt_shortcode_data[ 'params' ][ 'responsive' ] == '0' ? ' mptt-table-fixed' : ' mptt-table-responsive' ) ) ?>">
 	<?php
 }
 
@@ -120,7 +120,7 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 						}
 						
 						if ( ! $cell[ 'hide' ] ) { ?>
-							<td class="mptt-shortcode-event <?php echo mptt_is_grouped_event_class( $cell ) ?> mptt-event-vertical-<?php echo $params[ 'text_align_vertical' ] ?>" data-column-id="<?php echo $cell[ 'column_id' ] ?>" rowspan="" colspan="<?php echo ! isset( $cell[ 'count' ] ) ? '' : $cell[ 'count' ] ?>" data-row_height="<?php echo $row_height; ?>" style="<?php echo 'height:' . $row_height . 'px;'; ?>">
+							<td class="mptt-shortcode-event <?php echo mptt_is_grouped_event_class( $cell ) ?> mptt-event-vertical-<?php echo $params[ 'text_align_vertical' ] ?>" data-column-id="<?php echo $cell[ 'column_id' ] ?>" colspan="<?php echo ! isset( $cell[ 'count' ] ) ? '' : $cell[ 'count' ] ?>" data-row_height="<?php echo $row_height; ?>" style="<?php echo 'height:' . $row_height . 'px;'; ?>">
 								<?php
 								$height = 100 / count( $cell[ 'events' ] );
 								$top    = 0;

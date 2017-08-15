@@ -69,6 +69,10 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.10 =
+* Improved compatibility with WooCommerce Memberships plugin.
+* Better W3C validation.
+
 = 2.1.9 =
 * Bug fix: fixed the issue when event was not visible in the timetable if it starts at 00:00.
 
