@@ -1,0 +1,962 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Timetable and Event Schedule Plugin\n"
+"POT-Creation-Date: 2018-05-18 09:58+0430\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Alireza Rastegar<alireza.mine@gmail.com>\n"
+"Language: fa_IR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: esc_attr__;esc_html__;esc_attr_e;__;_e;_n;_x\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: classes/libs\n"
+"X-Poedit-SearchPathExcluded-1: media\n"
+
+#: admin/import/export.php:1 admin/import/export.php:5
+msgid "Export"
+msgstr "برونریزی"
+
+#: admin/import/greet.php:2
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr ""
+"یک فایل WXR (.xml) را برای آپلود انتخاب کنید، سپس روی آپلود فایل و وارد کردن "
+"کلیک کنید."
+
+#: admin/import/header.php:2
+msgid "Import / Export Timetable Plugin Data"
+msgstr "درون ریزی / برون ریزی داده افزونه جدول زمانی"
+
+#: admin/import/import.php:1
+msgid "Import"
+msgstr "درون ریزی"
+
+#: classes/class-core.php:317 classes/class-core.php:329
+#: classes/class-core.php:333 classes/class-shortcode.php:261
+msgid "Event categories"
+msgstr "دسته های رویداد"
+
+#: classes/class-core.php:318
+msgid "Event category"
+msgstr "دسته بندی رویداد"
+
+#: classes/class-core.php:319 classes/class-core.php:320
+msgid "Add New Event category"
+msgstr "افزودن دسته بندی رویداد"
+
+#: classes/class-core.php:321
+msgid "Edit Event category"
+msgstr "ویرایش دسته بندی رویداد"
+
+#: classes/class-core.php:322
+msgid "New Event category"
+msgstr "دسته رویداد جدید"
+
+#: classes/class-core.php:323
+msgid "All Event categories"
+msgstr "همه دسته های رویداد"
+
+#: classes/class-core.php:324
+msgid "View Event category"
+msgstr "نمایش دسته رویداد"
+
+#: classes/class-core.php:325
+msgid "Search Event category"
+msgstr "جستجوی دسته رویداد"
+
+#: classes/class-core.php:326
+msgid "No Event categories found"
+msgstr "دسته رویدادی پیدا نشد"
+
+#: classes/class-core.php:327
+msgid "No Event categories found in Trash"
+msgstr "هیچ دسته رویدادی در «حذف شده ها» یافت نشد"
+
+#: classes/class-core.php:356 classes/class-core.php:368
+#: classes/class-core.php:372
+msgid "Event tags"
+msgstr "برچسب های رویداد"
+
+#: classes/class-core.php:357
+msgid "Event tag"
+msgstr "برچسب رویداد"
+
+#: classes/class-core.php:358 classes/class-core.php:359
+msgid "Add New Event tag"
+msgstr "افزودن برچسب جدید رویداد"
+
+#: classes/class-core.php:360
+msgid "Edit Event tag"
+msgstr "ویرایش برچسب رویداد"
+
+#: classes/class-core.php:361
+msgid "New Event tag"
+msgstr "برچسب جدید رویداد"
+
+#: classes/class-core.php:362
+msgid "All Event tags"
+msgstr "همه برچسب های رویداد"
+
+#: classes/class-core.php:363
+msgid "View Event tag"
+msgstr "نمایش برچسب رویداد"
+
+#: classes/class-core.php:364
+msgid "Search Event tag"
+msgstr "جستجوی برچسب رویداد"
+
+#: classes/class-core.php:365
+msgid "No Event tags found"
+msgstr "برچسب رویداد یافت نشد"
+
+#: classes/class-core.php:366
+msgid "No Event tags found in Trash"
+msgstr "هیچ برچسب رویدادی در «حذف شده ها» یافت نشد"
+
+#: classes/class-core.php:404 classes/class-core.php:416
+#: classes/class-hooks.php:171 classes/class-shortcode.php:256
+msgid "Events"
+msgstr "رویدادها"
+
+#: classes/class-core.php:405
+msgid "Event"
+msgstr "رویداد"
+
+#: classes/class-core.php:406 classes/class-core.php:407
+msgid "Add New Event"
+msgstr "افزودن رویداد جدید"
+
+#: classes/class-core.php:408
+msgid "Edit Event"
+msgstr "ویرایش رویداد"
+
+#: classes/class-core.php:409
+msgid "New Event"
+msgstr "رویداد جدید"
+
+#: classes/class-core.php:410 classes/class-shortcode.php:69
+#: classes/class-shortcode.php:277
+#: templates-functions/action-shortcode-functions.php:39
+#: templates-functions/action-shortcode-functions.php:52
+#: templates-functions/action-shortcode-functions.php:53
+msgid "All Events"
+msgstr "همه رویدادها"
+
+#: classes/class-core.php:411
+msgid "View Event"
+msgstr "نمایش رویداد"
+
+#: classes/class-core.php:412
+msgid "Search Event"
+msgstr "جستجوی رویداد"
+
+#: classes/class-core.php:413
+msgid "No Events found"
+msgstr "رویدادی یافت نشد"
+
+#: classes/class-core.php:414
+msgid "No Events found in Trash"
+msgstr "هیچ رویدادی در «حذف شده ها» یافت نشد"
+
+#: classes/class-core.php:438 classes/class-core.php:450
+#: classes/class-hooks.php:173
+msgid "Columns"
+msgstr "ستون ها"
+
+#: classes/class-core.php:439 classes/class-shortcode.php:251
+#: templates/events/event-data.php:4
+msgid "Column"
+msgstr "ستون"
+
+#: classes/class-core.php:440 classes/class-core.php:441
+msgid "Add New Column"
+msgstr "افزودن ستون جدید"
+
+#: classes/class-core.php:442
+msgid "Edit Column"
+msgstr "ویرایش ستون"
+
+#: classes/class-core.php:443
+msgid "New Column"
+msgstr "ستون جدید"
+
+#: classes/class-core.php:444
+msgid "All Columns"
+msgstr "همه ستون ها"
+
+#: classes/class-core.php:445
+msgid "View Column"
+msgstr "نمایش ستون"
+
+#: classes/class-core.php:446
+msgid "Search Column"
+msgstr "جستجوی ستون"
+
+#: classes/class-core.php:447
+msgid "No Columns found"
+msgstr "هیچ ستونی یافت نشد"
+
+#: classes/class-core.php:448
+msgid "No Columns found in Trash"
+msgstr "هیچ ستونی در «حذف شده ها» یافت نشد"
+
+#: classes/class-hooks.php:66
+msgid "Timetable Sidebar"
+msgstr "ابزارک جدول زمانی"
+
+#: classes/class-hooks.php:68 classes/class-hooks.php:170
+#: classes/class-shortcode.php:356
+msgid "Timetable"
+msgstr "جدول زمانی"
+
+#: classes/class-hooks.php:163
+msgid "Import Timetable events, categories, tags and images."
+msgstr "درون ریزی رویدادهای جدول زمانی، دسته بندی ها، برچسب ها و عکس ها"
+
+#: classes/class-hooks.php:172
+msgid "Add Event"
+msgstr "افزودن رویداد"
+
+#: classes/class-hooks.php:174
+msgid "Add Column"
+msgstr "افزودن ستون"
+
+#: classes/class-hooks.php:175
+msgid "Event Categories"
+msgstr "دسته های رویداد"
+
+#: classes/class-hooks.php:176
+msgid "Event Tags"
+msgstr "برچسب های رویداد"
+
+#: classes/class-hooks.php:177 classes/modules/class-post.php:41
+msgid "Settings"
+msgstr "تنظیمات"
+
+#: classes/class-hooks.php:178
+msgid "Export / Import"
+msgstr "درون ریزی/برون ریزی"
+
+#: classes/class-shortcode.php:266
+msgid "Hour measure"
+msgstr "اندازه گیری ساعت"
+
+#: classes/class-shortcode.php:267 templates/popup/index.php:66
+msgid "Hour (1h)"
+msgstr "ساعت (1 ساعت)"
+
+#: classes/class-shortcode.php:267 templates/popup/index.php:67
+msgid "Half hour (30min)"
+msgstr "نیم ساعت (30 دقیقه)"
+
+#: classes/class-shortcode.php:267 templates/popup/index.php:68
+msgid "Quarter hour (15min)"
+msgstr "ربع ساعت (15 دقیقه)"
+
+#: classes/class-shortcode.php:271
+msgid "Filter style"
+msgstr "سبک فیلتر"
+
+#: classes/class-shortcode.php:272
+msgid "Dropdown list"
+msgstr "لیست بازشو"
+
+#: classes/class-shortcode.php:272 templates/popup/index.php:77
+msgid "Tabs"
+msgstr "تب ها"
+
+#: classes/class-shortcode.php:276
+msgid "Filter label"
+msgstr "برچسب فیلتر"
+
+#: classes/class-shortcode.php:281
+msgid "Hide 'All Events' view"
+msgstr "نمایش ندادن همه رویدادها"
+
+#: classes/class-shortcode.php:282 classes/class-shortcode.php:287
+#: classes/class-shortcode.php:292 classes/class-shortcode.php:299
+#: classes/class-shortcode.php:305 classes/class-shortcode.php:311
+#: classes/class-shortcode.php:317 classes/class-shortcode.php:323
+#: classes/class-shortcode.php:328 classes/class-shortcode.php:352
+#: templates/events/metabox-event-options.php:45 templates/popup/index.php:93
+#: templates/popup/index.php:102 templates/popup/index.php:112
+#: templates/popup/index.php:120 templates/popup/index.php:129
+#: templates/widgets/gallery-list.php:60
+msgid "No"
+msgstr "خیر"
+
+#: classes/class-shortcode.php:282 classes/class-shortcode.php:287
+#: classes/class-shortcode.php:292 classes/class-shortcode.php:299
+#: classes/class-shortcode.php:305 classes/class-shortcode.php:311
+#: classes/class-shortcode.php:317 classes/class-shortcode.php:323
+#: classes/class-shortcode.php:328 classes/class-shortcode.php:352
+#: templates/events/metabox-event-options.php:46 templates/popup/index.php:94
+#: templates/popup/index.php:103 templates/popup/index.php:111
+#: templates/popup/index.php:121 templates/popup/index.php:130
+#: templates/widgets/gallery-list.php:62
+msgid "Yes"
+msgstr "بله"
+
+#: classes/class-shortcode.php:286
+msgid "Hide first (hours) column"
+msgstr "پنهان کردن ستون اول (ساعت)"
+
+#: classes/class-shortcode.php:291
+msgid "Hide empty rows"
+msgstr "پنهان کردن سطرهای خالی"
+
+#: classes/class-shortcode.php:297 templates/popup/index.php:40
+#: templates/widgets/gallery-list.php:3
+msgid "Title"
+msgstr "عنوان"
+
+#: classes/class-shortcode.php:303 templates/popup/index.php:41
+msgid "Time"
+msgstr "زمان"
+
+#: classes/class-shortcode.php:309 templates/popup/index.php:42
+msgid "Subtitle"
+msgstr "عنوان فرعی"
+
+#: classes/class-shortcode.php:315 templates/events/event-data.php:7
+#: templates/popup/index.php:43
+msgid "Description"
+msgstr "توضیحات"
+
+#: classes/class-shortcode.php:321
+msgid "User"
+msgstr "کاربر"
+
+#: classes/class-shortcode.php:327
+msgid "Disable event URL"
+msgstr "URL رویداد را غیرفعال کنید"
+
+#: classes/class-shortcode.php:332
+msgid "Text align"
+msgstr "چیدمان متن"
+
+#: classes/class-shortcode.php:333 templates/popup/index.php:137
+msgid "center"
+msgstr "وسط"
+
+#: classes/class-shortcode.php:333 templates/popup/index.php:138
+msgid "left"
+msgstr "چپ"
+
+#: classes/class-shortcode.php:333 templates/popup/index.php:139
+msgid "right"
+msgstr "راست"
+
+#: classes/class-shortcode.php:337
+msgid "Id"
+msgstr "ID"
+
+#: classes/class-shortcode.php:341
+msgid "Row height (in px)"
+msgstr "ارتفاع ردیف (در پیکسل)"
+
+#: classes/class-shortcode.php:346
+msgid "Base Font Size"
+msgstr "اندازه فونت پایه"
+
+#: classes/class-shortcode.php:351
+msgid "Responsive"
+msgstr "واکنش گرایی"
+
+#: classes/controllers/class-controller-settings.php:53
+msgid "Settings saved."
+msgstr "تنظیمات ذخیره شد."
+
+#: classes/models/class-column.php:42 classes/modules/class-post.php:40
+msgid "Timeslots"
+msgstr "فاصله زمانی"
+
+#: classes/models/class-events.php:167
+msgid "Tags"
+msgstr "تگ ها"
+
+#: classes/models/class-events.php:168
+msgid "Categories"
+msgstr "دسته ها"
+
+#: classes/models/class-import.php:125
+msgid "Assign Authors"
+msgstr "اختصاص دادن نویسندگان"
+
+#: classes/models/class-import.php:126
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+"برای اینکه بتوانید محتوای وارد شده را ویرایش و ذخیره کنید، ممکن است بخواهید "
+"نویسنده اثر وارد شده را به یک کاربر فعلی این سایت مجددا اختصاص دهید.به عنوان "
+"مثال، شما ممکن است بخواهید تمام ورودی ها را به عنوان ورودی <code> مدیر </"
+"code> وارد کنید."
+
+#: classes/models/class-import.php:128
+#, php-format
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+"اگر یک کاربر جدید توسط وردپرس ایجاد شده باشد، یک رمز عبور جدید به صورت "
+"تصادفی ایجاد خواهد شد و نقش کاربر جدید user&#8217;s به عنوان %s تنظیم خواهد "
+"شد. تغییر دستی اطلاعات جدید کاربر user&#8217;s ضروری است."
+
+#: classes/models/class-import.php:138
+msgid "Import Attachments"
+msgstr "درون ریزی پیوست ها"
+
+#: classes/models/class-import.php:141
+msgid "Download and import file attachments"
+msgstr "دریافت و درون ریزی فایل های پیوست"
+
+#: classes/models/class-import.php:145
+msgid "Submit"
+msgstr "ارسال"
+
+#: classes/models/class-import.php:158
+msgid "Import author:"
+msgstr "درون ریزی نویسنده:"
+
+#: classes/models/class-import.php:169
+msgid "or create new user with login name:"
+msgstr "یا ایجاد کاربر جدید با نام کاربری:"
+
+#: classes/models/class-import.php:172
+msgid "as a new user:"
+msgstr "به عنوان یک کاربر جدید:"
+
+#: classes/models/class-import.php:180
+msgid "assign posts to an existing user:"
+msgstr "اختصاص دادن پست به یک کاربر موجود:"
+
+#: classes/models/class-import.php:182
+msgid "or assign posts to an existing user:"
+msgstr "یا اختصاص دادن پست به یک کاربر موجود:"
+
+#: classes/models/class-import.php:183
+#: templates/column/metabox-column-options.php:18
+msgid "- Select -"
+msgstr "- انتخاب -"
+
+#: classes/models/class-import.php:269
+msgid "All done."
+msgstr "همه انجام شد."
+
+#: classes/models/class-import.php:269
+msgid "Have fun!"
+msgstr "خوش بگذره!"
+
+#: classes/models/class-import.php:270
+msgid "Remember to update the passwords and roles of imported users."
+msgstr ""
+"به خاطر داشته باشید که کلمه عبور و نقش کاربران وارد شده را به روز کنید."
+
+#: classes/models/class-import.php:286
+msgid "Fetching attachments is not enabled"
+msgstr "پیوست های دریافتی فعال نیستند"
+
+#: classes/models/class-import.php:299
+msgid "Invalid file type"
+msgstr "نوع فایل نامعتبر است"
+
+#: classes/models/class-import.php:379
+msgid "Remote server did not respond"
+msgstr "سرور از راه دور جواب نمی دهد"
+
+#: classes/models/class-import.php:385
+#, php-format
+msgid "Remote server returned error response %1$d %2$s"
+msgstr "سرور راه دور پاسخ خطا %1$d %2$s را دریافت کرد"
+
+#: classes/models/class-import.php:394
+msgid "Remote file is incorrect size"
+msgstr "سایز فایل ارسالی سرور رته دور نادرست است"
+
+#: classes/models/class-import.php:399
+msgid "Zero size file downloaded"
+msgstr "سایز فایل دانلود شده صفر می باشد"
+
+#: classes/models/class-import.php:405
+#, php-format
+msgid "Remote file is too large, limit is %s"
+msgstr "سایز فایل از راه دور بسیار بزرگ است، سایز به %s محدود شده"
+
+#: classes/models/class-import.php:422 classes/models/class-import.php:426
+#: classes/models/class-import.php:436
+msgid "Sorry, there has been an error."
+msgstr "با عرض پوزش، یک خطا وجود دارد."
+
+#: classes/models/class-import.php:427
+#, php-format
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+"فایل درون ریزی در <code>%s</code> یافت نمی شود. احتمالا این مسئله توسط یک "
+"مشکل مجوز ایجاد شده است."
+
+#: classes/models/class-import.php:444
+#, php-format
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+"این فایل WXR (نسخه %s) ممکن است توسط این نسخه از وارد کننده پشتیبانی نشود. "
+"لطفا به روزرسانی کنید."
+
+#: classes/models/class-import.php:501
+#, php-format
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+"وارد کردن نویسنده %s امکان پذیر نبود. پست های آن به کاربر فعلی نسبت داده می "
+"شود."
+
+#: classes/models/class-import.php:558
+#, php-format
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+"امکان ایجاد کاربر جدید برای %s نبود. پست های آن به کاربر فعلی نسبت داده می "
+"شود."
+
+#: classes/models/class-import.php:609 classes/models/class-import.php:766
+#, php-format
+msgid "Failed to import %s %s"
+msgstr "درون ریزی نا موفق بود %s %s"
+
+#: classes/models/class-import.php:656
+#, php-format
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr "وارد کردن &#8220;%s&#8221;: ناموفق بود. نوع پست %s نامعتبر است"
+
+#: classes/models/class-import.php:673
+#, php-format
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr "%s &#8220;%s&#8221; درحال حاضر وجود دارد."
+
+#: classes/models/class-import.php:732
+#, php-format
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "%s &#8220;%s&#8221; وارد کردن نشد"
+
+#: classes/modules/class-post.php:42
+msgid "Column Type"
+msgstr "نوع ستون"
+
+#: classes/widgets/class-mp-timetable-widget.php:22
+msgid "Display upcoming events."
+msgstr "نمایش رویدادهای آینده"
+
+#: classes/widgets/class-mp-timetable-widget.php:24
+msgid "Timetable Events"
+msgstr "جدول زمانی رویدادها"
+
+#: templates-functions/actions-mp-event-functions.php:27
+#: templates/theme/event-timeslots.php:7
+#, php-format
+msgid "Event Timeslots (%s)"
+msgstr "فاصله زمانی رویداد (%s)"
+
+#: templates/column/metabox-column-options.php:9
+msgid "Simple Column"
+msgstr "ستون ساده"
+
+#: templates/column/metabox-column-options.php:15
+msgid "Day"
+msgstr "روز"
+
+#: templates/column/metabox-column-options.php:19
+msgid "Sunday"
+msgstr "یک شنبه"
+
+#: templates/column/metabox-column-options.php:20
+msgid "Monday"
+msgstr "دوشنبه"
+
+#: templates/column/metabox-column-options.php:21
+msgid "Tuesday"
+msgstr "سه شنبه"
+
+#: templates/column/metabox-column-options.php:22
+msgid "Wednesday"
+msgstr "چهارشنبه"
+
+#: templates/column/metabox-column-options.php:23
+msgid "Thursday"
+msgstr "پنج شنبه"
+
+#: templates/column/metabox-column-options.php:24
+msgid "Friday"
+msgstr "جمعه"
+
+#: templates/column/metabox-column-options.php:25
+msgid "Saturday"
+msgstr "شنبه"
+
+#: templates/column/metabox-column-options.php:32
+msgid "Date"
+msgstr "تاریخ"
+
+#: templates/events/event-data.php:5
+msgid "Start"
+msgstr "شروع"
+
+#: templates/events/event-data.php:6
+msgid "End"
+msgstr "پایان"
+
+#: templates/events/event-data.php:8
+msgid "Head"
+msgstr "مسئول"
+
+#: templates/events/event-data.php:9
+msgid "Actions"
+msgstr "اقدامات"
+
+#: templates/events/event-data.php:32
+msgid "Edit event in the form below"
+msgstr "رویداد را در فرم زیر ویرایش کنید"
+
+#: templates/events/event-data.php:33
+msgid "Delete"
+msgstr "حذف"
+
+#: templates/events/metabox-event-data.php:10
+msgid "Column:"
+msgstr "ستون:"
+
+#: templates/events/metabox-event-data.php:18
+#, php-format
+msgid "Select column or <a target=\"_blank\" href=\"%s\">Add New</a>."
+msgstr "انتخاب یک ستون<a target=\"_blank\" href=\"%s\">افزودن ستون جدید</a>."
+
+#: templates/events/metabox-event-data.php:20
+#, php-format
+msgid "No columns found. <a href=\"%s\">Create at least one column first.</a>"
+msgstr "ستون یافت نشد. <a href=\"%s\">ابتدا حداقل یک ستون ایجاد کنید.</a>"
+
+#: templates/events/metabox-event-data.php:26
+msgid "Start Time:"
+msgstr "زمان شروع:"
+
+#: templates/events/metabox-event-data.php:29
+#: templates/events/metabox-event-data.php:36
+msgid "hh:mm"
+msgstr "hh:mm"
+
+#: templates/events/metabox-event-data.php:33
+msgid "End Time:"
+msgstr "زمان اتمام:"
+
+#: templates/events/metabox-event-data.php:40
+msgid "Description:"
+msgstr "توضیحات:"
+
+#: templates/events/metabox-event-data.php:44
+msgid "Event Head:"
+msgstr "مسئول رویداد:"
+
+#: templates/events/metabox-event-data.php:52
+msgid "none"
+msgstr "هیچکدام (خالی)"
+
+#: templates/events/metabox-event-data.php:75
+msgid "Add New"
+msgstr "مورد جدیدی اضافه کنید"
+
+#: templates/events/metabox-event-options.php:4
+msgid "Event Subtitle:"
+msgstr "عنوان فرعی رویداد:"
+
+#: templates/events/metabox-event-options.php:8
+msgid "Background Color:"
+msgstr "رنگ پس زمینه:"
+
+#: templates/events/metabox-event-options.php:15
+msgid "Background Hover Color:"
+msgstr "رنگ دور پس زمینه:"
+
+#: templates/events/metabox-event-options.php:22
+msgid "Text Color:"
+msgstr "رنگ متن:"
+
+#: templates/events/metabox-event-options.php:29
+msgid "Text Hover Color:"
+msgstr "رنگ سایه متن:"
+
+#: templates/events/metabox-event-options.php:36
+msgid "Custom Event URL:"
+msgstr "سفارشی کردن URL رویداد:"
+
+#: templates/events/metabox-event-options.php:42
+msgid "Disable link to this event:"
+msgstr "غیر فعال کردن لینک به این رویداد:"
+
+#: templates/popup/index.php:5
+msgid "<b>Columns</b> (required)"
+msgstr "<b>ستون</b> (ضروری)"
+
+#: templates/popup/index.php:12 templates/popup/index.php:23
+#: templates/popup/index.php:34
+msgid "In order to display multiple points hold ctrl/cmd button."
+msgstr "برای نمایش چندین نقطه دکمه ctrl / cmd را نگه دارید."
+
+#: templates/popup/index.php:16
+msgid "Specific <b>events</b>"
+msgstr "<b>رویدادهای</b> ویژه"
+
+#: templates/popup/index.php:27
+msgid "Event <b>categories</b>"
+msgstr "<b>دسته های</b> رویداد"
+
+#: templates/popup/index.php:38
+msgid "Fields to display:"
+msgstr "زمینه نمایش:"
+
+#: templates/popup/index.php:44
+msgid "Event Head"
+msgstr "مسئول رویداد"
+
+#: templates/popup/index.php:45
+msgid "Check the event parameter(s) to be displayed in the timetable."
+msgstr "پارامترهای رویداد را در جدول زمانبندی نمایش دهید."
+
+#: templates/popup/index.php:49
+msgid "Block height in pixels"
+msgstr "ارتفاع بلوک به صورت پیکسل"
+
+#: templates/popup/index.php:52
+msgid "Set height of the block"
+msgstr "ارتفاع بلوک را تنظیم کنید"
+
+#: templates/popup/index.php:56
+msgid "Base font size"
+msgstr "اندازه فونت پایه"
+
+#: templates/popup/index.php:59
+msgid "Base font size for the table. Example 12px, 2em, 80%."
+msgstr "اندازه فونت پایه برای جدول. مثال 12px، 2em، 80٪."
+
+#: templates/popup/index.php:63
+msgid "Time frame for event"
+msgstr "نحوه نمایش زمان برای رویداد"
+
+#: templates/popup/index.php:73
+msgid "Filter events style"
+msgstr "سبک فیلتر رویدادها"
+
+#: templates/popup/index.php:76
+msgid "Dropdown"
+msgstr "کشویی"
+
+#: templates/popup/index.php:78
+msgid "None"
+msgstr "هیچکدام"
+
+#: templates/popup/index.php:83
+msgid "Filter title to display all events"
+msgstr "عنوان فیلتر برای نمایش همه رویدادها"
+
+#: templates/popup/index.php:89
+msgid "Hide 'All Events' option"
+msgstr "پنهان کردن گزینه \"همه رویدادها\""
+
+#: templates/popup/index.php:99
+msgid "Hide column with hours"
+msgstr "پنهان کردن ستون با ساعت"
+
+#: templates/popup/index.php:108
+msgid "Do not display empty rows"
+msgstr "ردیف های خالی را نمایش ندهید"
+
+#: templates/popup/index.php:117
+msgid "Merge cells with common events"
+msgstr "ادغام سلول ها با رویدادهای مشترک"
+
+#: templates/popup/index.php:126 templates/widgets/gallery-list.php:56
+msgid "Disable event link"
+msgstr "پیوند رویداد را غیرفعال کنید"
+
+#: templates/popup/index.php:135
+msgid "Horizontal align"
+msgstr "تراز چیدمان افقی"
+
+#: templates/popup/index.php:144
+msgid "Vertical align"
+msgstr "تراز چیدمان عمودی"
+
+#: templates/popup/index.php:146
+msgid "default"
+msgstr "پیشفرض"
+
+#: templates/popup/index.php:147
+msgid "top"
+msgstr "بالا"
+
+#: templates/popup/index.php:148
+msgid "middle"
+msgstr "وسط"
+
+#: templates/popup/index.php:149
+msgid "bottom"
+msgstr "پایین"
+
+#: templates/popup/index.php:154
+msgid "Unique ID"
+msgstr "شناسه منحصر به فرد"
+
+#: templates/popup/index.php:157
+msgid ""
+"If you use more than one table on a page specify the unique ID for a "
+"timetable. It is usually all lowercase and contains only letters, numbers, "
+"and hyphens."
+msgstr ""
+"اگر بیش از یک جدول در یک صفحه استفاده کنید، شناسه منحصر به فرد برای یک جدول "
+"زمانی را مشخص کنید. شناسه منحصر به فرد به صورت حروف کوچک است و فقط شامل "
+"حروف، اعداد و خطوط است."
+
+#: templates/popup/index.php:161
+msgid "CSS class"
+msgstr "کلاس CSS"
+
+#: templates/popup/index.php:167
+msgid "Mobile behavior"
+msgstr "نحوه نمایش در موبایل"
+
+#: templates/popup/index.php:170
+msgid "List"
+msgstr "لیست"
+
+#: templates/popup/index.php:171
+msgid "Table"
+msgstr "جدول"
+
+#: templates/popup/index.php:173
+msgid ""
+"Tick \"List\" to display events in a list view on mobile devices. Tick "
+"\"Table\" to display events in a table."
+msgstr ""
+"با کلیک بر روی \"لیست\" رویدادها به صورت لیست زیر هم در موبایل به نمایش در "
+"می آید. و با انتخاب \"جدول\" رویدادها در یک جدول به نمایش گذاشته می شود.."
+
+#: templates/popup/index.php:179
+msgid "Add Timetable"
+msgstr "افزودن جدول زمانی"
+
+#: templates/settings/general.php:1
+msgid "General Settings"
+msgstr "تنظیمات عمومی"
+
+#: templates/settings/general.php:8
+msgid "Template Mode"
+msgstr "حالت الگو"
+
+#: templates/settings/general.php:12
+msgid "Theme Mode"
+msgstr "حالت قالب"
+
+#: templates/settings/general.php:13
+msgid "Developer Mode"
+msgstr "حالت توسعه دهنده"
+
+#: templates/settings/general.php:15
+msgid ""
+"Choose Theme Mode to display the content with the styles of your theme. "
+"Choose Developer Mode to control appearance of the content with custom page "
+"templates, actions and filters."
+msgstr ""
+"اگر میخواهید تا محتوا به سبک قالب فعلی به نمایش گذاشته شود \"حالت قالب\" را "
+"انتخاب کنید. اگر حالت توسعه دهنده را انتخاب کنید نحوه نمایش را کاملا می "
+"توانید سفارشی کنید."
+
+#: templates/settings/general.php:15
+msgid ""
+"This option can't be changed if your theme is initially integrated with the "
+"plugin."
+msgstr ""
+"این گزینه را نمی توان تغییر داد اگر موضوع شما در ابتدا با افزونه ادغام شود."
+
+#: templates/settings/general.php:20
+msgid "Save"
+msgstr "ذخیره"
+
+#: templates/shortcodes/empty-search-events.php:1
+#: templates/theme/widget-upcoming-view.php:54
+#: templates/widgets/widget-view.php:91
+msgid "no events found"
+msgstr "رویدادی یافت نشد"
+
+#: templates/templates-actions/action-sidebar.php:8
+#: templates/widgets/gallery-list.php:14
+msgid "Today upcoming events"
+msgstr "رویدادهای آینده در این روز"
+
+#: templates/templates-actions/action-sidebar.php:13
+#: templates/widgets/gallery-list.php:16
+msgid "All upcoming events"
+msgstr "همه رویدادهای آینده"
+
+#: templates/widgets/gallery-list.php:10
+msgid "Events to display"
+msgstr "رویدادهای برای نمایش"
+
+#: templates/widgets/gallery-list.php:18
+msgid "Ongoing events"
+msgstr "رویدادهای پیش رو"
+
+#: templates/widgets/gallery-list.php:23
+msgid "Input number of days"
+msgstr "تعداد ورودی ها در روز"
+
+#: templates/widgets/gallery-list.php:28
+msgid "day"
+msgstr "روز"
+
+#: templates/widgets/gallery-list.php:32
+msgid "Event categories. Leave blank to display all."
+msgstr "دسته های رویداد، برای نمایش همه خالی بگذارید"
+
+#: templates/widgets/gallery-list.php:49
+msgid "Number of events to display"
+msgstr "تعداد رویداد قایل نمایش"
+
+#: templates/widgets/gallery-list.php:67
+msgid "Custom link for events"
+msgstr "آدرس سفارشی برای رویداد"
+
+#: templates/widgets/gallery-list.php:75
+msgid "Event background color"
+msgstr "رنگ پشت زمینه رویداد"
+
+#: templates/widgets/gallery-list.php:85
+msgid "Event background color on hover"
+msgstr "رنگ سایه پشت زمینه رویداد"
+
+#: templates/widgets/gallery-list.php:95
+msgid "Event text color"
+msgstr "رنگ متن رویداد"
+
+#: templates/widgets/gallery-list.php:105
+msgid "Event text color on hover"
+msgstr "رنگ سایه متن رویداد"
+
+#: templates/widgets/gallery-list.php:115
+msgid "Event border color"
+msgstr "رنگ کادر دور رویداد"
+
+#: templates/widgets/gallery-list.php:125
+msgid "Event border color on hover"
+msgstr "رنگ سایه کادر دور رویداد"

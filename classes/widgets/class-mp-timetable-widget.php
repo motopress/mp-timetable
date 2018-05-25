@@ -11,7 +11,7 @@ use mp_timetable\plugin_core\classes\View;
 class Timetable_widget extends \WP_Widget {
 	
 	/**
-	 * Defrozo_widget constructor.
+	 * Widget constructor.
 	 */
 	public function __construct() {
 		

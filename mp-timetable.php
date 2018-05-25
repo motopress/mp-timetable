@@ -2,11 +2,11 @@
 
 /**
  * Plugin Name: Timetable and Event Schedule
- * Plugin URI: https://www.getmotopress.com
+ * Plugin URI: https://motopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.1.10
+ * Version: 2.1.11
  * Author: MotoPress
- * Author URI: http://www.getmotopress.com
+ * Author URI: https://motopress.com
  * License: GPLv2 or later
  * Text Domain: mp-timetable
  * Domain Path: /languages
@@ -153,7 +153,7 @@ class Mp_Time_Table {
 	}
 	
 	/**
-	 * On activation defrozo plugin
+	 * On activation
 	 */
 	public static function on_activation() {
 		// Register post type
@@ -166,7 +166,7 @@ class Mp_Time_Table {
 	}
 	
 	/**
-	 * On deactivation defrozo plugin
+	 * On deactivation
 	 */
 	public static function on_deactivation() {
 		flush_rewrite_rules();
