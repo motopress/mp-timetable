@@ -214,13 +214,11 @@ class Hooks extends Core {
 	 */
 	public function browser_body_class( $classes ) {
 		global $is_IE;
-		        
+
 		if ( $is_IE ) {
 			$classes[] = 'mprm_ie_browser';
-		} else {
-			$classes[] = '';
 		}
-		
+
 		return $classes;
 	}
 	

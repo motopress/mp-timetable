@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.1.12 =
+* Bug fix: fixed an issue in IE browser.
+
 = 2.1.11 =
 * Added translations into the Persian language.
 
