@@ -406,7 +406,7 @@ Registry.register("Event",
 
 					element.css('position', '').css('width', '').css('min-height', '');
 
-					if (!body.hasClass('mprm_ie')) {
+					if (!body.hasClass('mprm_ie_browser')) {
 						if (inner_height <= min_height) {
 							element.css('min-height', min_height);
 						} else {
@@ -441,7 +441,7 @@ Registry.register("Event",
 						top = 0,
 						tdHeight = tdParent.height();
 
-					if (!$('body').hasClass('mprm_ie')) {
+					if (!$('body').hasClass('mprm_ie_browser')) {
 
 						heightItem = 100 / ((eventCount > 0) ? eventCount : 1);
 

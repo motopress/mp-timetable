@@ -301,6 +301,17 @@ Registry.register("adminFunctions", (function($) {
 
 	$(document).ready(function() {
 
+
+        var body = $('body');
+
+        if(detectIE()){
+            if(!body.hasClass('mprm_ie_browser')){
+                body.addClass('mprm_ie_browser');
+            }
+        }else{
+            body.removeClass('mprm_ie_browser');
+        }
+
 		var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
 
 		if ((typeof typenow) !== "undefined") {
@@ -332,5 +343,25 @@ Registry.register("adminFunctions", (function($) {
 			Registry._get("Event").setColorSettings();
 		}
 
+
 	});
 })(jQuery);
+
+function detectIE() {
+    var ua = window.navigator.userAgent;
+
+    var msie = ua.indexOf('MSIE ');
+    if (msie > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
+    }
+
+    var trident = ua.indexOf('Trident/');
+    if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf('rv:');
+        return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
+    }
+    // other browser
+    return false;
+}

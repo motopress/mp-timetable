@@ -213,28 +213,12 @@ class Hooks extends Core {
 	 * @return array
 	 */
 	public function browser_body_class( $classes ) {
-		global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
-		
-		if ( $is_lynx ) {
-			$classes[] = 'mprm_lynx';
-		} elseif ( $is_gecko ) {
-			$classes[] = 'mprm_gecko';
-		} elseif ( $is_opera ) {
-			$classes[] = 'mprm_opera';
-		} elseif ( $is_NS4 ) {
-			$classes[] = 'mprm_ns4';
-		} elseif ( $is_safari ) {
-			$classes[] = 'mprm_safari';
-		} elseif ( $is_chrome ) {
-			$classes[] = 'mprm_chrome';
-		} elseif ( $is_IE ) {
-			$classes[] = 'mprm_ie';
+		global $is_IE;
+		        
+		if ( $is_IE ) {
+			$classes[] = 'mprm_ie_browser';
 		} else {
 			$classes[] = '';
-		}
-		
-		if ( $is_iphone ) {
-			$classes[] = 'mprm_iphone';
 		}
 		
 		return $classes;
