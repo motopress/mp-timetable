@@ -688,10 +688,10 @@ class Core {
 
 		$permalinks = wp_parse_args(
 			array_filter( $saved_permalinks ), array(
-				'column_base'	=> _x( 'timetable/column', 'slug', 'mp-timetable' ),
-				'event_base'	=> _x( 'timetable/event', 'slug', 'mp-timetable' ),
-				'event_category_base'	=> _x( 'timetable/category', 'slug', 'mp-timetable' ),
-				'event_tag_base'		=> _x( 'timetable/tag', 'slug', 'mp-timetable' ),
+				'column_base'	=> 'timetable/column',
+				'event_base'	=> 'timetable/event',
+				'event_category_base'	=> 'timetable/category',
+				'event_tag_base'		=> 'timetable/tag',
 			)
 		);
 
