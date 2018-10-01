@@ -14,6 +14,7 @@ class Core {
 	protected static $instance;
 	
 	protected $version;
+
 	/**
 	 * Current state
 	 */
@@ -23,6 +24,7 @@ class Core {
 	 * Core constructor.
 	 */
 	public function __construct() {
+
 		$this->taxonomy_names = array(
 			'mp-event_category',
 			'mp-event_tag'
@@ -70,17 +72,22 @@ class Core {
 		
 		// include template for function
 		Core::include_all( Mp_Time_Table::get_plugin_part_path( 'templates-functions' ) );
+		
 		// include plugin models files
 		Model::get_instance()->install();
+		
 		// include plugin controllers files
 		Controller::get_instance()->install();
+		
 		// include plugin Preprocessors files
 		Preprocessor::install();
+		
 		// include plugin modules
 		Module::install();
 		
 		// install state
 		$this->install_state( $name );
+		
 		// init all hooks
 		Hooks::get_instance()->install_hooks();
 		Hooks::get_instance()->register_template_action();
@@ -136,6 +143,7 @@ class Core {
 	 * @return string
 	 */
 	public function modify_single_template( $template ) {
+		
 		global $post;
 		
 		if ( ! empty( $post ) && in_array( $post->post_type, $this->post_types ) ) {
@@ -151,6 +159,7 @@ class Core {
 	 * @param object $query
 	 */
 	public function setup_pseudo_template( $query ) {
+		
 		global $post;
 		
 		if ( $query->is_main_query() ) {
@@ -253,6 +262,7 @@ class Core {
 	 * Init plugin version
 	 */
 	public function init_plugin_version() {
+		
 		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
 		
 		if ( ! function_exists( 'get_plugin_data' ) ) {
@@ -313,7 +323,11 @@ class Core {
 	 */
 	public function register_all_taxonomies() {
 		
-		$labels = array(
+		$permalinks = Core::get_instance()->get_permalink_structure();
+		
+		do_action( 'mptt_before_register_taxonomies' );
+		
+		$event_category_labels = array(
 			'name'               => __( 'Event categories', 'mp-timetable' ),
 			'singular_name'      => __( 'Event category', 'mp-timetable' ),
 			'add_new'            => __( 'Add New Event category', 'mp-timetable' ),
@@ -325,23 +339,22 @@ class Core {
 			'search_items'       => __( 'Search Event category', 'mp-timetable' ),
 			'not_found'          => __( 'No Event categories found', 'mp-timetable' ),
 			'not_found_in_trash' => __( 'No Event categories found in Trash', 'mp-timetable' ),
-			'parent_item_colon'  => 'media',
 			'menu_name'          => __( 'Event categories', 'mp-timetable' )
 		);
 		
-		$args = array(
+		$event_category_args = array(
 			'label'                 => __( 'Event categories', 'mp-timetable' ),
-			'labels'                => $labels,
+			'labels'                => $event_category_labels,
 			'public'                => true,
 			'show_in_nav_menus'     => true,
-			"show_ui"               => true,
+			'show_ui'               => true,
 			'show_in_menu'          => false,
 			'show_tagcloud'         => true,
 			'hierarchical'          => true,
 			'update_count_callback' => '',
 			'rewrite'               => array(
-				'slug'         => 'timetable/category',
-				'with_front'   => true,
+				'slug'         => $permalinks['event_category_base'], //'timetable/category'
+				'with_front'   => false,
 				'hierarchical' => true
 			),
 			'capabilities'          => array(),
@@ -350,9 +363,14 @@ class Core {
 			'_builtin'              => false,
 			'show_in_quick_edit'    => null,
 		);
-		register_taxonomy( 'mp-event_category', array( "mp-event" ), $args );
+
+		register_taxonomy(
+			'mp-event_category',
+			apply_filters( 'mptt_taxonomy_objects_event_category', array( 'mp-event' ) ),
+			apply_filters( 'mptt_taxonomy_args_event_category', $event_category_args)
+		);
 		
-		$labels = array(
+		$event_tag_labels = array(
 			'name'               => __( 'Event tags', 'mp-timetable' ),
 			'singular_name'      => __( 'Event tag', 'mp-timetable' ),
 			'add_new'            => __( 'Add New Event tag', 'mp-timetable' ),
@@ -364,23 +382,22 @@ class Core {
 			'search_items'       => __( 'Search Event tag', 'mp-timetable' ),
 			'not_found'          => __( 'No Event tags found', 'mp-timetable' ),
 			'not_found_in_trash' => __( 'No Event tags found in Trash', 'mp-timetable' ),
-			'parent_item_colon'  => 'media',
 			'menu_name'          => __( 'Event tags', 'mp-timetable' )
 		);
 		
-		$args = array(
+		$event_tag_args = array(
 			'label'                 => __( 'Event tags', 'mp-timetable' ),
-			'labels'                => $labels,
+			'labels'                => $event_tag_labels,
 			'public'                => true,
 			'show_in_nav_menus'     => true,
-			"show_ui"               => true,
+			'show_ui'               => true,
 			'show_in_menu'          => false,
 			'show_tagcloud'         => true,
 			'hierarchical'          => false,
 			'update_count_callback' => '',
 			'rewrite'               => array(
-				'slug'         => 'timetable/tag',
-				'with_front'   => true,
+				'slug'         => $permalinks['event_tag_base'], //'timetable/tag'
+				'with_front'   => false,
 				'hierarchical' => true
 			),
 			'capabilities'          => array(),
@@ -389,8 +406,14 @@ class Core {
 			'_builtin'              => false,
 			'show_in_quick_edit'    => null,
 		);
-		register_taxonomy( 'mp-event_tag', array( "mp-event" ), $args );
 		
+		register_taxonomy(
+			'mp-event_tag',
+			apply_filters( 'mptt_taxonomy_objects_event_tag', array( 'mp-event' ) ),
+			apply_filters( 'mptt_taxonomy_args_event_tag', $event_tag_args)
+		);
+		
+		do_action( 'mptt_after_register_taxonomies' );
 	}
 	
 	/**
@@ -398,73 +421,87 @@ class Core {
 	 */
 	public function register_all_post_type() {
 		
-		register_post_type( 'mp-event', array(
-			'label'             => 'mp-event',
-			'labels'            => array(
-				'name'               => __( 'Events', 'mp-timetable' ),
-				'singular_name'      => __( 'Event', 'mp-timetable' ),
-				'add_new'            => __( 'Add New Event', 'mp-timetable' ),
-				'add_new_item'       => __( 'Add New Event', 'mp-timetable' ),
-				'edit_item'          => __( 'Edit Event', 'mp-timetable' ),
-				'new_item'           => __( 'New Event', 'mp-timetable' ),
-				'all_items'          => __( 'All Events', 'mp-timetable' ),
-				'view_item'          => __( 'View Event', 'mp-timetable' ),
-				'search_items'       => __( 'Search Event', 'mp-timetable' ),
-				'not_found'          => __( 'No Events found', 'mp-timetable' ),
-				'not_found_in_trash' => __( 'No Events found in Trash', 'mp-timetable' ),
-				'parent_item_colon'  => 'media',
-				'menu_name'          => __( 'Events', 'mp-timetable' )
-			),
-			"public"            => true,
-			'show_ui'           => true,
-			'show_in_menu'      => false,
-			'show_in_nav_menus' => true,
-			"capability_type"   => "post",
-			"menu_position"     => 21,
-			"hierarchical"      => false,
-			'has_archive'       => true,
-			"rewrite"           => array(
-				'slug'         => 'timetable/event',
-				'with_front'   => true,
-				'hierarchical' => true
-			),
-			"supports"          => array( "title", "editor", 'comments', "excerpt", 'author', "thumbnail", "page-attributes" ),
-			"show_in_admin_bar" => true
-		) );
+		$permalinks = Core::get_instance()->get_permalink_structure();
 		
-		register_post_type( 'mp-column', array(
-			'label'             => 'mp-column',
-			'labels'            => array(
-				'name'               => __( 'Columns', 'mp-timetable' ),
-				'singular_name'      => __( 'Column', 'mp-timetable' ),
-				'add_new'            => __( 'Add New Column', 'mp-timetable' ),
-				'add_new_item'       => __( 'Add New Column', 'mp-timetable' ),
-				'edit_item'          => __( 'Edit Column', 'mp-timetable' ),
-				'new_item'           => __( 'New Column', 'mp-timetable' ),
-				'all_items'          => __( 'All Columns', 'mp-timetable' ),
-				'view_item'          => __( 'View Column', 'mp-timetable' ),
-				'search_items'       => __( 'Search Column', 'mp-timetable' ),
-				'not_found'          => __( 'No Columns found', 'mp-timetable' ),
-				'not_found_in_trash' => __( 'No Columns found in Trash', 'mp-timetable' ),
-				'parent_item_colon'  => 'media',
-				'menu_name'          => __( 'Columns', 'mp-timetable' )
-			),
-			"public"            => true,
-			'show_ui'           => true,
-			'show_in_menu'      => false,
-			'show_in_nav_menus' => true,
-			"capability_type"   => "post",
-			"menu_position"     => 21,
-			"hierarchical"      => false,
-			'has_archive'       => true,
-			"rewrite"           => array(
-				'slug'         => 'timetable/column',
-				'with_front'   => true,
-				'hierarchical' => true
-			),
-			"supports"          => array( "title", "editor", "page-attributes" ),
-			"show_in_admin_bar" => true
-		) );
+		do_action( 'mptt_before_register_post_types' );
+
+		register_post_type(
+			'mp-event',
+			apply_filters(
+				'mptt_register_post_type_event',
+				array(
+					'labels'            => array(
+						'name'               => __( 'Events', 'mp-timetable' ),
+						'singular_name'      => __( 'Event', 'mp-timetable' ),
+						'add_new'            => __( 'Add New Event', 'mp-timetable' ),
+						'add_new_item'       => __( 'Add New Event', 'mp-timetable' ),
+						'edit_item'          => __( 'Edit Event', 'mp-timetable' ),
+						'new_item'           => __( 'New Event', 'mp-timetable' ),
+						'all_items'          => __( 'All Events', 'mp-timetable' ),
+						'view_item'          => __( 'View Event', 'mp-timetable' ),
+						'search_items'       => __( 'Search Event', 'mp-timetable' ),
+						'not_found'          => __( 'No Events found', 'mp-timetable' ),
+						'not_found_in_trash' => __( 'No Events found in Trash', 'mp-timetable' ),
+						'menu_name'          => __( 'Events', 'mp-timetable' )
+					),
+					'public'            => true,
+					'show_ui'           => true,
+					'show_in_menu'      => false,
+					'show_in_nav_menus' => true,
+					'capability_type'   => 'post',
+					'menu_position'     => 21,
+					'hierarchical'      => false,
+					'has_archive'       => true,
+					'rewrite'           => array(
+						'slug'         => $permalinks['event_base'], //'timetable/event'
+						'with_front'   => false,
+						'hierarchical' => true
+					),
+					'supports'          => array( 'title', 'editor', 'comments', 'excerpt', 'author', 'thumbnail', 'page-attributes' ),
+					'show_in_admin_bar' => true
+				)
+			)
+		);
+
+		register_post_type(
+			'mp-column',
+			apply_filters(
+				'mptt_register_post_type_column',
+				array(
+					'labels'            => array(
+						'name'               => __( 'Columns', 'mp-timetable' ),
+						'singular_name'      => __( 'Column', 'mp-timetable' ),
+						'add_new'            => __( 'Add New Column', 'mp-timetable' ),
+						'add_new_item'       => __( 'Add New Column', 'mp-timetable' ),
+						'edit_item'          => __( 'Edit Column', 'mp-timetable' ),
+						'new_item'           => __( 'New Column', 'mp-timetable' ),
+						'all_items'          => __( 'All Columns', 'mp-timetable' ),
+						'view_item'          => __( 'View Column', 'mp-timetable' ),
+						'search_items'       => __( 'Search Column', 'mp-timetable' ),
+						'not_found'          => __( 'No Columns found', 'mp-timetable' ),
+						'not_found_in_trash' => __( 'No Columns found in Trash', 'mp-timetable' ),
+						'menu_name'          => __( 'Columns', 'mp-timetable' )
+					),
+					'public'            => true,
+					'show_ui'           => true,
+					'show_in_menu'      => false,
+					'show_in_nav_menus' => true,
+					'capability_type'   => 'post',
+					'menu_position'     => 21,
+					'hierarchical'      => false,
+					'has_archive'       => true,
+					'rewrite'           => array(
+						'slug'         => $permalinks['column_base'], //'timetable/column'
+						'with_front'   => false,
+						'hierarchical' => true
+					),
+					'supports'          => array( 'title', 'editor', 'page-attributes' ),
+					'show_in_admin_bar' => true
+				)
+			)
+		);
+		
+		do_action( 'mptt_after_register_post_types' );
 		
 	}
 	
@@ -472,6 +509,7 @@ class Core {
 	 * Create Plugin table if not exists
 	 */
 	public function create_table() {
+
 		global $wpdb;
 		
 		$charset_collate = $wpdb->get_charset_collate();
@@ -508,7 +546,7 @@ class Core {
 	 * @param \WP_Screen $current_screen
 	 */
 	public function current_screen( \WP_Screen $current_screen ) {
-		wp_register_script( "mptt-event-object", Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
@@ -517,47 +555,51 @@ class Core {
 		
 		wp_enqueue_script( 'underscore' );
 		wp_enqueue_style( 'mptt-admin-style', Mp_Time_Table::get_plugin_url( 'media/css/admin.css' ), array(), $this->version );
-		wp_enqueue_script( "mptt-functions", Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );
+		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );
 		
 		
 		if ( ! empty( $current_screen ) ) {
 			switch ( $current_screen->id ) {
-				case "mp-event":
-					wp_enqueue_script( "spectrum", Mp_Time_Table::get_plugin_url( 'media/js/lib/spectrum' . $this->get_prefix() . '.js' ), array( 'jquery' ), '1.8.0' );
-					wp_enqueue_script( "mptt-event-object" );
-					wp_enqueue_script( "jquery-ui-timepicker", Mp_Time_Table::get_plugin_url( 'media/js/lib/jquery.ui.timepicker' . $this->get_prefix() . '.js' ), '0.3.3' );
+				case 'mp-event':
+					wp_enqueue_script( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/js/lib/spectrum' . $this->get_prefix() . '.js' ), array( 'jquery' ), '1.8.0' );
+					wp_enqueue_script( 'mptt-event-object' );
+					wp_enqueue_script( 'jquery-ui-timepicker', Mp_Time_Table::get_plugin_url( 'media/js/lib/jquery.ui.timepicker' . $this->get_prefix() . '.js' ), '0.3.3' );
 					
-					wp_enqueue_style( "jquery-ui-core", Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
+					wp_enqueue_style( 'jquery-ui-core', Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
 					wp_enqueue_style( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/css/spectrum.css' ), array(), '1.8.0' );
-					wp_enqueue_style( "jquery-ui-timepicker", Mp_Time_Table::get_plugin_url( 'media/css/jquery.ui.timepicker.css' ), array(), '0.3.3' );
-					
+					wp_enqueue_style( 'jquery-ui-timepicker', Mp_Time_Table::get_plugin_url( 'media/css/jquery.ui.timepicker.css' ), array(), '0.3.3' );
 					break;
-				case "mp-column":
+
+				case 'mp-column':
 					wp_enqueue_script( 'jquery-ui-datepicker' );
-					wp_enqueue_script( "mptt-event-object" );
+					wp_enqueue_script( 'mptt-event-object' );
 					
-					wp_enqueue_style( "jquery-ui-core", Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
+					wp_enqueue_style( 'jquery-ui-core', Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
 					break;
-				case "customize":
-				case "widgets":
-					wp_enqueue_script( "spectrum", Mp_Time_Table::get_plugin_url( 'media/js/lib/spectrum' . $this->get_prefix() . '.js' ), array( 'jquery' ), '1.8.0' );
-					wp_enqueue_script( "mptt-event-object" );
+
+				case 'customize':
+				case 'widgets':
+					wp_enqueue_script( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/js/lib/spectrum' . $this->get_prefix() . '.js' ), array( 'jquery' ), '1.8.0' );
+					wp_enqueue_script( 'mptt-event-object' );
 					
-					wp_enqueue_style( "jquery-ui-core", Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
+					wp_enqueue_style( 'jquery-ui-core', Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
 					wp_enqueue_style( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/css/spectrum.css' ), array(), '1.8.0' );
-					
 					break;
 			}
-			
+
 			switch ( $current_screen->base ) {
-				case "post":
-				case "page":
-					wp_enqueue_script( "jquery-ui-tabs" );
-					wp_enqueue_script( "jBox", Mp_Time_Table::get_plugin_url( 'media/js/lib/jBox' . $this->get_prefix() . '.js' ), array( 'jquery' ), '0.2.1' );
+				case 'post':
+				case 'page':
+					wp_enqueue_script( 'jquery-ui-tabs' );
+					wp_enqueue_script( 'jBox', Mp_Time_Table::get_plugin_url( 'media/js/lib/jBox' . $this->get_prefix() . '.js' ), array( 'jquery' ), '0.2.1' );
 					
 					wp_enqueue_style( 'jBox', Mp_Time_Table::get_plugin_url( 'media/css/jbox/jBox.css' ), array(), '1.8.0' );
-					
 					break;
+
+				case 'options-permalink':
+					$permalinks = new Permalinks();
+				break;
+
 				default:
 					break;
 			}
@@ -590,7 +632,7 @@ class Core {
 	 * @param bool $type
 	 */
 	public function add_plugin_js( $type = false ) {
-		wp_register_script( "mptt-event-object", Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
@@ -598,11 +640,11 @@ class Core {
 		);
 		
 		switch ( $type ) {
-			case"shortcode":
-			case"widget":
+			case 'shortcode':
+			case 'widget':
 				wp_enqueue_script( 'underscore' );
-				wp_enqueue_script( "mptt-functions", Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array( "jquery" ), $this->version );
-				wp_enqueue_script( "mptt-event-object" );
+				wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+				wp_enqueue_script( 'mptt-event-object' );
 				break;
 		}
 	}
@@ -633,5 +675,30 @@ class Core {
 		}
 		
 		return is_embed();
+	}
+	
+	/**
+	 * Get permalink settings
+	 *
+	 * @return array
+	 */
+	public function get_permalink_structure() {
+
+		$saved_permalinks = (array) get_option( 'mp_timetable_permalinks', array() );
+
+		$permalinks = wp_parse_args(
+			array_filter( $saved_permalinks ), array(
+				'column_base'	=> _x( 'timetable/column', 'slug', 'mp-timetable' ),
+				'event_base'	=> _x( 'timetable/event', 'slug', 'mp-timetable' ),
+				'event_category_base'	=> _x( 'timetable/category', 'slug', 'mp-timetable' ),
+				'event_tag_base'		=> _x( 'timetable/tag', 'slug', 'mp-timetable' ),
+			)
+		);
+
+		if ( $saved_permalinks !== $permalinks ) {
+			update_option( 'mp_timetable_permalinks', $permalinks );
+		}
+
+		return $permalinks;
 	}
 }

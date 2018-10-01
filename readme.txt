@@ -69,6 +69,10 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.2.0 =
+* Added filters for register_post_type and register_taxonomy functions.
+* Added the ability to specify permalink settings in Settings > Permalinks.
+
 = 2.1.12 =
 * Bug fix: fixed an issue in IE browser.
 

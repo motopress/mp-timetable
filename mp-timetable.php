@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: https://motopress.com
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.1.12
+ * Version: 2.2.0
  * Author: MotoPress
  * Author URI: https://motopress.com
  * License: GPLv2 or later
@@ -25,6 +25,7 @@ define( 'MP_TT_DEBUG', false );
 register_activation_hook( __FILE__, array( Mp_Time_Table::init(), 'on_activation' ) );
 register_deactivation_hook( __FILE__, array( 'Mp_Time_Table', 'on_deactivation' ) );
 register_uninstall_hook( __FILE__, array( 'Mp_Time_Table', 'on_uninstall' ) );
+
 add_action( 'plugins_loaded', array( 'Mp_Time_Table', 'init' ) );
 add_action( 'wpmu_new_blog', array( 'Mp_Time_Table', 'on_create_blog' ), 10, 6 );
 add_filter( 'wpmu_drop_tables', array( 'Mp_Time_Table', 'on_delete_blog' ) );
@@ -60,6 +61,10 @@ class Mp_Time_Table {
 		 * Install Parsers
 		 */
 		require_once self::get_plugin_path() . 'classes/libs/parsers.php';
+		/**
+		 * Include Permalinks
+		 */
+		require_once self::get_plugin_path() . 'classes/class-permalinks.php';
 		/**
 		 * Include Core
 		 */
@@ -158,24 +163,28 @@ class Mp_Time_Table {
 	public static function on_activation() {
 		// Register post type
 		Core::get_instance()->register_all_post_type();
+
 		// Register taxonomy all
 		Core::get_instance()->register_all_taxonomies();
+
 		flush_rewrite_rules();
+
 		//Create table in not exists
 		Core::get_instance()->create_table();
 	}
-	
+
 	/**
 	 * On deactivation
 	 */
 	public static function on_deactivation() {
 		flush_rewrite_rules();
 	}
-	
+
 	/**
 	 * On uninstall
 	 */
 	public static function on_uninstall() {
+		do_action( 'mptt_on_uninstall' );
 	}
 	
 	/**

@@ -167,15 +167,46 @@ class Hooks extends Core {
 	 * Registered page in admin wp
 	 */
 	public function admin_menu() {
-		add_menu_page( __( 'Timetable', 'mp-timetable' ), __( 'Timetable', 'mp-timetable' ), 'edit_posts', "edit.php?post_type=mp-event", "", "dashicons-calendar", '59.51' );
-		add_submenu_page( 'edit.php?post_type=mp-event', __( "Events", 'mp-timetable' ), __( "Events", 'mp-timetable' ), 'edit_posts', 'edit.php?post_type=mp-event' );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Add Event", 'mp-timetable' ), __( "Add Event", 'mp-timetable' ), "edit_posts", "post-new.php?post_type=mp-event" );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Columns", 'mp-timetable' ), __( "Columns", 'mp-timetable' ), "edit_posts", "edit.php?post_type=mp-column" );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Add Column", 'mp-timetable' ), __( "Add Column", 'mp-timetable' ), "edit_posts", "post-new.php?post_type=mp-column" );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Event Categories", 'mp-timetable' ), __( "Event Categories", 'mp-timetable' ), "manage_categories", "edit-tags.php?taxonomy=mp-event_category&amp;post_type=mp-event" );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Event Tags", 'mp-timetable' ), __( "Event Tags", 'mp-timetable' ), "manage_categories", "edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event" );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Settings", 'mp-timetable' ), __( "Settings", 'mp-timetable' ), "switch_themes", "admin.php?page=mptt-switch-template", array( $this->get_controller( 'settings' ), 'action_content' ) );
-		add_submenu_page( "edit.php?post_type=mp-event", __( "Export / Import", 'mp-timetable' ), __( "Export / Import", 'mp-timetable' ), "import", "admin.php?page=mptt-import", array( $this->get_controller( 'import' ), 'action_content' ) );
+
+		//Timetable
+		add_menu_page( __( 'Timetable', 'mp-timetable' ), __( 'Timetable', 'mp-timetable' ),
+			'edit_posts', 'edit.php?post_type=mp-event', '', 'dashicons-calendar', '59.51' );
+		
+		//Events
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Events', 'mp-timetable' ), __( 'Events', 'mp-timetable' ),
+			'edit_posts', 'edit.php?post_type=mp-event' );
+		
+		//Add Event
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Add Event', 'mp-timetable' ), __( 'Add Event', 'mp-timetable' ),
+			'edit_posts', 'post-new.php?post_type=mp-event' );
+		
+		//Columns
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Columns', 'mp-timetable' ), __( 'Columns', 'mp-timetable' ),
+			'edit_posts', 'edit.php?post_type=mp-column' );
+		
+		//Add Column
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Add Column', 'mp-timetable' ), __( 'Add Column', 'mp-timetable' ),
+			'edit_posts', 'post-new.php?post_type=mp-column' );
+		
+		//Event Categories
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Event Categories', 'mp-timetable' ), __( 'Event Categories', 'mp-timetable' ),
+			'manage_categories', 'edit-tags.php?taxonomy=mp-event_category&amp;post_type=mp-event' );
+		
+		//Event Tags
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Event Tags', 'mp-timetable' ), __( 'Event Tags', 'mp-timetable' ),
+			'manage_categories', 'edit-tags.php?taxonomy=mp-event_tag&amp;post_type=mp-event' );
+		
+		//Settings
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Settings', 'mp-timetable' ), __( 'Settings', 'mp-timetable' ),
+			'switch_themes', 'mptt-settings', array( $this->get_controller( 'settings' ), 'action_content' ) );
+		
+		//Export / Import
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Export / Import', 'mp-timetable' ), __( 'Export / Import', 'mp-timetable' ),
+			'import', 'mptt-import', array( $this->get_controller( 'import' ), 'action_content' ) );
+		
+		//Help
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Help', 'mp-timetable' ), __( 'Help', 'mp-timetable' ),
+			'read', 'mptt-help', array( $this->get_controller( 'help' ), 'action_content' ) );
 	}
 	
 	/**

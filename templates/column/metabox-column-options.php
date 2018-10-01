@@ -5,33 +5,45 @@
 
 	<tr>
 		<td class="column-option">
-			<input class="option-input" value="simple" type="radio" name="column[column_option]" id="simple_column" <?php echo ($post->column_option === 'simple' || empty($post->column_option)) ? 'checked="checked"' : '' ?>">
+			<input class="option-input" value="simple" type="radio" name="column[column_option]" id="simple_column" 
+				<?php echo ($post->column_option === 'simple' || empty($post->column_option)) ? 'checked="checked"' : '' ?>">
 			<label for="simple_column" class="option-label"><?php _e('Simple Column', 'mp-timetable') ?></label>
 		</td>
 	</tr>
 	<tr>
 		<td class="column-option">
-			<input class="option-input" value="weekday" type="radio" name="column[column_option]" id="mp_weekday" <?php echo ($post->column_option === 'weekday') ? 'checked="checked"' : '' ?>>
+			<input class="option-input" value="weekday" type="radio" name="column[column_option]" id="mp_weekday" 
+				<?php echo ($post->column_option === 'weekday') ? 'checked="checked"' : '' ?>>
 			<label for="mp_weekday" class="option-label"><?php _e('Day', 'mp-timetable') ?></label>
 			<br>
-			<select class="option-select mp-weekday" name="column[weekday]" <?php echo ($post->column_option != 'weekday') ? 'disabled' : '' ?>>
+			<select class="option-select mp-weekday" name="column[weekday]" <?php echo ($post->column_option != 'weekday') ? 'disabled="disabled"' : '' ?>>
 				<option value=""><?php _e('- Select -', 'mp-timetable') ?></option>
-				<option value="sunday" <?php echo $post->weekday === 'sunday' ? 'selected="selected"' : '' ?> ><?php _e('Sunday', 'mp-timetable') ?></option>
-				<option value="monday" <?php echo $post->weekday === 'monday' ? 'selected="selected"' : '' ?>><?php _e('Monday', 'mp-timetable') ?></option>
-				<option value="tuesday" <?php echo $post->weekday === 'tuesday' ? 'selected="selected"' : '' ?>><?php _e('Tuesday', 'mp-timetable') ?></option>
-				<option value="wednesday" <?php echo $post->weekday === 'wednesday' ? 'selected="selected"' : '' ?>><?php _e('Wednesday', 'mp-timetable') ?></option>
-				<option value="thursday" <?php echo $post->weekday === 'thursday' ? 'selected="selected"' : '' ?>><?php _e('Thursday', 'mp-timetable') ?></option>
-				<option value="friday" <?php echo $post->weekday === 'friday' ? 'selected="selected"' : '' ?>><?php _e('Friday', 'mp-timetable') ?></option>
-				<option value="saturday" <?php echo $post->weekday === 'saturday' ? 'selected="selected"' : '' ?>><?php _e('Saturday', 'mp-timetable') ?></option>
+				<option value="sunday" <?php selected( $post->weekday, 'sunday' ); ?>><?php _e('Sunday', 'mp-timetable') ?></option>
+				<option value="monday" <?php selected( $post->weekday, 'monday' ); ?>><?php _e('Monday', 'mp-timetable') ?></option>
+				<option value="tuesday" <?php selected( $post->weekday, 'tuesday' ); ?>><?php _e('Tuesday', 'mp-timetable') ?></option>
+				<option value="wednesday" <?php selected( $post->weekday, 'wednesday' ); ?>><?php _e('Wednesday', 'mp-timetable') ?></option>
+				<option value="thursday" <?php selected( $post->weekday, 'thursday' ); ?>><?php _e('Thursday', 'mp-timetable') ?></option>
+				<option value="friday" <?php selected( $post->weekday, 'friday' ); ?>><?php _e('Friday', 'mp-timetable') ?></option>
+				<option value="saturday" <?php selected( $post->weekday, 'saturday' ); ?>><?php _e('Saturday', 'mp-timetable') ?></option>
 			</select>
 		</td>
 	</tr>
 	<tr>
 		<td class="column-option">
-			<input class="option-input" value="date" type="radio" name="column[column_option]" id="mp_date" <?php echo ($post->column_option === 'date') ? 'checked="checked"' : '' ?>>
+			<input class="option-input" value="date" type="radio" name="column[column_option]" id="mp_date" 
+				<?php echo ($post->column_option === 'date') ? 'checked="checked"' : '' ?>>
 			<label for="mp_date" class="option-label"><?php _e('Date', 'mp-timetable') ?></label>
 			<div class="column-datepick mp-date">
-				<input id="datepicker" class="option-input" value="<?php echo (!empty($post->option_day)) ? date('d/m/Y', strtotime(str_replace('/', '-', $post->option_day))) : '' ?>" type="text" name="column[option_day]" <?php echo ($post->column_option != 'date') ? 'disabled' : '' ?> placeholder="<?php echo date('d/m/Y', time()) ?>">
+				<?php
+					$datepicker_value = '';
+					if ( !empty($post->option_day) ) {
+						$datepicker_value = date('d/m/Y', strtotime(str_replace('/', '-', $post->option_day)));
+					}
+				?>
+				<input id="datepicker" class="option-input" type="text" name="column[option_day]"
+					value="<?php echo $datepicker_value ?>" 
+					<?php echo ($post->column_option != 'date') ? 'disabled="disabled"' : '' ?> 
+					placeholder="<?php echo date('d/m/Y', time()) ?>">
 			</div>
 		</td>
 	</tr>
