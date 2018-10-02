@@ -597,7 +597,9 @@ class Core {
 					break;
 
 				case 'options-permalink':
-					$permalinks = new Permalinks();
+					if ( apply_filters('mptt_permalinks_enabled', true) ) {
+						$permalinks = new Permalinks();
+					}
 				break;
 
 				default:

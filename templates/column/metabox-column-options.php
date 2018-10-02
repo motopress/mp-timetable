@@ -5,17 +5,20 @@
 
 	<tr>
 		<td class="column-option">
-			<input class="option-input" value="simple" type="radio" name="column[column_option]" id="simple_column" 
-				<?php echo ($post->column_option === 'simple' || empty($post->column_option)) ? 'checked="checked"' : '' ?>">
-			<label for="simple_column" class="option-label"><?php _e('Simple Column', 'mp-timetable') ?></label>
+			<p>
+				<input class="option-input" value="simple" type="radio" name="column[column_option]" id="simple_column" 
+					<?php echo ($post->column_option === 'simple' || empty($post->column_option)) ? 'checked="checked"' : '' ?>">
+				<label for="simple_column" class="option-label"><?php _e('Simple Column', 'mp-timetable') ?></label>
+			</p>
 		</td>
 	</tr>
 	<tr>
 		<td class="column-option">
-			<input class="option-input" value="weekday" type="radio" name="column[column_option]" id="mp_weekday" 
-				<?php echo ($post->column_option === 'weekday') ? 'checked="checked"' : '' ?>>
-			<label for="mp_weekday" class="option-label"><?php _e('Day', 'mp-timetable') ?></label>
-			<br>
+			<p>
+				<input class="option-input" value="weekday" type="radio" name="column[column_option]" id="mp_weekday" 
+					<?php echo ($post->column_option === 'weekday') ? 'checked="checked"' : '' ?>>
+				<label for="mp_weekday" class="option-label"><?php _e('Day of the week', 'mp-timetable') ?></label>
+			</p>
 			<select class="option-select mp-weekday" name="column[weekday]" <?php echo ($post->column_option != 'weekday') ? 'disabled="disabled"' : '' ?>>
 				<option value=""><?php _e('- Select -', 'mp-timetable') ?></option>
 				<option value="sunday" <?php selected( $post->weekday, 'sunday' ); ?>><?php _e('Sunday', 'mp-timetable') ?></option>
@@ -30,9 +33,11 @@
 	</tr>
 	<tr>
 		<td class="column-option">
-			<input class="option-input" value="date" type="radio" name="column[column_option]" id="mp_date" 
-				<?php echo ($post->column_option === 'date') ? 'checked="checked"' : '' ?>>
-			<label for="mp_date" class="option-label"><?php _e('Date', 'mp-timetable') ?></label>
+			<p>
+				<input class="option-input" value="date" type="radio" name="column[column_option]" id="mp_date" 
+					<?php echo ($post->column_option === 'date') ? 'checked="checked"' : '' ?>>
+				<label for="mp_date" class="option-label"><?php _e('Date', 'mp-timetable') ?></label>
+			</p>
 			<div class="column-datepick mp-date">
 				<?php
 					$datepicker_value = '';

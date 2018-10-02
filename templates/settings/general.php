@@ -16,10 +16,14 @@
 					<p class="description"><?php _e("Choose Theme Mode to display the content with the styles of your theme. Choose Developer Mode to control appearance of the content with custom page templates, actions and filters.", 'mp-timetable'); ?><br/><?php _e("This option can't be changed if your theme is initially integrated with the plugin.", 'mp-timetable'); ?></p>
 				</td>
 			</tr>
+			<?php
+			 if ( apply_filters('mptt_permalinks_enabled', true) ) {
+			?>
 			<tr>
 				<td><?php _e('Permalink Settings'); ?></td>
-				<td><?php echo sprintf( __('Find permalink settings in <a href="%s">Settings > Permalinks</a>', 'mp-timetable'), admin_url('options-permalink.php') ); ?></td>
+				<td><?php echo sprintf( __('Configure permalink settings in <a href="%s">Settings > Permalinks</a>', 'mp-timetable'), admin_url('options-permalink.php') ); ?></td>
 			</tr>
+			 <?php } ?>
 		</table>
 		<p class="submit">
 			<input type="submit" name="submit" id="submit" class="button-primary" value="<?php _e('Save', 'mp-timetable') ?>"/>
