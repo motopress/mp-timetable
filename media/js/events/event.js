@@ -630,10 +630,11 @@ Registry.register("Event",
 				 *
 				 * @param element
 				 */
-				filterStatic: function(element) {
-					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
+				filterStatic: function(element, event) {
 
+					var parentShortcode = element.parents('.mptt-shortcode-wrapper');
 					var eventID = '#all';
+					var id = _.isEmpty(parentShortcode.attr('id')) ? 'not-set' : parentShortcode.attr('id');
 
 					if (element.is("select")) {
 						eventID = element.val();
@@ -641,9 +642,11 @@ Registry.register("Event",
 						eventID = element.attr('href').replace("#", "");
 					}
 
-					var id = _.isEmpty(parentShortcode.attr('id')) ? 'not-set' : parentShortcode.attr('id');
-
-					window.location.hash = id + ':' + eventID;
+					if (event == false || event.originalEvent === undefined) {
+						//console.log('skip');
+					} else {
+						window.location.hash = id + ':' + eventID;
+					}
 
 					parentShortcode.find('table').hide();
 
@@ -679,19 +682,18 @@ Registry.register("Event",
 
 					if (selector.length) {
 
-						selector.off('change').on('change', function() {
-							state.filterStatic($(this));
+						selector.off('change').on('change', function(event) {
+							state.filterStatic($(this), event);
 							state.responsiveFilter($(this));
 						});
 
-						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function() {
+						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function(event) {
 
 							var $currentTab = $(this);
 							$currentTab.parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
 
 							$currentTab.parents('li').addClass('active');
-							state.filterStatic($currentTab);
-
+							state.filterStatic($currentTab, event);
 							state.responsiveFilter($currentTab);
 
 						});

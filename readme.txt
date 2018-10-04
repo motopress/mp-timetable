@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.2.1 =
+* Bug fix: fixed an issue with URL hash (not-set:all).
+
 = 2.2.0 =
 * Added filters for register_post_type and register_taxonomy functions.
 * Added permalink configuration option in Settings > Permalinks.
