@@ -17,5 +17,4 @@ class Module extends Core {
 		// include all core controllers
 		Core::include_all(Mp_Time_Table::get_plugin_part_path('classes/modules'));
 	}
-
 }

@@ -143,6 +143,10 @@ class Hooks extends Core {
 		add_filter( 'body_class', array( $this, 'browser_body_class' ) );
 		add_filter( 'the_tags', array( $this->get( 'events' ), 'the_tags' ), 10, 5 );
 		add_filter( 'the_category', array( $this->get( 'events' ), 'the_category' ), 10, 3 );
+
+		if (function_exists('register_block_type')) {
+			add_action( 'init', [ $this, 'enqueueBlockAssets' ], 11 );
+		}
 	}
 	
 	/**
@@ -251,6 +255,14 @@ class Hooks extends Core {
 		}
 
 		return $classes;
+	}
+
+	public function enqueueBlockAssets() {
+		$path = Mp_Time_Table::get_plugin_path().'blocks/time-table.php';
+
+		if (file_exists($path)){
+			require_once($path);
+		}
 	}
 	
 	/**

@@ -345,6 +345,7 @@ class Core {
 		$event_category_args = array(
 			'label'                 => __( 'Event categories', 'mp-timetable' ),
 			'labels'                => $event_category_labels,
+			'show_in_rest' 			=> true,
 			'public'                => true,
 			'show_in_nav_menus'     => true,
 			'show_ui'               => true,
@@ -445,6 +446,7 @@ class Core {
 						'menu_name'          => __( 'Events', 'mp-timetable' )
 					),
 					'public'            => true,
+					'show_in_rest'      => true,
 					'show_ui'           => true,
 					'show_in_menu'      => false,
 					'show_in_nav_menus' => true,
@@ -483,6 +485,7 @@ class Core {
 						'menu_name'          => __( 'Columns', 'mp-timetable' )
 					),
 					'public'            => true,
+					'show_in_rest'      => true,
 					'show_ui'           => true,
 					'show_in_menu'      => false,
 					'show_in_nav_menus' => true,

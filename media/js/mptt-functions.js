@@ -81,7 +81,6 @@ window.Registry = (function() {
 		_get: _get,
 		registryMap: registryMap
 	};
-
 })();
 
 Registry.register("adminFunctions", (function($) {
@@ -300,50 +299,53 @@ Registry.register("adminFunctions", (function($) {
 	"use strict";
 
 	$(document).ready(function() {
-
-
-        var body = $('body');
-
-        if(detectIE()){
-            if(!body.hasClass('mprm_ie_browser')){
-                body.addClass('mprm_ie_browser');
-            }
-        }else{
-            body.removeClass('mprm_ie_browser');
-        }
-
-		var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
-
-		if ((typeof typenow) !== "undefined") {
-			if (pagenow === typenow) {
-				switch (typenow) {
-					case 'mp-event':
-						Registry._get("Event").init();
-						break;
-					case 'mp-column':
-						Registry._get("Event").initDatePicker();
-						Registry._get("Event").columnRadioBox();
-						break;
-					default:
-						break;
+		
+		const mptt_table_init = () => {
+			var body = $('body');
+	
+			if(detectIE()){
+				if(!body.hasClass('mprm_ie_browser')){
+					body.addClass('mprm_ie_browser');
+				}
+			}else{
+				body.removeClass('mprm_ie_browser');
+			}
+	
+			var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
+	
+			if ((typeof typenow) !== "undefined") {
+				if (pagenow === typenow) {
+					switch (typenow) {
+						case 'mp-event':
+							Registry._get("Event").init();
+							break;
+						case 'mp-column':
+							Registry._get("Event").initDatePicker();
+							Registry._get("Event").columnRadioBox();
+							break;
+						default:
+							break;
+					}
 				}
 			}
+	
+			if ($mptt_shortcode_wrapper.length) {
+				Registry._get("Event").initTableData();
+				Registry._get("Event").filterShortcodeEvents();
+				Registry._get("Event").getFilterByHash();
+	
+				$mptt_shortcode_wrapper.show();
+			}
+	
+			if ($('.upcoming-events-widget').length || $mptt_shortcode_wrapper.length) {
+				Registry._get("Event").setColorSettings();
+			}			
 		}
 
-		if ($mptt_shortcode_wrapper.length) {
+		window.mptt = {};
 
-			Registry._get("Event").initTableData();
-			Registry._get("Event").filterShortcodeEvents();
-			Registry._get("Event").getFilterByHash();
-
-			$mptt_shortcode_wrapper.show();
-		}
-
-		if ($('.upcoming-events-widget').length || $mptt_shortcode_wrapper.length) {
-			Registry._get("Event").setColorSettings();
-		}
-
-
+		window.mptt.tableInit = mptt_table_init;
+		mptt_table_init();
 	});
 })(jQuery);
 
