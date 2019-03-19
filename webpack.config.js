@@ -25,8 +25,6 @@ const config = {
 		'react-dom': 'ReactDOM',
 		'lodash'   : 'lodash'
 	},
-	
-	
 };
 
 module.exports = config;

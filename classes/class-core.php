@@ -558,8 +558,7 @@ class Core {
 		
 		wp_enqueue_script( 'underscore' );
 		wp_enqueue_style( 'mptt-admin-style', Mp_Time_Table::get_plugin_url( 'media/css/admin.css' ), array(), $this->version );
-		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );
-		
+		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );		
 		
 		if ( ! empty( $current_screen ) ) {
 			switch ( $current_screen->id ) {
