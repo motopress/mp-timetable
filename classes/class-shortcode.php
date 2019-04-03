@@ -51,15 +51,15 @@ class Shortcode extends Core {
 	 */
 	public function show_shortcode( $params ) {
 		global $mptt_shortcode_data;
-		
+
 		$this->add_plugin_js( 'shortcode' );
-		
+
 		if ( empty( $params ) ) {
 			$params = array();
 		}
-		
+
 		$mptt_shortcode_data = array();
-		
+
 		$mptt_shortcode_data[ 'params' ] = $params = shortcode_atts( array(
 			'events'              => "",
 			'event_categ'         => "",
@@ -85,7 +85,7 @@ class Shortcode extends Core {
 			'custom_class'        => "",
 			'responsive'          => "1"
 		), $params );
-		
+
 		$mptt_shortcode_data[ 'events_data' ] = $this->get_shortcode_events( $params );
 		
 		if ( ! empty( $mptt_shortcode_data[ 'events_data' ] ) ) {

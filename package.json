@@ -1,18 +1,17 @@
 {
-  "name": "getwid",
+  "name": "timetable",
   "version": "0.0.0",
   "license": "GPLv2+",
   "main": "src/index.js",
   "private": true,
   "scripts": {
-    "start": "webpack --mode development --watch",
+    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production"
   },
   "devDependencies": {
     "@babel/core": "^7.3.4",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
-    "@fonticonpicker/react-fonticonpicker": "^1.1.0",
     "autoprefixer": "^9.4.9",
     "babel-loader": "^8.0.5",
     "classnames": "^2.2.6",
@@ -27,21 +26,13 @@
     "postcss-loader": "^3.0.0",
     "prop-types": "^15.7.2",
     "raw-loader": "^0.5.1",
-    "react-google-font-loader": "^1.0.5",
-    "react-select": "^2.4.1",
-    "react-transition-group": "^2.6.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   },
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.7.2",
-    "animate.css": "^3.7.0",
-    "imagesloaded": "^4.1.4",
-    "wow.js": "^1.2.2"
-  },
-  "description": "=== Timetable and Event Schedule by MotoPress ===\r Contributors: MotoPress\r Donate link: https://motopress.com/\r Tags: schedule, timetable, calendar, event, events calendar\r Requires at least: 3.8\r Tested up to: 4.9\r Stable tag: trunk\r License: GPLv2 or later\r License URI: http://www.gnu.org/licenses/gpl-2.0.html",
+  "dependencies": {},
+  "description": "",
   "keywords": [],
   "author": ""
 }

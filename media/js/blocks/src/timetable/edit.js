@@ -46,18 +46,12 @@ class Edit extends Component {
         return (
             <Fragment>
                 <Inspector {...this.props }/>
-
                 <Disabled>
                     <ServerSideRender
-                        block="mp-timetable/time-table"
+                        block="mp-timetable/timetable"
                         attributes={this.props.attributes}
                     />
                 </Disabled>
-
-                {
-                    (events && event_categ) ? (!events.length || !event_categ.length) && <div>No event selected</div> : null
-                }
-
             </Fragment>
         );
     }
@@ -67,10 +61,10 @@ export default compose([
     withSelect(( select, props ) => {
         const { getEntityRecords, getCategories } = select( "core" );
 
-        let events  = getEntityRecords( "postType", "mp-event"  );
-        let columns = getEntityRecords( "postType", "mp-column" );
+        let events  = getEntityRecords( "postType", "mp-event", {per_page: -1, orderby: 'title', order: 'asc'} );
+        let columns = getEntityRecords( "postType", "mp-column", {per_page: -1} );
         
-        let eventCategories = getEntityRecords( "taxonomy", "mp-event_category" );
+        let eventCategories = getEntityRecords( "taxonomy", "mp-event_category", {per_page: -1} );
 
         return {
             selectedEvents:  events  ? events .map((event)  => {

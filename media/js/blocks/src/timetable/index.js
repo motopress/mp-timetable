@@ -7,10 +7,11 @@ const {
 const { __ } = wp.i18n;
 
 export default registerBlockType(
-    'mp-timetable/time-table',
+    'mp-timetable/timetable',
     {
-        title: __('Time Table', 'mp-timetable'),
+        title: __('Timetable', 'mp-timetable'),
         category: 'common',
+		icon: 'calendar',
         supports: {
 			align: [ 'wide', 'full' ],
 		},

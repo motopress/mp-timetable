@@ -6,6 +6,7 @@ use Mp_Time_Table;
 use mp_timetable\classes\models\Import;
 use mp_timetable\classes\models\Settings;
 use mp_timetable\plugin_core\classes\modules\Post;
+use mp_timetable\classes\blocks\Timetable_Block;
 
 /**
  * Class Hooks
@@ -144,8 +145,8 @@ class Hooks extends Core {
 		add_filter( 'the_tags', array( $this->get( 'events' ), 'the_tags' ), 10, 5 );
 		add_filter( 'the_category', array( $this->get( 'events' ), 'the_category' ), 10, 3 );
 
-		if (function_exists('register_block_type')) {
-			add_action( 'init', [ $this, 'enqueueBlockAssets' ], 11 );
+		if ( function_exists('register_block_type') ) {
+			new Timetable_Block();
 		}
 	}
 	
@@ -257,14 +258,6 @@ class Hooks extends Core {
 		return $classes;
 	}
 
-	public function enqueueBlockAssets() {
-		$path = Mp_Time_Table::get_plugin_path().'blocks/time-table.php';
-
-		if (file_exists($path)){
-			require_once($path);
-		}
-	}
-	
 	/**
 	 * Set js
 	 */

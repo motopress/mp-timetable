@@ -108,6 +108,11 @@ class Mp_Time_Table {
 		 * Include hooks
 		 */
 		require_once self::get_plugin_path() . 'classes/class-hooks.php';
+		
+		/**
+		 * Include blocks
+		 */
+		require_once self::get_plugin_path() . 'classes/blocks/class-timetable-block.php';
 	}
 	
 	/**

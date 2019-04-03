@@ -1,1 +1,1 @@
-import './time-table';
+import './timetable';
