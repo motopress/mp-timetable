@@ -67,7 +67,6 @@ class Core {
 	 * @param $name
 	 */
 	public function init_plugin( $name ) {
-		
 		load_plugin_textdomain( 'mp-timetable', false, Mp_Time_Table::get_plugin_path() . 'languages/' );
 		
 		// include template for function

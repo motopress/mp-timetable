@@ -57,9 +57,12 @@ class Inspector extends Component {
                 description,
                 user,
 
+				group,
                 disable_event_url,
-                text_align,
-                id,
+				text_align,
+				text_align_vertical,
+				id,
+				custom_class,
 
                 row_height,
                 font_size,
@@ -102,6 +105,54 @@ class Inspector extends Component {
 						value={event_categ}
 						onChange={event_categ => setAttributes({event_categ})}
 						options={this.setOptions(selectedEventCategories)}
+					/>
+					<CheckboxControl
+						label={__('Title', 'mp-timetable')}
+						checked={title == '1' ? true : false}
+						onChange={(title) => {
+							setAttributes({title: title ? '1' : '0'}) 
+						}}
+					/>
+					<CheckboxControl
+						label={__('Time', 'mp-timetable')}
+						checked={time == '1' ? true : false}
+						onChange={(time) => { setAttributes({time: time ? '1' : '0'}) }}
+					/>
+					<CheckboxControl
+						label={__('Subtitle', 'mp-timetable')}
+						checked={sub_title == '1' ? true : false}
+						onChange={(sub_title) => { setAttributes({sub_title: sub_title ? '1' : '0'}) }}
+					/>
+					<CheckboxControl
+						label={__('Description', 'mp-timetable')}
+						checked={description == '1' ? true : false}
+						onChange={(description) => { setAttributes({description: description ? '1' : '0'}) }}
+					/>
+					<CheckboxControl
+						label={__('Event Head', 'mp-timetable')}
+						checked={user == '1' ? true : false}
+						onChange={(user) => { setAttributes({user: user ? '1' : '0'}) }}
+					/>
+					<TextControl
+						label={__('Block height in pixels', 'mp-timetable')}
+						type={'number'}
+						value={isNaN(row_height) ? 0 : parseInt(row_height)}
+						onChange={row_height => {
+							setAttributes({ row_height: row_height.toString() });
+						}}
+						min={1}
+						step={1}
+					/>
+					<TextControl
+						label={__('Base font size', 'mp-timetable')}
+						help={__('Base font size for the table. Example 12px, 2em, 80%.', 'mp-timetable')}
+						type={'number'}
+						value={isNaN(font_size) ? 0 : parseInt(font_size)}
+						onChange={font_size => {
+							setAttributes({ font_size: font_size.toString() });
+						}}
+						min={1}
+						step={1}
 					/>
 					<SelectControl
 						label={__('Time frame for event', 'mp-timetable')}
@@ -154,33 +205,15 @@ class Inspector extends Component {
 							{ value: '1', label: __( 'Yes', 'mp-timetable' ) },
 						]}
 					/>
-					<CheckboxControl
-						label="Title"
-						checked={title == '1' ? true : false}
-						onChange={(title) => {
-							setAttributes({title: title ? '1' : '0'}) 
-						}}
-					/>
-					<CheckboxControl
-						label="Time"
-						checked={time == '1' ? true : false}
-						onChange={(time) => { setAttributes({time: time ? '1' : '0'}) }}
-					/>
-					<CheckboxControl
-						label="Subtitle"
-						checked={sub_title == '1' ? true : false}
-						onChange={(sub_title) => { setAttributes({sub_title: sub_title ? '1' : '0'}) }}
-					/>
-					<CheckboxControl
-						label="Description"
-						checked={description == '1' ? true : false}
-						onChange={(description) => { setAttributes({description: description ? '1' : '0'}) }}
-					/>
-					<CheckboxControl
-						label="Event Head"
-						checked={user == '1' ? true : false}
-						onChange={(user) => { setAttributes({user: user ? '1' : '0'}) }}
-					/>
+					<SelectControl
+						label={__('Merge cells with common events', 'mp-timetable')}
+						value={group}
+						onChange={group => setAttributes({ group })}
+						options={[
+							{ value: '0', label: __( 'No' , 'mp-timetable' ) },
+							{ value: '1', label: __( 'Yes', 'mp-timetable' ) },
+						]}
+					/>						
 					<SelectControl
 						label={__('Disable event link', 'mp-timetable')}
 						value={disable_event_url}
@@ -189,7 +222,7 @@ class Inspector extends Component {
 							{ value: '0', label: __( 'No' , 'mp-timetable' ) },
 							{ value: '1', label: __( 'Yes', 'mp-timetable' ) },
 						]}
-					/>
+					/>			
 					<SelectControl
 						label={__('Horizontal align', 'mp-timetable')}
 						value={text_align}
@@ -200,34 +233,15 @@ class Inspector extends Component {
 							{ value: 'right',  label: __( 'Right' , 'mp-timetable' ) },
 						]}
 					/>
-					<TextControl
-						label={__('Block height in pixels', 'mp-timetable')}
-						type={'number'}
-						value={isNaN(row_height) ? 0 : parseInt(row_height)}
-						onChange={row_height => {
-							setAttributes({ row_height: row_height.toString() });
-						}}
-						min={1}
-						step={1}
-					/>
-					<TextControl
-						label={__('Base font size', 'mp-timetable')}
-						help={__('Base font size for the table. Example 12px, 2em, 80%.', 'mp-timetable')}
-						type={'number'}
-						value={isNaN(font_size) ? 0 : parseInt(font_size)}
-						onChange={font_size => {
-							setAttributes({ font_size: font_size.toString() });
-						}}
-						min={1}
-						step={1}
-					/>
 					<SelectControl
-						label={__('Responsive', 'mp-timetable')}
-						value={responsive}
-						onChange={responsive => setAttributes({responsive})}
+						label={__('Vertical align', 'mp-timetable')}
+						value={text_align_vertical}
+						onChange={text_align_vertical => setAttributes({ text_align_vertical })}
 						options={[
-							{ value: '0', label: __( 'No' , 'mp-timetable' ) },
-							{ value: '1', label: __( 'Yes', 'mp-timetable' ) },
+							{ value: 'default', label: __( 'Default', 'mp-timetable' ) },
+							{ value: 'top',   label: __( 'Top'  , 'mp-timetable' ) },
+							{ value: 'middle',   label: __( 'Middle'  , 'mp-timetable' ) },
+							{ value: 'bottom',  label: __( 'Bottom' , 'mp-timetable' ) },
 						]}
 					/>
 					<TextControl
@@ -236,6 +250,21 @@ class Inspector extends Component {
 						value={id}
 						onChange={id => setAttributes({id})}
 					/>
+					<TextControl
+						label={__('CSS class', 'mp-timetable')}
+						value={custom_class}
+						onChange={custom_class => setAttributes({custom_class})}
+					/>
+					<SelectControl
+						label={__('Mobile behavior', 'mp-timetable')}
+						value={responsive}
+						onChange={responsive => setAttributes({responsive})}
+						options={[
+							{ value: '0', label: __( 'Table' , 'mp-timetable' ) },
+							{ value: '1', label: __( 'List', 'mp-timetable' ) },
+						]}
+					/>
+
 				</PanelBody>
             </InspectorControls>
         );

@@ -1,0 +1,14 @@
+{
+    "domain": "mp-timetable",
+    "locale_data": {
+       "mp-timetable": {
+          "": {
+             "domain": "mp-timetable",
+             "plural_forms": "nplurals=2; plural=(n != 1);",
+             "lang": "ru_RU"
+          },
+          "Time frame for event": ["Период времени для мероприятий"],
+          "Event categories": ["Категории мероприятий"],
+       }
+    }
+ }
