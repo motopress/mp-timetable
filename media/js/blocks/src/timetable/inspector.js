@@ -146,13 +146,8 @@ class Inspector extends Component {
 					<TextControl
 						label={__('Base font size', 'mp-timetable')}
 						help={__('Base font size for the table. Example 12px, 2em, 80%.', 'mp-timetable')}
-						type={'number'}
-						value={isNaN(font_size) ? 0 : parseInt(font_size)}
-						onChange={font_size => {
-							setAttributes({ font_size: font_size.toString() });
-						}}
-						min={1}
-						step={1}
+						value={font_size}
+						onChange={font_size => setAttributes({font_size})}
 					/>
 					<SelectControl
 						label={__('Time frame for event', 'mp-timetable')}

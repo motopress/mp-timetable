@@ -300,7 +300,7 @@ Registry.register("adminFunctions", (function($) {
 
 	$(document).ready(function() {
 		
-		const mptt_table_init = () => {
+		var mptt_table_init = () => {
 			var body = $('body');
 	
 			if(detectIE()){
@@ -333,8 +333,9 @@ Registry.register("adminFunctions", (function($) {
 				Registry._get("Event").initTableData();
 				Registry._get("Event").filterShortcodeEvents();
 				Registry._get("Event").getFilterByHash();
-	
+
 				$mptt_shortcode_wrapper.show();
+				$mptt_shortcode_wrapper.addClass('table-init');
 			}
 	
 			if ($('.upcoming-events-widget').length || $mptt_shortcode_wrapper.length) {

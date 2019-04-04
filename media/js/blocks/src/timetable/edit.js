@@ -20,18 +20,24 @@ class Edit extends Component {
         super(...arguments);
     }
 
+    initTable(){
+        //Set timer and check when table is load fully, and then initialize table data, and after stop timer
+        const waitLoadTable = setInterval( () => {
+            if ($('.mptt-shortcode-wrapper').length && !$('.mptt-shortcode-wrapper').hasClass('table-init')){
+                clearInterval(waitLoadTable);
+                window.mptt.tableInit();
+            }
+        }, 1);
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (!isEqual(this.props.attributes, prevProps.attributes)) {
-            setTimeout(() => {
-                window.mptt.tableInit();
-            }, 1000);
+            this.initTable();
         }
     }
 
     componentDidMount() {
-        setTimeout(() => {
-            window.mptt.tableInit();
-        }, 1000);
+        this.initTable();
     }
 
     render() {
