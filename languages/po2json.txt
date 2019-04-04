@@ -1,0 +1,1 @@
+po2json .\languages\mp-timetable-ru_RU.po .\languages\mp-timetable-ru_RU.json -f jed

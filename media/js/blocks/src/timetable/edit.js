@@ -61,9 +61,8 @@ export default compose([
     withSelect(( select, props ) => {
         const { getEntityRecords, getCategories } = select( "core" );
 
-        let events  = getEntityRecords( "postType", "mp-event", {per_page: -1, orderby: 'title', order: 'asc'} );
-        let columns = getEntityRecords( "postType", "mp-column", {per_page: -1} );
-        
+        let events  		= getEntityRecords( "postType", "mp-event", {per_page: -1, orderby: 'title', order: 'asc'} );
+        let columns 		= getEntityRecords( "postType", "mp-column", {per_page: -1} );
         let eventCategories = getEntityRecords( "taxonomy", "mp-event_category", {per_page: -1} );
 
         return {

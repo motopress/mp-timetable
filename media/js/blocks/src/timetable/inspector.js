@@ -18,17 +18,17 @@ const {
 class Inspector extends Component {
     constructor() {
         super(...arguments);
-        
+
         this.setOptions = this.setOptions.bind( this );
     }
-    
+
     setOptions(data) {
         let options = [];
         if (data) {
             options = data.map((event => {
                 return {
                     value: event.id.toString(),
-                    label: __( get( event, [ 'title', 'raw' ] ) || get( event, [ 'name' ] ), 'mp-timetable' )                    
+                    label: get( event, [ 'title', 'raw' ] ) || get( event, [ 'name' ] )
                 }
             }));
         }
@@ -84,7 +84,7 @@ class Inspector extends Component {
 					<SelectControl
 						multiple
 						size="7"
-						label={__('Columns (required)', 'mp-timetable')}
+						label={__('Columns', 'mp-timetable')}
 						help={__('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable')}
 						value={col}
 						onChange={col => setAttributes({col})}
@@ -161,7 +161,7 @@ class Inspector extends Component {
 						options={[
 							{ value: '1'   , label: __( 'Hour (1h)'           , 'mp-timetable' ) },
 							{ value: '0.5' , label: __( 'Half hour (30min)'   , 'mp-timetable' ) },
-							{ value: '0.25', label: __( 'Quater hour (15min)' , 'mp-timetable' ) },
+							{ value: '0.25', label: __( 'Quarter hour (15min)' , 'mp-timetable' ) },
 						]}
 					/>
 					<SelectControl
@@ -228,9 +228,9 @@ class Inspector extends Component {
 						value={text_align}
 						onChange={text_align => setAttributes({ text_align })}
 						options={[
-							{ value: 'center', label: __( 'Center', 'mp-timetable' ) },
-							{ value: 'left',   label: __( 'Left'  , 'mp-timetable' ) },
-							{ value: 'right',  label: __( 'Right' , 'mp-timetable' ) },
+							{ value: 'center', label: __( 'center', 'mp-timetable' ) },
+							{ value: 'left',   label: __( 'left'  , 'mp-timetable' ) },
+							{ value: 'right',  label: __( 'right' , 'mp-timetable' ) },
 						]}
 					/>
 					<SelectControl
@@ -239,9 +239,9 @@ class Inspector extends Component {
 						onChange={text_align_vertical => setAttributes({ text_align_vertical })}
 						options={[
 							{ value: 'default', label: __( 'Default', 'mp-timetable' ) },
-							{ value: 'top',   label: __( 'Top'  , 'mp-timetable' ) },
-							{ value: 'middle',   label: __( 'Middle'  , 'mp-timetable' ) },
-							{ value: 'bottom',  label: __( 'Bottom' , 'mp-timetable' ) },
+							{ value: 'top',   label: __( 'top'  , 'mp-timetable' ) },
+							{ value: 'middle',   label: __( 'middle'  , 'mp-timetable' ) },
+							{ value: 'bottom',  label: __( 'bottom' , 'mp-timetable' ) },
 						]}
 					/>
 					<TextControl
