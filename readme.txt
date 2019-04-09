@@ -69,6 +69,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.1 =
+* Bug fix: fixed the issue with opening PHP tag.
+
 = 2.3.0 =
 * Added support for WordPress 5.0.
 

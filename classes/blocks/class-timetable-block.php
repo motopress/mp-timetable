@@ -180,7 +180,7 @@ class Timetable_Block {
 
 			$this->show_shortcode($attributes);
 
-		?></div><?
+		?></div><?php
 
 		$result = ob_get_clean();
 		return $result;
