@@ -616,8 +616,14 @@ class Core {
 	 * @return string
 	 */
 	public function get_prefix() {
+		global $is_IE;
+
 		$prefix = ! MP_TT_DEBUG ? '.min' : '';
-		
+
+		if ($is_IE){
+			$prefix =  '';
+		}
+
 		return $prefix;
 	}
 	
@@ -636,8 +642,7 @@ class Core {
 	 * @param bool $type
 	 */
 	public function add_plugin_js( $type = false ) {
-		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event.js' ), array( 'jquery' ), $this->version );
-		// wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
@@ -648,8 +653,7 @@ class Core {
 			case 'shortcode':
 			case 'widget':
 				wp_enqueue_script( 'underscore' );
-				wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions.js' ), array( 'jquery' ), $this->version );	
-				// wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+				wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
 				wp_enqueue_script( 'mptt-event-object' );
 				break;
 		}
