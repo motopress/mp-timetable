@@ -642,7 +642,7 @@ class Core {
 	 * @param bool $type
 	 */
 	public function add_plugin_js( $type = false ) {
-		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery', 'mptt-functions' ), $this->version );
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
