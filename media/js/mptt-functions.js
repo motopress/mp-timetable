@@ -300,7 +300,7 @@ Registry.register("adminFunctions", (function($) {
 
 	$(document).ready(function() {
 		
-		var mptt_table_init = () => {
+		var mptt_table_init = function() {
 			var body = $('body');
 	
 			if(detectIE()){

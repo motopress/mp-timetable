@@ -13,7 +13,7 @@ class Timetable_Block {
 		// block-js
 		wp_register_script(
 			'mptt-blocks-js',
-			Mp_Time_Table::get_plugin_url( '/media/js/blocks/dist/index.js' ),
+			Mp_Time_Table::get_plugin_url( '/media/js/blocks/dist/index.min.js' ),
 			array( 'wp-i18n', 'wp-editor', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-api-fetch', 'mptt-functions', 'mptt-event-object'),
 			Core::get_instance()->get_version()
 		);

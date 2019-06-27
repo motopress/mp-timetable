@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar
 Requires at least: 4.6
-Tested up to: 5.1
+Tested up to: 5.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,11 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 1. Upload the plugin files to the /wp-content/plugins/ directory
 2. Activate the plugin through the 'Plugins' menu in WordPress. You'll find 'Timetable' on your main WordPress dashboard.  
 
+== Copyright ==
+
+Timetable and Event Schedule plugin, Copyright (C) 2019, MotoPress https://motopress.com/
+Timetable and Event Schedule plugin is distributed under the terms of the GNU GPL.
+
 == Screenshots ==
 1. Timetable
 2. Column
@@ -68,6 +73,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.3.2 =
+* Bug fix: fixed an issue in IE browser.
 
 = 2.3.1 =
 * Bug fix: fixed the issue with opening PHP tag.
