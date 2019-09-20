@@ -74,6 +74,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.3, Sep 20 2019 =
+* Bug fix: fixed the issue with events disappearing on hover in Chrome.
+
 = 2.3.2 =
 * Bug fix: fixed an issue in IE browser.
 
