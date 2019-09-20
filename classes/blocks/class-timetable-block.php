@@ -21,7 +21,7 @@ class Timetable_Block {
 		// style.css
 		wp_register_style(
 			'mptt-blocks',
-			Mp_Time_Table::get_plugin_url( '/media/css/style.css' ),
+			Mp_Time_Table::get_plugin_url( 'media/css/style.css' ),
 			array(),
 			Core::get_instance()->get_version()
 		);
@@ -30,7 +30,7 @@ class Timetable_Block {
 		wp_register_style(
 			'mptt-blocks-editor',
 			Mp_Time_Table::get_plugin_url( '/media/css/block-editor.css' ),
-			array(),
+			array('mptt-blocks'),
 			Core::get_instance()->get_version()
 		);
 
@@ -141,7 +141,6 @@ class Timetable_Block {
 					),            
 				),
 				'render_callback' => [ $this, 'render_timetable' ],
-				'style'           => 'mptt-blocks',
 				'editor_style'    => 'mptt-blocks-editor',
 				'editor_script'          => 'mptt-blocks-js',
 			)
