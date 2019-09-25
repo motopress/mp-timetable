@@ -378,9 +378,13 @@ class Events extends Model {
 	 */
 	public function get_widget_events( $instance ) {
 		$events       = array();
-		$weekday      = strtolower( date( 'l', time() ) );
-		$current_date = date( 'd/m/Y', time() );
-		$curent_time  = date( 'H:i', current_time( 'timestamp' ) );
+		$current_local_time = current_time( 'timestamp' );
+
+		$weekday      = strtolower( date( 'l', $current_local_time ) );
+		$current_date = date( 'd/m/Y', $current_local_time );
+		
+		// 24.09.2019 seconds added
+		$curent_time  = date( 'H:i:s', $current_local_time );
 		
 		if ( ! empty( $instance[ 'mp_categories' ] ) ) {
 			$category_columns_ids = $this->get( 'column' )->get_columns_by_event_category( $instance[ 'mp_categories' ] );
@@ -419,12 +423,12 @@ class Events extends Model {
 				if ( ! empty( $instance[ 'next_days' ] ) && $instance[ 'next_days' ] > 0 ) {
 					$events_array = array();
 					for ( $i = 0; $i <= $instance[ 'next_days' ]; $i ++ ) {
+
 						// set new day week
-						$time = strtotime( "+$i days" );
-						
+						$time = strtotime( "+$i days", $current_local_time );
 						$day  = strtolower( date( 'l', $time ) );
 						$date = date( 'd/m/Y', $time );
-						
+
 						//set week day
 						$args[ 'meta_query' ][ 0 ][ 'value' ] = $day;
 						//set new date
@@ -538,10 +542,10 @@ class Events extends Model {
 	 * @return array
 	 */
 	protected function filter_events( $params ) {
+
 		$events = array();
-		
 		$events = $this->filter_by_time_period( $params, $events );
-		
+
 		if ( ! empty( $params[ 'mp_categories' ] ) ) {
 			$events = $this->filter_events_by_categories( $events, $params[ 'mp_categories' ] );
 		}
@@ -559,13 +563,20 @@ class Events extends Model {
 	 */
 	protected function filter_by_time_period( $params, $events ) {
 		if ( ! empty( $params[ 'events' ] ) ) {
+
+			$time = strtotime( $params[ 'time' ] );
+
 			foreach ( $params[ 'events' ] as $key => $event ) {
+				
+				$event_end = strtotime( $event->event_end );
+				$event_start = strtotime( $event->event_start );
+
 				if ( $params[ 'view_settings' ] === 'today' || $params[ 'view_settings' ] === 'all' ) {
-					if ( strtotime( $event->event_end ) <= strtotime( $params[ 'time' ] ) ) {
+					if ( $event_end  <= $time ) {
 						continue;
 					}
 				} elseif ( $params[ 'view_settings' ] === 'current' ) {
-					if ( ( strtotime( $event->event_end ) >= strtotime( $params[ 'time' ] ) && strtotime( $params[ 'time' ] ) <= strtotime( $event->event_start ) ) || strtotime( $event->event_end ) <= strtotime( $params[ 'time' ] ) ) {
+					if ( $event_start >= $time || $event_end  <= $time ) {
 						continue;
 					}
 				}

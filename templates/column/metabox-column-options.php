@@ -48,7 +48,7 @@
 				<input id="datepicker" class="option-input" type="text" name="column[option_day]"
 					value="<?php echo $datepicker_value ?>" 
 					<?php echo ($post->column_option != 'date') ? 'disabled="disabled"' : '' ?> 
-					placeholder="<?php echo date('d/m/Y', time()) ?>">
+					placeholder="<?php echo date('d/m/Y', current_time( 'timestamp' ) ) ?>">
 			</div>
 		</td>
 	</tr>

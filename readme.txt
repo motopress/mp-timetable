@@ -74,6 +74,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.4, Sep 25 2019 =
+* Bug fix: fixed an issue with UTC timezone offset.
+
 = 2.3.3, Sep 20 2019 =
 * Bug fix: fixed the issue with events disappearing on hover in Chrome.
 
