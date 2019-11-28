@@ -13,8 +13,14 @@
  */
 
 /*
- * This plugin contains hooks that allow you to edit, add and move content without needing to edit template files. This method protects against upgrade issues.
- * Alternatively, you can copy template files from '/mp-timetable/templates/' folder to '/your-theme/mp-timetable/' to override them.
+ * This plugin contains hooks that allow you to edit, add and move content without the need to edit template files.
+ * This method protects against upgrade issues. There are several actions and filters you can use to modify content output.
+ * You can check \mp-timetable\classes\class-hooks.php for the list of hooks.
+ * 
+ * Alternatively in "Developer Mode", you can copy template files from '/mp-timetable/templates/' folder to '/your-theme/mp-timetable/' to override them.
+ * 
+ * The Timetable plugin also supports default WordPress templates hierarchy:
+ * https://developer.wordpress.org/themes/basics/template-hierarchy/#visual-overview
  */
 
 use mp_timetable\plugin_core\classes\Core;
