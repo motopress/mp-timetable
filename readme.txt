@@ -1,7 +1,7 @@
 === Timetable and Event Schedule by MotoPress ===
 Contributors: MotoPress
 Donate link: https://motopress.com/
-Tags: schedule, timetable, calendar, event, events calendar
+Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointments, upcoming events
 Requires at least: 4.6
 Tested up to: 5.3
 Stable tag: trunk
@@ -11,10 +11,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Smart event organizer and time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
 
 == Description ==
-MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free. The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
+
+MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free.
+
+The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
 
 * Check [Timetable and Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)
-* Please find the step-by-step instructions of working with the plugin [here](https://motopress.com/files/motopress-timetable-plugin-documentation.pdf)
+* Please find the step-by-step [instructions of working with the plugin](https://motopress.com/files/motopress-timetable-plugin-documentation.pdf)
 
 = Key advantages =
 
@@ -45,6 +48,8 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 * Unique IDs for multiple timetables on a single page
 * Color settings for background, background hover, text, and text hover
 * Export/import of your data
+
+Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
 
 == Installation ==
 
