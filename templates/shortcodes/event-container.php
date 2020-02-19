@@ -39,7 +39,7 @@
 		<?php endif;
 		
 		if ( $params[ 'description' ] && ! empty( $item[ 'description' ] ) ): ?>
-			<p class="event-description"><?php echo $item[ 'description' ]; ?></p>
+			<p class="event-description"><?php echo stripslashes( $item[ 'description' ] ); ?></p>
 		<?php endif;
 		
 		if ( $params[ 'user' ] && $item[ 'user_id' ] != '-1' ): ?>

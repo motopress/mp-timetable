@@ -2,12 +2,12 @@
 <table id="add_event_options_table" class="form-table">
 	<tr>
 		<td><label for="sub_title"><?php _e('Event Subtitle:', 'mp-timetable') ?></label></td>
-		<td><input id="sub_title" class="widefat" type="text" value="<?php echo $post->sub_title ?>" name="event_meta[sub_title]"></td>
+		<td><input id="sub_title" class="widefat" type="text" value="<?php echo esc_attr( $post->sub_title ); ?>" name="event_meta[sub_title]"></td>
 	</tr>
 	<tr class="select-color">
 		<td><label for="color"><?php _e('Background Color:', 'mp-timetable'); ?></label></td>
 		<td>
-			<input type="hidden" class="clr-picker" value="<?php echo $post->color ?>">
+			<input type="hidden" class="clr-picker" value="<?php echo esc_attr( $post->color ); ?>">
 			<input type="text" id="color" name="event_meta[color]" value="<?php echo $post->color ?>" data-default-color="transparent">
 		</td>
 	</tr>
@@ -35,7 +35,7 @@
 	<tr>
 		<td><label for="timetable_custom_url"><?php _e('Custom Event URL:', 'mp-timetable'); ?></label></td>
 		<td>
-			<input type="text" id="timetable_custom_url" class="widefat" placeholder="http://mywebsite.com" name="event_meta[timetable_custom_url]" value="<?php echo $post->timetable_custom_url ?>">
+			<input type="text" id="timetable_custom_url" class="widefat" placeholder="http://mywebsite.com" name="event_meta[timetable_custom_url]" value="<?php echo esc_attr( $post->timetable_custom_url ); ?>">
 		</td>
 	</tr>
 	<tr>

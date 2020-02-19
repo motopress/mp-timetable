@@ -120,8 +120,9 @@ class Events extends Model {
 			$event_data[ $key ]->event_end   = date( 'H:i', strtotime( $event_data[ $key ]->event_end ) );
 			$event_data[ $key ]->user        = get_user_by( 'id', $event_data[ $key ]->user_id );
 			$event_data[ $key ]->post        = get_post( $event_data[ $key ]->event_id );
+			$event_data[ $key ]->description = stripcslashes( $event_data[ $key ]->description );
 		}
-		
+
 		return $event_data;
 	}
 	

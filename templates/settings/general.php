@@ -31,3 +31,15 @@
 		</p>
 	</form>
 </div>
+<p><?php
+
+	$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
+	$name = $pluginObject[ 'Name' ];
+
+	echo sprintf(
+		/* translators: 1: Timetable and Event Schedule 2:: five stars rating */
+		__( 'If you like %1$s please leave us a %2$s rating.', 'mp-timetable' ),
+		sprintf( '<strong>%s</strong>', esc_html( $name ) ),
+		'<a href="https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+	);
+?></p>

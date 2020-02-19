@@ -4,7 +4,7 @@
 <input type="hidden" id="time_format" value="<?php echo $date["time_format"]["am_pm"] === true ? '1' : '0' ?>"/>
 
 <?php \mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true) ?>
-
+<h4>Add New / Edit Timeslot</h4>
 <table id="add_event_table" class="widefat">
 	<tr>
 		<td><label for="weekday_id"><?php _e('Column:', 'mp-timetable') ?></label></td>

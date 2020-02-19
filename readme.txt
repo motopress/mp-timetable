@@ -79,6 +79,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.5, Feb 19 2020 =
+* Bug fix: fixed an issue with slashes in event description.
+
 = 2.3.4, Sep 25 2019 =
 * Bug fix: fixed an issue with UTC timezone offset.
 

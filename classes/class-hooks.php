@@ -55,6 +55,7 @@ class Hooks extends Core {
 		add_filter( 'post_class', 'mptt_post_class', 15, 3 );
 		// to display events with other posts on author page
 		add_filter( 'pre_get_posts', array( Post::get_instance(), 'pre_get_posts' ), 9 );
+		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 	}
 	
 	/**
@@ -263,5 +264,25 @@ class Hooks extends Core {
 	 */
 	public function set_html_js_class() {
 		echo View::get_instance()->get_template_html('events/no-script');
+	}
+	
+	/**
+	 * Show row meta on the plugin screen.
+	 *
+	 * @return array
+	 */
+	public static function plugin_row_meta( $links, $file ) {
+
+		if ( MP_TT_PLUGIN_BASENAME === $file ) {
+			$row_meta = array(
+				'help'    => '<a href="' . esc_url( admin_url('edit.php?post_type=mp-event&page=mptt-help') ) . '" aria-label="' . esc_attr__( 'Quick Start Guide', 'mp-timetable' ) . '">' .
+					esc_html__( 'Help', 'mp-timetable' ) . '</a>',
+				'review'    => '<a href="' . esc_url( 'https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post' ) . '" aria-label="' . esc_attr__( 'Leave a Review', 'mp-timetable' ) . '" target="_blank">' . esc_html__( 'Leave a Review', 'mp-timetable' ) . '</a>',
+			);
+
+			return array_merge( $links, $row_meta );
+		}
+
+		return (array) $links;
 	}
 }

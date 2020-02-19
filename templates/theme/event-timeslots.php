@@ -29,7 +29,7 @@ if ( !empty($events) ) {
 
 			<?php if (!empty($event->description)) { ?>
 				<br/>
-				<span class="timeslot-description"><?php echo $event->description; ?></span>
+				<span class="timeslot-description"><?php echo stripslashes( $event->description ); ?></span>
 			<?php } ?>
 			<?php if (!empty($event->user)) { ?>
 				<br/>

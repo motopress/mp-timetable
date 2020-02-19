@@ -52,7 +52,7 @@ function mptt_column_template_content_events_list() {
 				<?php } ?>
 
 				<?php if (!empty($event->description)) { ?>
-					<p class="event-description"><?php echo $event->description; ?></p>
+					<p class="event-description"><?php echo stripslashes( $event->description ); ?></p>
 				<?php } ?>
 
 				<?php if (!empty($event->user)) { ?>
