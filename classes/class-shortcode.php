@@ -89,7 +89,9 @@ class Shortcode extends Core {
 		$mptt_shortcode_data[ 'events_data' ] = $this->get_shortcode_events( $params );
 		
 		if ( ! empty( $mptt_shortcode_data[ 'events_data' ] ) ) {
-			$mptt_shortcode_data[ 'unique_events' ] = $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ];
+			if ( isset($mptt_shortcode_data[ 'events_data' ][ 'unique_events' ]) ) {
+				$mptt_shortcode_data[ 'unique_events' ] = $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ];
+			}
 			if ( isset( $mptt_shortcode_data[ 'events_data' ][ 'events' ] ) ) {
 				unset( $mptt_shortcode_data[ 'events_data' ][ 'events' ] );
 			}

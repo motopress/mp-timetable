@@ -28,7 +28,7 @@ function mptt_shortcode_template_content_filter() {
 	global $mptt_shortcode_data;
 	$unique_events = empty( $mptt_shortcode_data[ 'unique_events' ] ) ? array() : $mptt_shortcode_data[ 'unique_events' ];
 	$style         = '';
-	if ( count( $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ] ) < 2 ) {
+	if ( isset( $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ]) && count( $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ] ) < 2 ) {
 		$style = ' style="display:none;"';
 	}
 	$display_label = $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ? 'display: none' : '';
@@ -240,6 +240,9 @@ function mptt_shortcode_template_content_responsive_table() {
 												<span class="timeslot-delimiter"><?php echo apply_filters( 'mptt_timeslot_delimiter', ' - ' ); ?></span>
 												<time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php echo date( get_option( 'time_format' ), strtotime( $event->event_end ) ); ?></time>
 											</p>
+										<?php endif;
+										if ( $mptt_shortcode_data[ 'params' ][ 'sub-title' ] && ! empty( $event->post->sub_title ) ): ?>
+											<p class="event-subtitle"><?php echo $event->post->sub_title; ?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'description' ] ): ?>
 											<p class="event-description"><?php
