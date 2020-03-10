@@ -576,18 +576,53 @@ Registry.register("Event",
 				 * @param events
 				 * @returns {number}
 				 */
-				getRowSpan: function(events) {
+				getRowSpan: function(events, td) {
 					var arrMax = [];
 					var arrMin = [];
+					var columnId = td.attr('data-column-id');
+
+					/*
+					 * Erroneous Positioning of Events
+					 * https://wordpress.org/support/topic/erroneous-positioning-of-events/
+					 */
+					var nextTr = td.closest('tr').next('tr');
+					var nextTd = nextTr.find('td[data-column-id="' + columnId + '"]');
+					var nextTdSet = (nextTr.length > 0) && (nextTd.length > 0) && (nextTd.children().length > 0);
+
+					while ( !nextTdSet ) {
+						if( nextTr.next('tr').length == 0 ){
+							nextTdSet = true;
+							nextTr = false;
+							break;
+						}
+
+						nextTr = nextTr.next('tr');
+						nextTd = nextTr.find('td[data-column-id="' + columnId + '"]');
+						nextTdSet = nextTd.children().length > 0;
+					}
+
+					var nextEventIndex = false
+					if (nextTr) {
+						nextEventIndex = nextTr.data('index');
+					}
+					//console.log(td, nextEventIndex)
+
+					/*  End of "Erroneous Positioning of Events" */
 
 					$.each(events, function(index) {
 						var start = $(this).attr('data-start');
 						var end = $(this).attr('data-end');
+						
 						arrMin[index] = start;
 						arrMax[index] = end;
 					});
+
 					var min = Math.min.apply(Math, arrMin);
 					var max = Math.max.apply(Math, arrMax);
+					
+					if ( nextEventIndex && max > nextEventIndex ) {
+						max = nextEventIndex;
+					}
 
 					var rowSpan = (max - min);
 
@@ -817,7 +852,7 @@ Registry.register("Event",
 								events = td.find('.mptt-event-container'),
 								columnId = td.attr('data-column-id'),
 								rowHeight = td.attr('data-row_height'),
-								rowSpan = state.getRowSpan(events);
+								rowSpan = state.getRowSpan(events, td);
 
 							if (!_.isUndefined(rowSpan) && rowSpan > 1) {
 

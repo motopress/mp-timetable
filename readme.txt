@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointments, upcoming events
 Requires at least: 4.6
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -78,6 +78,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.3.7, Mar 10 2020 =
+* Bug fix: fixed an issue with the erroneous positioning of events.
 
 = 2.3.6, Feb 19 2020 =
 * Bug fix: fixed an issue with the missing subtitle in mobile view.

@@ -443,7 +443,10 @@ function mptt_get_row_events( $column_events, $row_index ) {
 			}
 			$group = false;
 			if ( ! empty( $current ) ) {
-				if ( ( $item->end_index <= $current[ 'end_index' ] ) ) {
+				if ( ( $item->end_index <= $current[ 'end_index' ] )
+					//&& $item->end_index == $row_index
+					&& $item->start_index == $row_index
+				) {
 					$group = true;
 				}
 			}
