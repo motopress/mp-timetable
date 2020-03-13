@@ -548,7 +548,7 @@ class Core {
 	 *
 	 * @param \WP_Screen $current_screen
 	 */
-	public function current_screen( \WP_Screen $current_screen ) {
+	public function current_screen( \WP_Screen $current_screen = null ) {
 		wp_register_script( 'mptt-event-object', Mp_Time_Table::get_plugin_url( 'media/js/events/event' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
 		wp_localize_script(
 			'mptt-event-object',
