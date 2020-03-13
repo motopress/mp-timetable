@@ -212,7 +212,7 @@ class Hooks extends Core {
 		
 		//Help
 		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Help', 'mp-timetable' ), __( 'Help', 'mp-timetable' ),
-			'read', 'mptt-help', array( $this->get_controller( 'help' ), 'action_content' ) );
+			'edit_posts', 'mptt-help', array( $this->get_controller( 'help' ), 'action_content' ) );
 	}
 	
 	/**
