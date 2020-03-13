@@ -482,11 +482,11 @@ class Events extends Model {
 	 *
 	 * @param array $params
 	 *
-	 * @return array|null|object
+	 * @return array
 	 */
 	public function get_events_data( array $params ) {
 		$events      = array();
-		$sql_reguest = "SELECT * FROM " . $this->table_name;
+		$sql_request = "SELECT * FROM " . $this->table_name;
 		
 		if ( ( ! empty( $params[ 'all' ] ) && $params[ 'all' ] ) || empty( $params[ 'list' ] ) ) {
 			
@@ -496,11 +496,11 @@ class Events extends Model {
 				$params[ 'list' ] = implode( ',', $params[ 'list' ] );
 			}
 			
-			$sql_reguest .= " WHERE " . $params[ 'column' ] . " IN (" . $params[ 'list' ] . ")";
+			$sql_request .= " WHERE " . $params[ 'column' ] . " IN (" . $params[ 'list' ] . ")";
 			
-		} elseif ( is_array( $params[ 'column' ] ) && is_array( $params[ 'column' ] ) ) {
+		} elseif ( is_array( $params[ 'column' ] ) && is_array( $params[ 'list' ] ) ) {
 			
-			$sql_reguest .= " WHERE ";
+			$sql_request .= " WHERE ";
 			
 			$last_key = key( array_slice( $params[ 'column' ], - 1, 1, true ) );
 			
@@ -508,15 +508,15 @@ class Events extends Model {
 				if ( isset( $params[ 'list' ][ $column ] ) && is_array( $params[ 'list' ][ $column ] ) ) {
 					$params[ 'list' ][ $column ] = implode( ',', $params[ 'list' ][ $column ] );
 				}
-				$sql_reguest .= $column . " IN (" . $params[ 'list' ][ $column ] . ")";
-				$sql_reguest .= ( $last_key != $key ) ? ' AND ' : '';
+				$sql_request .= $column . " IN (" . $params[ 'list' ][ $column ] . ")";
+				$sql_request .= ( $last_key != $key ) ? ' AND ' : '';
 			}
 			
 		}
 		
-		$sql_reguest .= ' ORDER BY `event_start`';
+		$sql_request .= ' ORDER BY `event_start`';
 		
-		$events_data = $this->wpdb->get_results( $sql_reguest );
+		$events_data = $this->wpdb->get_results( $sql_request );
 		
 		if ( is_array( $events_data ) ) {
 			
