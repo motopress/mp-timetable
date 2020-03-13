@@ -388,6 +388,7 @@ class Core {
 		$event_tag_args = array(
 			'label'                 => __( 'Event tags', 'mp-timetable' ),
 			'labels'                => $event_tag_labels,
+			'show_in_rest' 			=> true,
 			'public'                => true,
 			'show_in_nav_menus'     => true,
 			'show_ui'               => true,
