@@ -23,7 +23,7 @@ class Edit extends Component {
     initTable(){
         //Set timer and check when table is load fully, and then initialize table data, and after stop timer
         const waitLoadTable = setInterval( () => {
-            if ($('.mptt-shortcode-wrapper').length && !$('.mptt-shortcode-wrapper').hasClass('table-init')){
+            if (jQuery('.mptt-shortcode-wrapper').length && !jQuery('.mptt-shortcode-wrapper').hasClass('table-init')){
                 clearInterval(waitLoadTable);
                 window.mptt.tableInit();
             }
