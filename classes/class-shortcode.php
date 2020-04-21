@@ -64,8 +64,9 @@ class Shortcode extends Core {
 			'events'              => "",
 			'event_categ'         => "",
 			'col'                 => "",
-			'increment'           => "1",
-			'view'                => "dropdown_list",
+			'increment'           => "1", // 1 | 0.5 | 0.25
+			'view'                => "dropdown_list", // dropdown_list | tabs
+			'view_sort'           => "", // '' | menu_order || post_title
 			'label'               => __( "All Events", 'mp-timetable' ),
 			'hide_label'          => "0",
 			'title'               => "0",
@@ -76,11 +77,11 @@ class Shortcode extends Core {
 			'user'                => "0",
 			'hide_hrs'            => "0",
 			'hide_empty_rows'     => "1",
-			'text_align_vertical' => "default",
+			'text_align_vertical' => "default", // default | top | middle | bottom
 			'row_height'          => "45",
 			'font_size'           => "",
 			'disable_event_url'   => "0",
-			'text_align'          => "center",
+			'text_align'          => "center", // left | center | right
 			'id'                  => "",
 			'custom_class'        => "",
 			'responsive'          => "1"
@@ -272,6 +273,11 @@ class Shortcode extends Core {
 				'type'  => 'select',
 				'label' => __( 'Filter style', 'mp-timetable' ),
 				'list'  => array( 'dropdown_list' => __( 'Dropdown list', 'mp-timetable' ), 'tabs' => __( 'Tabs', 'mp-timetable' ) )
+			),
+			'view_sort'              => array(
+				'type'  => 'select',
+				'label' => __( 'Order of items in filter', 'mp-timetable' ),
+				'list'  => array( '' => __( 'Default', 'mp-timetable' ), 'menu_order' => __( 'Menu Order', 'mp-timetable' ), 'post_title' => __( 'Title', 'mp-timetable' ) )
 			),
 			'label'             => array(
 				'type'    => 'text',

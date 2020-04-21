@@ -25,37 +25,58 @@ function mptt_shortcode_template_after_content() { ?>
  * Filter contents
  */
 function mptt_shortcode_template_content_filter() {
+
 	global $mptt_shortcode_data;
+
 	$unique_events = empty( $mptt_shortcode_data[ 'unique_events' ] ) ? array() : $mptt_shortcode_data[ 'unique_events' ];
-	$style         = '';
+	$style = '';
+	$params = $mptt_shortcode_data[ 'params' ];
+	
+	//sort events in filter
+	if ( !empty( $unique_events ) && function_exists('usort') && !empty($params['view_sort']) ) {
+		if ( $params['view_sort'] == 'menu_order' ) {
+			usort($unique_events, function($a, $b) {
+				return ($a->post->menu_order > $b->post->menu_order);
+			});
+		} elseif ( $params['view_sort'] == 'post_title' ) {
+			usort($unique_events, function($a, $b) {
+				return strcmp($a->post->post_title, $b->post->post_title);
+			});
+		}
+	}
+
 	if ( isset( $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ]) && count( $mptt_shortcode_data[ 'events_data' ][ 'unique_events' ] ) < 2 ) {
 		$style = ' style="display:none;"';
 	}
-	$display_label = $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ? 'display: none' : '';
-	
-	if ( $mptt_shortcode_data[ 'params' ][ 'view' ] == 'dropdown_list' ) { ?>
+	$display_label = $params[ 'hide_label' ] ? 'display: none' : '';
+
+	if ( $params[ 'view' ] == 'dropdown_list' ) { ?>
 		<select class="<?php echo apply_filters( 'mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select' ) ?>"<?php echo $style ?>>
-			<?php if ( ! $mptt_shortcode_data[ 'params' ][ 'hide_label' ] ) { ?>
-				<option value="all"><?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?></option>
+			<?php if ( ! $params[ 'hide_label' ] ) { ?>
+				<option value="all"><?php echo ( strlen( trim( $params[ 'label' ] ) ) ) ?
+					trim( $params[ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?></option>
 			<?php } else { ?>
 				<option value="all"></option>
 			<?php }
 			if ( ! empty( $unique_events ) ):
 				foreach ( $unique_events as $event ): ?>
-					<option value="<?php echo $event->post->post_name ?>"><?php echo $event->post->post_title ?></option>
+					<option value="<?php echo esc_attr( $event->post->post_name); ?>"><?php echo esc_html($event->post->post_title); ?></option>
 				<?php endforeach;
 			endif; ?>
 		</select>
-	<?php } elseif ( $mptt_shortcode_data[ 'params' ][ 'view' ] == 'tabs' ) { ?>
+	<?php } elseif ( $params[ 'view' ] == 'tabs' ) { ?>
 		<ul class="<?php echo apply_filters( 'mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs' ) ?>" <?php echo $style ?>>
 			<li style="<?php echo $display_label ?>">
-				<a title="<?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>"
-				   href="#all" onclick="event.preventDefault();"><?php echo ( strlen( trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) ) ) ? trim( $mptt_shortcode_data[ 'params' ][ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>
+				<a title="<?php echo ( strlen( trim( $params[ 'label' ] ) ) ) ?
+					trim( $params[ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>" href="#all" onclick="event.preventDefault();"><?php
+					echo ( strlen( trim( $params[ 'label' ] ) ) ) ? trim( $params[ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>
 				</a>
 			</li>
 			<?php if ( ! empty( $unique_events ) ): ?>
 				<?php foreach ( $unique_events as $event ): ?>
-					<li><a title="<?php echo $event->post->post_title ?>" href="#<?php echo $event->post->post_name ?>" onclick="event.preventDefault();"><?php echo $event->post->post_title ?></a></li>
+					<li><a title="<?php echo esc_attr($event->post->post_title); ?>" href="#<?php
+						echo esc_attr($event->post->post_name); ?>" onclick="event.preventDefault();"><?php
+						echo esc_html($event->post->post_title); ?></a></li>
 				<?php endforeach;
 			endif; ?>
 		</ul>

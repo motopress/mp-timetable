@@ -45,6 +45,7 @@ class Inspector extends Component {
 
                 increment,
                 view,
+				view_sort,
                 label,
 
                 hide_label,
@@ -166,6 +167,16 @@ class Inspector extends Component {
 						options={[
 							{ value: 'dropdown_list', label: __( 'Dropdown list', 'mp-timetable' ) },
 							{ value: 'tabs'         , label: __( 'Tabs'         , 'mp-timetable' ) },
+						]}
+					/>
+					<SelectControl
+						label={__('Order of items in filter', 'mp-timetable')}
+						value={view_sort}
+						onChange={view_sort => setAttributes({ view_sort })}
+						options={[
+							{ value: ''				, label: __( 'Default', 'mp-timetable' ) },
+							{ value: 'menu_order'	, label: __( 'Menu Order', 'mp-timetable' ) },
+							{ value: 'post_title'   , label: __( 'Title', 'mp-timetable' ) },
 						]}
 					/>
 					<TextControl

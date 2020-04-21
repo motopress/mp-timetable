@@ -8,28 +8,28 @@
 		<td><label for="color"><?php _e('Background Color:', 'mp-timetable'); ?></label></td>
 		<td>
 			<input type="hidden" class="clr-picker" value="<?php echo esc_attr( $post->color ); ?>">
-			<input type="text" id="color" name="event_meta[color]" value="<?php echo $post->color ?>" data-default-color="transparent">
+			<input type="text" id="color" name="event_meta[color]" value="<?php echo esc_attr( $post->color ); ?>" data-default-color="transparent">
 		</td>
 	</tr>
 	<tr class="select-color">
 		<td><label for="hover_color"><?php _e('Background Hover Color:', 'mp-timetable'); ?></label></td>
 		<td>
-			<input type="hidden" class="clr-picker" value="<?php echo $post->hover_color ?>">
-			<input type="text" id="hover_color" name="event_meta[hover_color]" value="<?php echo $post->hover_color ?>" data-default-color="transparent">
+			<input type="hidden" class="clr-picker" value="<?php echo esc_attr( $post->hover_color ); ?>">
+			<input type="text" id="hover_color" name="event_meta[hover_color]" value="<?php echo esc_attr( $post->hover_color ); ?>" data-default-color="transparent">
 		</td>
 	</tr>
 	<tr class="select-color">
 		<td><label for="text_color"><?php _e('Text Color:', 'mp-timetable'); ?></label></td>
 		<td>
-			<input type="hidden" class="clr-picker" value="<?php echo $post->text_color ?>">
-			<input type="text" id="text_color" name="event_meta[text_color]" value="<?php echo $post->text_color ?>" data-default-color="transparent">
+			<input type="hidden" class="clr-picker" value="<?php echo esc_attr( $post->text_color ); ?>">
+			<input type="text" id="text_color" name="event_meta[text_color]" value="<?php echo esc_attr( $post->text_color ); ?>" data-default-color="transparent">
 		</td>
 	</tr>
 	<tr class="select-color">
 		<td><label for="hover_text_color"><?php _e('Text Hover Color:', 'mp-timetable'); ?></label></td>
 		<td>
-			<input type="hidden" class="clr-picker" value="<?php echo $post->hover_text_color ?>">
-			<input type="text" id="hover_text_color" name="event_meta[hover_text_color]" value="<?php echo $post->hover_text_color ?>" data-default-color="transparent">
+			<input type="hidden" class="clr-picker" value="<?php echo esc_attr( $post->hover_text_color ); ?>">
+			<input type="text" id="hover_text_color" name="event_meta[hover_text_color]" value="<?php echo esc_attr( $post->hover_text_color ); ?>" data-default-color="transparent">
 		</td>
 	</tr>
 	<tr>

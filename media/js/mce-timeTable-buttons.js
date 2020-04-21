@@ -59,6 +59,9 @@
 											case 'filter_style':
 												shortcode_obj.attrs.view = parameters.value;
 												break;
+											case 'filter_style_sort':
+												shortcode_obj.attrs.view_sort = parameters.value;
+												break;
 											case 'filter_label':
 												shortcode_obj.attrs.label = parameters.value;
 												break;

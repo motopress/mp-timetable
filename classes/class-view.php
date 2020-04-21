@@ -60,18 +60,16 @@ class View {
 	 * @return string
 	 */
 	public function render_html($template, $data = null, $output = true) {
+
+		$this->data = $data;
+		if ( is_array($data) ) {
+			extract($data, EXTR_SKIP);
+		}
+
 		$includeFile = $this->templates_path . $template . '.php';
 
 		ob_start();
-
-		if (is_array($data)) {
-			extract($data);
-		}
-
-		$this->data = $data;
-
 		include($includeFile);
-
 		$out = ob_get_clean();
 
 		if ($output) {

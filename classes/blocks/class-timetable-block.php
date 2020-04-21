@@ -70,6 +70,10 @@ class Timetable_Block {
 						'type' => 'string',
 						'default' => 'dropdown_list',
 					),
+					'view_sort' => array(
+						'type' => 'string',
+						'default' => '',
+					),
 					'label' => array(
 						'type' => 'string',
 						'default' => __( "All Events", 'mp-timetable' ),

@@ -307,13 +307,14 @@ class Core {
 	 * Route plugin url
 	 */
 	public function wp_ajax_route_url() {
+
 		$controller = isset( $_REQUEST[ "controller" ] ) ? $_REQUEST[ "controller" ] : null;
 		$action     = isset( $_REQUEST[ "mptt_action" ] ) ? $_REQUEST[ "mptt_action" ] : null;
-		
-		if ( ! empty( $action ) ) {
+
+		if ( ! empty( $action ) && current_user_can('edit_posts') ) {
 			// call controller
 			Preprocessor::get_instance()->call_controller( $action, $controller );
-			die();
+			wp_die();
 		}
 	}
 	

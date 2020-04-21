@@ -27,13 +27,17 @@ class Export extends Model {
 	 * Export file
 	 */
 	public function export() {
+
 		global $wpdb, $post;
 
-		if (!defined('ABSPATH')) exit;
+		if ( !defined('ABSPATH') ) exit;
+		
+		if ( !current_user_can('export') ) exit;
 
-		if (!function_exists('export_wp')) {
+		if ( !function_exists('export_wp') ) {
 			include_once(ABSPATH . 'wp-admin/includes/export.php');
 		}
+
 		$args = array('content' => $this->post_types, 'author' => false, 'category' => false,
 			'start_date' => false, 'end_date' => false, 'status' => false);
 

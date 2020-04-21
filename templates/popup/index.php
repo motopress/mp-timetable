@@ -80,6 +80,16 @@
 				</td>
 			</tr>
 			<tr>
+				<td><label for="filter_style_sort"><?php _e('Order of items in filter', 'mp-timetable'); ?>     </label></td>
+				<td>
+					<select id="filter_style_sort" name="filter_style_sort">
+						<option value=""><?php _e('Default', 'mp-timetable'); ?></option>
+						<option value="menu_order"><?php _e('Menu Order', 'mp-timetable'); ?></option>
+						<option value="post_title"><?php _e('Title', 'mp-timetable'); ?></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td><label for="filter_label"><?php _e('Filter title to display all events', 'mp-timetable'); ?></label></td>
 				<td>
 					<input type="text" name="filter_label" id="filter_label" value="All Events" class="regular-text">

@@ -28,20 +28,41 @@ class Controller_Settings extends Controller {
 	 * Action template
 	 */
 	public function action_content() {
-		$data = Settings::get_instance()->get_settings();
-		$theme_supports = $this->get('Settings')->is_theme_supports();
+		
+		if ( current_user_can('manage_options') ) {
 
-		View::get_instance()->render_html('../templates/settings/general', array('settings' => $data, 'theme_supports' => $theme_supports));
+			$data = Settings::get_instance()->get_settings();
+			$theme_supports = $this->get('Settings')->is_theme_supports();
+
+			View::get_instance()->render_html('../templates/settings/general', array('settings' => $data, 'theme_supports' => $theme_supports));
+		} else {
+			wp_die('Access denied');
+		}
 	}
 
 	/**
 	 * Save settings
 	 */
 	public function action_save() {
-		$redirect = Settings::get_instance()->save_settings();
 
-		if ($redirect) {
-			wp_redirect(add_query_arg(array('page' => $_GET['page'], 'settings-updated' => 'true')));
+		$redirect = false;
+
+		if ( current_user_can('manage_options') ) {
+			$redirect = Settings::get_instance()->save_settings();
+		} else {
+			wp_die('Access denied');
+		}
+
+		if ( $redirect ) {
+			wp_redirect(
+				add_query_arg(
+					array(
+						'page' => $_GET['page'],
+						'settings-updated' => 'true'
+					)
+				)
+			);
+
 			die();
 		}
 

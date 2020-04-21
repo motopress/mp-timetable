@@ -204,14 +204,14 @@ class Hooks extends Core {
 		
 		//Settings
 		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Settings', 'mp-timetable' ), __( 'Settings', 'mp-timetable' ),
-			'switch_themes', 'mptt-settings', array( $this->get_controller( 'settings' ), 'action_content' ) );
+			'manage_options', 'mptt-settings', array( $this->get_controller( 'settings' ), 'action_content' ) );
 		
 		//Export / Import
 		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Export / Import', 'mp-timetable' ), __( 'Export / Import', 'mp-timetable' ),
 			'import', 'mptt-import', array( $this->get_controller( 'import' ), 'action_content' ) );
 		
 		//Help
-		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Help', 'mp-timetable' ), __( 'Help', 'mp-timetable' ),
+		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Help & Shortcode', 'mp-timetable' ), __( 'Help & Shortcode', 'mp-timetable' ),
 			'edit_posts', 'mptt-help', array( $this->get_controller( 'help' ), 'action_content' ) );
 	}
 	

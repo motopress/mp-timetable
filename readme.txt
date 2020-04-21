@@ -79,6 +79,10 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.9, Apr 21 2020 =
+* Added the ability to sort events in the dropdown list or tabs.
+* Improved user capability check.
+
 = 2.3.8, Apr 1 2020 =
 * Bug fix: fixed an issue with the missing Event tags field.
 * Bug fix: fixed an issue when a user with the read capability could access a Help menu page.

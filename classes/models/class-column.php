@@ -50,14 +50,15 @@ class Column extends Model {
 	 * @param $column
 	 */
 	public function get_column_columns($column) {
+
 		global $post;
+
 		switch ($column) {
 			case 'mp-column_timeslots_number':
 				$metaData = $this->count_events($post);
 				echo empty($metaData) ? "—" : $metaData;
 				break;
 		}
-
 	}
 
 	/**
@@ -68,8 +69,19 @@ class Column extends Model {
 	 * @return int
 	 */
 	public function count_events($post) {
+
 		$table_name = $this->get('events')->table_name;
-		$count = $this->wpdb->get_var("SELECT COUNT(*) FROM {$table_name} WHERE `column_id` = {$post->ID}");
+		$event_ids = $this->wpdb->get_results("SELECT `event_id` FROM {$table_name} WHERE `column_id` = {$post->ID}", ARRAY_A);
+
+		$count = 0;
+		if ( !empty( $event_ids ) ) {
+			foreach( $event_ids as $event ) {
+				$event_id = $event['event_id'];
+				if ( get_post_type( $event_id ) == 'mp-event' ) {
+					$count++;
+				}
+			}
+		}
 
 		return intval($count);
 	}

@@ -48,6 +48,7 @@
 						<li><code>row_height</code> - event block height in pixels; example <kbd>45</kbd></li>
 						<li><code>font_size</code> - base font size for the table; example <kbd>12px</kbd>, <kbd>2em</kbd>, <kbd>80%</kbd>.</li>
 						<li><code>view</code> - filter style; possible values <kbd>dropdown_list</kbd> or <kbd>tabs</kbd>.</li>
+						<li><code>view_sort</code> - order of items in filter; possible values <kbd><i>empty string</i></kbd>, <kbd>menu_order</kbd>, <kbd>post_title</kbd>.</li>
 						<li><code>label</code> - filter label; default is <kbd>All Events</kbd>.</li>
 						<li><code>hide_label</code> - display 'All Events' label or not; possible values <kbd>1</kbd> or <kbd>0</kbd>.</li>
 						<li><code>hide_hrs</code> - hide first (hours) column; possible values <kbd>1</kbd> or <kbd>0</kbd>.</li>

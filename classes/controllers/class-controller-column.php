@@ -26,6 +26,7 @@ class Controller_Column extends Controller {
 	 * Action template
 	 */
 	public function action_template() {
+
 		$this->data = $_REQUEST;
 		$this->get_view()->render_html("events/index", $this->data);
 	}
@@ -34,6 +35,7 @@ class Controller_Column extends Controller {
 	 * @param $post
 	 */
 	public function action_page_view($post) {
+
 		$events = $this->get('events')->get_event_data(array('field' => 'column_id', 'id' => $post->ID));
 		return $events;
 	}

@@ -150,7 +150,7 @@ Registry.register("adminFunctions", (function($) {
 			 * @param args
 			 */
 			callModal: function(start_content, open_callback, args) {
-				var height = $(window).outerHeight() - 60,
+				var height = $(window).outerHeight() - 100,
 					width = $(window).outerWidth() - 60,
 					spinner = wp.html.string({
 							'tag': "span",

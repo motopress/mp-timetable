@@ -2,9 +2,12 @@
 <input type="hidden" name="events[place]" id="eventmeta_place" value=""/>
 <input type="hidden" name="events[leading_event]" id="eventmeta_leading_event" value="'.<?php wp_create_nonce(plugin_basename(__FILE__)) ?>.'"/>
 <input type="hidden" id="time_format" value="<?php echo $date["time_format"]["am_pm"] === true ? '1' : '0' ?>"/>
+<?php
 
-<?php \mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true) ?>
-<h4>Add New / Edit Timeslot</h4>
+\mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true);
+
+?>
+<h4><?php _e('Add New / Edit Timeslot', 'mp-timetable'); ?></h4>
 <table id="add_event_table" class="widefat">
 	<tr>
 		<td><label for="weekday_id"><?php _e('Column:', 'mp-timetable') ?></label></td>
@@ -44,10 +47,10 @@
 		<td><label for="user_id"><?php _e('Event Head:', 'mp-timetable') ?></label></td>
 		<td>
 			<?php
-			
+
 			global $wp_version;
 			$wp_dropdown_users_show = (version_compare($wp_version, '4.5', '<')) ? 'user_login' : 'display_name_with_login';
-			
+
 			wp_dropdown_users(array(
 				'show_option_none' => __('none', 'mp-timetable'),
 				'show_option_all' => null,
