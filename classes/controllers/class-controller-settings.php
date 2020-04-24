@@ -35,8 +35,9 @@ class Controller_Settings extends Controller {
 			$theme_supports = $this->get('Settings')->is_theme_supports();
 
 			View::get_instance()->render_html('../templates/settings/general', array('settings' => $data, 'theme_supports' => $theme_supports));
+
 		} else {
-			wp_die('Access denied');
+			wp_die( sprintf( 'Access denied, %s, %s', __FUNCTION__, basename( __FILE__ ) ) );
 		}
 	}
 
@@ -45,32 +46,27 @@ class Controller_Settings extends Controller {
 	 */
 	public function action_save() {
 
-		$redirect = false;
+		if ( isset( $_POST['mp-timetable-save-settings'] ) &&
+			wp_verify_nonce( $_POST['mp-timetable-save-settings'], 'mp_timetable_nonce_settings') ) {
 
-		if ( current_user_can('manage_options') ) {
 			$redirect = Settings::get_instance()->save_settings();
-		} else {
-			wp_die('Access denied');
-		}
 
-		if ( $redirect ) {
-			wp_redirect(
+			wp_safe_redirect(
 				add_query_arg(
 					array(
 						'page' => $_GET['page'],
 						'settings-updated' => 'true'
-					)
+					),
+					admin_url( 'edit.php?post_type=mp-event')
 				)
 			);
-
-			die();
+			exit;
 		}
 
 		/**
 		 * Show success message
 		 */
-		if (isset($_GET['settings-updated']) && ($_GET['settings-updated'] == TRUE)) {
-			$_GET['settings-updated'] = false;
+		if ( isset( $_GET['settings-updated'] ) && ( $_GET['settings-updated'] == TRUE ) ) {
 			add_settings_error('mpTimetableSettings', esc_attr('settings_updated'), __('Settings saved.', 'mp-timetable'), 'updated');
 		}
 	}

@@ -79,6 +79,10 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.10, Apr 24 2020 =
+* Bug fix: fixed an issue when a user with the Editor role could not access the administration area.
+* Improved compatibility with PHP 7.4.
+
 = 2.3.9, Apr 21 2020 =
 * Added the ability to sort events in the dropdown list or tabs.
 * Improved user capability check.

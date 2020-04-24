@@ -72,8 +72,8 @@ class Events extends Model {
 	 * @param $metabox
 	 */
 	public function render_event_data( $post, $metabox ) {
+
 		$time_format       = get_option( 'time_format' );
-		$data[ 'columns' ] = $this->get( 'column' )->get_all_column();
 		if ( $time_format === 'H:i' ) {
 			$time_format_array = array( 'hours' => '0,23', 'am_pm' => false );
 		} elseif ( $time_format === 'g:i A' ) {
@@ -81,9 +81,12 @@ class Events extends Model {
 		} else {
 			$time_format_array = array( 'hours' => '0,23', 'am_pm' => false );
 		}
+
+		$data[ 'columns' ] = $this->get( 'column' )->get_all_column();
 		$event_data = $this->get_event_data( array( 'field' => 'event_id', 'id' => $post->ID ), 'event_start', false );
 		
-		$this->get_view()->render_html( "events/metabox-event-data", array( 'event_data' => $event_data, 'args' => $metabox[ 'args' ], 'columns' => $data[ 'columns' ], 'date' => array( 'time_format' => $time_format_array ) ), true );
+		$this->get_view()->render_html( "events/metabox-event-data", array( 'event_data' => $event_data, 'args' => $metabox[ 'args' ],
+			'columns' => $data[ 'columns' ], 'date' => array( 'time_format' => $time_format_array ) ), true );
 	}
 	
 	/**

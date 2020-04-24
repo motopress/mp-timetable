@@ -31,28 +31,34 @@ class Hooks extends Core {
 	 * Install hooks
 	 */
 	public function install_hooks() {
+
 		// register custom post type and taxonomies
-		add_action( 'init', array( $this, "init" ) );
-		add_action( 'wp_enqueue_scripts', array( Core::get_instance(), "add_plugin_css" ) );
-		add_action( 'wp_head', array( $this, "set_html_js_class" ) );
+		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'wp_enqueue_scripts', array( Core::get_instance(), 'add_plugin_css' ) );
+		add_action( 'wp_head', array( $this, 'set_html_js_class' ) );
 		
 		add_action( 'admin_init', array( $this->get_controller( 'settings' ), 'action_save' ) );
-		add_action( "admin_init", array( $this, "admin_init" ) );
+		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		add_action( 'manage_posts_custom_column', array( $this->get( 'events' ), 'get_event_taxonomy' ) );
 		add_action( 'manage_posts_custom_column', array( $this->get( 'column' ), 'get_column_columns' ) );
 		add_action( 'current_screen', array( Core::get_instance(), 'current_screen' ) );
 		add_action( 'pre_get_posts', array( $this->get( 'column' ), 'clientarea_default_order' ), 9 );
+
 		//add media in frontend WP
-		add_action( 'wp_enqueue_scripts', array( Core::get_instance(), "wp_enqueue_scripts" ) );
+		add_action( 'wp_enqueue_scripts', array( Core::get_instance(), 'wp_enqueue_scripts' ) );
+
 		//add media in admin WP
-		add_action( 'admin_enqueue_scripts', array( Core::get_instance(), "admin_enqueue_scripts" ) );
+		add_action( 'admin_enqueue_scripts', array( Core::get_instance(), 'admin_enqueue_scripts' ) );
 		add_action( 'widgets_init', array( $this, 'register_widgets' ) );
+
 		// Manage event/column columns
 		add_filter( 'manage_edit-mp-event_columns', array( $this->get( 'events' ), 'set_event_columns' ) );
 		add_filter( 'manage_edit-mp-column_columns', array( $this->get( 'column' ), 'set_column_columns' ) );
+
 		// post_class filter
 		add_filter( 'post_class', 'mptt_post_class', 15, 3 );
+
 		// to display events with other posts on author page
 		add_filter( 'pre_get_posts', array( Post::get_instance(), 'pre_get_posts' ), 9 );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );

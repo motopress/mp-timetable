@@ -2,7 +2,6 @@
 
 namespace mp_timetable\plugin_core\classes;
 
-use mp_timetable\classes\libs\FirePHPCore\FB;
 use mp_timetable\classes\libs\GUMP;
 use \Mp_Time_Table;
 
@@ -21,40 +20,7 @@ class Preprocessor extends GUMP {
 	 * Install Preprocessors
 	 */
 	static function install() {
-		Core::include_all(Mp_Time_Table::get_plugin_part_path('classes/preprocessors'));
-	}
-
-	/**
-	 * Fatal error handler
-	 *
-	 * @param $buffer
-	 *
-	 * @return mixed
-	 */
-	static function fatal_error_handler($buffer) {
-		$error = error_get_last();
-		if (!empty($error)) {
-			switch ($error['type']) {
-				case E_WARNING:
-					$type = 'warning';
-					break;
-				case E_NOTICE:
-					$type = 'notice';
-					break;
-				case E_ERROR:
-					$type = 'fatal error';
-					break;
-				case E_USER_NOTICE:
-					$type = 'core error';
-					break;
-				default :
-					$type = 'error';
-					break;
-			}
-			FB::error($_REQUEST, "$type REQUEST");
-			FB::error($error, $type);
-		}
-		return $buffer;
+		Core::include_all( Mp_Time_Table::get_plugin_part_path('classes/preprocessors') );
 	}
 
 	/**

@@ -50,7 +50,7 @@ class Controller_Events extends Controller {
 				wp_send_json_success(array('status' => $result));
 			}
 		} else {
-			wp_die('Access denied');
+			wp_die( sprintf( 'Access denied, %s, %s', __FUNCTION__, basename( __FILE__ ) ) );
 		}
 	}
 
@@ -70,7 +70,7 @@ class Controller_Events extends Controller {
 				wp_send_json_error(array('status' => false));
 			}
 		} else {
-			wp_die('Access denied');
+			wp_die( sprintf( 'Access denied, %s, %s', __FUNCTION__, basename( __FILE__ ) ) );
 		}
 	}
 
@@ -107,7 +107,7 @@ class Controller_Events extends Controller {
 				wp_send_json_success(array('data' => $result));
 			}
 		} else {
-			wp_die('Access denied');
+			wp_die( sprintf( 'Access denied, %s, %s', __FUNCTION__, basename( __FILE__ ) ) );
 		}
 	}
 }

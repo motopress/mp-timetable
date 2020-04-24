@@ -49,10 +49,14 @@ class Post extends Module {
 	 * @param $post
 	 */
 	public function save_custom_post($post_id, $post) {
+
 		$request = $_REQUEST;
-		if (!empty($request[Mp_Time_Table::get_plugin_name() . '_noncename'])) {
+
+		if ( !empty( $request[Mp_Time_Table::get_plugin_name() . '_noncename'] ) ) {
+
 			$post_type = $request['post_type'];
-			if (!wp_verify_nonce($request[Mp_Time_Table::get_plugin_name() . '_noncename'], Mp_Time_Table::get_plugin_path())) {
+
+			if ( !wp_verify_nonce($request[Mp_Time_Table::get_plugin_name() . '_noncename'], Mp_Time_Table::get_plugin_path())) {
 				return $post->ID;
 			}
 

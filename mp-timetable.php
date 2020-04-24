@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: https://motopress.com/products/timetable-event-schedule/
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.3.9
+ * Version: 2.3.10
  * Author: MotoPress
  * Author URI: https://motopress.com
  * License: GPLv2 or later
@@ -74,10 +74,6 @@ class Mp_Time_Table {
 		 * Include Gump
 		 */
 		require_once self::get_plugin_path() . 'classes/libs/class-gump.php';
-		/**
-		 * Install Fire bug
-		 */
-		require_once self::get_plugin_path() . 'classes/libs/FirePHPCore/fb.php';
 		/**
 		 * Install Parsers
 		 */

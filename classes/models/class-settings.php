@@ -74,17 +74,14 @@ class Settings extends Model {
 	 *
 	 */
 	public function save_settings() {
-		$saved = false;
-		$options = array();
 
-		if (isset($_POST['mp-timetable-save-settings']) && wp_verify_nonce($_POST['mp-timetable-save-settings'], 'mp_timetable_nonce_settings')) {
-			if (!empty($_POST['theme_mode'])) {
-				$options['theme_mode'] = $_POST['theme_mode'];
-				$saved = update_option('mp_timetable_general', $options);
-			}
+		if ( current_user_can('manage_options') && !empty( $_POST['theme_mode'] ) ) {
+
+			$options = array();
+			$options['theme_mode'] = $_POST['theme_mode'];
+
+			update_option('mp_timetable_general', $options);
 		}
-
-		return $saved;
 	}
 
 	/**

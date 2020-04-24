@@ -26,17 +26,14 @@ class Controller_Popup extends Controller {
 	 */
 	public function action_get_popup_html_content() {
 		
-		if ( current_user_can('edit_posts') ) {
+		if ( is_user_logged_in() ) {
 
 			$this->data['column'] = $this->get('column')->get_all_column();
 			$this->data['events'] = $this->get('events')->get_all_events();
 			$this->data['category'] = get_terms('mp-event_category', 'orderby=count&hide_empty=0');
 			$data["html"] = $this->get_view()->render_html("popup/index", $this->data, false);
 			$this->send_json(Model::get_instance()->get_arr($data, true));
-		} else {
-			wp_die('Access denied');
 		}
 	}
-
 
 } 
