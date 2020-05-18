@@ -81,6 +81,11 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.11, May 18 2020 =
+* Added the ability to duplicate events.
+* Added the ability to set table layout fixed or auto.
+* Bug fix: fixed an issue with an empty categories list in the widget.
+
 = 2.3.10, Apr 24 2020 =
 * Bug fix: fixed an issue when a user with the Editor role could not access the administration area.
 * Improved compatibility with PHP 7.4.

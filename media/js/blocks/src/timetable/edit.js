@@ -22,7 +22,7 @@ class Edit extends Component {
 
     initTable(){
         const { clientId } = this.props;
-		const $block = $( `#block-${clientId}` );
+		const $block = jQuery( `#block-${clientId}` );
 
         //Set timer and check when table is load fully, and then initialize table data, and after stop timer
         const waitLoadTable = setInterval( () => {
