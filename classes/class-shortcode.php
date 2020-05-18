@@ -84,7 +84,8 @@ class Shortcode extends Core {
 			'text_align'          => "center", // left | center | right
 			'id'                  => "",
 			'custom_class'        => "",
-			'responsive'          => "1"
+			'responsive'          => "1",
+			'table_layout'        => ""  // default | auto | fixed
 		), $params );
 
 		$mptt_shortcode_data[ 'events_data' ] = $this->get_shortcode_events( $params );
@@ -274,7 +275,7 @@ class Shortcode extends Core {
 				'label' => __( 'Filter style', 'mp-timetable' ),
 				'list'  => array( 'dropdown_list' => __( 'Dropdown list', 'mp-timetable' ), 'tabs' => __( 'Tabs', 'mp-timetable' ) )
 			),
-			'view_sort'              => array(
+			'view_sort'         => array(
 				'type'  => 'select',
 				'label' => __( 'Order of items in filter', 'mp-timetable' ),
 				'list'  => array( '' => __( 'Default', 'mp-timetable' ), 'menu_order' => __( 'Menu Order', 'mp-timetable' ), 'post_title' => __( 'Title', 'mp-timetable' ) )
@@ -359,7 +360,12 @@ class Shortcode extends Core {
 				'label'   => __( 'Responsive', 'mp-timetable' ),
 				'list'    => array( '1' => __( 'Yes', 'mp-timetable' ), '0' => __( 'No', 'mp-timetable' ) ),
 				'default' => 1,
-			)
+			),
+			'table_layout'     => array(
+				'type'  => 'select',
+				'label' => __( 'Table layout', 'mp-timetable' ),
+				'list'  => array( '' => __( 'Default', 'mp-timetable' ), 'auto' => __( 'Auto', 'mp-timetable' ), 'fixed' => __( 'Fixed', 'mp-timetable' ) )
+			),
 		);
 		$mp_timetable = new \MPCEObject( 'mp-timetable', __( 'Timetable', 'mp-timetable' ), '', $attributes );
 		

@@ -142,7 +142,10 @@ class Timetable_Block {
 					),
 					'custom_class' => array(
 						'type' => 'string',
-					),            
+					),
+					'table_layout' => array(
+						'type' => 'string'
+					),
 				),
 				'render_callback' => [ $this, 'render_timetable' ],
 				'editor_style'    => 'mptt-blocks-editor',

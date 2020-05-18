@@ -49,6 +49,8 @@ The plugin can be used for timetabling different types of events like various le
 * Color settings for background, background hover, text, and text hover
 * Export/import of your data
 
+Timetable can be added to Elementor, Divi, Beaver or any other builder via shortcode. Plugin provides Timetable block for Gutenberg.
+
 Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
 
 == Installation ==

@@ -2,36 +2,36 @@
 	<div class="mptt-shortcode-settings-wrapper">
 		<table class="form-table striped">
 			<tr>
-				<td><label for="weekday"><?php _e('<b>Columns</b> (required)', 'mp-timetable') ?></label></td>
+				<td><label for="weekday"><?php _e('Columns', 'mp-timetable') ?></label></td>
 				<td>
-					<select multiple="multiple" id="weekday" name="weekday" class="widefat">
+					<select multiple="multiple" id="weekday" name="weekday" class="widefat mptt-resize-vertical">
 						<?php foreach ($data[ 'column' ] as $column): ?>
 							<option value="<?php echo $column->ID; ?>"><?php echo $column->post_title; ?></option>
 						<?php endforeach; ?>
 					</select>
-					<p class="description"><?php _e('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable') ?></p>
+					<p class="description"><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable') ?></p>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="event"><?php _e('Specific <b>events</b>', 'mp-timetable') ?></label></td>
+				<td><label for="event"><?php _e('Specific events', 'mp-timetable') ?></label></td>
 				<td>
-					<select multiple="multiple" id="event" name="event" class="widefat">
+					<select multiple="multiple" id="event" name="event" class="widefat mptt-resize-vertical">
 						<?php foreach ($data[ 'events' ] as $events): ?>
 							<option value="<?php echo $events->ID; ?>"><?php echo $events->post_title; ?></option>
 						<?php endforeach; ?>
 					</select>
-					<p class="description"><?php _e('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable') ?></p>
+					<p class="description"><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable') ?></p>
 				</td>
 			</tr>
 			<tr>
-				<td><label for="event_category"><?php _e('Event <b>categories</b>', 'mp-timetable'); ?></label></td>
+				<td><label for="event_category"><?php _e('Event categories', 'mp-timetable'); ?></label></td>
 				<td>
-					<select multiple="multiple" id="event_category" name="event_category" class="widefat">
+					<select multiple="multiple" id="event_category" name="event_category" class="widefat mptt-resize-vertical">
 						<?php foreach ($data[ 'category' ] as $category): ?>
 							<option value="<?php echo $category->term_id; ?>"><?php echo $category->name; ?></option>
 						<?php endforeach; ?>
 					</select>
-					<p class="description"><?php _e('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable'); ?></p>
+					<p class="description"><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable'); ?></p>
 				</td>
 			</tr>
 			<tr>
@@ -157,6 +157,16 @@
 						<option value="top"><?php _e('top', 'mp-timetable') ?></option>
 						<option value="middle"><?php _e('middle', 'mp-timetable') ?></option>
 						<option value="bottom"><?php _e('bottom', 'mp-timetable') ?></option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="table_layout"><?php _e('Table layout', 'mp-timetable'); ?>     </label></td>
+				<td>
+					<select id="table_layout" name="table_layout">
+						<option value=""><?php _e('Default', 'mp-timetable'); ?></option>
+						<option value="auto"><?php _e('Auto', 'mp-timetable'); ?></option>
+						<option value="fixed"><?php _e('Fixed', 'mp-timetable'); ?></option>
 					</select>
 				</td>
 			</tr>

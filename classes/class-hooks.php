@@ -55,6 +55,10 @@ class Hooks extends Core {
 		// Manage event/column columns
 		add_filter( 'manage_edit-mp-event_columns', array( $this->get( 'events' ), 'set_event_columns' ) );
 		add_filter( 'manage_edit-mp-column_columns', array( $this->get( 'column' ), 'set_column_columns' ) );
+		
+		// Duplicate Event
+		add_filter( 'post_row_actions', array( $this->get( 'events' ), 'post_row_actions' ), 999, 2 );
+		add_action( 'post_action_mptt_duplicate_event', array( $this->get( 'events' ), 'post_action_mptt_duplicate_event' ) );
 
 		// post_class filter
 		add_filter( 'post_class', 'mptt_post_class', 15, 3 );

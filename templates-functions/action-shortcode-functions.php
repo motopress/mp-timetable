@@ -116,7 +116,12 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 	$font_size       = ! empty( $params[ 'font_size' ] ) ? ' font-size:' . $params[ 'font_size' ] . ';' : '';
 	$row_height      = $params[ 'row_height' ];
 	$table_class     = apply_filters( 'mptt_shortcode_static_table_class', 'mptt-shortcode-table' ) . ' ' . $params[ 'custom_class' ];
-	$table_class     .= Settings::get_instance()->is_plugin_template_mode() ? '' : ' mptt-theme-mode';
+	$table_class    .= Settings::get_instance()->is_plugin_template_mode() ? '' : ' mptt-theme-mode';
+
+	$table_layout = $params['table_layout'];
+	if ( !empty($table_layout) && ($table_layout == 'fixed' || $table_layout == 'auto') ) {
+		$table_class .= ' mptt-table-layout-' . $table_layout;
+	}
 	
 	$data_grouped_by_row = mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events );
 	

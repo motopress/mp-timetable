@@ -30,19 +30,22 @@
 	<p>
 		<label class="widget-categories"
 		       for="<?php echo $widget_object->get_field_id('mp_categories') ?>"><?php _e('Event categories. Leave blank to display all.', "mp-timetable") ?></label>
-		<select class="widefat" multiple="multiple" id="<?php echo $widget_object->get_field_id('mp_categories') ?>"
+		<select class="widefat mptt-resize-vertical" multiple="multiple" id="<?php echo $widget_object->get_field_id('mp_categories') ?>"
 		        name="<?php echo $widget_object->get_field_name('mp_categories') ?>[]">
 			<?php
-			if (!empty($data['categories'])):
-				foreach ($data['categories'] as $category) :
-					if (empty($instance['mp_categories'])):
+			if ( !empty($event_categories) ):
+				foreach ( $event_categories as $category ) :
+					if ( empty($instance['mp_categories']) ):
 						$instance['mp_categories'] = array();
 					endif ?>
-					<option
-						value="<?php echo $category->term_id ?>"<?php echo in_array($category->term_id, $instance['mp_categories']) ? 'selected="selected"' : '' ?> ><?php echo $category->name ?></option>
-				<?php endforeach;
+					<option value="<?php echo $category->term_id ?>"<?php
+						echo in_array($category->term_id, $instance['mp_categories']) ? 'selected="selected"' : '' ?> ><?php
+						echo $category->name
+					?></option>
+			<?php endforeach;
 			endif; ?>
 		</select>
+		<small><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable'); ?></small>
 	</p>
 	<p>
 		<label

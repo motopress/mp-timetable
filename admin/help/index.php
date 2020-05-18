@@ -60,6 +60,7 @@
 						<li><code>id</code> - unique ID.</li>
 						<li><code>custom_class</code> - CSS class.</li>
 						<li><code>responsive</code> - mobile layout; possible values <kbd>1</kbd> - display as list, <kbd>0</kbd> - display as table.</li>
+						<li><code>table_layout</code> - table layout; possible values <kbd>auto</kbd>, <kbd>fixed</kbd>.</li>
 					</ul>
 				</li>
 				<li>Use "TimeTable" block in the new Block Editor.</li>

@@ -116,6 +116,9 @@
 											case 'responsive':
 												shortcode_obj.attrs.responsive = parameters.value;
 												break;
+											case 'table_layout':
+												shortcode_obj.attrs.table_layout = parameters.value;
+												break;
 										}
 									});
 

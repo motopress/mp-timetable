@@ -67,7 +67,8 @@ class Inspector extends Component {
 
                 row_height,
                 font_size,
-                responsive,                            
+                responsive,
+				table_layout,
             },
 
             selectedEvents,
@@ -86,7 +87,7 @@ class Inspector extends Component {
 						multiple
 						size="7"
 						label={__('Columns', 'mp-timetable')}
-						help={__('In order to display multiple points hold ctrl/cmd button.', 'mp-timetable')}
+						help={__('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable')}
 						value={col}
 						onChange={col => setAttributes({col})}
 						options={this.setOptions(selectedColumns)}
@@ -95,6 +96,7 @@ class Inspector extends Component {
 						multiple
 						size="7"
 						label={__('Specific events', 'mp-timetable')}
+						help={__('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable')}
 						value={events}
 						onChange={events => setAttributes({events})}
 						options={this.setOptions(selectedEvents )}
@@ -103,6 +105,7 @@ class Inspector extends Component {
 						multiple
 						size="7"
 						label={__('Event categories', 'mp-timetable')}
+						help={__('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable')}
 						value={event_categ}
 						onChange={event_categ => setAttributes({event_categ})}
 						options={this.setOptions(selectedEventCategories)}
@@ -248,6 +251,16 @@ class Inspector extends Component {
 							{ value: 'top',   label: __( 'top'  , 'mp-timetable' ) },
 							{ value: 'middle',   label: __( 'middle'  , 'mp-timetable' ) },
 							{ value: 'bottom',  label: __( 'bottom' , 'mp-timetable' ) },
+						]}
+					/>
+					<SelectControl
+						label={__('Table layout', 'mp-timetable')}
+						value={table_layout}
+						onChange={table_layout => setAttributes({ table_layout })}
+						options={[
+							{ value: '', label: __( 'Default', 'mp-timetable' ) },
+							{ value: 'auto',   label: __( 'Auto'  , 'mp-timetable' ) },
+							{ value: 'fixed',   label: __( 'Fixed'  , 'mp-timetable' ) },
 						]}
 					/>
 					<TextControl

@@ -44,13 +44,23 @@ class Timetable_widget extends \WP_Widget {
 			'item_border_color'       => '',
 			'hover_item_border_color' => '',
 		), $instance );
-		
-		$data[ 'columns' ]    = Column::get_instance()->get_all_column();
+
+		/*$data[ 'columns' ]    = Column::get_instance()->get_all_column();
 		$data[ 'events' ]     = Events::get_instance()->get_all_events();
-		$data[ 'categories' ] = get_terms( 'mp-event_category', 'orderby=count&hide_empty=0' );;
+		$data[ 'categories' ] = get_terms( 'mp-event_category', 'orderby=count&hide_empty=0' );
 		$data[ 'localtime' ] = date( get_option( 'time_format' ), current_time( 'timestamp', 0 ) );
 		$data[ 'utc_time' ]  = date( get_option( 'time_format' ), current_time( 'timestamp', 1 ) );
-		View::get_instance()->render_html( 'widgets/gallery-list', array( 'widget_object' => $this, 'data' => $data, 'instance' => $instance ), true );
+
+		View::get_instance()->render_html( 'widgets/gallery-list', array( 'widget_object' => $this, 'data' => $data, 'instance' => $instance ), true );*/
+		
+		$event_categories = get_terms( 'mp-event_category', 'orderby=title&hide_empty=0' );
+
+		View::get_instance()->render_html('widgets/gallery-list', array(
+			'widget_object' => $this,
+			'event_categories' => $event_categories,
+			'instance' => $instance
+		), true);
+		
 	}
 	
 	/**

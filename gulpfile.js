@@ -6,7 +6,7 @@ const gulp = require('gulp'),
 	cssmin = require('gulp-cssmin');
 
 
-gulp.task('compileLess', function () {
+gulp.task('less', function () {
    return gulp.src(['./media/less/**/**/*.less', '!./media/less/no-js.less', '!./media/less/theme.less'])
        .pipe(plumber({
            errorHandler: notifier.onError("Error: <%= error.messageOriginal %>")
@@ -18,6 +18,6 @@ gulp.task('compileLess', function () {
 });
 
 gulp.task('default', gulp.series( function (done) {
-    gulp.watch('./media/less/**/**/*.less', gulp.series('compileLess'));
+    gulp.watch('./media/less/**/**/*.less', gulp.series('less'));
     done();
 }));
