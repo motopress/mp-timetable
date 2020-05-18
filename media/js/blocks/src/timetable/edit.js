@@ -21,9 +21,12 @@ class Edit extends Component {
     }
 
     initTable(){
+        const { clientId } = this.props;
+		const $block = $( `#block-${clientId}` );
+
         //Set timer and check when table is load fully, and then initialize table data, and after stop timer
         const waitLoadTable = setInterval( () => {
-            if (jQuery('.mptt-shortcode-wrapper').length && !jQuery('.mptt-shortcode-wrapper').hasClass('table-init')){
+            if ($block.find('.mptt-shortcode-wrapper').length && !$block.find('.mptt-shortcode-wrapper').hasClass('table-init')){        
                 clearInterval(waitLoadTable);
                 window.mptt.tableInit();
             }
