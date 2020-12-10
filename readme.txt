@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointments, upcoming events
 Requires at least: 4.6
-Tested up to: 5.4
+Tested up to: 5.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.3.12, Dec 11 2020 =
+* Improved compatibility with WordPress 5.6.
 
 = 2.3.11, May 18 2020 =
 * Added the ability to duplicate events.
