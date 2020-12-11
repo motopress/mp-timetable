@@ -19,7 +19,7 @@ The plugin can be used for timetabling different types of events like various le
 * Check [Timetable and Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)
 * Please find the step-by-step [instructions of working with the plugin](https://motopress.com/files/motopress-timetable-plugin-documentation.pdf)
 
-= Key advantages =
+### Key advantages
 
 **Responsive design.** It's optimized to be viewed perfectly on different devices. A good step forward, the plugin was supplied with the ability to manually adjust the way to show your timetable on mobile devices and desktops.
 
@@ -33,7 +33,7 @@ The plugin can be used for timetabling different types of events like various le
 
 **Flexibility.** If any unexpected delays or total dates' changes take place, your timetable can bend easily in one direction or another thanks to a couple of qucik time edits in the backend.
 
-= Main features =
+### Main features
 * Several column types
 * Selecting/deselecting the preferable columns and events to be displayed in the timetable
 * Ability to add event tags and categories
@@ -52,6 +52,10 @@ The plugin can be used for timetabling different types of events like various le
 Timetable can be added to Elementor, Divi, Beaver or any other builder via shortcode. Plugin provides Timetable block for Gutenberg.
 
 Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
+
+### Power up your timetables with the Appointment Booking plugin
+
+Want to take automatic online appointment reservations through your website for events, classes, and any other type of services? Enable [hourly appointment booking](https://motopress.com/products/appointment-booking) with our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
 == Installation ==
 
