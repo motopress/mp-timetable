@@ -84,6 +84,7 @@ class Inspector extends Component {
 					title={__('Settings', 'mp-timetable')}
 				>
 					<SelectControl
+						className="timetable-wp56-fix"
 						multiple
 						size="7"
 						label={__('Columns', 'mp-timetable')}
@@ -93,6 +94,7 @@ class Inspector extends Component {
 						options={this.setOptions(selectedColumns)}
 					/>
 					<SelectControl
+						className="timetable-wp56-fix"
 						multiple
 						size="7"
 						label={__('Specific events', 'mp-timetable')}
@@ -102,6 +104,7 @@ class Inspector extends Component {
 						options={this.setOptions(selectedEvents )}
 					/>
 					<SelectControl
+						className="timetable-wp56-fix"
 						multiple
 						size="7"
 						label={__('Event categories', 'mp-timetable')}

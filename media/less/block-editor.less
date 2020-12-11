@@ -1,3 +1,13 @@
 .wp-block[data-type="mp-timetable/timetable"] div[data-block] {
 	overflow: auto;
 }
+
+/*
+ * TODO: WordPress 5.6 Select Multiple Fix
+ */
+body.branch-5-6 .components-select-control.timetable-wp56-fix .components-select-control__input {
+    height: auto !important;
+}
+body.branch-5-6 .components-select-control.timetable-wp56-fix .components-input-control__suffix {
+    display: none !important;
+}
