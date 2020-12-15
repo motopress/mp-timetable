@@ -55,7 +55,7 @@ Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg
 
 ### Power up your timetables with the Appointment Booking plugin
 
-Want to take automatic online appointment reservations through your website for events, classes, and any other type of services? Enable [hourly appointment booking](https://motopress.com/products/appointment-booking) with our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
+Want to take automatic online appointment reservations through your website for events, classes, and any other type of services? Enable [hourly appointment booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) with our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
 == Installation ==
 
