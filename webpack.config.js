@@ -9,6 +9,8 @@ const config = {
 	output: {
 		path: path.resolve(__dirname),
 		filename: '[name].min.js',
+		library: [ 'wp', '[name]' ],
+		libraryTarget: 'window',
 	},
 	module: {
 		rules: [
@@ -25,7 +27,11 @@ const config = {
 	externals: {
 		'react'    : 'React',
 		'react-dom': 'ReactDOM',
-		'lodash'   : 'lodash'
+		'lodash'   : 'lodash',
+		//https://www.cssigniter.com/importing-gutenberg-core-wordpress-libraries-es-modules-blocks/
+		'wp.i18n': {
+			window: [ 'wp', 'i18n' ]
+		},
 	},
 };
 

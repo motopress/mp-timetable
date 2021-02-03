@@ -35,12 +35,18 @@ class Timetable_Block {
 		);
 
 
-		// internationalization
+		// Internationalization
 
 		/* 
 		 * For custom translations
+		 * https://developer.wordpress.org/reference/functions/wp_set_script_translations/
+		 *
+		 * By default, minified files should still be excluded, and if you want to explicitly include them, you can do so by adding --include=*.min.js to the command.
+		 * https://github.com/wp-cli/i18n-command/pull/85
+		 *
 		 */
-		//wp_set_script_translations( 'mptt-blocks-js', 'mp-timetable', Mp_Time_Table::get_plugin_path() . 'languages' );
+		 //wp_set_script_translations( 'mptt-blocks-js', 'mp-timetable', Mp_Time_Table::get_plugin_path() . 'languages' );
+
 
 		wp_set_script_translations( 'mptt-blocks-js', 'mp-timetable' );
 

@@ -1,6 +1,6 @@
 import { get } from "lodash";
+import { __ } from 'wp.i18n';
 
-const {__} = wp.i18n;
 const {Component} = wp.element;
 
 const {

@@ -1,12 +1,10 @@
-# Translation of Plugins - Timetable and Event Schedule by MotoPress - Development (trunk) in Russian
-# This file is distributed under the same license as the Plugins - Timetable and Event Schedule by MotoPress - Development (trunk) package.
 msgid ""
 msgstr ""
 "Project-Id-Version: Plugins - Timetable and Event Schedule by MotoPress - "
 "Development (trunk)\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mp-timetable\n"
-"POT-Creation-Date: 2021-02-03T15:16:16+00:00\n"
-"PO-Revision-Date: 2021-02-03 17:16+0200\n"
+"POT-Creation-Date: 2021-02-03T19:20:41+00:00\n"
+"PO-Revision-Date: 2021-02-03 21:20+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -62,7 +60,7 @@ msgstr "Импорт / Экспорт данных плагина"
 msgid "Import"
 msgstr "Импортировать"
 
-#: classes/blocks/class-timetable-block.php:79 classes/class-core.php:442
+#: classes/blocks/class-timetable-block.php:92 classes/class-core.php:443
 #: classes/class-shortcode.php:70 classes/class-shortcode.php:286
 #: templates-functions/action-shortcode-functions.php:57
 #: templates-functions/action-shortcode-functions.php:71
@@ -70,166 +68,166 @@ msgstr "Импортировать"
 msgid "All Events"
 msgstr "Все события"
 
-#: classes/class-core.php:331 classes/class-core.php:342
-#: classes/class-core.php:346 classes/class-shortcode.php:265
-#: templates/popup/index.php:27 media/js/blocks/src/timetable/inspector.js:110
+#: classes/class-core.php:332 classes/class-core.php:343
+#: classes/class-core.php:347 classes/class-shortcode.php:265
+#: templates/popup/index.php:27 media/js/blocks/dist/index.min.js:1
 msgid "Event categories"
 msgstr "Категории событий"
 
-#: classes/class-core.php:332
+#: classes/class-core.php:333
 msgid "Event category"
 msgstr "Категория события"
 
-#: classes/class-core.php:333 classes/class-core.php:334
+#: classes/class-core.php:334 classes/class-core.php:335
 msgid "Add New Event category"
 msgstr "Добавить новую категорию события"
 
-#: classes/class-core.php:335
+#: classes/class-core.php:336
 msgid "Edit Event category"
 msgstr "Редактировать категорию события"
 
-#: classes/class-core.php:336
+#: classes/class-core.php:337
 msgid "New Event category"
 msgstr "Новая категория события"
 
-#: classes/class-core.php:337
+#: classes/class-core.php:338
 msgid "All Event categories"
 msgstr "Все категории событий"
 
-#: classes/class-core.php:338
+#: classes/class-core.php:339
 msgid "View Event category"
 msgstr "Просмотр категории события"
 
-#: classes/class-core.php:339
+#: classes/class-core.php:340
 msgid "Search Event category"
 msgstr "Поиск категорий события"
 
-#: classes/class-core.php:340
+#: classes/class-core.php:341
 msgid "No Event categories found"
 msgstr "Категории событий не найдены"
 
-#: classes/class-core.php:341
+#: classes/class-core.php:342
 msgid "No Event categories found in Trash"
 msgstr "Категории событий в корзине не найдены"
 
-#: classes/class-core.php:375 classes/class-core.php:386
-#: classes/class-core.php:390
+#: classes/class-core.php:376 classes/class-core.php:387
+#: classes/class-core.php:391
 msgid "Event tags"
 msgstr "Ярлыки событий"
 
-#: classes/class-core.php:376
+#: classes/class-core.php:377
 msgid "Event tag"
 msgstr "Ярлык события"
 
-#: classes/class-core.php:377 classes/class-core.php:378
+#: classes/class-core.php:378 classes/class-core.php:379
 msgid "Add New Event tag"
 msgstr "Добавить новый ярлык события"
 
-#: classes/class-core.php:379
+#: classes/class-core.php:380
 msgid "Edit Event tag"
 msgstr "Редактировать ярлык события"
 
-#: classes/class-core.php:380
+#: classes/class-core.php:381
 msgid "New Event tag"
 msgstr "Новый ярлык события"
 
-#: classes/class-core.php:381
+#: classes/class-core.php:382
 msgid "All Event tags"
 msgstr "Все ярлыки событий"
 
-#: classes/class-core.php:382
+#: classes/class-core.php:383
 msgid "View Event tag"
 msgstr "Просмотр ярлыков события"
 
-#: classes/class-core.php:383
+#: classes/class-core.php:384
 msgid "Search Event tag"
 msgstr "Поиск ярлыка события"
 
-#: classes/class-core.php:384
+#: classes/class-core.php:385
 msgid "No Event tags found"
 msgstr "Ярлыки событий не найдены"
 
-#: classes/class-core.php:385
+#: classes/class-core.php:386
 msgid "No Event tags found in Trash"
 msgstr "Ярлыков событий в корзине не найдено"
 
-#: classes/class-core.php:436 classes/class-core.php:447
+#: classes/class-core.php:437 classes/class-core.php:448
 #: classes/class-hooks.php:192 classes/class-shortcode.php:260
 msgid "Events"
 msgstr "События"
 
-#: classes/class-core.php:437
+#: classes/class-core.php:438
 msgid "Event"
 msgstr "Событие"
 
-#: classes/class-core.php:438 classes/class-core.php:439
+#: classes/class-core.php:439 classes/class-core.php:440
 msgid "Add New Event"
 msgstr "Добавить новое событе"
 
-#: classes/class-core.php:440
+#: classes/class-core.php:441
 msgid "Edit Event"
 msgstr "Редактировать событие"
 
-#: classes/class-core.php:441
+#: classes/class-core.php:442
 msgid "New Event"
 msgstr "Новое событие"
 
-#: classes/class-core.php:443
+#: classes/class-core.php:444
 msgid "View Event"
 msgstr "Просмотреть событие"
 
-#: classes/class-core.php:444
+#: classes/class-core.php:445
 msgid "Search Event"
 msgstr "Поиск событий"
 
-#: classes/class-core.php:445
+#: classes/class-core.php:446
 msgid "No Events found"
 msgstr "События не найдены"
 
-#: classes/class-core.php:446
+#: classes/class-core.php:447
 msgid "No Events found in Trash"
 msgstr "События не найдены в корзине"
 
-#: classes/class-core.php:475 classes/class-core.php:486
+#: classes/class-core.php:476 classes/class-core.php:487
 #: classes/class-hooks.php:200 templates/popup/index.php:5
-#: media/js/blocks/src/timetable/inspector.js:90
+#: media/js/blocks/dist/index.min.js:1
 msgid "Columns"
 msgstr "Столбцы"
 
-#: classes/class-core.php:476 classes/class-shortcode.php:255
+#: classes/class-core.php:477 classes/class-shortcode.php:255
 #: templates/events/event-data.php:4
 msgid "Column"
 msgstr "Столбец"
 
-#: classes/class-core.php:477 classes/class-core.php:478
+#: classes/class-core.php:478 classes/class-core.php:479
 msgid "Add New Column"
 msgstr "Добавить новый столбец"
 
-#: classes/class-core.php:479
+#: classes/class-core.php:480
 msgid "Edit Column"
 msgstr "Редактировать столбец"
 
-#: classes/class-core.php:480
+#: classes/class-core.php:481
 msgid "New Column"
 msgstr "Новый столбец"
 
-#: classes/class-core.php:481
+#: classes/class-core.php:482
 msgid "All Columns"
 msgstr "Все столбцы"
 
-#: classes/class-core.php:482
+#: classes/class-core.php:483
 msgid "View Column"
 msgstr "Просмотр столбцов"
 
-#: classes/class-core.php:483
+#: classes/class-core.php:484
 msgid "Search Column"
 msgstr "Поиск столбцов"
 
-#: classes/class-core.php:484
+#: classes/class-core.php:485
 msgid "No Columns found"
 msgstr "Столбцы не найдены"
 
-#: classes/class-core.php:485
+#: classes/class-core.php:486
 msgid "No Columns found in Trash"
 msgstr "Столбцов в корзине не найдено"
 
@@ -238,7 +236,7 @@ msgid "Timetable Sidebar"
 msgstr "Расписание в боковой панели"
 
 #: classes/class-hooks.php:80 classes/class-hooks.php:188
-#: classes/class-shortcode.php:370 media/js/blocks/src/timetable/index.js:12
+#: classes/class-shortcode.php:370 media/js/blocks/dist/index.min.js:1
 msgid "Timetable"
 msgstr "Расписание"
 
@@ -263,7 +261,7 @@ msgid "Event Tags"
 msgstr "Ярлыки событий"
 
 #: classes/class-hooks.php:216 classes/modules/class-post.php:41
-#: media/js/blocks/src/timetable/inspector.js:84
+#: media/js/blocks/dist/index.min.js:1
 msgid "Settings"
 msgstr "Настройки"
 
@@ -312,17 +310,17 @@ msgid "Hour measure"
 msgstr "Мера часа"
 
 #: classes/class-shortcode.php:271 templates/popup/index.php:71
-#: media/js/blocks/src/timetable/inspector.js:164
+#: media/js/blocks/dist/index.min.js:1
 msgid "Hour (1h)"
 msgstr "Час (1 ч)"
 
 #: classes/class-shortcode.php:271 templates/popup/index.php:72
-#: media/js/blocks/src/timetable/inspector.js:165
+#: media/js/blocks/dist/index.min.js:1
 msgid "Half hour (30min)"
 msgstr "Полчаса (30 мин)"
 
 #: classes/class-shortcode.php:271 templates/popup/index.php:73
-#: media/js/blocks/src/timetable/inspector.js:166
+#: media/js/blocks/dist/index.min.js:1
 msgid "Quarter hour (15min)"
 msgstr "Четверть часа (15 мин)"
 
@@ -330,39 +328,34 @@ msgstr "Четверть часа (15 мин)"
 msgid "Filter style"
 msgstr "Стиль для фильтра"
 
-#: classes/class-shortcode.php:276
-#: media/js/blocks/src/timetable/inspector.js:174
+#: classes/class-shortcode.php:276 media/js/blocks/dist/index.min.js:1
 msgid "Dropdown list"
 msgstr "Выпадающий список"
 
 #: classes/class-shortcode.php:276 templates/popup/index.php:82
-#: media/js/blocks/src/timetable/inspector.js:175
+#: media/js/blocks/dist/index.min.js:1
 msgid "Tabs"
 msgstr "Вкладки"
 
 #: classes/class-shortcode.php:280 templates/popup/index.php:88
-#: media/js/blocks/src/timetable/inspector.js:179
+#: media/js/blocks/dist/index.min.js:1
 msgid "Order of items in filter"
 msgstr "Порядок элементов в фильтре"
 
 #: classes/class-shortcode.php:281 classes/class-shortcode.php:367
 #: templates/popup/index.php:91 templates/popup/index.php:172
-#: media/js/blocks/src/timetable/inspector.js:183
-#: media/js/blocks/src/timetable/inspector.js:253
-#: media/js/blocks/src/timetable/inspector.js:264
+#: media/js/blocks/dist/index.min.js:1
 msgid "Default"
 msgstr "По умолчанию"
 
 #: classes/class-shortcode.php:281 templates/popup/index.php:92
-#: media/js/blocks/src/timetable/inspector.js:184
+#: media/js/blocks/dist/index.min.js:1
 msgid "Menu Order"
 msgstr "Порядок меню"
 
 #: classes/class-shortcode.php:281 classes/class-shortcode.php:306
 #: templates/popup/index.php:40 templates/popup/index.php:93
-#: templates/widgets/gallery-list.php:3
-#: media/js/blocks/src/timetable/inspector.js:117
-#: media/js/blocks/src/timetable/inspector.js:185
+#: templates/widgets/gallery-list.php:3 media/js/blocks/dist/index.min.js:1
 msgid "Title"
 msgstr "Заголовок"
 
@@ -382,12 +375,7 @@ msgstr "Скрыть вид \"Все события\""
 #: templates/events/metabox-event-options.php:45 templates/popup/index.php:108
 #: templates/popup/index.php:117 templates/popup/index.php:127
 #: templates/popup/index.php:135 templates/popup/index.php:144
-#: templates/widgets/gallery-list.php:63
-#: media/js/blocks/src/timetable/inspector.js:198
-#: media/js/blocks/src/timetable/inspector.js:207
-#: media/js/blocks/src/timetable/inspector.js:216
-#: media/js/blocks/src/timetable/inspector.js:225
-#: media/js/blocks/src/timetable/inspector.js:234
+#: templates/widgets/gallery-list.php:63 media/js/blocks/dist/index.min.js:1
 msgid "No"
 msgstr "Нет"
 
@@ -399,12 +387,7 @@ msgstr "Нет"
 #: templates/events/metabox-event-options.php:46 templates/popup/index.php:109
 #: templates/popup/index.php:118 templates/popup/index.php:126
 #: templates/popup/index.php:136 templates/popup/index.php:145
-#: templates/widgets/gallery-list.php:65
-#: media/js/blocks/src/timetable/inspector.js:199
-#: media/js/blocks/src/timetable/inspector.js:208
-#: media/js/blocks/src/timetable/inspector.js:217
-#: media/js/blocks/src/timetable/inspector.js:226
-#: media/js/blocks/src/timetable/inspector.js:235
+#: templates/widgets/gallery-list.php:65 media/js/blocks/dist/index.min.js:1
 msgid "Yes"
 msgstr "Да"
 
@@ -417,17 +400,17 @@ msgid "Hide empty rows"
 msgstr "Скрыть пустые ряды"
 
 #: classes/class-shortcode.php:312 templates/popup/index.php:41
-#: media/js/blocks/src/timetable/inspector.js:124
+#: media/js/blocks/dist/index.min.js:1
 msgid "Time"
 msgstr "Время"
 
 #: classes/class-shortcode.php:318 templates/popup/index.php:42
-#: media/js/blocks/src/timetable/inspector.js:129
+#: media/js/blocks/dist/index.min.js:1
 msgid "Subtitle"
 msgstr "Подзаголовок"
 
 #: classes/class-shortcode.php:324 templates/events/event-data.php:7
-#: templates/popup/index.php:43 media/js/blocks/src/timetable/inspector.js:134
+#: templates/popup/index.php:43 media/js/blocks/dist/index.min.js:1
 msgid "Description"
 msgstr "Описание"
 
@@ -444,17 +427,17 @@ msgid "Text align"
 msgstr "Выравнивание текста"
 
 #: classes/class-shortcode.php:342 templates/popup/index.php:152
-#: media/js/blocks/src/timetable/inspector.js:243
+#: media/js/blocks/dist/index.min.js:1
 msgid "center"
 msgstr "по центру"
 
 #: classes/class-shortcode.php:342 templates/popup/index.php:153
-#: media/js/blocks/src/timetable/inspector.js:244
+#: media/js/blocks/dist/index.min.js:1
 msgid "left"
 msgstr "слева"
 
 #: classes/class-shortcode.php:342 templates/popup/index.php:154
-#: media/js/blocks/src/timetable/inspector.js:245
+#: media/js/blocks/dist/index.min.js:1
 msgid "right"
 msgstr "справа"
 
@@ -475,17 +458,17 @@ msgid "Responsive"
 msgstr "Адаптивные"
 
 #: classes/class-shortcode.php:366 templates/popup/index.php:169
-#: media/js/blocks/src/timetable/inspector.js:260
+#: media/js/blocks/dist/index.min.js:1
 msgid "Column width"
 msgstr "Ширина столбца"
 
 #: classes/class-shortcode.php:367 templates/popup/index.php:173
-#: media/js/blocks/src/timetable/inspector.js:265
+#: media/js/blocks/dist/index.min.js:1
 msgid "Auto"
 msgstr "Автоматически"
 
 #: classes/class-shortcode.php:367 templates/popup/index.php:174
-#: media/js/blocks/src/timetable/inspector.js:266
+#: media/js/blocks/dist/index.min.js:1
 msgid "Fixed"
 msgstr "Фиксированное"
 
@@ -859,15 +842,13 @@ msgstr "Отключить ссылку на событие:"
 
 #: templates/popup/index.php:12 templates/popup/index.php:23
 #: templates/popup/index.php:34 templates/widgets/gallery-list.php:48
-#: media/js/blocks/src/timetable/inspector.js:91
-#: media/js/blocks/src/timetable/inspector.js:101
-#: media/js/blocks/src/timetable/inspector.js:111
+#: media/js/blocks/dist/index.min.js:1
 msgid "Hold the Ctrl or Command key to select/deselect multiple options."
 msgstr ""
 "Удерживайте клавишу Ctrl или Command, чтобы выбрать / отменить выбор "
 "нескольких параметров."
 
-#: templates/popup/index.php:16 media/js/blocks/src/timetable/inspector.js:100
+#: templates/popup/index.php:16 media/js/blocks/dist/index.min.js:1
 msgid "Specific events"
 msgstr "Конкретные события"
 
@@ -876,7 +857,7 @@ msgid "Fields to display:"
 msgstr "Поля для отображения:"
 
 #. translators: Head means the leader of the event.
-#: templates/popup/index.php:47 media/js/blocks/src/timetable/inspector.js:139
+#: templates/popup/index.php:47 media/js/blocks/dist/index.min.js:1
 msgid "Event Head"
 msgstr "Руководитель события"
 
@@ -884,7 +865,7 @@ msgstr "Руководитель события"
 msgid "Check the event parameter(s) to be displayed in the timetable."
 msgstr "Отметьте параметры события, которые будут отображаться в расписании."
 
-#: templates/popup/index.php:54 media/js/blocks/src/timetable/inspector.js:144
+#: templates/popup/index.php:54 media/js/blocks/dist/index.min.js:1
 msgid "Block height in pixels"
 msgstr "Высота блока в пикселях"
 
@@ -892,19 +873,19 @@ msgstr "Высота блока в пикселях"
 msgid "Set height of the block"
 msgstr "Установить высоту блока"
 
-#: templates/popup/index.php:61 media/js/blocks/src/timetable/inspector.js:154
+#: templates/popup/index.php:61 media/js/blocks/dist/index.min.js:1
 msgid "Base font size"
 msgstr "Базовый размер шрифта"
 
-#: templates/popup/index.php:64 media/js/blocks/src/timetable/inspector.js:155
+#: templates/popup/index.php:64 media/js/blocks/dist/index.min.js:1
 msgid "Base font size for the table. Example 12px, 2em, 80%."
 msgstr "Базовый размер шрифта для таблицы. Например, 12px, 2em, 80%."
 
-#: templates/popup/index.php:68 media/js/blocks/src/timetable/inspector.js:160
+#: templates/popup/index.php:68 media/js/blocks/dist/index.min.js:1
 msgid "Time frame for event"
 msgstr "Период времени для события"
 
-#: templates/popup/index.php:78 media/js/blocks/src/timetable/inspector.js:170
+#: templates/popup/index.php:78 media/js/blocks/dist/index.min.js:1
 msgid "Filter events style"
 msgstr "Стиль фильтра событий"
 
@@ -916,36 +897,36 @@ msgstr "Выпадающий"
 msgid "None"
 msgstr "Ничего"
 
-#: templates/popup/index.php:98 media/js/blocks/src/timetable/inspector.js:189
+#: templates/popup/index.php:98 media/js/blocks/dist/index.min.js:1
 msgid "Filter title to display all events"
 msgstr "Заголовок фильтра для отображения всех событий"
 
-#: templates/popup/index.php:104 media/js/blocks/src/timetable/inspector.js:194
+#: templates/popup/index.php:104 media/js/blocks/dist/index.min.js:1
 msgid "Hide 'All Events' option"
 msgstr "Спрятать опцию \"Все события\""
 
-#: templates/popup/index.php:114 media/js/blocks/src/timetable/inspector.js:203
+#: templates/popup/index.php:114 media/js/blocks/dist/index.min.js:1
 msgid "Hide column with hours"
 msgstr "Прятать колонку с часами"
 
-#: templates/popup/index.php:123 media/js/blocks/src/timetable/inspector.js:212
+#: templates/popup/index.php:123 media/js/blocks/dist/index.min.js:1
 msgid "Do not display empty rows"
 msgstr "Не отображать пустые строки"
 
-#: templates/popup/index.php:132 media/js/blocks/src/timetable/inspector.js:221
+#: templates/popup/index.php:132 media/js/blocks/dist/index.min.js:1
 msgid "Merge cells with common events"
 msgstr "Обьеденить ячейки с одинаковыми событиями"
 
 #: templates/popup/index.php:141 templates/widgets/gallery-list.php:59
-#: media/js/blocks/src/timetable/inspector.js:230
+#: media/js/blocks/dist/index.min.js:1
 msgid "Disable event link"
 msgstr "Отключить ссылку события"
 
-#: templates/popup/index.php:150 media/js/blocks/src/timetable/inspector.js:239
+#: templates/popup/index.php:150 media/js/blocks/dist/index.min.js:1
 msgid "Horizontal align"
 msgstr "Горизонтальное выравнивание"
 
-#: templates/popup/index.php:159 media/js/blocks/src/timetable/inspector.js:249
+#: templates/popup/index.php:159 media/js/blocks/dist/index.min.js:1
 msgid "Vertical align"
 msgstr "Вертикальное выравнивание"
 
@@ -953,23 +934,23 @@ msgstr "Вертикальное выравнивание"
 msgid "default"
 msgstr "по умолчанию"
 
-#: templates/popup/index.php:162 media/js/blocks/src/timetable/inspector.js:254
+#: templates/popup/index.php:162 media/js/blocks/dist/index.min.js:1
 msgid "top"
 msgstr "сверху"
 
-#: templates/popup/index.php:163 media/js/blocks/src/timetable/inspector.js:255
+#: templates/popup/index.php:163 media/js/blocks/dist/index.min.js:1
 msgid "middle"
 msgstr "посередине"
 
-#: templates/popup/index.php:164 media/js/blocks/src/timetable/inspector.js:256
+#: templates/popup/index.php:164 media/js/blocks/dist/index.min.js:1
 msgid "bottom"
 msgstr "снизу"
 
-#: templates/popup/index.php:179 media/js/blocks/src/timetable/inspector.js:270
+#: templates/popup/index.php:179 media/js/blocks/dist/index.min.js:1
 msgid "Unique ID"
 msgstr "Уникальный ID"
 
-#: templates/popup/index.php:182 media/js/blocks/src/timetable/inspector.js:271
+#: templates/popup/index.php:182 media/js/blocks/dist/index.min.js:1
 msgid ""
 "If you use more than one table on a page specify the unique ID for a "
 "timetable. It is usually all lowercase and contains only letters, numbers, "
@@ -979,19 +960,19 @@ msgstr ""
 "идентификатор для расписания. Он, как правило, содержит только буквы  в "
 "нижнем регистре, цифры и дефис."
 
-#: templates/popup/index.php:186 media/js/blocks/src/timetable/inspector.js:276
+#: templates/popup/index.php:186 media/js/blocks/dist/index.min.js:1
 msgid "CSS class"
 msgstr "CSS класс"
 
-#: templates/popup/index.php:192 media/js/blocks/src/timetable/inspector.js:281
+#: templates/popup/index.php:192 media/js/blocks/dist/index.min.js:1
 msgid "Mobile behavior"
 msgstr "Отображение на мобильном"
 
-#: templates/popup/index.php:195 media/js/blocks/src/timetable/inspector.js:286
+#: templates/popup/index.php:195 media/js/blocks/dist/index.min.js:1
 msgid "List"
 msgstr "Список"
 
-#: templates/popup/index.php:196 media/js/blocks/src/timetable/inspector.js:285
+#: templates/popup/index.php:196 media/js/blocks/dist/index.min.js:1
 msgid "Table"
 msgstr "Таблица"
 

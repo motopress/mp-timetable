@@ -1,10 +1,9 @@
 import edit from './edit';
+import { __ } from 'wp.i18n';
 
 const {
 	registerBlockType,
 } = wp.blocks;
-
-const { __ } = wp.i18n;
 
 export default registerBlockType(
     'mp-timetable/timetable',
