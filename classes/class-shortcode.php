@@ -363,7 +363,7 @@ class Shortcode extends Core {
 			),
 			'table_layout'     => array(
 				'type'  => 'select',
-				'label' => __( 'Table layout', 'mp-timetable' ),
+				'label' => __( 'Column width', 'mp-timetable' ),
 				'list'  => array( '' => __( 'Default', 'mp-timetable' ), 'auto' => __( 'Auto', 'mp-timetable' ), 'fixed' => __( 'Fixed', 'mp-timetable' ) )
 			),
 		);

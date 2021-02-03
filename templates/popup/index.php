@@ -41,7 +41,12 @@
 					<label for="time" class="label_width"><input type="checkbox" name="time" checked value="1"/><?php _e('Time', 'mp-timetable'); ?></label><br/>
 					<label for="sub-title" class="label_width"><input type="checkbox" name="sub-title" checked value="1"/><?php _e('Subtitle', 'mp-timetable'); ?></label><br/>
 					<label for="description" class="label_width"><input type="checkbox" name="description" value="1"/><?php _e('Description', 'mp-timetable'); ?></label><br/>
-					<label for="user" class="label_width"><input type="checkbox" name="user" value="1"/><?php _e('Event Head', 'mp-timetable'); ?></label>
+					<label for="user" class="label_width"><input type="checkbox" name="user" value="1"/>
+						<?php
+							//translators: Head means the leader of the event.
+							_e('Event Head', 'mp-timetable');
+						?>
+					</label>
 					<p class="description"><?php _e('Check the event parameter(s) to be displayed in the timetable.', 'mp-timetable'); ?></p>
 				</td>
 			</tr>
@@ -161,7 +166,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="table_layout"><?php _e('Table layout', 'mp-timetable'); ?>     </label></td>
+				<td><label for="table_layout"><?php _e('Column width', 'mp-timetable'); ?>     </label></td>
 				<td>
 					<select id="table_layout" name="table_layout">
 						<option value=""><?php _e('Default', 'mp-timetable'); ?></option>

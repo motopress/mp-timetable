@@ -44,7 +44,10 @@
 		<td><textarea id="description" class="widefat" name="events[description]" rows="2"></textarea></td>
 	</tr>
 	<tr>
-		<td><label for="user_id"><?php _e('Event Head:', 'mp-timetable') ?></label></td>
+		<td><label for="user_id"><?php
+			//translators: Head means the leader of the event.
+			_e('Event Head:', 'mp-timetable')
+			?></label></td>
 		<td>
 			<?php
 
@@ -75,7 +78,10 @@
 	<tr>
 		<td></td>
 		<td>
-			<input id="add_mp_event" type="button" class="button button-primary" value="<?php _e('Add New', 'mp-timetable'); ?>">
+			<input id="add_mp_event" type="button" class="button button-primary" value="<?php
+				//translators: Button to add a new event.
+				_e('Add New', 'mp-timetable');
+			?>">
 			<span class="spinner left"></span>
 		</td>
 	</tr>

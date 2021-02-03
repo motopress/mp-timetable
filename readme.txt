@@ -53,9 +53,11 @@ Timetable can be added to Elementor, Divi, Beaver or any other builder via short
 
 Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
 
-### Power up your timetables with the Appointment Booking plugin
+### Appointment Booking plugin
 
-Want to take automatic online appointment reservations through your website for events, classes, and any other type of services? Enable [hourly appointment booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) with our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
+Want to take automatic online appointment reservations through your website for events, classes, and any other type of services?
+
+Enable [Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) with our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
 == Installation ==
 
@@ -84,6 +86,10 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.3.13, Feb 3 2021 =
+* Bug fix: fixed an issue with double slashes in assets URL.
+
 
 = 2.3.12, Dec 11 2020 =
 * Improved compatibility with WordPress 5.6.

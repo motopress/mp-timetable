@@ -257,7 +257,7 @@ class Inspector extends Component {
 						]}
 					/>
 					<SelectControl
-						label={__('Table layout', 'mp-timetable')}
+						label={__('Column width', 'mp-timetable')}
 						value={table_layout}
 						onChange={table_layout => setAttributes({ table_layout })}
 						options={[
