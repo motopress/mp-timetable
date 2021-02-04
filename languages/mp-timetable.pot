@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Timetable and Event Schedule plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Timetable and Event Schedule 2.3.13\n"
+"Project-Id-Version: Timetable and Event Schedule 2.3.14\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mp-timetable\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-03T19:20:41+00:00\n"
+"POT-Creation-Date: 2021-02-04T21:23:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: mp-timetable\n"
@@ -72,7 +72,7 @@ msgstr ""
 #: classes/class-core.php:347
 #: classes/class-shortcode.php:265
 #: templates/popup/index.php:27
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Event categories"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 #: classes/class-core.php:487
 #: classes/class-hooks.php:200
 #: templates/popup/index.php:5
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Columns"
 msgstr ""
 
@@ -250,7 +250,7 @@ msgstr ""
 #: classes/class-hooks.php:80
 #: classes/class-hooks.php:188
 #: classes/class-shortcode.php:370
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Timetable"
 msgstr ""
 
@@ -276,7 +276,7 @@ msgstr ""
 
 #: classes/class-hooks.php:216
 #: classes/modules/class-post.php:41
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Settings"
 msgstr ""
 
@@ -326,19 +326,19 @@ msgstr ""
 
 #: classes/class-shortcode.php:271
 #: templates/popup/index.php:71
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Hour (1h)"
 msgstr ""
 
 #: classes/class-shortcode.php:271
 #: templates/popup/index.php:72
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Half hour (30min)"
 msgstr ""
 
 #: classes/class-shortcode.php:271
 #: templates/popup/index.php:73
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Quarter hour (15min)"
 msgstr ""
 
@@ -347,19 +347,19 @@ msgid "Filter style"
 msgstr ""
 
 #: classes/class-shortcode.php:276
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Dropdown list"
 msgstr ""
 
 #: classes/class-shortcode.php:276
 #: templates/popup/index.php:82
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Tabs"
 msgstr ""
 
 #: classes/class-shortcode.php:280
 #: templates/popup/index.php:88
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Order of items in filter"
 msgstr ""
 
@@ -367,13 +367,13 @@ msgstr ""
 #: classes/class-shortcode.php:367
 #: templates/popup/index.php:91
 #: templates/popup/index.php:172
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Default"
 msgstr ""
 
 #: classes/class-shortcode.php:281
 #: templates/popup/index.php:92
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Menu Order"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr ""
 #: templates/popup/index.php:40
 #: templates/popup/index.php:93
 #: templates/widgets/gallery-list.php:3
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Title"
 msgstr ""
 
@@ -411,7 +411,7 @@ msgstr ""
 #: templates/popup/index.php:135
 #: templates/popup/index.php:144
 #: templates/widgets/gallery-list.php:63
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "No"
 msgstr ""
 
@@ -432,7 +432,7 @@ msgstr ""
 #: templates/popup/index.php:136
 #: templates/popup/index.php:145
 #: templates/widgets/gallery-list.php:65
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Yes"
 msgstr ""
 
@@ -446,20 +446,20 @@ msgstr ""
 
 #: classes/class-shortcode.php:312
 #: templates/popup/index.php:41
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Time"
 msgstr ""
 
 #: classes/class-shortcode.php:318
 #: templates/popup/index.php:42
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Subtitle"
 msgstr ""
 
 #: classes/class-shortcode.php:324
 #: templates/events/event-data.php:7
 #: templates/popup/index.php:43
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Description"
 msgstr ""
 
@@ -477,19 +477,19 @@ msgstr ""
 
 #: classes/class-shortcode.php:342
 #: templates/popup/index.php:152
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "center"
 msgstr ""
 
 #: classes/class-shortcode.php:342
 #: templates/popup/index.php:153
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "left"
 msgstr ""
 
 #: classes/class-shortcode.php:342
 #: templates/popup/index.php:154
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "right"
 msgstr ""
 
@@ -511,19 +511,19 @@ msgstr ""
 
 #: classes/class-shortcode.php:366
 #: templates/popup/index.php:169
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Column width"
 msgstr ""
 
 #: classes/class-shortcode.php:367
 #: templates/popup/index.php:173
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Auto"
 msgstr ""
 
 #: classes/class-shortcode.php:367
 #: templates/popup/index.php:174
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Fixed"
 msgstr ""
 
@@ -867,12 +867,12 @@ msgstr ""
 #: templates/popup/index.php:23
 #: templates/popup/index.php:34
 #: templates/widgets/gallery-list.php:48
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Hold the Ctrl or Command key to select/deselect multiple options."
 msgstr ""
 
 #: templates/popup/index.php:16
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Specific events"
 msgstr ""
 
@@ -882,7 +882,7 @@ msgstr ""
 
 #. translators: Head means the leader of the event.
 #: templates/popup/index.php:47
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Event Head"
 msgstr ""
 
@@ -891,7 +891,7 @@ msgid "Check the event parameter(s) to be displayed in the timetable."
 msgstr ""
 
 #: templates/popup/index.php:54
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Block height in pixels"
 msgstr ""
 
@@ -900,22 +900,22 @@ msgid "Set height of the block"
 msgstr ""
 
 #: templates/popup/index.php:61
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Base font size"
 msgstr ""
 
 #: templates/popup/index.php:64
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Base font size for the table. Example 12px, 2em, 80%."
 msgstr ""
 
 #: templates/popup/index.php:68
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Time frame for event"
 msgstr ""
 
 #: templates/popup/index.php:78
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Filter events style"
 msgstr ""
 
@@ -928,43 +928,43 @@ msgid "None"
 msgstr ""
 
 #: templates/popup/index.php:98
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Filter title to display all events"
 msgstr ""
 
 #: templates/popup/index.php:104
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Hide 'All Events' option"
 msgstr ""
 
 #: templates/popup/index.php:114
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Hide column with hours"
 msgstr ""
 
 #: templates/popup/index.php:123
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Do not display empty rows"
 msgstr ""
 
 #: templates/popup/index.php:132
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Merge cells with common events"
 msgstr ""
 
 #: templates/popup/index.php:141
 #: templates/widgets/gallery-list.php:59
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Disable event link"
 msgstr ""
 
 #: templates/popup/index.php:150
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Horizontal align"
 msgstr ""
 
 #: templates/popup/index.php:159
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Vertical align"
 msgstr ""
 
@@ -973,47 +973,47 @@ msgid "default"
 msgstr ""
 
 #: templates/popup/index.php:162
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "top"
 msgstr ""
 
 #: templates/popup/index.php:163
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "middle"
 msgstr ""
 
 #: templates/popup/index.php:164
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "bottom"
 msgstr ""
 
 #: templates/popup/index.php:179
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Unique ID"
 msgstr ""
 
 #: templates/popup/index.php:182
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "If you use more than one table on a page specify the unique ID for a timetable. It is usually all lowercase and contains only letters, numbers, and hyphens."
 msgstr ""
 
 #: templates/popup/index.php:186
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "CSS class"
 msgstr ""
 
 #: templates/popup/index.php:192
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Mobile behavior"
 msgstr ""
 
 #: templates/popup/index.php:195
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "List"
 msgstr ""
 
 #: templates/popup/index.php:196
-#: media/js/blocks/dist/index.min.js:1
+#: media/js/blocks/dist/index.js:1
 msgid "Table"
 msgstr ""
 

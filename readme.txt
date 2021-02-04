@@ -1,7 +1,7 @@
 === Timetable and Event Schedule by MotoPress ===
 Contributors: MotoPress
 Donate link: https://motopress.com/
-Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointments, upcoming events
+Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
 Tested up to: 5.6
 Stable tag: trunk
@@ -14,10 +14,10 @@ Smart event organizer and time-management tool with a clean minimalist design fo
 
 MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free.
 
-The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
+* [Plugin Demo](https://mpttdemo.getmotopress.com/)
+* [Step-by-step instructions](https://motopress.com/files/motopress-timetable-plugin-documentation.pdf) of working with the plugin
 
-* Check [Timetable and Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)
-* Please find the step-by-step [instructions of working with the plugin](https://motopress.com/files/motopress-timetable-plugin-documentation.pdf)
+The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
 
 ### Key advantages
 
@@ -57,7 +57,7 @@ Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg
 
 Want to take automatic online appointment reservations through your website for events, classes, and any other type of services?
 
-Enable [Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) with our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
+[Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) is our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
 == Installation ==
 
