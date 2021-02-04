@@ -20,7 +20,7 @@
 			 if ( apply_filters('mptt_permalinks_enabled', true) ) {
 			?>
 			<tr>
-				<td><?php _e('Permalink Settings'); ?></td>
+				<td><?php _e('Permalink Settings', 'mp-timetable'); ?></td>
 				<td><?php echo sprintf( __('Configure permalink settings in <a href="%s">Settings > Permalinks</a>', 'mp-timetable'), admin_url('options-permalink.php') ); ?></td>
 			</tr>
 			 <?php } ?>

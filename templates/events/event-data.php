@@ -1,12 +1,15 @@
 <table class="widefat fixed">
 	<thead>
 		<tr>
-			<th><?php _e('Column', 'mp-timetable') ?></th>
-			<th><?php _e('Start', 'mp-timetable') ?></th>
-			<th><?php _e('End', 'mp-timetable') ?></th>
-			<th><?php _e('Description', 'mp-timetable') ?></th>
-			<th><?php _e('Head', 'mp-timetable') ?></th>
-			<th><?php _e('Actions', 'mp-timetable') ?></th>
+			<th><?php _e('Column', 'mp-timetable'); ?></th>
+			<th><?php _e('Start', 'mp-timetable'); ?></th>
+			<th><?php _e('End', 'mp-timetable'); ?></th>
+			<th><?php _e('Description', 'mp-timetable'); ?></th>
+			<th><?php
+				//translators: Head means the leader of the event.
+				_e('Head', 'mp-timetable');
+			?></th>
+			<th><?php _e('Actions', 'mp-timetable'); ?></th>
 		</tr>
 	</thead>
 	<tbody>

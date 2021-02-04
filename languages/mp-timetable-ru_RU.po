@@ -1,0 +1,1109 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Plugins - Timetable and Event Schedule by MotoPress - "
+"Development (trunk)\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mp-timetable\n"
+"POT-Creation-Date: 2021-02-03T19:20:41+00:00\n"
+"PO-Revision-Date: 2021-02-03 21:20+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n % 10 == 1 && n % 100 != 11) ? 0 : ((n % "
+"10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14)) ? 1 : 2);\n"
+"X-Generator: Poedit 2.2.1\n"
+
+#. Plugin Name of the plugin
+msgid "Timetable and Event Schedule"
+msgstr "Timetable and Event Schedule"
+
+#. Plugin URI of the plugin
+msgid "https://motopress.com/products/timetable-event-schedule/"
+msgstr "https://motopress.com/products/timetable-event-schedule/"
+
+#. Description of the plugin
+msgid ""
+"Smart time-management tool with a clean minimalist design for featuring your "
+"timetables and upcoming events."
+msgstr ""
+"Смарт инструмент для тайм-менеджмента с простым и минималистичным дизайном "
+"для отображения расписаний и предстоящих событий."
+
+#. Author of the plugin
+msgid "MotoPress"
+msgstr "MotoPress"
+
+#. Author URI of the plugin
+msgid "https://motopress.com"
+msgstr "https://motopress.com"
+
+#. translators: 1: Timetable and Event Schedule 2:: five stars rating
+#: admin/help/index.php:10 templates/settings/general.php:41
+msgid "If you like %1$s please leave us a %2$s rating."
+msgstr "Если вам нравится %1$s, поставьте нам %2$s оценку."
+
+#: admin/import/export.php:1 admin/import/export.php:5
+msgid "Export"
+msgstr "Экспортировать"
+
+#: admin/import/greet.php:2
+msgid "Choose a WXR (.xml) file to upload, then click Upload file and import."
+msgstr "Выберите WXR файл (с расширением XML), и нажмите кноку Загрузить."
+
+#: admin/import/header.php:2
+msgid "Import / Export Timetable Plugin Data"
+msgstr "Импорт / Экспорт данных плагина"
+
+#: admin/import/import.php:4
+msgid "Import"
+msgstr "Импортировать"
+
+#: classes/blocks/class-timetable-block.php:92 classes/class-core.php:443
+#: classes/class-shortcode.php:70 classes/class-shortcode.php:286
+#: templates-functions/action-shortcode-functions.php:57
+#: templates-functions/action-shortcode-functions.php:71
+#: templates-functions/action-shortcode-functions.php:72
+msgid "All Events"
+msgstr "Все события"
+
+#: classes/class-core.php:332 classes/class-core.php:343
+#: classes/class-core.php:347 classes/class-shortcode.php:265
+#: templates/popup/index.php:27 media/js/blocks/dist/index.min.js:1
+msgid "Event categories"
+msgstr "Категории событий"
+
+#: classes/class-core.php:333
+msgid "Event category"
+msgstr "Категория события"
+
+#: classes/class-core.php:334 classes/class-core.php:335
+msgid "Add New Event category"
+msgstr "Добавить новую категорию события"
+
+#: classes/class-core.php:336
+msgid "Edit Event category"
+msgstr "Редактировать категорию события"
+
+#: classes/class-core.php:337
+msgid "New Event category"
+msgstr "Новая категория события"
+
+#: classes/class-core.php:338
+msgid "All Event categories"
+msgstr "Все категории событий"
+
+#: classes/class-core.php:339
+msgid "View Event category"
+msgstr "Просмотр категории события"
+
+#: classes/class-core.php:340
+msgid "Search Event category"
+msgstr "Поиск категорий события"
+
+#: classes/class-core.php:341
+msgid "No Event categories found"
+msgstr "Категории событий не найдены"
+
+#: classes/class-core.php:342
+msgid "No Event categories found in Trash"
+msgstr "Категории событий в корзине не найдены"
+
+#: classes/class-core.php:376 classes/class-core.php:387
+#: classes/class-core.php:391
+msgid "Event tags"
+msgstr "Ярлыки событий"
+
+#: classes/class-core.php:377
+msgid "Event tag"
+msgstr "Ярлык события"
+
+#: classes/class-core.php:378 classes/class-core.php:379
+msgid "Add New Event tag"
+msgstr "Добавить новый ярлык события"
+
+#: classes/class-core.php:380
+msgid "Edit Event tag"
+msgstr "Редактировать ярлык события"
+
+#: classes/class-core.php:381
+msgid "New Event tag"
+msgstr "Новый ярлык события"
+
+#: classes/class-core.php:382
+msgid "All Event tags"
+msgstr "Все ярлыки событий"
+
+#: classes/class-core.php:383
+msgid "View Event tag"
+msgstr "Просмотр ярлыков события"
+
+#: classes/class-core.php:384
+msgid "Search Event tag"
+msgstr "Поиск ярлыка события"
+
+#: classes/class-core.php:385
+msgid "No Event tags found"
+msgstr "Ярлыки событий не найдены"
+
+#: classes/class-core.php:386
+msgid "No Event tags found in Trash"
+msgstr "Ярлыков событий в корзине не найдено"
+
+#: classes/class-core.php:437 classes/class-core.php:448
+#: classes/class-hooks.php:192 classes/class-shortcode.php:260
+msgid "Events"
+msgstr "События"
+
+#: classes/class-core.php:438
+msgid "Event"
+msgstr "Событие"
+
+#: classes/class-core.php:439 classes/class-core.php:440
+msgid "Add New Event"
+msgstr "Добавить новое событе"
+
+#: classes/class-core.php:441
+msgid "Edit Event"
+msgstr "Редактировать событие"
+
+#: classes/class-core.php:442
+msgid "New Event"
+msgstr "Новое событие"
+
+#: classes/class-core.php:444
+msgid "View Event"
+msgstr "Просмотреть событие"
+
+#: classes/class-core.php:445
+msgid "Search Event"
+msgstr "Поиск событий"
+
+#: classes/class-core.php:446
+msgid "No Events found"
+msgstr "События не найдены"
+
+#: classes/class-core.php:447
+msgid "No Events found in Trash"
+msgstr "События не найдены в корзине"
+
+#: classes/class-core.php:476 classes/class-core.php:487
+#: classes/class-hooks.php:200 templates/popup/index.php:5
+#: media/js/blocks/dist/index.min.js:1
+msgid "Columns"
+msgstr "Столбцы"
+
+#: classes/class-core.php:477 classes/class-shortcode.php:255
+#: templates/events/event-data.php:4
+msgid "Column"
+msgstr "Столбец"
+
+#: classes/class-core.php:478 classes/class-core.php:479
+msgid "Add New Column"
+msgstr "Добавить новый столбец"
+
+#: classes/class-core.php:480
+msgid "Edit Column"
+msgstr "Редактировать столбец"
+
+#: classes/class-core.php:481
+msgid "New Column"
+msgstr "Новый столбец"
+
+#: classes/class-core.php:482
+msgid "All Columns"
+msgstr "Все столбцы"
+
+#: classes/class-core.php:483
+msgid "View Column"
+msgstr "Просмотр столбцов"
+
+#: classes/class-core.php:484
+msgid "Search Column"
+msgstr "Поиск столбцов"
+
+#: classes/class-core.php:485
+msgid "No Columns found"
+msgstr "Столбцы не найдены"
+
+#: classes/class-core.php:486
+msgid "No Columns found in Trash"
+msgstr "Столбцов в корзине не найдено"
+
+#: classes/class-hooks.php:78
+msgid "Timetable Sidebar"
+msgstr "Расписание в боковой панели"
+
+#: classes/class-hooks.php:80 classes/class-hooks.php:188
+#: classes/class-shortcode.php:370 media/js/blocks/dist/index.min.js:1
+msgid "Timetable"
+msgstr "Расписание"
+
+#: classes/class-hooks.php:179
+msgid "Import Timetable events, categories, tags and images."
+msgstr "Импортировать события, категории, ярлыки и изображения."
+
+#: classes/class-hooks.php:196
+msgid "Add Event"
+msgstr "Добавить событие"
+
+#: classes/class-hooks.php:204
+msgid "Add Column"
+msgstr "Добавить столбец"
+
+#: classes/class-hooks.php:208
+msgid "Event Categories"
+msgstr "Категории событий"
+
+#: classes/class-hooks.php:212
+msgid "Event Tags"
+msgstr "Ярлыки событий"
+
+#: classes/class-hooks.php:216 classes/modules/class-post.php:41
+#: media/js/blocks/dist/index.min.js:1
+msgid "Settings"
+msgstr "Настройки"
+
+#: classes/class-hooks.php:220
+msgid "Export / Import"
+msgstr "Экспорт / Импорт"
+
+#: classes/class-hooks.php:224
+msgid "Help & Shortcode"
+msgstr "Помощь и шорткоды"
+
+#: classes/class-hooks.php:288
+msgid "Quick Start Guide"
+msgstr "Краткое руководство пользователя"
+
+#: classes/class-hooks.php:289
+msgid "Help"
+msgstr "Помощь"
+
+#: classes/class-hooks.php:290
+msgid "Leave a Review"
+msgstr "Оставьте отзыв"
+
+#: classes/class-permalinks.php:26
+msgid "Timetable Permalinks"
+msgstr "Ссылки расписания"
+
+#: classes/class-permalinks.php:30
+msgid "Column base"
+msgstr "Префикс для столбцов"
+
+#: classes/class-permalinks.php:37
+msgid "Event base"
+msgstr "Префикс для событий"
+
+#: classes/class-permalinks.php:44
+msgid "Event Category base"
+msgstr "Префикс для рубрик событий"
+
+#: classes/class-permalinks.php:51
+msgid "Event Tag base"
+msgstr "Префикс для меток событий"
+
+#: classes/class-shortcode.php:270
+msgid "Hour measure"
+msgstr "Мера часа"
+
+#: classes/class-shortcode.php:271 templates/popup/index.php:71
+#: media/js/blocks/dist/index.min.js:1
+msgid "Hour (1h)"
+msgstr "Час (1 ч)"
+
+#: classes/class-shortcode.php:271 templates/popup/index.php:72
+#: media/js/blocks/dist/index.min.js:1
+msgid "Half hour (30min)"
+msgstr "Полчаса (30 мин)"
+
+#: classes/class-shortcode.php:271 templates/popup/index.php:73
+#: media/js/blocks/dist/index.min.js:1
+msgid "Quarter hour (15min)"
+msgstr "Четверть часа (15 мин)"
+
+#: classes/class-shortcode.php:275
+msgid "Filter style"
+msgstr "Стиль для фильтра"
+
+#: classes/class-shortcode.php:276 media/js/blocks/dist/index.min.js:1
+msgid "Dropdown list"
+msgstr "Выпадающий список"
+
+#: classes/class-shortcode.php:276 templates/popup/index.php:82
+#: media/js/blocks/dist/index.min.js:1
+msgid "Tabs"
+msgstr "Вкладки"
+
+#: classes/class-shortcode.php:280 templates/popup/index.php:88
+#: media/js/blocks/dist/index.min.js:1
+msgid "Order of items in filter"
+msgstr "Порядок элементов в фильтре"
+
+#: classes/class-shortcode.php:281 classes/class-shortcode.php:367
+#: templates/popup/index.php:91 templates/popup/index.php:172
+#: media/js/blocks/dist/index.min.js:1
+msgid "Default"
+msgstr "По умолчанию"
+
+#: classes/class-shortcode.php:281 templates/popup/index.php:92
+#: media/js/blocks/dist/index.min.js:1
+msgid "Menu Order"
+msgstr "Порядок меню"
+
+#: classes/class-shortcode.php:281 classes/class-shortcode.php:306
+#: templates/popup/index.php:40 templates/popup/index.php:93
+#: templates/widgets/gallery-list.php:3 media/js/blocks/dist/index.min.js:1
+msgid "Title"
+msgstr "Заголовок"
+
+#: classes/class-shortcode.php:285
+msgid "Filter label"
+msgstr "Метка фильтра"
+
+#: classes/class-shortcode.php:290
+msgid "Hide 'All Events' view"
+msgstr "Скрыть вид \"Все события\""
+
+#: classes/class-shortcode.php:291 classes/class-shortcode.php:296
+#: classes/class-shortcode.php:301 classes/class-shortcode.php:308
+#: classes/class-shortcode.php:314 classes/class-shortcode.php:320
+#: classes/class-shortcode.php:326 classes/class-shortcode.php:332
+#: classes/class-shortcode.php:337 classes/class-shortcode.php:361
+#: templates/events/metabox-event-options.php:45 templates/popup/index.php:108
+#: templates/popup/index.php:117 templates/popup/index.php:127
+#: templates/popup/index.php:135 templates/popup/index.php:144
+#: templates/widgets/gallery-list.php:63 media/js/blocks/dist/index.min.js:1
+msgid "No"
+msgstr "Нет"
+
+#: classes/class-shortcode.php:291 classes/class-shortcode.php:296
+#: classes/class-shortcode.php:301 classes/class-shortcode.php:308
+#: classes/class-shortcode.php:314 classes/class-shortcode.php:320
+#: classes/class-shortcode.php:326 classes/class-shortcode.php:332
+#: classes/class-shortcode.php:337 classes/class-shortcode.php:361
+#: templates/events/metabox-event-options.php:46 templates/popup/index.php:109
+#: templates/popup/index.php:118 templates/popup/index.php:126
+#: templates/popup/index.php:136 templates/popup/index.php:145
+#: templates/widgets/gallery-list.php:65 media/js/blocks/dist/index.min.js:1
+msgid "Yes"
+msgstr "Да"
+
+#: classes/class-shortcode.php:295
+msgid "Hide first (hours) column"
+msgstr "Скрыть первый (с часами) столбец"
+
+#: classes/class-shortcode.php:300
+msgid "Hide empty rows"
+msgstr "Скрыть пустые ряды"
+
+#: classes/class-shortcode.php:312 templates/popup/index.php:41
+#: media/js/blocks/dist/index.min.js:1
+msgid "Time"
+msgstr "Время"
+
+#: classes/class-shortcode.php:318 templates/popup/index.php:42
+#: media/js/blocks/dist/index.min.js:1
+msgid "Subtitle"
+msgstr "Подзаголовок"
+
+#: classes/class-shortcode.php:324 templates/events/event-data.php:7
+#: templates/popup/index.php:43 media/js/blocks/dist/index.min.js:1
+msgid "Description"
+msgstr "Описание"
+
+#: classes/class-shortcode.php:330
+msgid "User"
+msgstr "Пользователь"
+
+#: classes/class-shortcode.php:336
+msgid "Disable event URL"
+msgstr "Отключить URL события"
+
+#: classes/class-shortcode.php:341
+msgid "Text align"
+msgstr "Выравнивание текста"
+
+#: classes/class-shortcode.php:342 templates/popup/index.php:152
+#: media/js/blocks/dist/index.min.js:1
+msgid "center"
+msgstr "по центру"
+
+#: classes/class-shortcode.php:342 templates/popup/index.php:153
+#: media/js/blocks/dist/index.min.js:1
+msgid "left"
+msgstr "слева"
+
+#: classes/class-shortcode.php:342 templates/popup/index.php:154
+#: media/js/blocks/dist/index.min.js:1
+msgid "right"
+msgstr "справа"
+
+#: classes/class-shortcode.php:346
+msgid "Id"
+msgstr "Id"
+
+#: classes/class-shortcode.php:350
+msgid "Row height (in px)"
+msgstr "Высота ряда (в пикселях)"
+
+#: classes/class-shortcode.php:355
+msgid "Base Font Size"
+msgstr "Базовый размер шрифта"
+
+#: classes/class-shortcode.php:360
+msgid "Responsive"
+msgstr "Адаптивные"
+
+#: classes/class-shortcode.php:366 templates/popup/index.php:169
+#: media/js/blocks/dist/index.min.js:1
+msgid "Column width"
+msgstr "Ширина столбца"
+
+#: classes/class-shortcode.php:367 templates/popup/index.php:173
+#: media/js/blocks/dist/index.min.js:1
+msgid "Auto"
+msgstr "Автоматически"
+
+#: classes/class-shortcode.php:367 templates/popup/index.php:174
+#: media/js/blocks/dist/index.min.js:1
+msgid "Fixed"
+msgstr "Фиксированное"
+
+#: classes/controllers/class-controller-settings.php:70
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+#: classes/libs/parsers.php:44 classes/libs/parsers.php:74
+#: classes/libs/parsers.php:82
+msgid "There was an error when reading this WXR file"
+msgstr "Ошибка при чтении файла WXR"
+
+#: classes/libs/parsers.php:45
+msgid ""
+"Details are shown above. The importer will now try again with a different "
+"parser..."
+msgstr ""
+"Подробности ниже. Сейчас плагин повторит попытку импортирования с другим "
+"парсером..."
+
+#: classes/libs/parsers.php:86 classes/libs/parsers.php:91
+#: classes/libs/parsers.php:304 classes/libs/parsers.php:565
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr "Кажется это файл WXR, пропущенный/неверный номер версии WXR"
+
+#: classes/models/class-column.php:42 classes/modules/class-post.php:40
+msgid "Timeslots"
+msgstr "Временные интервалы"
+
+#: classes/models/class-events.php:171
+msgid "Tags"
+msgstr "Ключевые слова"
+
+#: classes/models/class-events.php:172
+msgid "Categories"
+msgstr "Категории"
+
+#: classes/models/class-events.php:774
+msgid "Duplicate"
+msgstr "Дублировать"
+
+#: classes/models/class-events.php:795
+msgid "A post type mismatch has been detected."
+msgstr "Обнаружено несоответствие типов постов."
+
+#: classes/models/class-events.php:795
+msgid "Sorry, you are not allowed to edit this item."
+msgstr "У вас недостаточно прав для редактирования этого элемента."
+
+#. translators: New post title of the duplicated post
+#: classes/models/class-events.php:819
+msgid "%s - Copy"
+msgstr "%s - Копия"
+
+#: classes/models/class-import.php:125
+msgid "Assign Authors"
+msgstr "Привязка авторов"
+
+#: classes/models/class-import.php:126
+msgid ""
+"To make it easier for you to edit and save the imported content, you may "
+"want to reassign the author of the imported item to an existing user of this "
+"site. For example, you may want to import all the entries as <code>admin</"
+"code>s entries."
+msgstr ""
+"Чтобы сделать проще редактирование и сохранение импортированного материала, "
+"вы, возможно, захотите перепривязать автора импортированного элемента к "
+"существующему пользователю этого сайта. Например, вы захотите импортировать "
+"все записи как записи пользователя <code>admin</code>."
+
+#: classes/models/class-import.php:128
+msgid ""
+"If a new user is created by WordPress, a new password will be randomly "
+"generated and the new user&#8217;s role will be set as %s. Manually changing "
+"the new user&#8217;s details will be necessary."
+msgstr ""
+"Если новый пользователь создан WordPress, новый пароль будет сгенерирован "
+"случайным образом, и роль нового пользователя будет %s. Понадобятся "
+"изменения деталей профиля нового пользователя вручную."
+
+#: classes/models/class-import.php:138
+msgid "Import Attachments"
+msgstr "Импорт вложений"
+
+#: classes/models/class-import.php:141
+msgid "Download and import file attachments"
+msgstr "Скачать и импортировать файлы вложений"
+
+#: classes/models/class-import.php:145
+msgid "Submit"
+msgstr "Отправить"
+
+#: classes/models/class-import.php:158
+msgid "Import author:"
+msgstr "Импорт автора:"
+
+#: classes/models/class-import.php:169
+msgid "or create new user with login name:"
+msgstr "или создать нового пользователя с именем:"
+
+#: classes/models/class-import.php:172
+msgid "as a new user:"
+msgstr "как новый пользователь:"
+
+#: classes/models/class-import.php:180
+msgid "assign posts to an existing user:"
+msgstr "назначить записи существующему пользователю:"
+
+#: classes/models/class-import.php:182
+msgid "or assign posts to an existing user:"
+msgstr "или привязать записи к существующему пользователю:"
+
+#: classes/models/class-import.php:183
+#: templates/column/metabox-column-options.php:23
+msgid "- Select -"
+msgstr "- Выбрать -"
+
+#: classes/models/class-import.php:269
+msgid "All done."
+msgstr "Все готово."
+
+#: classes/models/class-import.php:269
+msgid "Have fun!"
+msgstr "Наслаждайтесь!"
+
+#: classes/models/class-import.php:270
+msgid "Remember to update the passwords and roles of imported users."
+msgstr "Не забудьте обновить пароли и роли импортированных пользователей."
+
+#: classes/models/class-import.php:286
+msgid "Fetching attachments is not enabled"
+msgstr "Импортирование вложений отключено"
+
+#: classes/models/class-import.php:299
+msgid "Invalid file type"
+msgstr "Неподходящий тип файла"
+
+#: classes/models/class-import.php:379
+msgid "Remote server did not respond"
+msgstr "Удалённый сервер не&nbsp;отвечает"
+
+#: classes/models/class-import.php:385
+msgid "Remote server returned error response %1$d %2$s"
+msgstr "Удалённый сервер выдал ошибку %1$d %2$s"
+
+#: classes/models/class-import.php:394
+msgid "Remote file is incorrect size"
+msgstr "Удалённый файл неподходящего размера"
+
+#: classes/models/class-import.php:399
+msgid "Zero size file downloaded"
+msgstr "Скачан пустой файл"
+
+#: classes/models/class-import.php:405
+msgid "Remote file is too large, limit is %s"
+msgstr "Удалённый файл слишком велик. Текущее ограничение: %s"
+
+#: classes/models/class-import.php:422 classes/models/class-import.php:426
+#: classes/models/class-import.php:436
+msgid "Sorry, there has been an error."
+msgstr "К сожалению, возникла ошибка."
+
+#: classes/models/class-import.php:427
+msgid ""
+"The export file could not be found at <code>%s</code>. It is likely that "
+"this was caused by a permissions problem."
+msgstr ""
+"Экспортируемый файл не может быть найден в <code>%s</code>. Похоже, это "
+"вызвано ошибкой прав доступа."
+
+#: classes/models/class-import.php:444
+msgid ""
+"This WXR file (version %s) may not be supported by this version of the "
+"importer. Please consider updating."
+msgstr ""
+"Данный файл WXR (версии %s) может не поддерживаться настоящей версией "
+"плагина. Советуем обновить плагин."
+
+#: classes/models/class-import.php:501
+msgid ""
+"Failed to import author %s. Their posts will be attributed to the current "
+"user."
+msgstr ""
+"Не удалось импортировать автора \"%s\". Его статьи будут назначены текущему "
+"пользователю."
+
+#: classes/models/class-import.php:558
+msgid ""
+"Failed to create new user for %s. Their posts will be attributed to the "
+"current user."
+msgstr ""
+"Не удалось создать нового пользователя для %s. Их записи будут отнесены к "
+"текущему пользователю."
+
+#: classes/models/class-import.php:609 classes/models/class-import.php:766
+msgid "Failed to import %s %s"
+msgstr "Не удалось импортировать %s %s"
+
+#: classes/models/class-import.php:656
+msgid "Failed to import &#8220;%s&#8221;: Invalid post type %s"
+msgstr "Не удалось импортировать &#8220;%s&#8221;: Неверный тип записи %s"
+
+#: classes/models/class-import.php:673
+msgid "%s &#8220;%s&#8221; already exists."
+msgstr "%s &#8220;%s&#8221; уже существует."
+
+#: classes/models/class-import.php:732
+msgid "Failed to import %s &#8220;%s&#8221;"
+msgstr "Не удалось импортировать %s &#8220;%s&#8221;"
+
+#: classes/modules/class-post.php:42
+msgid "Column Type"
+msgstr "Тип столбца"
+
+#: classes/widgets/class-mp-timetable-widget.php:22
+msgid "Display upcoming events."
+msgstr "Отобразить предстоящие события."
+
+#: classes/widgets/class-mp-timetable-widget.php:24
+msgid "Timetable Events"
+msgstr "События в расписании"
+
+#: templates-functions/actions-mp-event-functions.php:27
+#: templates/theme/event-timeslots.php:7
+msgid "Event Timeslots (%s)"
+msgstr "Временные интервалы событий (%s)"
+
+#: templates/column/metabox-column-options.php:11
+msgid "Simple Column"
+msgstr "Простой столбец"
+
+#: templates/column/metabox-column-options.php:20
+msgid "Day of the week"
+msgstr "День недели"
+
+#: templates/column/metabox-column-options.php:24
+msgid "Sunday"
+msgstr "Воскресенье"
+
+#: templates/column/metabox-column-options.php:25
+msgid "Monday"
+msgstr "Понедельник"
+
+#: templates/column/metabox-column-options.php:26
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: templates/column/metabox-column-options.php:27
+msgid "Wednesday"
+msgstr "Среда"
+
+#: templates/column/metabox-column-options.php:28
+msgid "Thursday"
+msgstr "Четверг"
+
+#: templates/column/metabox-column-options.php:29
+msgid "Friday"
+msgstr "Пятница"
+
+#: templates/column/metabox-column-options.php:30
+msgid "Saturday"
+msgstr "Суббота"
+
+#: templates/column/metabox-column-options.php:39
+msgid "Date"
+msgstr "Дата"
+
+#: templates/events/event-data.php:5
+msgid "Start"
+msgstr "Начало"
+
+#: templates/events/event-data.php:6
+msgid "End"
+msgstr "Окончание"
+
+#. translators: Head means the leader of the event.
+#: templates/events/event-data.php:10
+msgid "Head"
+msgstr "Руководитель"
+
+#: templates/events/event-data.php:12
+msgid "Actions"
+msgstr "Действия"
+
+#: templates/events/event-data.php:35
+msgid "Edit event in the form below"
+msgstr "Отредактируйте событие в форме ниже"
+
+#: templates/events/event-data.php:36
+msgid "Delete"
+msgstr "Удалить"
+
+#: templates/events/metabox-event-data.php:10
+msgid "Add New / Edit Timeslot"
+msgstr "Добавить новый / Редактировать интервал"
+
+#: templates/events/metabox-event-data.php:13
+msgid "Column:"
+msgstr "Столбец:"
+
+#: templates/events/metabox-event-data.php:21
+msgid "Select column or <a target=\"_blank\" href=\"%s\">Add New</a>."
+msgstr ""
+"Выберите столбец или <a target=\"_blank\" href=\"%s\">Добавьте новый</a>."
+
+#: templates/events/metabox-event-data.php:23
+msgid "No columns found. <a href=\"%s\">Create at least one column first.</a>"
+msgstr ""
+"Столбцов не найдено. <a href=\"%s\">Создайте как минимум один столбец для "
+"начала.</a>"
+
+#: templates/events/metabox-event-data.php:29
+msgid "Start Time:"
+msgstr "Время начала:"
+
+#: templates/events/metabox-event-data.php:32
+#: templates/events/metabox-event-data.php:39
+msgid "hh:mm"
+msgstr "чч:мм"
+
+#: templates/events/metabox-event-data.php:36
+msgid "End Time:"
+msgstr "Время окончания:"
+
+#: templates/events/metabox-event-data.php:43
+msgid "Description:"
+msgstr "Описание:"
+
+#. translators: Head means the leader of the event.
+#: templates/events/metabox-event-data.php:49
+msgid "Event Head:"
+msgstr "Руководитель события:"
+
+#: templates/events/metabox-event-data.php:58
+msgid "none"
+msgstr "нет"
+
+#. translators: Button to add a new event.
+#: templates/events/metabox-event-data.php:83
+msgid "Add New"
+msgstr "Добавить новый"
+
+#: templates/events/metabox-event-options.php:4
+msgid "Event Subtitle:"
+msgstr "Подзаголовок события:"
+
+#: templates/events/metabox-event-options.php:8
+msgid "Background Color:"
+msgstr "Цвет фона:"
+
+#: templates/events/metabox-event-options.php:15
+msgid "Background Hover Color:"
+msgstr "Цвет фона при наведении:"
+
+#: templates/events/metabox-event-options.php:22
+msgid "Text Color:"
+msgstr "Цвет текста:"
+
+#: templates/events/metabox-event-options.php:29
+msgid "Text Hover Color:"
+msgstr "Цвет текста при наведении:"
+
+#: templates/events/metabox-event-options.php:36
+msgid "Custom Event URL:"
+msgstr "Специальная ссылка на событие:"
+
+#: templates/events/metabox-event-options.php:42
+msgid "Disable link to this event:"
+msgstr "Отключить ссылку на событие:"
+
+#: templates/popup/index.php:12 templates/popup/index.php:23
+#: templates/popup/index.php:34 templates/widgets/gallery-list.php:48
+#: media/js/blocks/dist/index.min.js:1
+msgid "Hold the Ctrl or Command key to select/deselect multiple options."
+msgstr ""
+"Удерживайте клавишу Ctrl или Command, чтобы выбрать / отменить выбор "
+"нескольких параметров."
+
+#: templates/popup/index.php:16 media/js/blocks/dist/index.min.js:1
+msgid "Specific events"
+msgstr "Конкретные события"
+
+#: templates/popup/index.php:38
+msgid "Fields to display:"
+msgstr "Поля для отображения:"
+
+#. translators: Head means the leader of the event.
+#: templates/popup/index.php:47 media/js/blocks/dist/index.min.js:1
+msgid "Event Head"
+msgstr "Руководитель события"
+
+#: templates/popup/index.php:50
+msgid "Check the event parameter(s) to be displayed in the timetable."
+msgstr "Отметьте параметры события, которые будут отображаться в расписании."
+
+#: templates/popup/index.php:54 media/js/blocks/dist/index.min.js:1
+msgid "Block height in pixels"
+msgstr "Высота блока в пикселях"
+
+#: templates/popup/index.php:57
+msgid "Set height of the block"
+msgstr "Установить высоту блока"
+
+#: templates/popup/index.php:61 media/js/blocks/dist/index.min.js:1
+msgid "Base font size"
+msgstr "Базовый размер шрифта"
+
+#: templates/popup/index.php:64 media/js/blocks/dist/index.min.js:1
+msgid "Base font size for the table. Example 12px, 2em, 80%."
+msgstr "Базовый размер шрифта для таблицы. Например, 12px, 2em, 80%."
+
+#: templates/popup/index.php:68 media/js/blocks/dist/index.min.js:1
+msgid "Time frame for event"
+msgstr "Период времени для события"
+
+#: templates/popup/index.php:78 media/js/blocks/dist/index.min.js:1
+msgid "Filter events style"
+msgstr "Стиль фильтра событий"
+
+#: templates/popup/index.php:81
+msgid "Dropdown"
+msgstr "Выпадающий"
+
+#: templates/popup/index.php:83
+msgid "None"
+msgstr "Ничего"
+
+#: templates/popup/index.php:98 media/js/blocks/dist/index.min.js:1
+msgid "Filter title to display all events"
+msgstr "Заголовок фильтра для отображения всех событий"
+
+#: templates/popup/index.php:104 media/js/blocks/dist/index.min.js:1
+msgid "Hide 'All Events' option"
+msgstr "Спрятать опцию \"Все события\""
+
+#: templates/popup/index.php:114 media/js/blocks/dist/index.min.js:1
+msgid "Hide column with hours"
+msgstr "Прятать колонку с часами"
+
+#: templates/popup/index.php:123 media/js/blocks/dist/index.min.js:1
+msgid "Do not display empty rows"
+msgstr "Не отображать пустые строки"
+
+#: templates/popup/index.php:132 media/js/blocks/dist/index.min.js:1
+msgid "Merge cells with common events"
+msgstr "Обьеденить ячейки с одинаковыми событиями"
+
+#: templates/popup/index.php:141 templates/widgets/gallery-list.php:59
+#: media/js/blocks/dist/index.min.js:1
+msgid "Disable event link"
+msgstr "Отключить ссылку события"
+
+#: templates/popup/index.php:150 media/js/blocks/dist/index.min.js:1
+msgid "Horizontal align"
+msgstr "Горизонтальное выравнивание"
+
+#: templates/popup/index.php:159 media/js/blocks/dist/index.min.js:1
+msgid "Vertical align"
+msgstr "Вертикальное выравнивание"
+
+#: templates/popup/index.php:161
+msgid "default"
+msgstr "по умолчанию"
+
+#: templates/popup/index.php:162 media/js/blocks/dist/index.min.js:1
+msgid "top"
+msgstr "сверху"
+
+#: templates/popup/index.php:163 media/js/blocks/dist/index.min.js:1
+msgid "middle"
+msgstr "посередине"
+
+#: templates/popup/index.php:164 media/js/blocks/dist/index.min.js:1
+msgid "bottom"
+msgstr "снизу"
+
+#: templates/popup/index.php:179 media/js/blocks/dist/index.min.js:1
+msgid "Unique ID"
+msgstr "Уникальный ID"
+
+#: templates/popup/index.php:182 media/js/blocks/dist/index.min.js:1
+msgid ""
+"If you use more than one table on a page specify the unique ID for a "
+"timetable. It is usually all lowercase and contains only letters, numbers, "
+"and hyphens."
+msgstr ""
+"Если вы используете более одной таблицы на странице, укажите уникальный "
+"идентификатор для расписания. Он, как правило, содержит только буквы  в "
+"нижнем регистре, цифры и дефис."
+
+#: templates/popup/index.php:186 media/js/blocks/dist/index.min.js:1
+msgid "CSS class"
+msgstr "CSS класс"
+
+#: templates/popup/index.php:192 media/js/blocks/dist/index.min.js:1
+msgid "Mobile behavior"
+msgstr "Отображение на мобильном"
+
+#: templates/popup/index.php:195 media/js/blocks/dist/index.min.js:1
+msgid "List"
+msgstr "Список"
+
+#: templates/popup/index.php:196 media/js/blocks/dist/index.min.js:1
+msgid "Table"
+msgstr "Таблица"
+
+#: templates/popup/index.php:198
+msgid ""
+"Tick \"List\" to display events in a list view on mobile devices. Tick "
+"\"Table\" to display events in a table."
+msgstr ""
+"Выберите \"Список\" для отображения событий в виде списка на мобильных "
+"устройствах. Выберите \"Таблица\" для отображения событий в таблице."
+
+#: templates/popup/index.php:204
+msgid "Add Timetable"
+msgstr "Добавить расписание"
+
+#: templates/settings/general.php:2
+msgid "General Settings"
+msgstr "Основные настройки"
+
+#: templates/settings/general.php:9
+msgid "Template Mode"
+msgstr "Режим шаблона"
+
+#: templates/settings/general.php:13
+msgid "Theme Mode"
+msgstr "Режим темы"
+
+#: templates/settings/general.php:14
+msgid "Developer Mode"
+msgstr "Режим разработчика"
+
+#: templates/settings/general.php:16
+msgid ""
+"Choose Theme Mode to display the content with the styles of your theme. "
+"Choose Developer Mode to control appearance of the content with custom page "
+"templates, actions and filters."
+msgstr ""
+"Выберите режим \"Тема\" для отображения содержимого с помощью стилей вашей "
+"темы. Выберите режим \"Разработчик\", чтобы контролировать внешний вид "
+"содержимого с пользовательских шаблонов страниц, действий и фильтров."
+
+#: templates/settings/general.php:16
+msgid ""
+"This option can't be changed if your theme is initially integrated with the "
+"plugin."
+msgstr ""
+"Эта опция не может быть изменена, если тема изначально интегрирована с "
+"плагином."
+
+#: templates/settings/general.php:23
+msgid "Permalink Settings"
+msgstr "Настройки постоянных ссылок"
+
+#: templates/settings/general.php:24
+msgid ""
+"Configure permalink settings in <a href=\"%s\">Settings > Permalinks</a>"
+msgstr ""
+"Настройте постоянные ссылки в <a href=\"%s\">Настройки > Постоянные ссылки</"
+"a>"
+
+#: templates/settings/general.php:29
+msgid "Save"
+msgstr "Сохранить"
+
+#: templates/shortcodes/empty-search-events.php:1
+#: templates/theme/widget-upcoming-view.php:54
+#: templates/widgets/widget-view.php:91
+msgid "no events found"
+msgstr "событий не найдено"
+
+#: templates/templates-actions/action-sidebar.php:8
+#: templates/widgets/gallery-list.php:14
+msgid "Today upcoming events"
+msgstr "Предстоящие сегодня события"
+
+#: templates/templates-actions/action-sidebar.php:13
+#: templates/widgets/gallery-list.php:16
+msgid "All upcoming events"
+msgstr "Все предстоящие события"
+
+#: templates/widgets/gallery-list.php:10
+msgid "Events to display"
+msgstr "События для отображения"
+
+#: templates/widgets/gallery-list.php:18
+msgid "Ongoing events"
+msgstr "Текущие события"
+
+#: templates/widgets/gallery-list.php:23
+msgid "Input number of days"
+msgstr "Введите количество дней"
+
+#: templates/widgets/gallery-list.php:28
+msgid "day"
+msgid_plural "days"
+msgstr[0] "день"
+msgstr[1] "дня"
+msgstr[2] "дней"
+
+#: templates/widgets/gallery-list.php:32
+msgid "Event categories. Leave blank to display all."
+msgstr "Категории событий. Оставьте пустым для отображения всех."
+
+#: templates/widgets/gallery-list.php:52
+msgid "Number of events to display"
+msgstr "Количество событий для отображения"
+
+#: templates/widgets/gallery-list.php:70
+msgid "Custom link for events"
+msgstr "Специальные ссылки для событий"
+
+#: templates/widgets/gallery-list.php:78
+msgid "Event background color"
+msgstr "Цвет фона событий"
+
+#: templates/widgets/gallery-list.php:88
+msgid "Event background color on hover"
+msgstr "Цвет фона события при наведении"
+
+#: templates/widgets/gallery-list.php:98
+msgid "Event text color"
+msgstr "Цвет текста события"
+
+#: templates/widgets/gallery-list.php:108
+msgid "Event text color on hover"
+msgstr "Цвет текста события при наведении"
+
+#: templates/widgets/gallery-list.php:118
+msgid "Event border color"
+msgstr "Цвет рамки события"
+
+#: templates/widgets/gallery-list.php:128
+msgid "Event border color on hover"
+msgstr "Рамка события при наведении"

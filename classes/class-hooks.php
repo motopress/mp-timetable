@@ -176,7 +176,7 @@ class Hooks extends Core {
 		add_action( 'save_post', array( Post::get_instance(), 'save_custom_post' ), 40, 2 );
 		add_action( 'wp_ajax_route_url', array( Core::get_instance(), "wp_ajax_route_url" ) );
 		
-		register_importer( 'mptt-importer', 'Timetable', __( 'Import Timetable events, categories, tags and images.' ), array( Import::get_instance(), 'import' ) );
+		register_importer( 'mptt-importer', 'Timetable', __( 'Import Timetable events, categories, tags and images.', 'mp-timetable' ), array( Import::get_instance(), 'import' ) );
 	}
 	
 	/**

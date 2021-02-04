@@ -1,6 +1,6 @@
 import { get } from "lodash";
+import { __ } from 'wp.i18n';
 
-const {__} = wp.i18n;
 const {Component} = wp.element;
 
 const {
@@ -257,7 +257,7 @@ class Inspector extends Component {
 						]}
 					/>
 					<SelectControl
-						label={__('Table layout', 'mp-timetable')}
+						label={__('Column width', 'mp-timetable')}
 						value={table_layout}
 						onChange={table_layout => setAttributes({ table_layout })}
 						options={[

@@ -792,7 +792,7 @@ class Events extends Model {
 		}
 
 		if ( $post_type !== $this->post_type ) {
-			wp_die( __( 'A post type mismatch has been detected.' ), __( 'Sorry, you are not allowed to edit this item.' ), 400 );
+			wp_die( __( 'A post type mismatch has been detected.', 'mp-timetable' ), __( 'Sorry, you are not allowed to edit this item.', 'mp-timetable' ), 400 );
 		}
 
 		$nonce = $_REQUEST['_wpnonce'];

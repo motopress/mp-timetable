@@ -1,8 +1,8 @@
 import Inspector from './inspector';
 
 import { pick, isEqual } from "lodash";
+import { __ } from 'wp.i18n';
 
-const {__} = wp.i18n;
 const { Component, Fragment } = wp.element;
 const { compose } = wp.compose;
 

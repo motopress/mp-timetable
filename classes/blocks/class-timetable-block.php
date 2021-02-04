@@ -13,7 +13,7 @@ class Timetable_Block {
 		// block-js
 		wp_register_script(
 			'mptt-blocks-js',
-			Mp_Time_Table::get_plugin_url( '/media/js/blocks/dist/index.min.js' ),
+			Mp_Time_Table::get_plugin_url( 'media/js/blocks/dist/index.min.js' ),
 			array( 'wp-i18n', 'wp-editor', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-api-fetch', 'mptt-functions', 'mptt-event-object'),
 			Core::get_instance()->get_version()
 		);
@@ -29,13 +29,26 @@ class Timetable_Block {
 		// block-editor.css
 		wp_register_style(
 			'mptt-blocks-editor',
-			Mp_Time_Table::get_plugin_url( '/media/css/block-editor.css' ),
+			Mp_Time_Table::get_plugin_url( 'media/css/block-editor.css' ),
 			array('mptt-blocks'),
 			Core::get_instance()->get_version()
 		);
 
-		// internationalization
-		wp_set_script_translations( 'mptt-blocks-js', 'mp-timetable', Mp_Time_Table::get_plugin_path() . 'languages' );
+
+		// Internationalization
+
+		/* 
+		 * For custom translations
+		 * https://developer.wordpress.org/reference/functions/wp_set_script_translations/
+		 *
+		 * By default, minified files should still be excluded, and if you want to explicitly include them, you can do so by adding --include=*.min.js to the command.
+		 * https://github.com/wp-cli/i18n-command/pull/85
+		 *
+		 */
+		 //wp_set_script_translations( 'mptt-blocks-js', 'mp-timetable', Mp_Time_Table::get_plugin_path() . 'languages' );
+
+
+		wp_set_script_translations( 'mptt-blocks-js', 'mp-timetable' );
 
 		register_block_type(
 			'mp-timetable/timetable',
