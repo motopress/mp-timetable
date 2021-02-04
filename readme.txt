@@ -87,6 +87,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.14, Feb 4 2021 =
+* Improved plugin internalization.
+
 = 2.3.13, Feb 3 2021 =
 * Bug fix: fixed an issue with double slashes in the assets' URLs.
 * Improved plugin internalization.
