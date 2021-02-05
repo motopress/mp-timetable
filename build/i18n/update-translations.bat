@@ -1,6 +1,7 @@
-rem https://wp-kama.ru/handbook/cli/wp/i18n
-rem By default, minified files should still be excluded, and if you want to explicitly include them, you can do so by adding --include=*.min.js to the command.
-
 @echo off
-wp i18n make-pot ..\.. ..\..\languages\mp-timetable.pot --include=*.min.js --exclude="media/js/blocks/src"
+rem https://wp-kama.ru/handbook/cli/wp/i18n
+rem Notice: '*.min.js' files are EXCLUDED at wp.org. https://wordpress.slack.com/archives/C02RP50LK/p1612471606334000
+rem To iclude (for testing?) use --include=*.min.js
+
+wp i18n make-pot ..\.. ..\..\languages\mp-timetable.pot --exclude="media/js/blocks/src"
 pause
