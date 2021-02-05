@@ -315,7 +315,12 @@ class Core {
 		if ( ! empty( $action ) && current_user_can('edit_posts') ) {
 			// call controller
 			Preprocessor::get_instance()->call_controller( $action, $controller );
-			wp_die();
+			
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+				wp_die();
+			} else {
+				die();
+			}
 		}
 	}
 	
