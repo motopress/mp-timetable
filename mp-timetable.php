@@ -130,6 +130,11 @@ class Mp_Time_Table {
 		 * Include blocks
 		 */
 		require_once self::get_plugin_path() . 'classes/blocks/class-timetable-block.php';
+
+		/**
+         * Include Widgets Managers
+         */
+        require_once self::get_plugin_path() . 'classes/class-widgets-manager.php';
 	}
 	
 	/**
@@ -270,4 +275,18 @@ class Mp_Time_Table {
 	static function get_plugin_url( $path = false, $pluginName = 'mp-timetable', $sync = '' ) {
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
+
+	public function stratum_get_taxonomies( $post_type ) {
+    	$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+
+    	$return = [];
+
+    	if ( ! empty( $taxonomies ) ) {
+    		foreach ( $taxonomies as $key => $taxonomy_name ) {
+    			$return[ $key ] = $taxonomy_name->labels->name;
+    		}
+    	}
+
+    	return $return;
+    }
 }

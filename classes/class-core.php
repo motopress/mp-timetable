@@ -638,6 +638,13 @@ class Core {
 			$this->add_plugin_js( 'shortcode' );
 		}
 	}
+
+	/**
+     * Hook elementor_enqueue_scripts
+     */
+    public function elementor_enqueue_scripts() {
+        $this->add_plugin_js( 'elementor-widget' );
+    }
 	
 	/**
 	 * Add plugin js
@@ -659,6 +666,17 @@ class Core {
 				wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
 				wp_enqueue_script( 'mptt-event-object' );
 				break;
+            case 'elementor-widget':
+                wp_enqueue_script( 'underscore' );
+                wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+                wp_enqueue_script( 'mptt-event-object' );
+                wp_enqueue_script(
+                    'mptt-editor-panel-js',
+                    Mp_Time_Table::get_plugin_url( 'media/js/mptt-elementor-editor' . $this->get_prefix() . '.js' ),
+                    array( 'jquery', 'mptt-functions', 'mptt-event-object' ),
+                    $this->version,
+                );
+                break;
 		}
 	}
 	

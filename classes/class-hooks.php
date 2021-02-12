@@ -31,6 +31,8 @@ class Hooks extends Core {
 	 * Install hooks
 	 */
 	public function install_hooks() {
+        // Elementor widget register.
+        add_action( 'elementor/init', array( $this, 'elementor_loaded' ) );
 
 		// register custom post type and taxonomies
 		add_action( 'init', array( $this, 'init' ) );
@@ -67,7 +69,8 @@ class Hooks extends Core {
 		add_filter( 'pre_get_posts', array( Post::get_instance(), 'pre_get_posts' ), 9 );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 	}
-	
+
+
 	/**
 	 * Register widgets and sidebar
 	 */
@@ -121,11 +124,20 @@ class Hooks extends Core {
 		
 		// Widget actions
 		add_action( 'mptt_widget_template_before_content', 'mptt_widget_template_before_content', 10 );
+		add_action( 'mptt_widget_template_before_contents', 'mptt_widget_template_before_content', 10 );
 		add_action( 'mptt_widget_template_content', 'mptt_widget_template_content', 10 );
 		add_action( 'mptt_widget_template_after_content', 'mptt_widget_template_after_content', 10 );
-		
 	}
-	
+
+	/**
+     * Elementor Init hook.
+     */
+	public function elementor_loaded() {
+        add_action( 'elementor/frontend/after_enqueue_scripts', [ Core::get_instance(), 'elementor_enqueue_scripts' ] );
+
+	    new Widgets_Manager();
+	}
+
 	/**
 	 * Init hook
 	 */

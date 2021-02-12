@@ -162,12 +162,12 @@ class Timetable_Block {
 				),
 				'render_callback' => [ $this, 'render_timetable' ],
 				'editor_style'    => 'mptt-blocks-editor',
-				'editor_script'          => 'mptt-blocks-js',
+				'editor_script'   => 'mptt-blocks-js',
 			)
 		);
 	}
 
-	private function show_shortcode($attributes) {
+	private static function show_shortcode($attributes) {
 		foreach ($attributes as $key => $value) {
 			// [] -> '1,2,3'
 			if ( is_array($value) ) {
@@ -180,7 +180,7 @@ class Timetable_Block {
 			}
 		}
 
-		echo Shortcode::get_instance()->show_shortcode($attributes);
+		echo Shortcode::get_instance()->show_shortcode( $attributes );
 	}
 
 	public function render_timetable( $attributes ) {
@@ -202,6 +202,27 @@ class Timetable_Block {
 		?></div><?php
 
 		$result = ob_get_clean();
+
 		return $result;
+	}
+
+	public static function elementor_render_timetable( $attributes ) {
+
+	    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+        $block_name = 'wp-block-timetable';
+        $class      = $block_name;
+
+        if ( isset( $attributes[ 'align' ] ) ) {
+            $class .= ' align' . $attributes[ 'align' ];
+        }
+
+        ?>
+            <div class="<?php echo esc_attr( $class ); ?>">
+                <?php
+                    self::show_shortcode( $attributes );
+                ?>
+            </div>
+        <?php
 	}
 }
