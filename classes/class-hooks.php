@@ -124,7 +124,6 @@ class Hooks extends Core {
 		
 		// Widget actions
 		add_action( 'mptt_widget_template_before_content', 'mptt_widget_template_before_content', 10 );
-		add_action( 'mptt_widget_template_before_contents', 'mptt_widget_template_before_content', 10 );
 		add_action( 'mptt_widget_template_content', 'mptt_widget_template_content', 10 );
 		add_action( 'mptt_widget_template_after_content', 'mptt_widget_template_after_content', 10 );
 	}
