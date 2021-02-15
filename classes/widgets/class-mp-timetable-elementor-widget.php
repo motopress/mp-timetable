@@ -30,14 +30,13 @@ class Mp_Timetable_Widget extends Widget_Base {
 	}
 
     public function get_posts_type( $post_type ) {
-        $args   = [ 'post_type' => $post_type ];
+        $args   = [ 'post_type' => $post_type, 'numberposts' => '-1' ];
         $posts  = get_posts( $args );
-
     	$return = [];
 
     	if ( ! empty( $posts ) ) {
-    		foreach ( $posts as $post ) {
-    			$return[ $post->ID ] = $post->post_title;
+    		foreach ( $posts as $key => $post ) {
+    			$return[ $key ] = $post->post_title;
     		}
     	}
 
@@ -273,7 +272,7 @@ class Mp_Timetable_Widget extends Widget_Base {
                     'options'     => [
                         ''           => esc_html__( 'Default', 'mp-timetable' ),
                         'menu_order' => esc_html__( 'Menu Order', 'mp-timetable' ),
-                        'title'      => esc_html__( 'Title', 'mp-timetable' ),
+                        'post_title' => esc_html__( 'Title', 'mp-timetable' ),
                     ],
                 ]
             );
