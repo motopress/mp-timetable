@@ -35,8 +35,8 @@ class Mp_Timetable_Widget extends Widget_Base {
     	$return = [];
 
     	if ( ! empty( $posts ) ) {
-    		foreach ( $posts as $key => $post ) {
-    			$return[ $key ] = $post->post_title;
+    		foreach ( $posts as $post ) {
+    			$return[ $post->ID ] = $post->post_title;
     		}
     	}
 
