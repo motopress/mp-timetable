@@ -3,12 +3,12 @@ import Inspector from './inspector';
 import { pick, isEqual } from "lodash";
 import { __ } from 'wp.i18n';
 
+const { serverSideRender: ServerSideRender } = wp;
 const { Component, Fragment } = wp.element;
 const { compose } = wp.compose;
 
 const {
-    Disabled,
-    ServerSideRender
+    Disabled
 } = wp.components;
 
 const {

@@ -367,6 +367,7 @@ class Shortcode extends Core {
 				'list'  => array( '' => __( 'Default', 'mp-timetable' ), 'auto' => __( 'Auto', 'mp-timetable' ), 'fixed' => __( 'Fixed', 'mp-timetable' ) )
 			),
 		);
+
 		$mp_timetable = new \MPCEObject( 'mp-timetable', __( 'Timetable', 'mp-timetable' ), '', $attributes );
 		
 		$motopressCELibrary->addObject( $mp_timetable, 'other' );

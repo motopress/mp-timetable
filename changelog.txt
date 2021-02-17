@@ -1,0 +1,156 @@
+= 2.3.13, Feb 3 2021 =
+* Bug fix: fixed an issue with double slashes in the assets' URLs.
+* Improved plugin internalization.
+
+= 2.3.12, Dec 11 2020 =
+* Improved compatibility with WordPress 5.6.
+
+= 2.3.11, May 18 2020 =
+* Added the ability to duplicate events.
+* Added the ability to set table layout fixed or auto.
+* Bug fix: fixed an issue with an empty categories list in the widget.
+
+= 2.3.10, Apr 24 2020 =
+* Bug fix: fixed an issue when a user with the Editor role could not access the administration area.
+* Improved compatibility with PHP 7.4.
+
+= 2.3.9, Apr 21 2020 =
+* Added the ability to sort events in the dropdown list or tabs.
+* Improved user capability check.
+
+= 2.3.8, Apr 1 2020 =
+* Bug fix: fixed an issue with the missing Event tags field.
+* Bug fix: fixed an issue when a user with the read capability could access a Help menu page.
+
+= 2.3.7, Mar 10 2020 =
+* Bug fix: fixed an issue with the erroneous positioning of events.
+
+= 2.3.6, Feb 19 2020 =
+* Bug fix: fixed an issue with the missing subtitle in mobile view.
+
+= 2.3.5, Feb 19 2020 =
+* Bug fix: fixed an issue with slashes in event description.
+
+= 2.3.4, Sep 25 2019 =
+* Bug fix: fixed an issue with UTC timezone offset.
+
+= 2.3.3, Sep 20 2019 =
+* Bug fix: fixed the issue with events disappearing on hover in Chrome.
+
+= 2.3.2 =
+* Bug fix: fixed an issue in IE browser.
+
+= 2.3.1 =
+* Bug fix: fixed the issue with opening PHP tag.
+
+= 2.3.0 =
+* Added support for WordPress 5.0.
+
+= 2.2.1 =
+* Bug fix: fixed an issue with URL hash (not-set:all).
+
+= 2.2.0 =
+* Added filters for register_post_type and register_taxonomy functions.
+* Added permalink configuration option in Settings > Permalinks.
+
+= 2.1.12 =
+* Bug fix: fixed an issue in IE browser.
+
+= 2.1.11 =
+* Added translations into the Persian language.
+
+= 2.1.10 =
+* Improved compatibility with WooCommerce Memberships plugin.
+* Better W3C validation.
+
+= 2.1.9 =
+* Bug fix: fixed the issue when event was not visible in the timetable if it starts at 00:00.
+
+= 2.1.8 =
+* Improved compatibility with javascript-disabled browsers.
+
+= 2.1.7 =
+* Bug fix: fixed the issue when events were not filtered by the selected category in a widget.
+* Bug fix: fixed the issue when event was not visible in the timetable if it ends the next day.
+* Minor bugfixes and improvements.
+
+= 2.1.6 =
+* New dashboard icons.
+
+= 2.1.5 =
+* Bug fix: fixed the issue when table is not visible if events filter is set to 'none'.
+
+= 2.1.4 =
+* Bug fix: fixed internal issue.
+
+= 2.1.3 =
+* Added the ability to merge cells with common events.
+* Added the ability to set vertical alignment in the table.
+* Added the ability to set custom CSS class for table shortcode.
+* Added the ability to hide filter control on the top of the table.
+* Bug fix: fixed the issue when table ID didn't output on the site.
+
+= 2.1.2 =
+* Bug fix: fixed the issue when plugin overrides default archive template.
+* Bug fix: fixed the issue in upcoming events widget when events were not sorted by days.
+
+= 2.1.1 =
+* Bug fix: fixed the issue with shortcode tempalte.
+
+= 2.1.0 =
+* Added the ability to override templates in a theme. 
+* Bug fix: fixed the issue on WordPress multisite when Event wasn't saving. 
+* Bug fix: fixed the issue when timeslots didn't show if Event is in the Draft status.
+
+= 2.0.4 =
+* Bug fix: fixed an issue with post template on search results page.
+
+= 2.0.3 =
+* Bug fix: fixed a link to create new column from event screen.
+* Improved usernames in Event Head dropdown.
+
+= 2.0.2 =
+* Minor bugfixes and improvements.
+
+= 2.0.1 =
+* Bug fix: fixed an issue with template override.
+
+= 2.0.0 =
+* We improved compatibility with your theme styles in this update. If you still stick to a previous version, simply change the template mode option in the plugin settings.
+* Added the ability to set font size for timetable shortcode so you can make your text bigger or smaller.
+
+= 1.1.6 =
+* Bug fix: fixed an issue with empty rows.
+
+= 1.1.5 =
+* Bug fix: fixed an issue with post view in search results.
+
+= 1.1.4 =
+* Improved compatibility with Polylang plugin.
+
+= 1.1.3 =
+* Fixed an issue with categories filter in widget.
+
+= 1.1.2 =
+* Fixed an issue with posts order.
+
+= 1.1.0 =
+* Improved events sorting.
+* Minor bugfixes and improvements.
+
+= 1.0.7 =
+* Improved events and columns sorting by date.
+* Comments section added to event.
+* Minor bugfixes and improvements.
+
+= 1.0.6 =
+* Fixed an issue in column view.
+
+= 1.0.5 =
+* Improved compatibility with IE10+
+
+= 1.0.4 =
+* Minor bugfixes and improvements.
+
+= 1.0.3 =
+* Minor bugfixes and improvements.
