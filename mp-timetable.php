@@ -276,17 +276,4 @@ class Mp_Time_Table {
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
 
-	public function stratum_get_taxonomies( $post_type ) {
-    	$taxonomies = get_object_taxonomies( $post_type, 'objects' );
-
-    	$return = [];
-
-    	if ( ! empty( $taxonomies ) ) {
-    		foreach ( $taxonomies as $key => $taxonomy_name ) {
-    			$return[ $key ] = $taxonomy_name->labels->name;
-    		}
-    	}
-
-    	return $return;
-    }
 }
