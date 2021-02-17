@@ -265,7 +265,7 @@ class Mp_Timetable_Widget extends Widget_Base {
                     'label_block' => false,
                     'options'     => [
                         '1'       => esc_html__( 'Hour (1h)', 'mp-timetable' ),
-                        '0.5'     => esc_html__( 'Half Hour (30min)', 'mp-timetable' ),
+                        '0.5'     => esc_html__( 'Half hour (30min)', 'mp-timetable' ),
                         '0.25'    => esc_html__( 'Quarter hour (15min)', 'mp-timetable' ),
                     ],
                 ]
