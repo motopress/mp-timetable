@@ -22,7 +22,7 @@ class Mp_Timetable_Widget extends Widget_Base {
 	}
 
 	public function get_icon() {
-		return 'eicon-calendar';
+		return 'eicon-table';
 	}
 
 	public function get_categories() {

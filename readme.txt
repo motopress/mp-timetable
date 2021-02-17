@@ -66,13 +66,15 @@ Want to take automatic online appointment reservations through your website for 
 
 == Copyright ==
 
-Timetable and Event Schedule plugin, Copyright (C) 2019, MotoPress https://motopress.com/
+Timetable and Event Schedule plugin, Copyright (C) 2016, MotoPress https://motopress.com/
 Timetable and Event Schedule plugin is distributed under the terms of the GNU GPL.
 
 == Screenshots ==
 1. Timetable
 2. Column
 3. Timeslots
+4. Elementor Widget
+5. Gutenberg Block
 
 == Credits ==
 
