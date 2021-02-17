@@ -89,6 +89,10 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.15, Feb 17 2021 =
+* Added Timetable Elementor widget.
+* Bug fix: fixed an issue with invalid XML generated while exporting data.
+
 = 2.3.14, Feb 4 2021 =
 * Improved plugin internalization.
 
