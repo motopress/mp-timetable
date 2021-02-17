@@ -167,7 +167,7 @@ class Timetable_Block {
 		);
 	}
 
-	private static function show_shortcode($attributes) {
+	private function show_shortcode($attributes) {
 		foreach ($attributes as $key => $value) {
 			// [] -> '1,2,3'
 			if ( is_array($value) ) {
@@ -206,23 +206,4 @@ class Timetable_Block {
 		return $result;
 	}
 
-	public static function elementor_render_timetable( $attributes ) {
-
-	    include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-        $block_name = 'wp-block-timetable';
-        $class      = $block_name;
-
-        if ( isset( $attributes[ 'align' ] ) ) {
-            $class .= ' align' . $attributes[ 'align' ];
-        }
-
-        ?>
-            <div class="<?php echo esc_attr( $class ); ?>">
-                <?php
-                    self::show_shortcode( $attributes );
-                ?>
-            </div>
-        <?php
-	}
 }

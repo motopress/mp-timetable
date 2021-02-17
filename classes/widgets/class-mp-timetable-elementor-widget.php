@@ -7,7 +7,7 @@ use \Elementor\Plugin;
 use \Elementor\Group_Control_Typography;
 use \Elementor\Widget_Base;
 
-use \mp_timetable\classes\blocks\Timetable_Block;
+use \mp_timetable\plugin_core\classes\Shortcode;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -55,6 +55,29 @@ class Mp_Timetable_Widget extends Widget_Base {
         }
 
         return $return;
+    }
+
+    private static function show_shortcode( $attributes ) {
+        foreach ( $attributes as $key => $value ) {
+            // [] -> '1,2,3'
+            if ( is_array( $value ) ) {
+                $attributes[ $key ] = implode( ',', $value );
+            }
+            // 'sub_title' -> 'sub-title'
+            if ( $key == 'sub_title' ) {
+                $attributes[ 'sub-title' ] = $attributes[ $key ];
+                unset( $attributes[ $key ] );
+            }
+        }
+
+        echo Shortcode::get_instance()->show_shortcode( $attributes );
+    }
+
+    public static function elementor_render_timetable( $attributes ) {
+
+        include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+        self::show_shortcode( $attributes );
     }
 
     protected function _register_controls() {
@@ -442,7 +465,7 @@ class Mp_Timetable_Widget extends Widget_Base {
             'text_align_vertical' => $text_align_vertical,
         );
 
-        Timetable_Block::elementor_render_timetable( $attributes );
+        $this->elementor_render_timetable( $attributes );
     }
 
 }
