@@ -250,7 +250,7 @@ class Mp_Timetable_Widget extends Widget_Base {
             $controls->add_control(
                 'row_height',
                 [
-                    'label'     => esc_html__( 'Block height (px)', 'mp-timetable' ),
+                    'label'     => esc_html__( 'Block height in pixels', 'mp-timetable' ),
                     'type'      => Controls_Manager::NUMBER,
                     'default'   => 45,
                 ]
@@ -265,7 +265,7 @@ class Mp_Timetable_Widget extends Widget_Base {
                     'label_block' => false,
                     'options'     => [
                         '1'       => esc_html__( 'Hour (1h)', 'mp-timetable' ),
-                        '0.5'     => esc_html__( 'Half Hour (30m)', 'mp-timetable' ),
+                        '0.5'     => esc_html__( 'Half Hour (30min)', 'mp-timetable' ),
                         '0.25'    => esc_html__( 'Quarter hour (15min)', 'mp-timetable' ),
                     ],
                 ]
@@ -339,15 +339,15 @@ class Mp_Timetable_Widget extends Widget_Base {
                     'toggle'    => false,
                     'options'   => [
                         'left'      => [
-                            'title' => esc_html__( 'Left', 'mp-timetable' ),
+                            'title' => esc_html__( 'left', 'mp-timetable' ),
                             'icon'  => 'fa fa-align-left',
                         ],
                         'center'    => [
-                            'title' => esc_html__( 'Center', 'mp-timetable' ),
+                            'title' => esc_html__( 'center', 'mp-timetable' ),
                             'icon'  => 'fa fa-align-center',
                         ],
                         'right'     => [
-                            'title' => esc_html__( 'Right', 'mp-timetable' ),
+                            'title' => esc_html__( 'right', 'mp-timetable' ),
                             'icon'  => 'fa fa-align-right',
                         ],
                     ],
@@ -364,19 +364,19 @@ class Mp_Timetable_Widget extends Widget_Base {
                     'toggle'    => false,
                     'options'   => [
                         'default'   => [
-                            'title' => esc_html__( 'Default', 'mp-timetable' ),
+                            'title' => esc_html__( 'default', 'mp-timetable' ),
                             'icon'  => 'eicon-v-align-stretch',
                         ],
                         'top'       => [
-                            'title' => esc_html__( 'Top', 'mp-timetable' ),
+                            'title' => esc_html__( 'top', 'mp-timetable' ),
                             'icon'  => 'eicon-v-align-top',
                         ],
                         'middle'    => [
-                            'title' => esc_html__( 'Middle', 'mp-timetable' ),
+                            'title' => esc_html__( 'middle', 'mp-timetable' ),
                             'icon'  => 'eicon-v-align-middle',
                         ],
                         'bottom'    => [
-                            'title' => esc_html__( 'Bottom', 'mp-timetable' ),
+                            'title' => esc_html__( 'bottom', 'mp-timetable' ),
                             'icon'  => 'eicon-v-align-bottom',
                         ],
                     ],
