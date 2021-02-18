@@ -679,7 +679,7 @@ class Core {
                     'mptt-editor-panel-js',
                     Mp_Time_Table::get_plugin_url( 'media/js/mptt-elementor-editor' . $this->get_prefix() . '.js' ),
                     array( 'jquery', 'mptt-functions', 'mptt-event-object' ),
-                    $this->version,
+                    $this->version
                 );
                 break;
 		}
