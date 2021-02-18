@@ -89,12 +89,12 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.3.16, Feb 18 2021 =
+* Bug fix: fixed PHP parse error in PHP 7.2.
+
 = 2.3.15, Feb 17 2021 =
 * Added Timetable Elementor widget.
 * Bug fix: fixed an issue with invalid XML file while exporting data.
-
-= 2.3.14, Feb 4 2021 =
-* Improved plugin internalization.
 
 --------
 
