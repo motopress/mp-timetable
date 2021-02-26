@@ -48,7 +48,13 @@ register_deactivation_hook( __FILE__, array( 'Mp_Time_Table', 'on_deactivation' 
 register_uninstall_hook( __FILE__, array( 'Mp_Time_Table', 'on_uninstall' ) );
 
 add_action( 'plugins_loaded', array( 'Mp_Time_Table', 'init' ) );
-add_action( 'wpmu_new_blog', array( 'Mp_Time_Table', 'on_create_blog' ), 10, 6 );
+
+if ( version_compare( get_bloginfo( 'version' ), '5.1', '>=' ) ) {
+	add_action( 'wp_insert_site', array( 'Mp_Time_Table', 'on_create_blog' ) );
+} else {
+	add_action( 'wpmu_new_blog', array( 'Mp_Time_Table', 'on_create_blog' ) );
+}
+
 add_filter( 'wpmu_drop_tables', array( 'Mp_Time_Table', 'on_delete_blog' ) );
 
 /**
@@ -187,14 +193,39 @@ class Mp_Time_Table {
 	/**
 	 * On activation
 	 */
-	public static function on_activation() {
+	public static function on_activation( $network_wide = false ) {
+		
+		if ( $network_wide && is_multisite() ) {
+
+			$sites = get_sites();
+
+			foreach( $sites as $site ) {
+
+				$blog_id = $site->blog_id;
+
+				switch_to_blog( $blog_id );
+				Mp_Time_Table::install();
+				restore_current_blog();
+
+			}
+		} else {
+
+			Mp_Time_Table::install();
+
+		}
+	}
+
+	/**
+	 * Install
+	 */
+	public static function install() {
 		// Register post type
 		Core::get_instance()->register_all_post_type();
 
 		// Register taxonomy all
 		Core::get_instance()->register_all_taxonomies();
 
-		flush_rewrite_rules();
+		flush_rewrite_rules( false );
 
 		//Create table in not exists
 		Core::get_instance()->create_table();
@@ -204,7 +235,7 @@ class Mp_Time_Table {
 	 * On deactivation
 	 */
 	public static function on_deactivation() {
-		flush_rewrite_rules();
+		flush_rewrite_rules( false );
 	}
 
 	/**
@@ -217,22 +248,22 @@ class Mp_Time_Table {
 	/**
 	 * On create blog
 	 *
-	 * @param $blog_id
-	 * @param $user_id
-	 * @param $domain
-	 * @param $path
-	 * @param $site_id
-	 * @param $meta
+	 * @param int|WP_Site $blog
 	 */
-	public static function on_create_blog( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
-		if ( is_plugin_active_for_network( self::get_plugin_name() . '/' . self::get_plugin_name() . '.php' ) ) {
-			switch_to_blog( $blog_id );
-			//Create table in not exists
-			Core::get_instance()->create_table();
+	public static function on_create_blog( $blog ) {
+		
+		if ( is_plugin_active_for_network( MP_TT_PLUGIN_FILE ) ) {
+
+			if ( ! is_int( $blog ) ) {
+				$blog = $blog->id;
+			}
+
+			switch_to_blog( $blog );
+			Mp_Time_Table::install();
 			restore_current_blog();
 		}
 	}
-	
+
 	/**
 	 * Get plugin name
 	 *
