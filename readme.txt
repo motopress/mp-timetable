@@ -59,6 +59,10 @@ Want to take automatic online appointment reservations through your website for 
 
 [Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) is our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
+### Timetable Elementor Widget
+
+Plan to use the Timetable plugin on your Elementor-built site? Make your customization experience more flawless with the dedicated Timetable widget for Elementor! Using this widget just like any other regular one, you'll be able to choose the layout and style for your events in just a few clicks in the visual builder. For example, you'll be able to show or hide the event description, customize the table look, choose the mobile behavior and more.
+
 == Installation ==
 
 1. Upload the plugin files to the /wp-content/plugins/ directory
