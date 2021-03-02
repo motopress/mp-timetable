@@ -93,7 +93,10 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
-= 2.3.16, Feb 18 2021 =
+= 2.3.17, Mar 3 2021 =
+* Improved compatibility with WordPress multisite.
+
+= 2.3.17, Feb 18 2021 =
 * Bug fix: fixed PHP parse error in PHP 7.2.
 
 = 2.3.15, Feb 17 2021 =
