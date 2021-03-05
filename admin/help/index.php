@@ -34,7 +34,7 @@
 			<ol>
 				<li>Find "TimeTable" icon on TinyMCE panel in Classic Editor.</li>
 				<li>Build Timetable shortcode manually.
-					<p>Shortcode <code>[mp-timetable ... ]</code> attributes:</p>
+					<p>Shortcode <code>[mp-timetable title="1"]</code> attributes:</p>
 					<ul>
 						<li><code>col</code> - comma-separated column IDs.</li>
 						<li><code>events</code> - comma-separated event IDs.</li>
