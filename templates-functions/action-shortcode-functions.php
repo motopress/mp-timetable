@@ -241,7 +241,7 @@ function mptt_shortcode_template_content_responsive_table() {
 			<?php if ( ! empty( $mptt_shortcode_data[ 'events_data' ] ) ):
 				foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column' ] as $column ): ?>
 					<div class="mptt-column">
-						<h3 class="mptt-column-title"><?php echo $column->post_title ?></h3>
+						<h3 class="mptt-column-title"><?php echo esc_html( $column->post_title ); ?></h3>
 						<ul class="mptt-events-list">
 							<?php if ( ! empty( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] ) ):
 								foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] as $event ) : ?>
@@ -252,8 +252,8 @@ function mptt_shortcode_template_content_responsive_table() {
 										<?php if ( $mptt_shortcode_data[ 'params' ][ 'title' ] ):
 											$disable_url = (bool) $event->post->timetable_disable_url || (bool) $mptt_shortcode_data[ 'params' ][ 'disable_event_url' ];
 											if ( ! $disable_url ) { ?>
-												<a title="<?php echo $event->post->post_title; ?>"
-												href="<?php echo ( $event->post->timetable_custom_url != "" ) ? $event->post->timetable_custom_url : get_permalink( $event->event_id ); ?>"
+												<a title="<?php echo esc_attr( $event->post->post_title ); ?>"
+												href="<?php echo ( $event->post->timetable_custom_url != "" ) ? esc_url( $event->post->timetable_custom_url ) : get_permalink( $event->event_id ); ?>"
 												class="mptt-event-title">
 											<?php }
 											echo $event->post->post_title;
@@ -271,11 +271,11 @@ function mptt_shortcode_template_content_responsive_table() {
 											</p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'sub-title' ] && ! empty( $event->post->sub_title ) ): ?>
-											<p class="event-subtitle"><?php echo $event->post->sub_title; ?></p>
+											<p class="event-subtitle"><?php echo esc_html( $event->post->sub_title ); ?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'description' ] ): ?>
 											<p class="event-description"><?php
-												echo stripslashes( $event->description );
+												echo esc_html( stripslashes( $event->description ) );
 											?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'user' ] && ( $event->user_id != '-1' ) ): ?>

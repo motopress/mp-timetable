@@ -195,7 +195,7 @@ class Column extends Model {
 		if (!empty($params['data'])) {
 			foreach ($params['data'] as $meta_key => $meta) {
 				if (!empty($meta)) {
-					update_post_meta($params['post']->ID, $meta_key, $meta);
+					update_post_meta($params['post']->ID, $meta_key, sanitize_text_field( $meta ) );
 				} else {
 					delete_post_meta($params['post']->ID, $meta_key, $meta);
 				}

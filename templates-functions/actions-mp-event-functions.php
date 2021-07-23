@@ -48,14 +48,16 @@ function mptt_event_template_content_time_list() {
 						echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
 				</p>
 				<?php if (!empty($event->post->sub_title)) { ?>
-					<p class="event-subtitle"><?php echo $event->post->sub_title; ?></p>
+					<p class="event-subtitle"><?php echo esc_html( $event->post->sub_title ); ?></p>
 				<?php } ?>
 
 				<?php if (!empty($event->description)) { ?>
-					<p class="event-description"><?php echo stripslashes( $event->description ); ?></p>
+					<p class="event-description"><?php echo esc_html( stripslashes( $event->description ) ); ?></p>
 				<?php } ?>
 				<?php if (!empty($event->user)) { ?>
-					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>" title="<?php echo $event->user->display_name; ?>"><?php echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name) . ' ';
+					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>" title="<?php
+						echo $event->user->display_name; ?>"><?php
+						echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name) . ' ';
 							echo $event->user->display_name ?></a></p>
 				<?php } ?>
 			</li>
