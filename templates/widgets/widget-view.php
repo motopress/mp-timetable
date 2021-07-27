@@ -42,14 +42,14 @@ if (!empty($events)): ?>
 				$event_class = 'event' . ($widget ? ' mptt-colorized' : '');
 				?>
 
-				<li class="<?php echo apply_filters('mptt_widget_upcoming_event_element', $event_class) ?>"
+				<li class="<?php echo esc_attr( apply_filters('mptt_widget_upcoming_event_element', $event_class) ); ?>"
 					<?php if ($widget): ?> data-type="widget"
-						data-background-color="<?php echo $background_color ?>"
-						data-background-hover-color="<?php echo $background_hover_color ?>"
-						data-color="<?php echo $color ?>"
-						data-hover-color="<?php echo $hover_color ?>"
-						data-border-color="<?php echo $instance['item_border_color'] ?>"
-						data-hover-border-color="<?php echo $instance['hover_item_border_color'] ?>"
+						data-background-color="<?php echo esc_attr( $background_color ); ?>"
+						data-background-hover-color="<?php echo esc_attr( $background_hover_color ); ?>"
+						data-color="<?php echo esc_attr( $color ); ?>"
+						data-hover-color="<?php echo esc_attr( $hover_color ); ?>"
+						data-border-color="<?php echo esc_attr( $instance['item_border_color'] ); ?>"
+						data-hover-border-color="<?php echo esc_attr( $instance['hover_item_border_color'] ); ?>"
 						<?php
 						$style .= !empty($instance['item_border_color']) ? ' border-left-color:' . $instance['item_border_color'] . ' ;' : '';
 						$style .= !empty($background_color) ? ' background:' . $background_color . ' ;' : '';
@@ -67,18 +67,24 @@ if (!empty($events)): ?>
 					$url = ($instance['custom_url'] != "") ? $instance['custom_url'] : (($event->post->timetable_custom_url != "") ? $event->post->timetable_custom_url : get_permalink($event->event_id)); ?>
 					<h4 class="event-title">
 						<?php if (!$disable_url) { ?>
-						<a href="<?php echo $url ?>" title="<?php echo get_the_title($event->event_id) ?>" class="event-link">
+						<a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( get_the_title($event->event_id) ); ?>" class="event-link">
 							<?php }
-							echo get_the_title($event->event_id);
+							echo esc_html( get_the_title($event->event_id) );
 							if (!$disable_url) { ?>
 						</a>
 					<?php } ?>
 
 					</h4>
-					<?php if ($instance['view_settings'] !== 'today'): ?><p class="column-title"><?php echo get_the_title($event->column_id) ?></p><?php endif; ?>
+					<?php if ($instance['view_settings'] !== 'today') : ?>
+						<p class="column-title"><?php echo esc_html( get_the_title($event->column_id) ); ?></p>
+					<?php endif; ?>
 
 					<p class="timeslot">
-						<span class="timeslot-start"><?php echo date(get_option('time_format'), strtotime($event->event_start)); ?></span><?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?><span class="timeslot-end"><?php echo date(get_option('time_format'), strtotime($event->event_end)); ?>
+						<span class="timeslot-start"><?php
+							echo esc_html( date(get_option('time_format'), strtotime($event->event_start)) ); ?></span>
+						<?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?>
+						<span class="timeslot-end"><?php
+							echo esc_html( date(get_option('time_format'), strtotime($event->event_end)) ); ?></span>
 					</p>
 
 				</li>

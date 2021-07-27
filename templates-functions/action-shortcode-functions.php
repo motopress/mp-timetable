@@ -241,22 +241,22 @@ function mptt_shortcode_template_content_responsive_table() {
 			<?php if ( ! empty( $mptt_shortcode_data[ 'events_data' ] ) ):
 				foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column' ] as $column ): ?>
 					<div class="mptt-column">
-						<h3 class="mptt-column-title"><?php echo $column->post_title ?></h3>
+						<h3 class="mptt-column-title"><?php echo esc_html( $column->post_title ); ?></h3>
 						<ul class="mptt-events-list">
 							<?php if ( ! empty( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] ) ):
 								foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] as $event ) : ?>
-									<li class="mptt-list-event" data-event-id="<?php echo $event->post->post_name ?>"
+									<li class="mptt-list-event" data-event-id="<?php echo esc_attr( $event->post->post_name ); ?>"
 										<?php if ( ! empty( $event->post->color ) ) {
 											echo 'style="border-left-color:' . $event->post->color . ';"';
 										} ?>>
 										<?php if ( $mptt_shortcode_data[ 'params' ][ 'title' ] ):
 											$disable_url = (bool) $event->post->timetable_disable_url || (bool) $mptt_shortcode_data[ 'params' ][ 'disable_event_url' ];
 											if ( ! $disable_url ) { ?>
-												<a title="<?php echo $event->post->post_title; ?>"
-												href="<?php echo ( $event->post->timetable_custom_url != "" ) ? $event->post->timetable_custom_url : get_permalink( $event->event_id ); ?>"
+												<a title="<?php echo esc_attr( $event->post->post_title ); ?>"
+												href="<?php echo ( $event->post->timetable_custom_url != "" ) ? esc_url( $event->post->timetable_custom_url ) : get_permalink( $event->event_id ); ?>"
 												class="mptt-event-title">
 											<?php }
-											echo $event->post->post_title;
+											echo esc_html( $event->post->post_title );
 											
 											if ( ! $disable_url ) { ?>
 												</a>
@@ -265,24 +265,26 @@ function mptt_shortcode_template_content_responsive_table() {
 										endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'time' ] ): ?>
 											<p class="timeslot">
-												<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php echo date( get_option( 'time_format' ), strtotime( $event->event_start ) ); ?></time>
+												<time datetime="<?php echo esc_attr( $event->event_start ); ?>" class="timeslot-start"><?php
+													echo esc_html( date( get_option( 'time_format' ), strtotime( $event->event_start ) ) ); ?></time>
 												<span class="timeslot-delimiter"><?php echo apply_filters( 'mptt_timeslot_delimiter', ' - ' ); ?></span>
-												<time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php echo date( get_option( 'time_format' ), strtotime( $event->event_end ) ); ?></time>
+												<time datetime="<?php echo esc_attr( $event->event_end ); ?>" class="timeslot-end"><?php
+													echo esc_html( date( get_option( 'time_format' ), strtotime( $event->event_end ) ) ); ?></time>
 											</p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'sub-title' ] && ! empty( $event->post->sub_title ) ): ?>
-											<p class="event-subtitle"><?php echo $event->post->sub_title; ?></p>
+											<p class="event-subtitle"><?php echo wp_kses_post( $event->post->sub_title ); ?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'description' ] ): ?>
 											<p class="event-description"><?php
-												echo stripslashes( $event->description );
+												echo wp_kses_post( stripslashes( $event->description ) );
 											?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'user' ] && ( $event->user_id != '-1' ) ): ?>
 											<p class="event-user"><?php $user_info = get_userdata( $event->user_id );
 												if ( $user_info ) {
 													echo get_avatar( $event->user_id, apply_filters( 'mptt-event-user-avatar-size', 24 ), '', $user_info->data->display_name ) . ' ';
-													echo $user_info->data->display_name;
+													echo esc_html( $user_info->data->display_name );
 												} ?></p>
 										<?php endif; ?>
 									</li>
