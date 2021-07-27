@@ -24,7 +24,7 @@
 					<td class="event-column"><?php echo esc_html( get_the_title($data->column_id) ); ?></td>
 					<td class="event-start"><?php echo date(get_option('time_format'), strtotime($data->event_start)); ?></td>
 					<td class="event-end"><?php echo date(get_option('time_format'), strtotime($data->event_end)); ?></td>
-					<td class="event-description"><?php echo esc_html( $data->description ); ?></td>
+					<td class="event-description"><?php echo wp_kses_post( $data->description ); ?></td>
 					<td class="event-user-id"><?php
 						$user = ($data->user_id != '-1') ? get_userdata($data->user_id) : false;
 						if ($user) {

@@ -331,7 +331,7 @@ class Events extends Model {
 								'event_start' => date( 'H:i', strtotime( $event[ 'event_start' ][ $i ] ) ),
 								'event_end'   => date( 'H:i', strtotime( $event[ 'event_end' ][ $i ] ) ),
 								'user_id'     => $event[ 'user_id' ][ $i ],
-								'description' => sanitize_text_field( $event[ 'description' ][ $i ] )
+								'description' => wp_kses_post( $event[ 'description' ][ $i ] )
 							)
 						);
 					}
@@ -340,7 +340,13 @@ class Events extends Model {
 		}
 		if ( ! empty( $params[ 'event_meta' ] ) ) {
 			foreach ( $params[ 'event_meta' ] as $meta_key => $meta ) {
-				update_post_meta( $params[ 'post' ]->ID, $meta_key, sanitize_text_field( $meta ) );
+				switch ( $meta_key ) {
+					case 'timetable_custom_url':
+						update_post_meta( $params[ 'post' ]->ID, $meta_key, esc_url_raw( $meta ) );
+					break;
+					default:
+						update_post_meta( $params[ 'post' ]->ID, $meta_key, wp_kses_post( $meta ) );
+				}
 			}
 		}
 		
@@ -683,7 +689,7 @@ class Events extends Model {
 			array(
 				'event_start' => date( 'H:i', strtotime( $data[ 'event_start' ] ) ),
 				'event_end'   => date( 'H:i', strtotime( $data[ 'event_end' ] ) ),
-				'description' => sanitize_text_field( $data[ 'description' ] ),
+				'description' => wp_kses_post( $data[ 'description' ] ),
 				'column_id'   => $data[ 'weekday_ids' ],
 				'user_id'     => $data[ 'user_id' ],
 			),

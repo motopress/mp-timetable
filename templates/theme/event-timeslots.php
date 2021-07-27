@@ -27,12 +27,12 @@ if ( !empty($events) ) {
 
 			<?php if (!empty($event->post->sub_title)) { ?>
 				<br/>
-				<span class="timeslot-subtitle"><?php echo esc_html( $event->post->sub_title ); ?></span>
+				<span class="timeslot-subtitle"><?php echo wp_kses_post( $event->post->sub_title ); ?></span>
 			<?php } ?>
 
 			<?php if (!empty($event->description)) { ?>
 				<br/>
-				<span class="timeslot-description"><?php echo esc_html( stripslashes( $event->description ) ); ?></span>
+				<span class="timeslot-description"><?php echo wp_kses_post( stripslashes( $event->description ) ); ?></span>
 			<?php } ?>
 			<?php if (!empty($event->user)) { ?>
 				<br/>

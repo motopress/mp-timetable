@@ -43,11 +43,11 @@
 		<?php endif;
 		
 		if ( $params[ 'sub-title' ] && ! empty( $item[ 'post' ]->sub_title ) ): ?>
-			<p class="event-subtitle"><?php echo esc_html( $item[ 'post' ]->sub_title ); ?></p>
+			<p class="event-subtitle"><?php echo wp_kses_post( $item[ 'post' ]->sub_title ); ?></p>
 		<?php endif;
 		
 		if ( $params[ 'description' ] && ! empty( $item[ 'description' ] ) ): ?>
-			<p class="event-description"><?php echo esc_html( stripslashes( $item[ 'description' ] ) ); ?></p>
+			<p class="event-description"><?php echo wp_kses_post( stripslashes( $item[ 'description' ] ) ); ?></p>
 		<?php endif;
 		
 		if ( $params[ 'user' ] && $item[ 'user_id' ] != '-1' ): ?>

@@ -54,11 +54,11 @@ function mptt_column_template_content_events_list() {
 				</p>
 
 				<?php if (!empty($event->post->sub_title)) { ?>
-					<p class="event-subtitle"><?php echo esc_html( $event->post->sub_title ); ?></p>
+					<p class="event-subtitle"><?php echo wp_kses_post( $event->post->sub_title ); ?></p>
 				<?php } ?>
 
 				<?php if (!empty($event->description)) { ?>
-					<p class="event-description"><?php echo esc_html( stripslashes( $event->description ) ); ?></p>
+					<p class="event-description"><?php echo wp_kses_post( stripslashes( $event->description ) ); ?></p>
 				<?php } ?>
 
 				<?php if (!empty($event->user)) { ?>

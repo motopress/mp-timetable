@@ -43,12 +43,12 @@ if ( !empty($events) ) {
 
 			<?php if ( !empty($event->post->sub_title) ) { ?>
 				<br/>
-				<span class="event-subtitle"><?php echo esc_html( $event->post->sub_title ); ?></span>
+				<span class="event-subtitle"><?php echo wp_kses_post( $event->post->sub_title ); ?></span>
 			<?php } ?>
 
 			<?php if (!empty($event->description)) { ?>
 				<br/>
-				<span class="event-description"><?php echo esc_html( stripslashes( $event->description ) ); ?></span>
+				<span class="event-description"><?php echo wp_kses_post( stripslashes( $event->description ) ); ?></span>
 			<?php } ?>
 
 			<?php if (!empty($event->user)) { ?>

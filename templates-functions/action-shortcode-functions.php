@@ -271,11 +271,11 @@ function mptt_shortcode_template_content_responsive_table() {
 											</p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'sub-title' ] && ! empty( $event->post->sub_title ) ): ?>
-											<p class="event-subtitle"><?php echo esc_html( $event->post->sub_title ); ?></p>
+											<p class="event-subtitle"><?php echo wp_kses_post( $event->post->sub_title ); ?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'description' ] ): ?>
 											<p class="event-description"><?php
-												echo esc_html( stripslashes( $event->description ) );
+												echo wp_kses_post( stripslashes( $event->description ) );
 											?></p>
 										<?php endif;
 										if ( $mptt_shortcode_data[ 'params' ][ 'user' ] && ( $event->user_id != '-1' ) ): ?>

@@ -298,7 +298,7 @@ class Hooks extends Core {
 			$row_meta = array(
 				'help'    => '<a href="' . esc_url( admin_url('edit.php?post_type=mp-event&page=mptt-help') ) . '" aria-label="' . esc_attr__( 'Quick Start Guide', 'mp-timetable' ) . '">' .
 					esc_html__( 'Help', 'mp-timetable' ) . '</a>',
-				'review'    => '<a href="' . esc_url( 'https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post' ) . '" aria-label="' . esc_attr__( 'Leave a Review', 'mp-timetable' ) . '" target="_blank">' . esc_html__( 'Leave a Review', 'mp-timetable' ) . '</a>',
+				'review'    => '<a href="' . esc_url( 'https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post' ) . '" aria-label="' . esc_attr__( 'Leave a Review', 'mp-timetable' ) . '" target="_blank">' . esc_html__( 'Leave a Review', 'mp-timetable' ) . ' &#9733;&#9733;&#9733;&#9733;&#9733;</a>',
 			);
 
 			return array_merge( $links, $row_meta );
