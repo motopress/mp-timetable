@@ -21,29 +21,32 @@ foreach ($events as $event) {
 if (!empty($events)): ?>
 	<?php foreach ($events_group_by_categories as $key_category => $cat_events) { ?>
 		<ul>
-			<?php foreach ($cat_events as $key => $event):
+			<?php
+				foreach ($cat_events as $key => $event):
 				$event_class = 'event';
 				?>
-				<li class="<?php echo apply_filters('mptt_widget_upcoming_event_class', $event_class) ?>">
+				<li class="<?php echo esc_attr( apply_filters('mptt_widget_upcoming_event_class', $event_class) ); ?>">
 					<?php
 
 					$disable_url = (bool)$event->post->timetable_disable_url || (bool)$instance['disable_url'];
 					$url = ($instance['custom_url'] != "") ? $instance['custom_url'] : (($event->post->timetable_custom_url != "") ? $event->post->timetable_custom_url : get_permalink($event->event_id));
 
-					if (!$disable_url) { ?>
-					<a href="<?php echo $url ?>" title="<?php echo get_the_title($event->event_id) ?>" class="event-link">
-						<?php }
-						echo get_the_title($event->event_id);
-						if (!$disable_url) { ?>
+					if ( ! $disable_url ) { ?>
+					<a href="<?php echo esc_url( $url ); ?>" title="<?php echo esc_attr( get_the_title($event->event_id) ); ?>" class="event-link">
+					<?php }
+						echo esc_html( get_the_title($event->event_id) );
+					if ( ! $disable_url ) { ?>
 					</a><br/>
 				<?php } ?>
 					<span class="post-date">
 				<?php if ($instance['view_settings'] !== 'today' && $instance['view_settings'] !== 'current'): ?><?php echo get_the_title($event->column_id) ?>
 					<br/>
 				<?php endif; ?>
-						<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php echo date($time_format, strtotime($event->event_start)); ?></time>
+						<time datetime="<?php echo esc_attr( $event->event_start ); ?>" class="timeslot-start"><?php
+							echo esc_html( date($time_format, strtotime($event->event_start)) ); ?></time>
 						<?php echo apply_filters('mptt_timeslot_delimiter', ' - '); ?>
-						<time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php echo date($time_format, strtotime($event->event_end)); ?></time>
+						<time datetime="<?php echo esc_attr( $event->event_end ); ?>" class="timeslot-end"><?php
+							echo esc_html( date($time_format, strtotime($event->event_end)) ); ?></time>
 				</span>
 				</li>
 			<?php endforeach; ?>
