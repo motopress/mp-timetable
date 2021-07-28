@@ -559,10 +559,37 @@ class Core {
 		);
 		
 		wp_enqueue_script( 'underscore' );
+
 		wp_enqueue_style( 'mptt-admin-style', Mp_Time_Table::get_plugin_url( 'media/css/admin.css' ), array(), $this->version );
 		
-		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );		
-		
+		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );
+
+        if ( ! empty( $_GET[ 'page' ] ) ) {
+            switch ( $_GET[ 'page' ] ) {
+                case 'mptt-settings' :
+                case 'mptt-import' :
+                case 'mptt-help' :
+                    wp_register_script( 'mptt-option-ajax', Mp_Time_Table::get_plugin_url( 'media/js/mptt-option-ajax' . $this->get_prefix() . '.js' ), array( 'jquery' ), $this->version );
+                    wp_enqueue_script( 'mptt-option-ajax' );
+                    wp_localize_script(
+                        'mptt-option-ajax',
+                        'MPTT',
+                        array(
+                            'ajax_url'         => admin_url( 'admin-ajax.php' ),
+                            'nonce'            => wp_create_nonce( 'mptt-install-plugins' ),
+                            'status_download'  => esc_html__( 'Install Plugin', 'mp-timetable' ),
+                            'status_activated' => esc_html__( 'Activated', 'mp-timetable' ),
+                            'status_active'    => esc_html__( 'Active', 'mp-timetable' ),
+                            'status_inactive'  => esc_html__( 'Inactive', 'mp-timetable' ),
+                            'status_loading'   => esc_html__( 'Loading', 'mp-timetable' ),
+                        )
+                    );
+                    break;
+                default :
+                    break;
+            }
+        }
+
 		if ( ! empty( $current_screen ) ) {
 			switch ( $current_screen->id ) {
 				case 'mp-event':
@@ -611,6 +638,35 @@ class Core {
 					break;
 			}
 		}
+	}
+
+	public function wp_ajax_install_plugin_ajax() {
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            return;
+        }
+
+        if ( empty( $_POST[ 'status' ] ) ) {
+            wp_send_json_error();
+        }
+
+        $status = sanitize_key( $_POST[ 'status' ] );
+
+        require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
+        $plugins_offer = new \Plugins_Offer();
+
+        switch ( $status ) {
+            case 'activate' :
+                $plugins_offer->activatePluginAjax();
+                break;
+            case 'install' :
+                $plugins_offer->installPluginAjax();
+                break;
+            default :
+                break;
+        }
+
+        wp_send_json_success();
 	}
 	
 	/**

@@ -5,6 +5,7 @@ const config = {
 		'./media/js/blocks/dist/index.js': './media/js/blocks/src/index.js',
 		'./media/js/mptt-functions.min.js': './media/js/mptt-functions.js',
 		'./media/js/mce-timeTable-buttons.min.js': './media/js/mce-timeTable-buttons.js',
+		'./media/js/mptt-option-ajax.min.js': './media/js/mptt-option-ajax.js',
 		'./media/js/events/event.min.js': './media/js/events/event.js',
 	},
 	output: {

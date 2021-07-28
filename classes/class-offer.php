@@ -2,52 +2,174 @@
 
 class Plugins_Offer {
 
-	private $plugins = array();
+	public function __construct() { }
 
-	public function __construct() {
+	public static function activatePluginAjax() {
 
-		$this->plugins = array(
-			'getwid' => array(
-				'slug' => 'getwid',
-				'name' => 'Getwid: 40+ Free Gutenberg Blocks',
-				'path' => 'getwid/getwid.php',
-				'icon' => 'https://ps.w.org/getwid/assets/icon.svg',
-				'description' => 'Getwid is a collection of 40+ Gutenberg blocks that greatly extends the library of existing core WordPress blocks and 35+ unique pre-made block templates for the Block Editor.'
-			),
-			'stratum' => array(
-				'slug' => 'stratum',
-				'name' => 'Stratum: 20+ Free Elementor Widgets',
-				'path' => 'stratum/stratum.php',
-				'icon' => 'https://ps.w.org/stratum/assets/icon.svg',
-				'description' => 'Stratum is a free collection of 20+ Elementor addons with the aim of enhancing the existing widget functionality of your favorite page builder.'
-			),
-			'hotel-booking' => array(
-				'slug' => 'motopress-hotel-booking-lite',
-				'name' => 'Hotel Booking: WordPress Booking Plugin',
-				'path' => 'motopress-hotel-booking-lite/motopress-hotel-booking.php',
-				'icon' => 'https://ps.w.org/motopress-hotel-booking-lite/assets/icon-128x128.png',
-				'description' => 'Hotel Booking plugin by MotoPress is the ultimate WordPress property rental system with a real lodging business in mind.'
-			),
-			/*'timetable' => array(
-				'slug' => 'mp-timetable',
-				'name' => 'Timetable and Event Schedule',
-				'path' => 'mp-timetable/mp-timetable.php',
-				'icon' => 'https://ps.w.org/mp-timetable/assets/icon-128x128.jpg',
-				'description' => 'All-around organizer plugin developed to help you create and manage online schedules for a single or multiple events.'
-			),*/
-			'restaurant-menu' => array(
-				'slug' => 'mp-restaurant-menu',
-				'name' => 'Restaurant Menu',
-				'path' => 'mp-restaurant-menu/restaurant-menu.php',
-				'icon' => 'https://ps.w.org/mp-restaurant-menu/assets/icon-128x128.jpg',
-				'description' => 'Restaurant Menu is a full-fledged WordPress food ordering system that can be smoothly integrated with your restaurant or cafe website.'
-			),
-		);
+        check_ajax_referer( 'mptt-install-plugins', 'nonce' );
+
+        $error = esc_html__( 'Could not activate the plugin.', 'mp-timetable' );
+
+        if ( ! current_user_can( 'activate_plugins' ) ) {
+
+            wp_send_json_error( $error );
+        }
+
+        if ( isset( $_POST[ 'plugin' ] ) ) {
+
+            $activate = activate_plugins( $_POST[ 'plugin' ] );
+
+            if ( ! is_wp_error( $activate ) ) {
+    		    wp_send_json_success(
+                    [
+                        'is_activated' => true
+                    ]
+                );
+            }
+        }
+
+	    wp_send_json_error( $error );
 	}
+
+	public static function installPluginAjax() {
+
+        check_ajax_referer( 'mptt-install-plugins', 'nonce' );
+
+        $slug = wp_unslash( strtok( $_POST[ 'plugin' ], '/' ) );
+
+        $status = array(
+            'install' => 'plugin',
+            'slug'    => sanitize_key( $slug ),
+        );
+
+        if ( empty( $_POST[ 'plugin' ] ) ) {
+            $status[ 'errorMessage' ] = esc_html__( 'Could not install the plugin.', 'mp-timetable' );
+            wp_send_json_error( $error );
+        }
+
+        if ( ! current_user_can( 'install_plugins' ) ) {
+            $status[ 'errorMessage' ] = esc_html__( 'Sorry, you are not allowed to install plugins on this site.', 'mp-timetable' );
+            wp_send_json_error( $status );
+        }
+
+        require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
+        include_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+
+        $api = plugins_api(
+            'plugin_information',
+            array(
+                'slug'   => sanitize_key( $slug ),
+                'fields' => array(
+                    'sections' => false,
+                ),
+            )
+        );
+
+        if ( is_wp_error( $api ) ) {
+
+            $status[ 'errorMessage' ] = $api->get_error_message();
+            wp_send_json_error( $status );
+        }
+
+        $skin     = new WP_Ajax_Upgrader_Skin();
+        $upgrader = new Plugin_Upgrader( $skin );
+        $result   = $upgrader->install( $api->download_link );
+
+        wp_cache_flush();
+
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+
+            $status[ 'debug' ] = $skin->get_upgrade_messages();
+        }
+
+        if ( is_wp_error( $result ) ) {
+
+            $status[ 'errorCode' ]    = $result->get_error_code();
+            $status[ 'errorMessage' ] = $result->get_error_message();
+            wp_send_json_error( $status );
+        } elseif ( is_wp_error( $skin->result ) ) {
+
+            $status[ 'errorCode' ]    = $skin->result->get_error_code();
+            $status[ 'errorMessage' ] = $skin->result->get_error_message();
+            wp_send_json_error( $status );
+        } elseif ( $skin->get_errors()->has_errors() ) {
+
+            $status[ 'errorMessage' ] = $skin->get_error_messages();
+            wp_send_json_error( $status );
+        } elseif ( is_null( $result ) ) {
+
+            global $wp_filesystem;
+
+            $status[ 'errorCode' ]    = 'unable_to_connect_to_filesystem';
+            $status[ 'errorMessage' ] = esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.' );
+
+            if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+                $status[ 'errorMessage' ] = esc_html__( $wp_filesystem->errors->get_error_message() );
+            }
+
+            wp_send_json_error( $status );
+        }
+
+        $install_status = install_plugin_install_status( $api );
+
+        if ( is_plugin_inactive( $install_status[ 'file' ] ) ) {
+             wp_send_json_success(
+                [
+                    'is_activated' => false
+                ]
+            );
+        }
+
+        wp_send_json_error( $status );
+	}
+
+    private function getPluginLists() {
+
+        $plugins  = array(
+            'getwid' => array(
+                'slug' => 'getwid',
+                'name' => 'Getwid: 40+ Free Gutenberg Blocks',
+                'path' => 'getwid/getwid.php',
+                'icon' => 'https://ps.w.org/getwid/assets/icon.svg',
+                'description' => 'Getwid is a collection of 40+ Gutenberg blocks that greatly extends the library of existing core WordPress blocks and 35+ unique pre-made block templates for the Block Editor.'
+            ),
+            'stratum' => array(
+                'slug' => 'stratum',
+                'name' => 'Stratum: 20+ Free Elementor Widgets',
+                'path' => 'stratum/stratum.php',
+                'icon' => 'https://ps.w.org/stratum/assets/icon.svg',
+                'description' => 'Stratum is a free collection of 20+ Elementor addons with the aim of enhancing the existing widget functionality of your favorite page builder.'
+            ),
+            'hotel-booking' => array(
+                'slug' => 'motopress-hotel-booking-lite',
+                'name' => 'Hotel Booking: WordPress Booking Plugin',
+                'path' => 'motopress-hotel-booking-lite/motopress-hotel-booking.php',
+                'icon' => 'https://ps.w.org/motopress-hotel-booking-lite/assets/icon-128x128.png',
+                'description' => 'Hotel Booking plugin by MotoPress is the ultimate WordPress property rental system with a real lodging business in mind.'
+            ),
+            /*'timetable' => array(
+                'slug' => 'mp-timetable',
+                'name' => 'Timetable and Event Schedule',
+                'path' => 'mp-timetable/mp-timetable.php',
+                'icon' => 'https://ps.w.org/mp-timetable/assets/icon-128x128.jpg',
+                'description' => 'All-around organizer plugin developed to help you create and manage online schedules for a single or multiple events.'
+            ),*/
+            'restaurant-menu' => array(
+                'slug' => 'mp-restaurant-menu',
+                'name' => 'Restaurant Menu',
+                'path' => 'mp-restaurant-menu/restaurant-menu.php',
+                'icon' => 'https://ps.w.org/mp-restaurant-menu/assets/icon-128x128.jpg',
+                'description' => 'Restaurant Menu is a full-fledged WordPress food ordering system that can be smoothly integrated with your restaurant or cafe website.'
+            ),
+        );
+
+        return $plugins;
+    }
 
 	private function getPluginInstallationLink( $slug ) {
 	
 		$action = 'install-plugin';
+
 		return wp_nonce_url(
 			add_query_arg(
 				array(
@@ -57,21 +179,6 @@ class Plugins_Offer {
 				admin_url( 'update.php' )
 			),
 			$action.'_'.$slug
-		);
-	}
-
-	private function getPluginActivationLink( $path ) {
-	
-		$action = 'activate';
-		return wp_nonce_url(
-			add_query_arg(
-				array(
-					'action' => $action,
-					'plugin' => urlencode( $path )
-				),
-				admin_url( 'plugins.php' )
-			),
-			$action.'-plugin_'.$path
 		);
 	}
 
@@ -85,57 +192,54 @@ class Plugins_Offer {
 				$plugin['status_class'] = 'active';
 				$plugin['action_class'] = 'button button-secondary disabled';
 				$plugin['action_text'] = 'Activated';
-				$plugin['action_url'] = '#';
 			} else {
 				$plugin['status_text'] = 'Inactive';
 				$plugin['status_class'] = 'inactive';
 				$plugin['action_class'] = 'button button-secondary';
 				$plugin['action_text'] = 'Activate';
-				$plugin['action_url'] = $this->getPluginActivationLink( $plugin['path'] );
 			}
 		} else {
 			$plugin['status_text'] = 'Not Installed';
 			$plugin['status_class'] = 'not-installed';
 			$plugin['action_class'] = 'button button-primary';
 			$plugin['action_text'] = 'Install Plugin';
-			$plugin['action_url'] = $this->getPluginInstallationLink( $plugin['slug'] );
 		}
 
 		return $plugin;
 	}
 
 	public function render() {
-?>
-	<div class="motopress-offer-secondary">
+        ?>
+            <div class="motopress-offer-secondary">
 
-		<h2>More free plugins for you</h2>
-<?php
-		foreach ( $this->plugins as $key => $plugin ) :
+                <h2>More free plugins for you</h2>
+                <?php
+                    foreach ( $this->getPluginLists() as $key => $plugin ) :
 
-		$plugin = $this->getPluginData( $plugin );
-?>
-		<div class="plugin-container">
-			<div class="plugin-item">
-				<div class="details">
-					<img src="<?php echo esc_url( $plugin['icon'] ); ?>">
-					<h5 class="plugin-name"><?php echo esc_html( $plugin['name'] ); ?></h5>
-					<p class="plugin-description"><?php echo esc_html( $plugin['description'] ); ?></p>
-				</div>
-				<div class="actions">
-					<div class="status">
-						<strong>Status: <span class="status-label <?php echo esc_attr( $plugin['status_class'] ); ?>">
-							<?php echo esc_html( $plugin['status_text'] ); ?></span></strong>
-					</div>
-					<div class="action-button">
-						<a href="<?php echo $plugin['action_url']; ?>" class="<?php echo esc_attr( $plugin['action_class'] ); ?>">
-							<?php echo esc_html( $plugin['action_text'] ); ?>
-						</a>
-					</div>
-				</div>
-			</div>
-		</div>
-<?php endforeach; ?>
-	</div>
-<?php
+                    $plugin = $this->getPluginData( $plugin );
+                ?>
+                    <div class="plugin-container">
+                        <div class="plugin-item">
+                            <div class="details">
+                                <img src="<?php echo esc_url( $plugin['icon'] ); ?>">
+                                <h5 class="plugin-name"><?php echo esc_html( $plugin['name'] ); ?></h5>
+                                <p class="plugin-description"><?php echo esc_html( $plugin['description'] ); ?></p>
+                            </div>
+                            <div class="actions">
+                                <div class="status">
+                                    <strong>Status: <span class="status-label <?php echo esc_attr( $plugin['status_class'] ); ?>">
+                                        <?php echo esc_html( $plugin['status_text'] ); ?></span></strong>
+                                </div>
+                                <div class="action-button">
+                                    <button data-path="<?php echo esc_attr( $plugin[ 'path' ] ); ?>" class="<?php echo esc_attr( $plugin['action_class'] ); ?>">
+                                        <?php echo esc_html( $plugin['action_text'] ); ?>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php
 	}
 }
