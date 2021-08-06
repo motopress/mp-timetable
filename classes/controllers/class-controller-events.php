@@ -40,9 +40,18 @@ class Controller_Events extends Controller {
 	 */
 	public function action_delete() {
 
-		if ( current_user_can('edit_posts') ) {
+		$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
-			$result = $this->get('events')->delete_event( filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT) );
+		$event_id = 0;
+		$timeslot = $this->get('events')->get_timeslot_by_id( $id );
+
+		if ( $timeslot ) {
+			$event_id = (int) $timeslot->event_id;
+		}
+
+		if ( $event_id && current_user_can( 'edit_post', $event_id ) ) {
+
+			$result = $this->get('events')->delete_event( $id );
 
 			if ($result === false) {
 				wp_send_json_error(array('status' => $result));
@@ -95,11 +104,19 @@ class Controller_Events extends Controller {
 	 */
 	public function action_update_event_data() {
 
-		$request = $_REQUEST;
+		$data = $_REQUEST[ 'data' ];
 
-		if ( current_user_can('edit_posts') ) {
+		$event_id = 0;
+		$id = (int) $data[ 'id' ];
+		$timeslot = $this->get('events')->get_timeslot_by_id( $id );
 
-			$result = $this->get('events')->update_event_data($request[ 'data' ]);
+		if ( $timeslot ) {
+			$event_id = (int) $timeslot->event_id;
+		}
+
+		if ( $event_id && current_user_can( 'edit_post', $event_id ) ) {
+
+			$result = $this->get('events')->update_event_data( $data );
 
 			if ($result === false) {
 				wp_send_json_error(array('status' => false));

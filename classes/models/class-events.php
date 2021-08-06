@@ -694,6 +694,9 @@ class Events extends Model {
 	 * @return false|int
 	 */
 	public function update_event_data( $data ) {
+
+		$id = (int) $data[ 'id' ];
+
 		$result = $this->wpdb->update(
 			$this->table_name,
 			array(
@@ -703,7 +706,7 @@ class Events extends Model {
 				'column_id'   => $data[ 'weekday_ids' ],
 				'user_id'     => $data[ 'user_id' ],
 			),
-			array( 'id' => $data[ 'id' ] ),
+			array( 'id' => $id ),
 			array(
 				'%s',
 				'%s',
@@ -908,6 +911,17 @@ class Events extends Model {
 		} else {
 			wp_die( __( 'Sorry, you are not allowed to edit this item.' ) );
 		}
+	}
+
+	public function get_timeslot_by_id( $id ) {
+
+		global $wpdb;
+
+		$timeslot = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE id = %d", $id )
+		);
+
+		return $timeslot;
 	}
 
 }
