@@ -117,11 +117,21 @@ class Events extends Model {
 			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
 		);
-		
+
 		foreach ( $event_data as $key => $event ) {
+
+			$user = false;
+			$wpUser = get_user_by( 'id', $event_data[ $key ]->user_id );
+
+			if ( ! empty( $wpUser ) ) {
+				$user = new \stdClass();
+				$user->ID = $wpUser->ID;
+				$user->display_name = $wpUser->data->display_name;
+			}
+
 			$event_data[ $key ]->event_start = date( 'H:i', strtotime( $event_data[ $key ]->event_start ) );
 			$event_data[ $key ]->event_end   = date( 'H:i', strtotime( $event_data[ $key ]->event_end ) );
-			$event_data[ $key ]->user        = get_user_by( 'id', $event_data[ $key ]->user_id );
+			$event_data[ $key ]->user        = $user;
 			$event_data[ $key ]->post        = get_post( $event_data[ $key ]->event_id );
 			$event_data[ $key ]->description = stripcslashes( $event_data[ $key ]->description );
 		}
