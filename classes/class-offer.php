@@ -146,21 +146,7 @@ class Plugins_Offer {
                 'path' => 'motopress-hotel-booking-lite/motopress-hotel-booking.php',
                 'icon' => 'https://ps.w.org/motopress-hotel-booking-lite/assets/icon-128x128.png',
                 'description' => 'Hotel Booking plugin by MotoPress is the ultimate WordPress property rental system with a real lodging business in mind.'
-            ),
-            /*'timetable' => array(
-                'slug' => 'mp-timetable',
-                'name' => 'Timetable and Event Schedule',
-                'path' => 'mp-timetable/mp-timetable.php',
-                'icon' => 'https://ps.w.org/mp-timetable/assets/icon-128x128.jpg',
-                'description' => 'All-around organizer plugin developed to help you create and manage online schedules for a single or multiple events.'
-            ),*/
-            'restaurant-menu' => array(
-                'slug' => 'mp-restaurant-menu',
-                'name' => 'Restaurant Menu',
-                'path' => 'mp-restaurant-menu/restaurant-menu.php',
-                'icon' => 'https://ps.w.org/mp-restaurant-menu/assets/icon-128x128.jpg',
-                'description' => 'Restaurant Menu is a full-fledged WordPress food ordering system that can be smoothly integrated with your restaurant or cafe website.'
-            ),
+            )
         );
 
         return $plugins;
@@ -188,21 +174,21 @@ class Plugins_Offer {
 		if ( array_key_exists( $plugin['path'], get_plugins() ) ) {
 			
 			if ( is_plugin_active( $plugin['path'] ) ) {
-				$plugin['status_text'] = 'Active';
+				$plugin['status_text'] = esc_html__( 'Active', 'mp-timetable' );
 				$plugin['status_class'] = 'active';
 				$plugin['action_class'] = 'button button-secondary disabled';
-				$plugin['action_text'] = 'Activated';
+				$plugin['action_text'] = esc_html__( 'Activated', 'mp-timetable' );
 			} else {
-				$plugin['status_text'] = 'Inactive';
+				$plugin['status_text'] = esc_html__( 'Inactive', 'mp-timetable' );
 				$plugin['status_class'] = 'inactive';
 				$plugin['action_class'] = 'button button-secondary';
-				$plugin['action_text'] = 'Activate';
+				$plugin['action_text'] = esc_html__( 'Activate', 'mp-timetable' );
 			}
 		} else {
-			$plugin['status_text'] = 'Not Installed';
+			$plugin['status_text'] = esc_html__( 'Not Installed', 'mp-timetable' );
 			$plugin['status_class'] = 'not-installed';
 			$plugin['action_class'] = 'button button-primary';
-			$plugin['action_text'] = 'Install Plugin';
+			$plugin['action_text'] = esc_html__( 'Install Plugin', 'mp-timetable' );
 		}
 
 		return $plugin;

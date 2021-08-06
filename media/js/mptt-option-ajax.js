@@ -25,12 +25,12 @@
 				url: MPTT.ajax_url,
 				data: {
 					nonce:  MPTT.nonce,
-					action: 'wp_ajax_install_plugin_ajax',
+					action: 'install_plugin_ajax',
 					status: status,
 					plugin: plugin
 				},
 				beforeSend: () => {
-					$( this ).html( `${ MPTT.status_loading }...` );
+					$( this ).html( `${ MPTT.status_loading }` );
 				},
 				success: res => {
 					if ( res.success ) {
@@ -43,7 +43,7 @@
 							$( this )
 								.removeClass( 'button button-primary' )
 								.addClass( 'button button-secondary' )
-								.html( `${ MPTT.status_active }` );
+								.html( `${ MPTT.status_activate }` );
 						} else {
 							currentStatus
 								.removeClass( 'inactive' )

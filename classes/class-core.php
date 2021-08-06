@@ -581,7 +581,8 @@ class Core {
                             'status_activated' => esc_html__( 'Activated', 'mp-timetable' ),
                             'status_active'    => esc_html__( 'Active', 'mp-timetable' ),
                             'status_inactive'  => esc_html__( 'Inactive', 'mp-timetable' ),
-                            'status_loading'   => esc_html__( 'Loading', 'mp-timetable' ),
+                            'status_loading'   => esc_html__( 'Loading...', 'mp-timetable' ),
+                            'status_activate'    => esc_html__( 'Activate', 'mp-timetable' ),
                         )
                     );
                     break;
@@ -642,31 +643,32 @@ class Core {
 
 	public function wp_ajax_install_plugin_ajax() {
 
-        if ( ! current_user_can( 'manage_options' ) ) {
-            return;
-        }
+		$action = isset( $_REQUEST[ "action" ] ) ? $_REQUEST[ "action" ] : null;
 
-        if ( empty( $_POST[ 'status' ] ) ) {
-            wp_send_json_error();
-        }
+		if ( $action && $action === 'install_plugin_ajax' ) {
 
-        $status = sanitize_key( $_POST[ 'status' ] );
+			if ( empty( $_POST[ 'status' ] ) ) {
+				wp_send_json_error();
+			}
 
-        require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
-        $plugins_offer = new \Plugins_Offer();
+			$status = sanitize_key( $_POST[ 'status' ] );
 
-        switch ( $status ) {
-            case 'activate' :
-                $plugins_offer->activatePluginAjax();
-                break;
-            case 'install' :
-                $plugins_offer->installPluginAjax();
-                break;
-            default :
-                break;
-        }
+			require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
+			$plugins_offer = new \Plugins_Offer();
 
-        wp_send_json_success();
+			switch ( $status ) {
+				case 'activate' :
+					$plugins_offer->activatePluginAjax();
+					break;
+				case 'install' :
+					$plugins_offer->installPluginAjax();
+					break;
+				default :
+					break;
+			}
+
+			wp_send_json_success();
+		}
 	}
 	
 	/**
