@@ -65,8 +65,8 @@ class Plugins_Offer {
             wp_send_json_error( $api->get_error_message() );
         }
 
-        $skin     = new WP_Ajax_Upgrader_Skin();
-        $upgrader = new Plugin_Upgrader( $skin );
+        $skin     = new \WP_Ajax_Upgrader_Skin();
+        $upgrader = new \Plugin_Upgrader( $skin );
         $result   = $upgrader->install( $api->download_link );
 
         wp_cache_flush();
