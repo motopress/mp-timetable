@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Timetable and Event Schedule plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Timetable and Event Schedule 2.3.15\n"
+"Project-Id-Version: Timetable and Event Schedule 2.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/mp-timetable\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-02-17T15:43:58+00:00\n"
+"POT-Creation-Date: 2021-08-10T22:38:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: mp-timetable\n"
@@ -35,7 +35,7 @@ msgid "https://motopress.com"
 msgstr ""
 
 #. translators: 1: Timetable and Event Schedule 2:: five stars rating
-#: admin/help/index.php:10
+#: admin/help/index.php:11
 #: templates/settings/general.php:41
 msgid "If you like %1$s please leave us a %2$s rating."
 msgstr ""
@@ -160,7 +160,7 @@ msgstr ""
 
 #: classes/class-core.php:442
 #: classes/class-core.php:453
-#: classes/class-hooks.php:203
+#: classes/class-hooks.php:204
 #: classes/class-shortcode.php:260
 msgid "Events"
 msgstr ""
@@ -200,7 +200,7 @@ msgstr ""
 
 #: classes/class-core.php:481
 #: classes/class-core.php:492
-#: classes/class-hooks.php:211
+#: classes/class-hooks.php:212
 #: classes/widgets/class-mp-timetable-elementor-widget.php:116
 #: templates/popup/index.php:5
 #: media/js/blocks/dist/index.js:1
@@ -246,63 +246,109 @@ msgstr ""
 msgid "No Columns found in Trash"
 msgstr ""
 
+#: classes/class-core.php:585
+#: classes/class-offer.php:174
+msgid "Install Plugin"
+msgstr ""
+
+#: classes/class-core.php:586
+#: classes/class-offer.php:163
+msgid "Activated"
+msgstr ""
+
+#: classes/class-core.php:587
+#: classes/class-offer.php:160
+msgid "Active"
+msgstr ""
+
+#: classes/class-core.php:588
+#: classes/class-offer.php:165
+msgid "Inactive"
+msgstr ""
+
+#: classes/class-core.php:589
+msgid "Loading..."
+msgstr ""
+
+#: classes/class-core.php:590
+#: classes/class-offer.php:168
+msgid "Activate"
+msgstr ""
+
 #: classes/class-hooks.php:81
 msgid "Timetable Sidebar"
 msgstr ""
 
 #: classes/class-hooks.php:83
-#: classes/class-hooks.php:199
+#: classes/class-hooks.php:200
 #: classes/class-shortcode.php:371
 #: classes/widgets/class-mp-timetable-elementor-widget.php:21
 #: media/js/blocks/dist/index.js:1
 msgid "Timetable"
 msgstr ""
 
-#: classes/class-hooks.php:190
+#: classes/class-hooks.php:191
 msgid "Import Timetable events, categories, tags and images."
 msgstr ""
 
-#: classes/class-hooks.php:207
+#: classes/class-hooks.php:208
 msgid "Add Event"
 msgstr ""
 
-#: classes/class-hooks.php:215
+#: classes/class-hooks.php:216
 msgid "Add Column"
 msgstr ""
 
-#: classes/class-hooks.php:219
+#: classes/class-hooks.php:220
 msgid "Event Categories"
 msgstr ""
 
-#: classes/class-hooks.php:223
+#: classes/class-hooks.php:224
 msgid "Event Tags"
 msgstr ""
 
-#: classes/class-hooks.php:227
+#: classes/class-hooks.php:228
 #: classes/modules/class-post.php:41
 #: classes/widgets/class-mp-timetable-elementor-widget.php:89
 #: media/js/blocks/dist/index.js:1
 msgid "Settings"
 msgstr ""
 
-#: classes/class-hooks.php:231
+#: classes/class-hooks.php:232
 msgid "Export / Import"
 msgstr ""
 
-#: classes/class-hooks.php:235
+#: classes/class-hooks.php:236
 msgid "Help & Shortcode"
 msgstr ""
 
-#: classes/class-hooks.php:299
+#: classes/class-hooks.php:300
 msgid "Quick Start Guide"
 msgstr ""
 
-#: classes/class-hooks.php:300
+#: classes/class-hooks.php:301
 msgid "Help"
 msgstr ""
 
-#: classes/class-hooks.php:301
+#: classes/class-hooks.php:302
 msgid "Leave a Review"
+msgstr ""
+
+#: classes/class-offer.php:13
+msgid "Could not activate the plugin."
+msgstr ""
+
+#: classes/class-offer.php:43
+#: classes/class-offer.php:106
+msgid "Could not install the plugin."
+msgstr ""
+
+#: classes/class-offer.php:47
+msgid "Sorry, you are not allowed to install plugins on this site."
+msgstr ""
+
+#: classes/class-offer.php:171
+msgid "Not Installed"
 msgstr ""
 
 #: classes/class-permalinks.php:26
@@ -577,28 +623,28 @@ msgstr ""
 msgid "Timeslots"
 msgstr ""
 
-#: classes/models/class-events.php:171
+#: classes/models/class-events.php:181
 msgid "Tags"
 msgstr ""
 
-#: classes/models/class-events.php:172
+#: classes/models/class-events.php:182
 msgid "Categories"
 msgstr ""
 
-#: classes/models/class-events.php:774
+#: classes/models/class-events.php:793
 msgid "Duplicate"
 msgstr ""
 
-#: classes/models/class-events.php:795
+#: classes/models/class-events.php:814
 msgid "A post type mismatch has been detected."
 msgstr ""
 
-#: classes/models/class-events.php:795
+#: classes/models/class-events.php:814
 msgid "Sorry, you are not allowed to edit this item."
 msgstr ""
 
 #. translators: New post title of the duplicated post
-#: classes/models/class-events.php:819
+#: classes/models/class-events.php:838
 msgid "%s - Copy"
 msgstr ""
 
@@ -1095,41 +1141,41 @@ msgstr ""
 msgid "General Settings"
 msgstr ""
 
-#: templates/settings/general.php:9
+#: templates/settings/general.php:10
 msgid "Template Mode"
 msgstr ""
 
-#: templates/settings/general.php:13
+#: templates/settings/general.php:14
 msgid "Theme Mode"
 msgstr ""
 
-#: templates/settings/general.php:14
+#: templates/settings/general.php:15
 msgid "Developer Mode"
 msgstr ""
 
-#: templates/settings/general.php:16
+#: templates/settings/general.php:17
 msgid "Choose Theme Mode to display the content with the styles of your theme. Choose Developer Mode to control appearance of the content with custom page templates, actions and filters."
 msgstr ""
 
-#: templates/settings/general.php:16
+#: templates/settings/general.php:17
 msgid "This option can't be changed if your theme is initially integrated with the plugin."
 msgstr ""
 
-#: templates/settings/general.php:23
+#: templates/settings/general.php:24
 msgid "Permalink Settings"
 msgstr ""
 
-#: templates/settings/general.php:24
+#: templates/settings/general.php:25
 msgid "Configure permalink settings in <a href=\"%s\">Settings > Permalinks</a>"
 msgstr ""
 
-#: templates/settings/general.php:29
+#: templates/settings/general.php:30
 msgid "Save"
 msgstr ""
 
 #: templates/shortcodes/empty-search-events.php:1
-#: templates/theme/widget-upcoming-view.php:54
-#: templates/widgets/widget-view.php:91
+#: templates/theme/widget-upcoming-view.php:57
+#: templates/widgets/widget-view.php:97
 msgid "no events found"
 msgstr ""
 
