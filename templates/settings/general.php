@@ -1,5 +1,6 @@
 <div class="wrap">
 	<h1 class="wp-heading-inline"><?php _e('General Settings', 'mp-timetable'); ?></h1>
+	<div class="motopress-offer-primary">
 
 	<?php settings_errors('mpTimetableSettings', false); ?>
 
@@ -30,16 +31,27 @@
 			<input type="hidden" name="mp-timetable-save-settings" value="<?php echo wp_create_nonce('mp_timetable_nonce_settings') ?>">
 		</p>
 	</form>
+	<p><?php
+
+		$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
+		$name = $pluginObject[ 'Name' ];
+
+		echo sprintf(
+			/* translators: 1: Timetable and Event Schedule 2:: five stars rating */
+			__( 'If you like %1$s please leave us a %2$s rating.', 'mp-timetable' ),
+			sprintf( '<strong>%s</strong>', esc_html( $name ) ),
+			'<a href="https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+		);
+	?></p>
+	</div>
+<?php
+/*
+ * Offer free plugins
+ *
+ */
+require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
+$plugins_offer = new \mp_timetable\plugin_core\classes\Plugins_Offer();
+$plugins_offer->render();
+?>
+
 </div>
-<p><?php
-
-	$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
-	$name = $pluginObject[ 'Name' ];
-
-	echo sprintf(
-		/* translators: 1: Timetable and Event Schedule 2:: five stars rating */
-		__( 'If you like %1$s please leave us a %2$s rating.', 'mp-timetable' ),
-		sprintf( '<strong>%s</strong>', esc_html( $name ) ),
-		'<a href="https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
-	);
-?></p>

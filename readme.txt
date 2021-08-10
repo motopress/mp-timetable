@@ -93,6 +93,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.4.0, Aug 11 2021 =
+* Security - Fixed security issues. Reported by wpscan.com.
+
 = 2.3.19, Jul 27 2021 =
 * Improved compatibility with WordPress 5.8.
 * Security - Fixed unescaped meta data. Reported by Trustwave.

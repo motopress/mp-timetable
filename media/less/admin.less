@@ -1,5 +1,6 @@
 #mp-event_data {
   #add_event_table {
+    padding: 1em 0.5em;
 	#event_start, #event_end {
 	  min-width: 100px;
 	}
@@ -117,4 +118,101 @@ div[id^="jBoxID"] {
 select.mptt-resize-vertical {
 	resize: vertical;
 	min-height: 4em;
+}
+
+.motopress-offer-primary {
+	float: left;
+	width: 60%;
+}
+.motopress-offer-secondary {
+	float: right;
+	width: 38%;
+	max-width: 500px;
+	margin-left: 2%;
+	display: block;
+
+	* {
+		box-sizing: border-box;
+	}
+
+	.plugin-container {
+		margin-bottom: 20px;
+		
+		.plugin-item {
+			background-color: #fff;
+			border: 1px solid #ddd;
+			border-radius: 3px;
+			margin: 0;
+			
+			.details {
+				padding: 20px;
+				img {
+					border: 1px solid #eee;
+					float: left;
+					max-width: 96px;
+					padding: 10px;
+				}
+				.plugin-name {
+					margin: 0 0 10px 116px;
+					font-size: 16px;
+					font-weight: 700;
+				}
+				.plugin-description {
+					margin: 0 0 0 116px;
+				}
+				&:after {
+					display: table;
+					clear: both;
+					content: '';
+				}
+			}
+			
+			.actions {
+				background-color: #f7f7f7;
+				border-top: 1px solid #ddd;
+				padding: 20px;
+				.status {
+					float: left;
+					padding-top: 8px;
+
+					.status-label {
+						&.active {
+							color: green;
+						}
+						&.inactive {
+							color: red;
+						}
+						&.not-installed {
+							color: grey;
+						}
+					}
+					
+				}
+				.action-button {
+					float: right;
+				}
+				&:after {
+					display: table;
+					clear: both;
+					content: '';
+				}
+			}
+		}
+	}
+
+	&:after {
+		display: table;
+		clear: both;
+		content: '';
+	}
+}
+
+@media screen and (max-width: 1200px) {
+	.motopress-offer-primary,
+	.motopress-offer-secondary {
+		float: none;
+		width: 100%;
+		max-width: none;
+		margin-left: 0;
+	}
 }
