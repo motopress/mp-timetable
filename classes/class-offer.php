@@ -39,19 +39,12 @@ class Plugins_Offer {
 
         $slug = wp_unslash( strtok( $_POST[ 'plugin' ], '/' ) );
 
-        $status = array(
-            'install' => 'plugin',
-            'slug'    => sanitize_key( $slug ),
-        );
-
         if ( empty( $_POST[ 'plugin' ] ) ) {
-            $status[ 'errorMessage' ] = esc_html__( 'Could not install the plugin.', 'mp-timetable' );
-            wp_send_json_error( $error );
+            wp_send_json_error( esc_html__( 'Could not install the plugin.', 'mp-timetable' ) );
         }
 
         if ( ! current_user_can( 'install_plugins' ) ) {
-            $status[ 'errorMessage' ] = esc_html__( 'Sorry, you are not allowed to install plugins on this site.', 'mp-timetable' );
-            wp_send_json_error( $status );
+            wp_send_json_error( esc_html__( 'Sorry, you are not allowed to install plugins on this site.', 'mp-timetable' ) );
         }
 
         require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
@@ -69,8 +62,7 @@ class Plugins_Offer {
 
         if ( is_wp_error( $api ) ) {
 
-            $status[ 'errorMessage' ] = $api->get_error_message();
-            wp_send_json_error( $status );
+            wp_send_json_error( $api->get_error_message() );
         }
 
         $skin     = new WP_Ajax_Upgrader_Skin();
@@ -79,37 +71,26 @@ class Plugins_Offer {
 
         wp_cache_flush();
 
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-
-            $status[ 'debug' ] = $skin->get_upgrade_messages();
-        }
-
         if ( is_wp_error( $result ) ) {
 
-            $status[ 'errorCode' ]    = $result->get_error_code();
-            $status[ 'errorMessage' ] = $result->get_error_message();
-            wp_send_json_error( $status );
+            wp_send_json_error( $result->get_error_message() );
         } elseif ( is_wp_error( $skin->result ) ) {
 
-            $status[ 'errorCode' ]    = $skin->result->get_error_code();
-            $status[ 'errorMessage' ] = $skin->result->get_error_message();
-            wp_send_json_error( $status );
+            wp_send_json_error( $skin->result->get_error_message() );
         } elseif ( $skin->get_errors()->has_errors() ) {
 
-            $status[ 'errorMessage' ] = $skin->get_error_messages();
-            wp_send_json_error( $status );
+            wp_send_json_error( $skin->get_error_messages() );
         } elseif ( is_null( $result ) ) {
 
             global $wp_filesystem;
 
-            $status[ 'errorCode' ]    = 'unable_to_connect_to_filesystem';
-            $status[ 'errorMessage' ] = esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.' );
+            $error = esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.' );
 
             if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
-                $status[ 'errorMessage' ] = esc_html__( $wp_filesystem->errors->get_error_message() );
+                $error = esc_html__( $wp_filesystem->errors->get_error_message() );
             }
 
-            wp_send_json_error( $status );
+            wp_send_json_error( $error );
         }
 
         $install_status = install_plugin_install_status( $api );
@@ -122,7 +103,7 @@ class Plugins_Offer {
             );
         }
 
-        wp_send_json_error( $status );
+        wp_send_json_error( esc_html__( 'Could not install the plugin.', 'mp-timetable' ) );
 	}
 
     private function getPluginLists() {
