@@ -659,7 +659,7 @@ class Core {
 			$status = sanitize_key( $_POST[ 'status' ] );
 
 			require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
-			$plugins_offer = new \Plugins_Offer();
+			$plugins_offer = new Plugins_Offer();
 
 			switch ( $status ) {
 				case 'activate' :

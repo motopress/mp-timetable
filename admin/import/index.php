@@ -22,7 +22,7 @@ if ( current_user_can('import') ) {
  *
  */
 require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
-$plugins_offer = new \Plugins_Offer();
+$plugins_offer = new \mp_timetable\plugin_core\classes\Plugins_Offer();
 $plugins_offer->render();
 
 View::get_instance()->render_html('../admin/import/footer', $data);

@@ -1,5 +1,7 @@
 <?php
 
+namespace mp_timetable\plugin_core\classes;
+
 class Plugins_Offer {
 
 	public function __construct() { }

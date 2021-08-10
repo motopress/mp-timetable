@@ -78,7 +78,7 @@
 		 *
 		 */
 		require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
-		$plugins_offer = new \Plugins_Offer();
+		$plugins_offer = new \mp_timetable\plugin_core\classes\Plugins_Offer();
 		$plugins_offer->render();
 	?>
 </div>
