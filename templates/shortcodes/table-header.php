@@ -4,7 +4,7 @@
 		if (!$column[ 'output' ]) {
 			continue;
 		} ?>
-		<th data-index="<?php echo $key ?>" data-column-id="<?php echo $column[ 'id' ] ?>"><?php echo $column[ 'title' ] ?></th>
+		<th data-index="<?php echo esc_attr( $key ); ?>" data-column-id="<?php echo esc_attr( $column[ 'id' ] ); ?>"><?php echo esc_html( $column[ 'title' ] ); ?></th>
 	<?php endforeach; ?>
 </tr>
 </thead>

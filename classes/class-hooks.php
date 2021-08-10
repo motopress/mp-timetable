@@ -31,6 +31,8 @@ class Hooks extends Core {
 	 * Install hooks
 	 */
 	public function install_hooks() {
+        // Elementor widget register.
+        add_action( 'elementor/init', array( $this, 'elementor_loaded' ) );
 
 		// register custom post type and taxonomies
 		add_action( 'init', array( $this, 'init' ) );
@@ -67,7 +69,8 @@ class Hooks extends Core {
 		add_filter( 'pre_get_posts', array( Post::get_instance(), 'pre_get_posts' ), 9 );
 		add_filter( 'plugin_row_meta', array( __CLASS__, 'plugin_row_meta' ), 10, 2 );
 	}
-	
+
+
 	/**
 	 * Register widgets and sidebar
 	 */
@@ -123,9 +126,17 @@ class Hooks extends Core {
 		add_action( 'mptt_widget_template_before_content', 'mptt_widget_template_before_content', 10 );
 		add_action( 'mptt_widget_template_content', 'mptt_widget_template_content', 10 );
 		add_action( 'mptt_widget_template_after_content', 'mptt_widget_template_after_content', 10 );
-		
 	}
-	
+
+	/**
+     * Elementor Init hook.
+     */
+	public function elementor_loaded() {
+        add_action( 'elementor/frontend/after_enqueue_scripts', [ Core::get_instance(), 'elementor_enqueue_scripts' ] );
+
+	    new Widgets_Manager();
+	}
+
 	/**
 	 * Init hook
 	 */
@@ -288,7 +299,7 @@ class Hooks extends Core {
 			$row_meta = array(
 				'help'    => '<a href="' . esc_url( admin_url('edit.php?post_type=mp-event&page=mptt-help') ) . '" aria-label="' . esc_attr__( 'Quick Start Guide', 'mp-timetable' ) . '">' .
 					esc_html__( 'Help', 'mp-timetable' ) . '</a>',
-				'review'    => '<a href="' . esc_url( 'https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post' ) . '" aria-label="' . esc_attr__( 'Leave a Review', 'mp-timetable' ) . '" target="_blank">' . esc_html__( 'Leave a Review', 'mp-timetable' ) . '</a>',
+				'review'    => '<a href="' . esc_url( 'https://wordpress.org/support/plugin/mp-timetable/reviews?rate=5#new-post' ) . '" aria-label="' . esc_attr__( 'Leave a Review', 'mp-timetable' ) . '" target="_blank">' . esc_html__( 'Leave a Review', 'mp-timetable' ) . ' &#9733;&#9733;&#9733;&#9733;&#9733;</a>',
 			);
 
 			return array_merge( $links, $row_meta );

@@ -35,7 +35,7 @@
 	<tr>
 		<td><label for="timetable_custom_url"><?php _e('Custom Event URL:', 'mp-timetable'); ?></label></td>
 		<td>
-			<input type="text" id="timetable_custom_url" class="widefat" placeholder="http://mywebsite.com" name="event_meta[timetable_custom_url]" value="<?php echo esc_attr( $post->timetable_custom_url ); ?>">
+			<input type="text" id="timetable_custom_url" class="widefat" placeholder="http://mywebsite.com" name="event_meta[timetable_custom_url]" value="<?php echo esc_url( $post->timetable_custom_url ); ?>">
 		</td>
 	</tr>
 	<tr>

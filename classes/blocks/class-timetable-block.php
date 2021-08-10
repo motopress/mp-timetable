@@ -162,7 +162,7 @@ class Timetable_Block {
 				),
 				'render_callback' => [ $this, 'render_timetable' ],
 				'editor_style'    => 'mptt-blocks-editor',
-				'editor_script'          => 'mptt-blocks-js',
+				'editor_script'   => 'mptt-blocks-js',
 			)
 		);
 	}
@@ -180,7 +180,7 @@ class Timetable_Block {
 			}
 		}
 
-		echo Shortcode::get_instance()->show_shortcode($attributes);
+		echo Shortcode::get_instance()->show_shortcode( $attributes );
 	}
 
 	public function render_timetable( $attributes ) {
@@ -202,6 +202,8 @@ class Timetable_Block {
 		?></div><?php
 
 		$result = ob_get_clean();
+
 		return $result;
 	}
+
 }

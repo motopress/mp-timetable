@@ -1,6 +1,6 @@
-<div class="<?php echo $widget_object->widget_options['classname'] ?>">
+<div class="<?php echo esc_attr( $widget_object->widget_options['classname'] ); ?>">
 	<p>
-		<label for="<?php echo $widget_object->get_field_id('title') ?>"><?php _e('Title', "mp-timetable") ?></label>
+		<label for="<?php echo esc_attr( $widget_object->get_field_id('title') ); ?>"><?php _e('Title', "mp-timetable") ?></label>
 		<input class="widefat" id="<?php echo $widget_object->get_field_id('title') ?>"
 		       name="<?php echo $widget_object->get_field_name('title') ?>" type="text"
 		       value="<?php echo $instance['title'] ?>">
