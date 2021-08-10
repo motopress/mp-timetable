@@ -117,11 +117,21 @@ class Events extends Model {
 			. " WHERE t.`{$params["field"]}` = {$params['id']} "
 			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
 		);
-		
+
 		foreach ( $event_data as $key => $event ) {
+
+			$user = false;
+			$wpUser = get_user_by( 'id', $event_data[ $key ]->user_id );
+
+			if ( ! empty( $wpUser ) ) {
+				$user = new \stdClass();
+				$user->ID = $wpUser->ID;
+				$user->display_name = $wpUser->data->display_name;
+			}
+
 			$event_data[ $key ]->event_start = date( 'H:i', strtotime( $event_data[ $key ]->event_start ) );
 			$event_data[ $key ]->event_end   = date( 'H:i', strtotime( $event_data[ $key ]->event_end ) );
-			$event_data[ $key ]->user        = get_user_by( 'id', $event_data[ $key ]->user_id );
+			$event_data[ $key ]->user        = $user;
 			$event_data[ $key ]->post        = get_post( $event_data[ $key ]->event_id );
 			$event_data[ $key ]->description = stripcslashes( $event_data[ $key ]->description );
 		}
@@ -684,6 +694,9 @@ class Events extends Model {
 	 * @return false|int
 	 */
 	public function update_event_data( $data ) {
+
+		$id = (int) $data[ 'id' ];
+
 		$result = $this->wpdb->update(
 			$this->table_name,
 			array(
@@ -693,7 +706,7 @@ class Events extends Model {
 				'column_id'   => $data[ 'weekday_ids' ],
 				'user_id'     => $data[ 'user_id' ],
 			),
-			array( 'id' => $data[ 'id' ] ),
+			array( 'id' => $id ),
 			array(
 				'%s',
 				'%s',
@@ -898,6 +911,17 @@ class Events extends Model {
 		} else {
 			wp_die( __( 'Sorry, you are not allowed to edit this item.' ) );
 		}
+	}
+
+	public function get_timeslot_by_id( $id ) {
+
+		global $wpdb;
+
+		$timeslot = $wpdb->get_row(
+			$wpdb->prepare( "SELECT * FROM {$this->table_name} WHERE id = %d", $id )
+		);
+
+		return $timeslot;
 	}
 
 }
