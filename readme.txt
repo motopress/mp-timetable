@@ -93,18 +93,15 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.4.1, Aug 18 2021 =
+* Bug fix: fixed a PHP notice in Widget Areas in WordPress 5.8.
+
 = 2.4.0, Aug 11 2021 =
 * Security - Fixed security issues. Reported by wpscan.com.
 
 = 2.3.19, Jul 27 2021 =
 * Improved compatibility with WordPress 5.8.
 * Security - Fixed unescaped meta data. Reported by Trustwave.
-
-= 2.3.18, Mar 18 2021 =
-* Improved compatibility with WordPress 5.7.
-
-= 2.3.17, Mar 3 2021 =
-* Improved compatibility with WordPress multisite.
 
 --------
 

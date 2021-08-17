@@ -10,13 +10,23 @@ class Timetable_Block {
 
 	public function __construct() {
 
-		// block-js
-		wp_register_script(
-			'mptt-blocks-js',
-			Mp_Time_Table::get_plugin_url( 'media/js/blocks/dist/index.js' ),
-			array( 'wp-i18n', 'wp-editor', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-api-fetch', 'mptt-functions', 'mptt-event-object'),
-			Core::get_instance()->get_version()
-		);
+		global $pagenow;
+
+        $dependencies = array( 'wp-i18n', 'wp-element', 'wp-blocks', 'wp-components', 'wp-api', 'wp-api-fetch', 'mptt-functions', 'mptt-event-object' );
+
+        if ( $pagenow !== 'widgets.php' ) {
+            array_push( $dependencies, 'wp-editor' );
+        } else {
+            array_push( $dependencies, 'wp-edit-widgets' );
+        }
+
+        // block-js
+        wp_register_script(
+            'mptt-blocks-js',
+            Mp_Time_Table::get_plugin_url( 'media/js/blocks/dist/index.js' ),
+            $dependencies,
+            Core::get_instance()->get_version()
+        );
 
 		// style.css
 		wp_register_style(
