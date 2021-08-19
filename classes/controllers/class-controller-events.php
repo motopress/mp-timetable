@@ -40,6 +40,8 @@ class Controller_Events extends Controller {
 	 */
 	public function action_delete() {
 
+		check_ajax_referer( 'timeslot_delete_nonce', 'nonce' );
+
 		$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
 		$event_id = 0;
@@ -103,6 +105,8 @@ class Controller_Events extends Controller {
 	 * Update Single Event data
 	 */
 	public function action_update_event_data() {
+
+		check_ajax_referer( 'timeslot_update_nonce', 'nonce' );
 
 		$data = $_REQUEST[ 'data' ];
 

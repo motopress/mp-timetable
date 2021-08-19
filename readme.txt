@@ -93,6 +93,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.4.2, Aug 20 2021 =
+* Security - added nonces to prevent CSRF.
+
 = 2.4.1, Aug 18 2021 =
 * Bug fix: fixed a PHP notice in Widget Areas in WordPress 5.8.
 

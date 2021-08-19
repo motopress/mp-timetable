@@ -560,7 +560,12 @@ class Core {
 		wp_localize_script(
 			'mptt-event-object',
 			'MPTT',
-			array( 'table_class' => apply_filters( 'mptt_shortcode_static_table_class', 'mptt-shortcode-table' ) )
+			array(
+				'table_class' => apply_filters( 'mptt_shortcode_static_table_class', 'mptt-shortcode-table' ),
+				'nonce_action_delete' => wp_create_nonce( 'mptt-install-plugins' ),
+				'timeslot_delete_nonce' => wp_create_nonce( 'timeslot_delete_nonce' ),
+				'timeslot_update_nonce' => wp_create_nonce( 'timeslot_update_nonce' ),
+			)
 		);
 		
 		wp_enqueue_script( 'underscore' );
