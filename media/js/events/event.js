@@ -221,7 +221,8 @@ Registry.register("Event",
 						{
 							controller: "events",
 							action: "delete",
-							id: id
+							id: id,
+							nonce: MPTT.timeslot_delete_nonce
 						},
 						function(data) {
 							var $deleteEvent = $('#events-list').find('tr[data-id="' + id + '"]');
@@ -262,6 +263,7 @@ Registry.register("Event",
 					Registry._get("adminFunctions").wpAjax({
 							controller: "events",
 							action: "update_event_data",
+							nonce: MPTT.timeslot_update_nonce,
 							data: {
 								id: Registry._get("Event").event_id,
 								event_start: $('#event_start').val(),
