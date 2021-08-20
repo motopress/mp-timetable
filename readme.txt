@@ -15,7 +15,7 @@ Smart event organizer and time-management tool with a clean minimalist design fo
 MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free.
 
 * [Plugin Demo](https://mpttdemo.getmotopress.com/)
-* [Step-by-step instructions](https://motopress.com/files/motopress-timetable-plugin-documentation.pdf) of working with the plugin
+* [Step-by-step instructions](https://motopress.com/documentation/wordpress/plugins/timetable/) of working with the plugin
 
 The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
 
