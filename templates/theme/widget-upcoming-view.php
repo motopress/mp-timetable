@@ -1,7 +1,7 @@
 <?php echo $args['before_widget'];
 
 if (!empty($instance['title'])) {
-	echo $args['before_title'] . $instance['title'] . $args['after_title'];
+	echo $args['before_title'] . esc_html( $instance['title'] ) . $args['after_title'];
 }
 
 do_action('mptt_widget_upcoming_before_content', $events);
@@ -39,7 +39,7 @@ if (!empty($events)): ?>
 					</a><br/>
 				<?php } ?>
 					<span class="post-date">
-				<?php if ($instance['view_settings'] !== 'today' && $instance['view_settings'] !== 'current'): ?><?php echo get_the_title($event->column_id) ?>
+				<?php if ($instance['view_settings'] !== 'today' && $instance['view_settings'] !== 'current'): ?><?php echo esc_html( get_the_title($event->column_id) ); ?>
 					<br/>
 				<?php endif; ?>
 						<time datetime="<?php echo esc_attr( $event->event_start ); ?>" class="timeslot-start"><?php

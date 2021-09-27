@@ -1,5 +1,5 @@
 <input type="hidden" name="<?php echo Mp_Time_Table::get_plugin_name() . '_noncename' ?>" value="<?php echo wp_create_nonce(Mp_Time_Table::get_plugin_path()) ?>"/>
-<input type="hidden" id="date-format" value="<?php echo get_option('date_format') ?>">
+<input type="hidden" id="date-format" value="<?php echo esc_attr( get_option('date_format') );?>">
 
 <table id="column-options" class="column-options form-table">
 
@@ -46,7 +46,7 @@
 					}
 				?>
 				<input id="datepicker" class="option-input" type="text" name="column[option_day]"
-					value="<?php echo $datepicker_value ?>" 
+					value="<?php echo esc_attr( $datepicker_value ); ?>" 
 					<?php echo ($post->column_option != 'date') ? 'disabled="disabled"' : '' ?> 
 					placeholder="<?php echo date('d/m/Y', current_time( 'timestamp' ) ) ?>">
 			</div>

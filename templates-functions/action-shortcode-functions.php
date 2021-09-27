@@ -10,10 +10,13 @@ function mptt_shortcode_template_before_content() {
 	global $mptt_shortcode_data;
 
 	$wrapper_class = mptt_popular_theme_class();
-	$id            = empty( $mptt_shortcode_data[ 'params' ][ 'id' ] ) ? '' : $mptt_shortcode_data[ 'params' ][ 'id' ];
-
+	$id = empty( $mptt_shortcode_data[ 'params' ][ 'id' ] ) ? '' : $mptt_shortcode_data[ 'params' ][ 'id' ];
+	$mptt_shortcode_wrapper_class = apply_filters(
+		'mptt_shortcode_wrapper_class',
+		'mptt-shortcode-wrapper' . $wrapper_class . ( $mptt_shortcode_data[ 'params' ][ 'responsive' ] == '0' ? ' mptt-table-fixed' : ' mptt-table-responsive' ) 
+	);
 	?>
-	    <div <?php if ( !empty($id) ) echo 'id="' . $id . '" '; ?>class="<?php echo apply_filters( 'mptt_shortcode_wrapper_class', 'mptt-shortcode-wrapper' . $wrapper_class . ( $mptt_shortcode_data[ 'params' ][ 'responsive' ] == '0' ? ' mptt-table-fixed' : ' mptt-table-responsive' ) ) ?>">
+	    <div <?php if ( !empty($id) ) echo 'id="' . esc_attr( $id ) . '" '; ?>class="<?php echo esc_attr( $mptt_shortcode_wrapper_class );?>">
 	<?php
 }
 
@@ -54,10 +57,10 @@ function mptt_shortcode_template_content_filter() {
 	$display_label = $params[ 'hide_label' ] ? 'display: none' : '';
 
 	if ( $params[ 'view' ] == 'dropdown_list' ) { ?>
-		<select class="<?php echo apply_filters( 'mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select' ) ?>"<?php echo $style ?>>
+		<select class="<?php echo esc_attr( apply_filters( 'mptt_shortcode_navigation_select_class', 'mptt-menu mptt-navigation-select' ) );?>"<?php echo $style ?>>
 			<?php if ( ! $params[ 'hide_label' ] ) { ?>
 				<option value="all"><?php echo ( strlen( trim( $params[ 'label' ] ) ) ) ?
-					trim( $params[ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?></option>
+					esc_html( trim( $params[ 'label' ] ) ) : __( 'All Events', 'mp-timetable' ) ?></option>
 			<?php } else { ?>
 				<option value="all"></option>
 			<?php }
@@ -68,11 +71,11 @@ function mptt_shortcode_template_content_filter() {
 			endif; ?>
 		</select>
 	<?php } elseif ( $params[ 'view' ] == 'tabs' ) { ?>
-		<ul class="<?php echo apply_filters( 'mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs' ) ?>" <?php echo $style ?>>
-			<li style="<?php echo $display_label ?>">
+		<ul class="<?php echo esc_attr( apply_filters( 'mptt_shortcode_navigation_tabs_class', 'mptt-menu mptt-navigation-tabs' ) );?>" <?php echo $style ?>>
+			<li style="<?php echo esc_attr( $display_label ) ?>">
 				<a title="<?php echo ( strlen( trim( $params[ 'label' ] ) ) ) ?
-					trim( $params[ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>" href="#all" onclick="event.preventDefault();"><?php
-					echo ( strlen( trim( $params[ 'label' ] ) ) ) ? trim( $params[ 'label' ] ) : __( 'All Events', 'mp-timetable' ) ?>
+					esc_html( trim( $params[ 'label' ] ) ) : __( 'All Events', 'mp-timetable' ) ?>" href="#all" onclick="event.preventDefault();"><?php
+					echo ( strlen( trim( $params[ 'label' ] ) ) ) ? esc_html( trim( $params[ 'label' ] ) ) : __( 'All Events', 'mp-timetable' ) ?>
 				</a>
 			</li>
 			<?php if ( ! empty( $unique_events ) ): ?>
@@ -130,7 +133,7 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 	$data_grouped_by_row = mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events );
 
 	?>
-	<table class="<?php echo ! empty( $table_class ) ? $table_class : ''; ?>" id="#<?php echo is_object( $post ) ? $post->post_name : $post; ?>" style="display:none; <?php echo $font_size; ?>" data-hide_empty_row="<?php echo $hide_empty_rows; ?>">
+	<table class="<?php echo ! empty( $table_class ) ? esc_attr( $table_class ) : ''; ?>" id="#<?php echo is_object( $post ) ? esc_attr( $post->post_name ) : esc_attr( $post ); ?>" style="display:none; <?php echo esc_attr( $font_size ); ?>" data-hide_empty_row="<?php echo esc_attr( $hide_empty_rows ); ?>">
 		<?php echo View::get_instance()->get_template_html( 'shortcodes/table-header', array( 'header_items' => $data_grouped_by_row[ 'table_header' ], 'params' => $params ) ); ?>
 		<tbody>
 		<?php if ( isset( $data_grouped_by_row[ 'rows' ] ) && is_array( $data_grouped_by_row[ 'rows' ] ) ) {
@@ -139,18 +142,18 @@ function mptt_shortcode_template_event( $mptt_shortcode_data, $post = 'all' ) {
 				if ( ! $row[ 'show' ] && $params[ 'hide_empty_rows' ] ) {
 					continue;
 				} ?>
-				<tr class="mptt-shortcode-row-<?php echo $row_key ?>" data-index="<?php echo $row_key ?>">
+				<tr class="mptt-shortcode-row-<?php echo esc_attr( $row_key ); ?>" data-index="<?php echo esc_attr( $row_key ) ?>">
 					<?php $cells = $data_grouped_by_row[ 'rows' ][ $row_key ][ 'cells' ];
 					
 					foreach ( $cells as $key_event => $cell ) {
 						
 						if ( isset( $cell[ 'time_cell' ] ) && filter_var( $cell[ 'time_cell' ], FILTER_VALIDATE_BOOLEAN, array( 'options' => array( 'default' => false ) ) ) ) { ?>
-							<td class="mptt-shortcode-hours" style="<?php echo 'height:' . $row_height . 'px;'; ?>"><?php echo $cell[ 'title' ] ?></td>
+							<td class="mptt-shortcode-hours" style="<?php echo 'height:' . esc_attr( $row_height ) . 'px;'; ?>"><?php echo esc_html( $cell[ 'title' ] ); ?></td>
 							<?php continue;
 						}
 						
 						if ( ! $cell[ 'hide' ] ) { ?>
-							<td class="mptt-shortcode-event <?php echo mptt_is_grouped_event_class( $cell ) ?> mptt-event-vertical-<?php echo $params[ 'text_align_vertical' ] ?>" data-column-id="<?php echo $cell[ 'column_id' ] ?>" colspan="<?php echo ! isset( $cell[ 'count' ] ) ? '' : $cell[ 'count' ] ?>" data-row_height="<?php echo $row_height; ?>" style="<?php echo 'height:' . $row_height . 'px;'; ?>">
+							<td class="mptt-shortcode-event <?php echo esc_attr( mptt_is_grouped_event_class( $cell ) ); ?> mptt-event-vertical-<?php echo esc_attr( $params[ 'text_align_vertical' ] ); ?>" data-column-id="<?php echo esc_attr( $cell[ 'column_id' ] ); ?>" colspan="<?php echo ! isset( $cell[ 'count' ] ) ? '' : esc_attr( $cell[ 'count' ] ); ?>" data-row_height="<?php echo esc_attr( $row_height ); ?>" style="<?php echo 'height:' . esc_attr( $row_height ) . 'px;'; ?>">
 								<?php
 								$height = 100 / count( $cell[ 'events' ] );
 								$top    = 0;
@@ -237,7 +240,7 @@ function mptt_shortcode_get_table_cell_bounds( $column_events, $params ) {
 function mptt_shortcode_template_content_responsive_table() {
 	global $mptt_shortcode_data;
 	if ( $mptt_shortcode_data[ 'params' ][ 'responsive' ] ) { ?>
-		<div class="<?php echo apply_filters( 'mptt_shortcode_list_view_class', 'mptt-shortcode-list' ) . ' ' . $mptt_shortcode_data[ 'params' ][ 'custom_class' ] ?>">
+		<div class="<?php echo esc_attr( apply_filters( 'mptt_shortcode_list_view_class', 'mptt-shortcode-list' ) ) . ' ' . esc_attr( $mptt_shortcode_data[ 'params' ][ 'custom_class' ] ); ?>">
 			<?php if ( ! empty( $mptt_shortcode_data[ 'events_data' ] ) ):
 				foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column' ] as $column ): ?>
 					<div class="mptt-column">
@@ -247,7 +250,7 @@ function mptt_shortcode_template_content_responsive_table() {
 								foreach ( $mptt_shortcode_data[ 'events_data' ][ 'column_events' ][ $column->ID ] as $event ) : ?>
 									<li class="mptt-list-event" data-event-id="<?php echo esc_attr( $event->post->post_name ); ?>"
 										<?php if ( ! empty( $event->post->color ) ) {
-											echo 'style="border-left-color:' . $event->post->color . ';"';
+											echo 'style="border-left-color:' . esc_attr( $event->post->color ) . ';"';
 										} ?>>
 										<?php if ( $mptt_shortcode_data[ 'params' ][ 'title' ] ):
 											$disable_url = (bool) $event->post->timetable_disable_url || (bool) $mptt_shortcode_data[ 'params' ][ 'disable_event_url' ];

@@ -33,19 +33,19 @@ function mptt_event_template_content_time_list() {
 	$events = mptt_get_event_data();
 	do_action('mptt-before-timeslots', $events);
 	?>
-	<ul class="mptt-event <?php echo apply_filters('mptt_events_list_class', 'events-list') ?>">
+	<ul class="mptt-event <?php echo esc_attr( apply_filters('mptt_events_list_class', 'events-list') );?>">
 		<?php foreach ($events as $event): ?>
-			<li class="event mptt-colorized" id="event_hours_<?php echo $event->event_id ?>">
+			<li class="event mptt-colorized" id="event_hours_<?php echo esc_attr( $event->event_id ); ?>">
 
 				<h4 class="event-title">
-					<a class="event-link" href="<?php echo get_permalink($event->column_id); ?>" title="<?php the_title_attribute(array('post' => $event->event_id)); ?>"><?php echo get_the_title($event->column_id); ?></a>
+					<a class="event-link" href="<?php echo esc_url( get_permalink($event->column_id) ); ?>" title="<?php esc_attr( the_title_attribute(array('post' => $event->event_id)) ); ?>"><?php echo esc_html( get_the_title($event->column_id) ); ?></a>
 				</h4>
 				<p class="timeslot">
-					<time datetime="<?php echo $event->event_start; ?>" class="timeslot-start"><?php
-						echo date(get_option('time_format'), strtotime($event->event_start)); ?></time><?php
+					<time datetime="<?php echo esc_attr( $event->event_start ); ?>" class="timeslot-start"><?php
+						echo esc_html( date(get_option('time_format'), strtotime($event->event_start)) ); ?></time><?php
 					echo apply_filters('mptt_timeslot_delimiter', ' - '); ?>
-					<time datetime="<?php echo $event->event_end; ?>" class="timeslot-end"><?php
-						echo date(get_option('time_format'), strtotime($event->event_end)); ?></time>
+					<time datetime="<?php echo esc_attr( $event->event_end ); ?>" class="timeslot-end"><?php
+						echo esc_html( date(get_option('time_format'), strtotime($event->event_end)) ); ?></time>
 				</p>
 				<?php if (!empty($event->post->sub_title)) { ?>
 					<p class="event-subtitle"><?php echo wp_kses_post( $event->post->sub_title ); ?></p>
@@ -56,9 +56,9 @@ function mptt_event_template_content_time_list() {
 				<?php } ?>
 				<?php if (!empty($event->user)) { ?>
 					<p class="event-user"><a href="<?php echo get_author_posts_url($event->user->ID); ?>" title="<?php
-						echo $event->user->display_name; ?>"><?php
+						echo esc_attr( $event->user->display_name ); ?>"><?php
 						echo get_avatar($event->user->ID, apply_filters('mptt-column-user-avatar-size', 32), '', $event->user->display_name) . ' ';
-							echo $event->user->display_name ?></a></p>
+							echo esc_html( $event->user->display_name ); ?></a></p>
 				<?php } ?>
 			</li>
 		<?php endforeach; ?>

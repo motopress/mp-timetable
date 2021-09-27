@@ -15,7 +15,7 @@
 			<?php if (count($columns)) { ?>
 				<select id="weekday_id" name="events[weekday_id]">
 					<?php foreach ($columns as $column) { ?>
-						<option value="<?php echo $column->ID ?>"><?php echo $column->post_title ?></option>
+						<option value="<?php echo esc_attr( $column->ID );?>"><?php echo esc_html( $column->post_title );?></option>
 					<?php } ?>
 				</select>
 				<span class="description"><?php printf(__('Select column or <a target="_blank" href="%s">Add New</a>.', 'mp-timetable'), admin_url('post-new.php?post_type=mp-column') ); ?></span>
