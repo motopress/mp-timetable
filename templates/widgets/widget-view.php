@@ -2,8 +2,8 @@
 
 <?php use mp_timetable\classes\models\Events as Events;
 
-if (!empty($instance['title'])) {
-	echo $args['before_title'] . $instance['title'] . $args['after_title'];
+if ( !empty($instance['title']) ) {
+	echo $args['before_title'] . esc_html( $instance['title'] ) . $args['after_title'];
 }
 
 do_action('mptt_widget_template_before_content', $events);
@@ -51,12 +51,12 @@ if (!empty($events)): ?>
 						data-border-color="<?php echo esc_attr( $instance['item_border_color'] ); ?>"
 						data-hover-border-color="<?php echo esc_attr( $instance['hover_item_border_color'] ); ?>"
 						<?php
-						$style .= !empty($instance['item_border_color']) ? ' border-left-color:' . $instance['item_border_color'] . ' ;' : '';
-						$style .= !empty($background_color) ? ' background:' . $background_color . ' ;' : '';
-						$style .= !empty($color) ? ' color:' . $color . ' ;' : '';
+						$style .= !empty($instance['item_border_color']) ? ' border-left-color:' . esc_attr( $instance['item_border_color'] ) . ' ;' : '';
+						$style .= !empty($background_color) ? ' background:' . esc_attr( $background_color ) . ' ;' : '';
+						$style .= !empty($color) ? ' color:' . esc_attr( $color ) . ' ;' : '';
 
 					else:
-						$style .= !empty($event->post->color) ? ' border-left-color:' . $event->post->color . ' ;' : '';
+						$style .= !empty($event->post->color) ? ' border-left-color:' . esc_attr( $event->post->color ) . ' ;' : '';
 					endif;
 
 					echo $style . '"';

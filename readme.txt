@@ -93,6 +93,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.4.3, Sep 27 2021 =
+* Security - Fixed unescaped shortcode attributes.
+
 = 2.4.2, Aug 20 2021 =
 * Security - added nonces to prevent CSRF.
 

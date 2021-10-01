@@ -6,7 +6,7 @@
 				<td>
 					<select multiple="multiple" id="weekday" name="weekday" class="widefat mptt-resize-vertical">
 						<?php foreach ($data[ 'column' ] as $column): ?>
-							<option value="<?php echo $column->ID; ?>"><?php echo $column->post_title; ?></option>
+							<option value="<?php echo esc_attr( $column->ID ); ?>"><?php echo esc_html( $column->post_title ); ?></option>
 						<?php endforeach; ?>
 					</select>
 					<p class="description"><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable') ?></p>
@@ -17,7 +17,7 @@
 				<td>
 					<select multiple="multiple" id="event" name="event" class="widefat mptt-resize-vertical">
 						<?php foreach ($data[ 'events' ] as $events): ?>
-							<option value="<?php echo $events->ID; ?>"><?php echo $events->post_title; ?></option>
+							<option value="<?php echo esc_attr( $events->ID ); ?>"><?php echo esc_html( $events->post_title ); ?></option>
 						<?php endforeach; ?>
 					</select>
 					<p class="description"><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable') ?></p>
@@ -28,7 +28,7 @@
 				<td>
 					<select multiple="multiple" id="event_category" name="event_category" class="widefat mptt-resize-vertical">
 						<?php foreach ($data[ 'category' ] as $category): ?>
-							<option value="<?php echo $category->term_id; ?>"><?php echo $category->name; ?></option>
+							<option value="<?php echo esc_attr( $category->term_id ); ?>"><?php echo esc_html( $category->name ); ?></option>
 						<?php endforeach; ?>
 					</select>
 					<p class="description"><?php _e('Hold the Ctrl or Command key to select/deselect multiple options.', 'mp-timetable'); ?></p>
