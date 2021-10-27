@@ -309,8 +309,8 @@ class Core {
 	 */
 	public function wp_ajax_route_url() {
 
-		$controller = isset( $_REQUEST[ "controller" ] ) ? $_REQUEST[ "controller" ] : null;
-		$action     = isset( $_REQUEST[ "mptt_action" ] ) ? $_REQUEST[ "mptt_action" ] : null;
+		$controller = isset( $_REQUEST[ "controller" ] ) ? sanitize_text_field( $_REQUEST[ "controller" ] ) : null;
+		$action     = isset( $_REQUEST[ "mptt_action" ] ) ? sanitize_text_field( $_REQUEST[ "mptt_action" ] ) : null;
 
 		if ( ! empty( $action ) && current_user_can('edit_posts') ) {
 			// call controller
@@ -574,7 +574,7 @@ class Core {
 		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );
 
         if ( ! empty( $_GET[ 'page' ] ) ) {
-            switch ( $_GET[ 'page' ] ) {
+            switch ( sanitize_key( $_GET[ 'page' ] ) ) {
                 case 'mptt-settings' :
                 case 'mptt-import' :
                 case 'mptt-help' :
@@ -652,7 +652,7 @@ class Core {
 
 	public function wp_ajax_install_plugin_ajax() {
 
-		$action = isset( $_REQUEST[ "action" ] ) ? $_REQUEST[ "action" ] : null;
+		$action = isset( $_REQUEST[ "action" ] ) ? sanitize_text_field( $_REQUEST[ "action" ] ) : null;
 
 		if ( $action && $action === 'install_plugin_ajax' ) {
 

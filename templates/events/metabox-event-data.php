@@ -1,7 +1,7 @@
 <input type="hidden" name="<?php echo Mp_Time_Table::get_plugin_name() . '_noncename' ?>" id="eventmeta_noncename" value="<?php echo wp_create_nonce(Mp_Time_Table::get_plugin_path()) ?>"/>
 <input type="hidden" name="events[place]" id="eventmeta_place" value=""/>
 <input type="hidden" name="events[leading_event]" id="eventmeta_leading_event" value="'.<?php wp_create_nonce(plugin_basename(__FILE__)) ?>.'"/>
-<input type="hidden" id="time_format" value="<?php echo $date["time_format"]["am_pm"] === true ? '1' : '0' ?>"/>
+<input type="hidden" id="time_format" value="<?php echo ( $date["time_format"]["am_pm"] === true ) ? '1' : '0' ?>"/>
 <?php
 
 \mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true);

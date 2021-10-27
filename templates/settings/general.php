@@ -10,7 +10,7 @@
 				<td><label for="template_source"><?php _e('Template Mode', 'mp-timetable'); ?></label></td>
 				<td>
 					<?php $theme_mode = !empty($settings['theme_mode']) ? $settings['theme_mode'] : 'theme'; ?>
-					<select id="theme_mode" name="theme_mode" <?php echo $theme_supports ? ' disabled' : ''; ?>>
+					<select id="theme_mode" name="theme_mode" <?php echo ( $theme_supports == TRUE ) ? ' disabled' : ''; ?>>
 						<option value="theme" <?php selected($theme_mode, 'theme'); ?>><?php _e('Theme Mode', 'mp-timetable'); ?></option>
 						<option value="plugin" <?php selected($theme_mode, 'plugin'); ?>><?php _e('Developer Mode', 'mp-timetable'); ?></option>
 					</select>

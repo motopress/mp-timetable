@@ -119,7 +119,7 @@ class Import extends Model {
 		?>
 		<form action="<?php echo admin_url('admin.php?import=mptt-importer&amp;step=2'); ?>" method="post">
 			<?php wp_nonce_field('mptt-importer'); ?>
-			<input type="hidden" name="import_id" value="<?php echo $this->id; ?>"/>
+			<input type="hidden" name="import_id" value="<?php echo esc_attr( $this->id ); ?>"/>
 
 			<?php if (!empty($this->authors)) : ?>
 				<h3><?php _e('Assign Authors', 'mp-timetable'); ?></h3>
@@ -156,7 +156,7 @@ class Import extends Model {
 	 */
 	function author_select($n, $author) {
 		_e('Import author:', 'mp-timetable');
-		echo ' <strong>' . esc_html($author['author_display_name']);
+		echo ' <strong>' . esc_html( $author['author_display_name'] );
 		if ($this->version != '1.0') echo ' (' . esc_html($author['author_login']) . ')';
 		echo '</strong><br />';
 
@@ -173,7 +173,7 @@ class Import extends Model {
 				$value = esc_attr(sanitize_user($author['author_login'], true));
 			}
 
-			echo ' <input type="text" name="user_new[' . $n . ']" value="' . $value . '" /><br />';
+			echo ' <input type="text" name="user_new[' . esc_attr( $n ) . ']" value="' . esc_attr( $value ) . '" /><br />';
 		}
 
 		if (!$create_users && $this->version == '1.0')
@@ -181,7 +181,7 @@ class Import extends Model {
 		else
 			_e('or assign posts to an existing user:', 'mp-timetable');
 		wp_dropdown_users(array('name' => "user_map[$n]", 'multi' => true, 'show_option_all' => __('- Select -', 'mp-timetable')));
-		echo '<input type="hidden" name="imported_authors[' . $n . ']" value="' . esc_attr($author['author_login']) . '" />';
+		echo '<input type="hidden" name="imported_authors[' . esc_attr( $n ) . ']" value="' . esc_attr($author['author_login']) . '" />';
 
 		if ($this->version != '1.0')
 			echo '</div>';

@@ -12,6 +12,7 @@ function mptt_column_template_content_post_content() { ?>
 <?php }
 
 function mptt_column_template_content_events_list() {
+
 	$events = mptt_get_column_events();
 	do_action('mptt-before-column-events', $events);
 	?>
@@ -81,6 +82,7 @@ function mptt_column_template_content_events_list() {
  * @return array
  */
 function mptt_get_column_events() {
+
 	global $post;
 	$data = Controller_Column::get_instance()->action_page_view($post);
 	return !empty($data) ? $data : array();

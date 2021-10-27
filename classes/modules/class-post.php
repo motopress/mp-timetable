@@ -50,13 +50,17 @@ class Post extends Module {
 	 */
 	public function save_custom_post($post_id, $post) {
 
-		$request = $_REQUEST;
+		$request = $_REQUEST; //sanitize later
 
 		if ( !empty( $request[Mp_Time_Table::get_plugin_name() . '_noncename'] ) ) {
 
-			$post_type = $request['post_type'];
+			$post_type = sanitize_text_field( $request['post_type'] );
 
-			if ( !wp_verify_nonce($request[Mp_Time_Table::get_plugin_name() . '_noncename'], Mp_Time_Table::get_plugin_path())) {
+			if ( !wp_verify_nonce(
+					sanitize_key( $request[Mp_Time_Table::get_plugin_name() . '_noncename'] ),
+					Mp_Time_Table::get_plugin_path()
+				)
+			) {
 				return $post->ID;
 			}
 
@@ -73,8 +77,8 @@ class Post extends Module {
 			switch ($post_type) {
 				case 'mp-event':
 					$this->get('events')->save_event_data(array('post' => $post,
-						'event_data' => (!empty($request['event_data'])) ? $request['event_data'] : null,
-						'event_meta' => (!empty($request['event_meta'])) ? $request['event_meta'] : null));
+						'event_data' => (!empty($request['event_data'])) ? $request['event_data'] : null, //sanitize later on update_post_meta
+						'event_meta' => (!empty($request['event_meta'])) ? $request['event_meta'] : null)); //sanitize later on update_post_meta
 					break;
 				case 'mp-column':
 					$this->get('column')->save_column_data(array('post' => $post, 'data' => $request['column']));
