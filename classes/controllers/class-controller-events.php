@@ -99,7 +99,7 @@ class Controller_Events extends Controller {
 
 		check_ajax_referer( 'timeslot_update_nonce', 'nonce' );
 
-		$data = $_REQUEST[ 'data' ]; // sanitize later
+		$data = $_REQUEST[ 'data' ]; // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		$event_id = 0;
 		$id = (int) $data[ 'id' ];

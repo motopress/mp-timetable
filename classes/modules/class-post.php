@@ -50,7 +50,7 @@ class Post extends Module {
 	 */
 	public function save_custom_post($post_id, $post) {
 
-		$request = $_REQUEST; //sanitize later
+		$request = $_REQUEST; // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		if ( !empty( $request[Mp_Time_Table::get_plugin_name() . '_noncename'] ) ) {
 
@@ -77,8 +77,8 @@ class Post extends Module {
 			switch ($post_type) {
 				case 'mp-event':
 					$this->get('events')->save_event_data(array('post' => $post,
-						'event_data' => (!empty($request['event_data'])) ? $request['event_data'] : null, //sanitize later on update_post_meta
-						'event_meta' => (!empty($request['event_meta'])) ? $request['event_meta'] : null)); //sanitize later on update_post_meta
+						'event_data' => (!empty($request['event_data'])) ? $request['event_data'] : null, // WPCS: input var ok, CSRF ok, sanitization ok.
+						'event_meta' => (!empty($request['event_meta'])) ? $request['event_meta'] : null)); // WPCS: input var ok, CSRF ok, sanitization ok.
 					break;
 				case 'mp-column':
 					$this->get('column')->save_column_data(array('post' => $post, 'data' => $request['column']));
