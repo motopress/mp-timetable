@@ -78,7 +78,7 @@ class Settings extends Model {
 		if ( current_user_can('manage_options') && !empty( $_POST['theme_mode'] ) ) {
 
 			$options = array();
-			$options['theme_mode'] = $_POST['theme_mode'];
+			$options['theme_mode'] = sanitize_key( $_POST['theme_mode'] );
 
 			update_option('mp_timetable_general', $options);
 		}

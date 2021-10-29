@@ -27,15 +27,6 @@ class Controller_Events extends Controller {
 	}
 
 	/**
-	 * Action template
-	 */
-	public function action_template() {
-		
-		$this->data = $_REQUEST;
-		$this->get_view()->render_html("events/index", $this->data);
-	}
-
-	/**
 	 * Delete event data by ID
 	 */
 	public function action_delete() {
@@ -108,7 +99,7 @@ class Controller_Events extends Controller {
 
 		check_ajax_referer( 'timeslot_update_nonce', 'nonce' );
 
-		$data = $_REQUEST[ 'data' ];
+		$data = $_REQUEST[ 'data' ]; // WPCS: input var ok, CSRF ok, sanitization ok.
 
 		$event_id = 0;
 		$id = (int) $data[ 'id' ];

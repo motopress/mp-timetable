@@ -336,11 +336,11 @@ class Events extends Model {
 					
 					for ( $i = 0; $i < count( $event[ 'event_start' ] ); $i ++ ) {
 						$rows_affected[] = $this->wpdb->insert( $this->table_name, array(
-								'column_id'   => $key,
-								'event_id'    => $params[ 'post' ]->ID,
-								'event_start' => date( 'H:i', strtotime( $event[ 'event_start' ][ $i ] ) ),
-								'event_end'   => date( 'H:i', strtotime( $event[ 'event_end' ][ $i ] ) ),
-								'user_id'     => $event[ 'user_id' ][ $i ],
+								'column_id'   => absint( $key ),
+								'event_id'    => absint( $params[ 'post' ]->ID ),
+								'event_start' => date( 'H:i', strtotime( sanitize_text_field( $event[ 'event_start' ][ $i ] ) ) ),
+								'event_end'   => date( 'H:i', strtotime( sanitize_text_field( $event[ 'event_end' ][ $i ] ) ) ),
+								'user_id'     => absint( $event[ 'user_id' ][ $i ] ),
 								'description' => wp_kses_post( $event[ 'description' ][ $i ] )
 							)
 						);
@@ -348,6 +348,7 @@ class Events extends Model {
 				}
 			}
 		}
+
 		if ( ! empty( $params[ 'event_meta' ] ) ) {
 			foreach ( $params[ 'event_meta' ] as $meta_key => $meta ) {
 				switch ( $meta_key ) {
@@ -814,7 +815,7 @@ class Events extends Model {
 			wp_die( __( 'A post type mismatch has been detected.', 'mp-timetable' ), __( 'Sorry, you are not allowed to edit this item.', 'mp-timetable' ), 400 );
 		}
 
-		$nonce = $_REQUEST['_wpnonce'];
+		$nonce = sanitize_key( $_REQUEST['_wpnonce'] );
 
 		if ( wp_verify_nonce( $nonce, 'mptt_duplicate_event' ) && current_user_can('edit_posts') ) {
 

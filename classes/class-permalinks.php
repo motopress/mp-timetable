@@ -115,7 +115,7 @@ class Permalinks {
 					$_POST['timetable_event_slug'],
 					$_POST['timetable_event_category_slug'],
 					$_POST['timetable_event_tag_slug']
-				) && wp_verify_nonce( wp_unslash( $_POST['timetable-permalinks-nonce'] ), 'timetable-permalinks' )
+				) && wp_verify_nonce( sanitize_key( $_POST['timetable-permalinks-nonce'] ), 'timetable-permalinks' )
 		) { // WPCS: input var ok, sanitization ok.
 
 			$permalinks = (array) get_option( 'mp_timetable_permalinks', array() );

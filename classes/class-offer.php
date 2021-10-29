@@ -19,7 +19,8 @@ class Plugins_Offer {
 
         if ( isset( $_POST[ 'plugin' ] ) ) {
 
-            $activate = activate_plugins( $_POST[ 'plugin' ] );
+            $plugin   = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
+			$activate = activate_plugins( $plugin );
 
             if ( ! is_wp_error( $activate ) ) {
     		    wp_send_json_success(
@@ -37,7 +38,8 @@ class Plugins_Offer {
 
         check_ajax_referer( 'mptt-install-plugins', 'nonce' );
 
-        $slug = wp_unslash( strtok( $_POST[ 'plugin' ], '/' ) );
+		$plugin = sanitize_text_field( wp_unslash( $_POST['plugin'] ) );
+        $slug = strtok( $plugin, '/' );
 
         if ( empty( $_POST[ 'plugin' ] ) ) {
             wp_send_json_error( esc_html__( 'Could not install the plugin.', 'mp-timetable' ) );

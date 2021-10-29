@@ -16,19 +16,11 @@ class Controller_Column extends Controller {
 	private $data;
 
 	public static function get_instance() {
+
 		if (null === self::$instance) {
 			self::$instance = new self();
 		}
 		return self::$instance;
-	}
-
-	/**
-	 * Action template
-	 */
-	public function action_template() {
-
-		$this->data = $_REQUEST;
-		$this->get_view()->render_html("events/index", $this->data);
 	}
 
 	/**

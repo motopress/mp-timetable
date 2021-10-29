@@ -56,7 +56,7 @@ class Column extends Model {
 		switch ($column) {
 			case 'mp-column_timeslots_number':
 				$metaData = $this->count_events($post);
-				echo empty($metaData) ? "—" : $metaData;
+				echo empty($metaData) ? "—" : esc_html( $metaData ); // int
 				break;
 		}
 	}
@@ -192,9 +192,12 @@ class Column extends Model {
 	 * @param array $params
 	 */
 	public function save_column_data(array $params) {
-		if (!empty($params['data'])) {
+
+		if ( !empty($params['data']) ) {
+
 			foreach ($params['data'] as $meta_key => $meta) {
-				if (!empty($meta)) {
+
+				if ( !empty($meta) ) {
 					update_post_meta($params['post']->ID, $meta_key, sanitize_text_field( $meta ) );
 				} else {
 					delete_post_meta($params['post']->ID, $meta_key, $meta);
