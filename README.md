@@ -9,8 +9,8 @@
 
 The MotoPress [Timetable and Event Scheduling plugin](https://motopress.com/products/timetable-event-schedule/) for WordPress allows you to create a mobile-friendly timetable with events organized by dates and time. This is one of the most popular free WordPress event scheduling plugins with tons of options you can alter for featuring your events.
 
-**[Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)**
-**[Free theme](https://gutenix.com/products/school/)**
+* **[Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)**
+* [Free Theme](https://gutenix.com/products/school/)
 
 This is a perfect free WordPress events plugin for such businesses as concert and party organizers, sports centers, schools and educational institutions, and many more industries.
 
