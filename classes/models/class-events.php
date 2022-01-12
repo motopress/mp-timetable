@@ -863,22 +863,30 @@ class Events extends Model {
 			/*
 			 * duplicate all post meta
 			 */
-			$post_meta = $wpdb->get_results("SELECT meta_key, meta_value FROM $wpdb->postmeta WHERE post_id=$post_id");
+			$post_meta_keys = \get_post_custom_keys( $post_id );
 
-			if ( !empty($post_meta) ) {
+			if ( ! empty( $post_meta_keys ) ) {
 
-				$sql_query = "INSERT INTO $wpdb->postmeta (post_id, meta_key, meta_value) ";
+				$meta_excludelist = [
+					'_edit_lock',
+					'_edit_last',
+					'_wp_old_slug'
+				];
 
-				foreach ($post_meta as $meta_info) {
-					$meta_key = $meta_info->meta_key;
-					if ( $meta_key == '_wp_old_slug' ) continue;
-					$meta_value = addslashes($meta_info->meta_value);
-					$sql_query_sel[]= "SELECT $new_post_id, '$meta_key', '$meta_value'";
+				$meta_keys = \array_diff( $post_meta_keys, $meta_excludelist );
+
+				foreach ( $meta_keys as $meta_key ) {
+					$meta_values = \get_post_custom_values( $meta_key, $post_id );
+
+					// Clear existing meta data
+					\delete_post_meta( $new_post_id, $meta_key );
+
+					foreach ( $meta_values as $meta_value ) {
+						$meta_value = \maybe_unserialize( $meta_value );
+						\add_post_meta( $new_post_id, $meta_key, addslashes( $meta_value ) );
+					}
 				}
 
-				$sql_query .= implode( " UNION ALL ", $sql_query_sel );
-
-				$wpdb->query( $sql_query );
 			}
 
 			/*
