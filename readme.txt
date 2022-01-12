@@ -95,7 +95,7 @@ Plugin bundles the following third-party resources:
 == Changelog ==
 
 = 2.4.5, Jan 12 2022 =
-* Security - better handling of the event duplication functionality. Reported by Chloe Chamberland from Wordfence.
+* Security - implemented better handling of the event duplication functionality. Reported by Chloe Chamberland from Wordfence.
 
 = 2.4.4, Oct 27 2021 =
 * Security - sanitization and escaping.
