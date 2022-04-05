@@ -1,14 +1,15 @@
 import Inspector from './inspector';
 
-import { pick, isEqual } from "lodash";
-import { __ } from 'wp.i18n';
+import { pick } from "lodash";
 
 const { serverSideRender: ServerSideRender } = wp;
 const { Component, Fragment } = wp.element;
 const { compose } = wp.compose;
 
 const {
-    Disabled
+    Disabled,
+    Spinner,
+    Placeholder
 } = wp.components;
 
 const {
@@ -20,45 +21,36 @@ class Edit extends Component {
         super(...arguments);
     }
 
-    initTable(){
-        const { clientId } = this.props;
-		const $block = jQuery( `#block-${clientId}` );
-
-        //Set timer and check when table is load fully, and then initialize table data, and after stop timer
-        const waitLoadTable = setInterval( () => {
-            if ($block.find('.mptt-shortcode-wrapper').length && !$block.find('.mptt-shortcode-wrapper').hasClass('table-init')){        
-                clearInterval(waitLoadTable);
-                window.mptt.tableInit();
-            }
-        }, 1);
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (!isEqual(this.props.attributes, prevProps.attributes)) {
-            this.initTable();
-        }
-    }
-
     componentDidMount() {
-        this.initTable();
+        const block = document.getElementById( `block-${this.props.clientId}` );
+
+        const mutationObserver = new MutationObserver( () => {
+            window.mptt.tableInit();
+        } );
+
+        mutationObserver.observe( block, {
+            childList: true,
+            subtree: true
+        } );
+    }
+
+    placeholder() {
+        return (
+            <Placeholder>
+                <Spinner />
+            </Placeholder>
+        );
     }
 
     render() {
-
-        const {
-            attributes: {
-                events,
-                event_categ
-            }
-        } = this.props;    
-
         return (
             <Fragment>
-                <Inspector {...this.props }/>
+                <Inspector { ...this.props }/>
                 <Disabled>
                     <ServerSideRender
                         block="mp-timetable/timetable"
-                        attributes={this.props.attributes}
+                        attributes={ this.props.attributes }
+                        LoadingResponsePlaceholder={ this.placeholder }
                     />
                 </Disabled>
             </Fragment>
