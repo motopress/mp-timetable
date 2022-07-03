@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
-Tested up to: 5.9
+Tested up to: 6.0
 Stable tag: 2.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,27 +12,27 @@ Smart event organizer and time-management tool with a clean minimalist design fo
 
 == Description ==
 
-MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free.
+MotoPress Timetable and Event Schedule is an all-around organizer plugin developed to help you create and manage online schedules for a single or multiple events, customize the appearance of each event, add date, time, description and display all the needed items in a carefully-crafted timetable. It also comes with Upcoming events widget that will help you keep the sidebar clutter-free. Create a calendar of events for free!
 
 * [Plugin Demo](https://mpttdemo.getmotopress.com/)
 * [Documentation](https://motopress.com/documentation/wordpress/plugins/timetable/)
 * [Free Theme](https://gutenix.com/products/school/)
 
-The plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend management and maximum easy for your audience to use.
+The event calendar plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend event schedule management and maximum easy for your audience to use.
 
-### Key advantages
+### Key advantages of the WordPress events plugin
 
-**Responsive design.** It's optimized to be viewed perfectly on different devices. A good step forward, the plugin was supplied with the ability to manually adjust the way to show your timetable on mobile devices and desktops.
+**Responsive design.** The event calender is optimized to be viewed perfectly on different devices. A good step forward, the plugin was supplied with the ability to manually adjust the way to show your timetable on mobile devices and desktops.
 
-**A well thought-out toolkit of shortcode settings.** It eliminates the difficulties of timetabling as all preferable settings can be applied in minutes. Each setting is supplied with sufficient clarifications to ensure you coordinate and edit your events fast without additional help.   
+**A well thought-out toolkit of shortcode settings.** It eliminates the difficulties of timetabling as all preferable settings can be applied in minutes. Each calendar event option is supplied with sufficient clarifications to ensure you coordinate and edit your events fast without additional help.
 
 **Handy event filtering.** The visitors can filter the timetable to display the only events they are interested in.
 
-**Color controls.** Highlight important activities by presenting them in different colors. Additionally, it simplifies and speeds up the search as the needed events marked with the same color can be noticed faster even without being filtered. Various color markers can become helpful in making the timetable more colorful or in customizing it to fit your website color scheme.
+**Color controls.** Highlight important activities by presenting them in different colors. Additionally, it simplifies and speeds up the search as the needed events marked with the same color can be noticed faster even without being filtered. Various color markers can become helpful in making the event calendar plugin more colorful or in customizing it to fit your website color scheme.
 
 **More precise visual time frames.** Hourly time frames are generally large enough for showing the events, but using the MotoPress Timetable plugin you still can increase them by setting the timetable to show up to 15 minutes accurate time in the left 'time' column.  
 
-**Flexibility.** If any unexpected delays or total dates' changes take place, your timetable can bend easily in one direction or another thanks to a couple of qucik time edits in the backend.
+**Flexibility.** If any unexpected delays or total dates' changes take place, your timetable can bend easily in one direction or another thanks to a couple of qucik time edits in the event plugin WordPress backend.
 
 ### Main features
 * Several column types
@@ -40,17 +40,17 @@ The plugin can be used for timetabling different types of events like various le
 * Ability to add event tags and categories
 * Ability to display the events by the appropriate categories
 * Hour measure to be displayed in the left timetable column to show more accurate duration of each activity (event)
-* Several filter styles: drop-down list and tabs
+* Event calendar WordPress plugin with several filter styles: drop-down list and tabs
 * Option to display/hide 'All Events' view mode, hours column and empty rows
 * Customizable event parameters (title, time, subtitle, etc.) and the ability to display only preferable ones in the timetable
-* Featured images for individual events
+* Featured images for individual events in the events calendar
 * Opportunity to set event URL to link it any external website
 * Text align options for event blocks
 * Unique IDs for multiple timetables on a single page
 * Color settings for background, background hover, text, and text hover
-* Export/import of your data
+* Export/import of your events plugin WordPress data
 
-Timetable can be added to Elementor, Divi, Beaver or any other builder via shortcode. Plugin provides Timetable block for Gutenberg.
+Using this WordPress calendar plugin, a timetable can be added to Elementor, Divi, Beaver or any other builder via shortcode. The calendar events plugin provides Timetable block for Gutenberg.
 
 Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
 
