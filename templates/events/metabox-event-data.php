@@ -81,8 +81,7 @@
 			<input id="add_mp_event" type="button" class="button button-primary" value="<?php
 				//translators: Button to add a new event.
 				_e('Add New', 'mp-timetable');
-			?>">
-			<span class="spinner left"></span>
+			?>"><span class="spinner left"></span>
 		</td>
 	</tr>
 </table>

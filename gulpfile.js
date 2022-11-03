@@ -1,9 +1,9 @@
 const gulp = require('gulp'),
-    less = require('gulp-less'),
-    plumber = require('gulp-plumber'),
-    autoprefixer = require('gulp-autoprefixer'),
-    notifier = require('gulp-notify'),
-	cssmin = require('gulp-cssmin');
+      less = require('gulp-less'),
+      plumber = require('gulp-plumber'),
+      autoprefixer = require('gulp-autoprefixer'),
+      notifier = require('gulp-notify'),
+      cssmin = require('gulp-cssmin');
 
 
 gulp.task('less', function () {

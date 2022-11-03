@@ -1,4 +1,3 @@
-import { get } from "lodash";
 import { __ } from 'wp.i18n';
 
 const {Component} = wp.element;
@@ -28,7 +27,7 @@ class Inspector extends Component {
             options = data.map((event => {
                 return {
                     value: event.id.toString(),
-                    label: get( event, [ 'title', 'raw' ] ) || get( event, [ 'name' ] )
+                    label: event.title ? event.title.raw : event.name
                 }
             }));
         }

@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: https://motopress.com/products/timetable-event-schedule/
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.4.6
+ * Version: 2.4.7
  * Author: MotoPress
  * Author URI: https://motopress.com
  * License: GPLv2 or later
@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 use mp_timetable\plugin_core\classes\Core;
 
 if ( ! defined( 'MP_TT_PLUGIN_NAME' ) ) {
-	define( "MP_TT_PLUGIN_NAME", 'mp-timetable' );
+	define( 'MP_TT_PLUGIN_NAME', 'mp-timetable' );
 }
 
 if ( ! defined( 'MP_TT_DEBUG' ) ) {
@@ -303,7 +303,12 @@ class Mp_Time_Table {
 	 *
 	 * @return string
 	 */
-	static function get_plugin_url( $path = false, $pluginName = 'mp-timetable', $sync = '' ) {
+	static function get_plugin_url( $path = false, $pluginName = '', $sync = '' ) {
+
+		if ( empty( $pluginName ) ) {
+			$pluginName = self::get_plugin_name();
+		}
+
 		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
 	}
 

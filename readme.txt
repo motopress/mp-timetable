@@ -4,7 +4,7 @@ Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
 Tested up to: 6.0
-Stable tag: 2.4.6
+Stable tag: 2.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,7 @@ The event calendar plugin can be used for timetabling different types of events 
 * Unique IDs for multiple timetables on a single page
 * Color settings for background, background hover, text, and text hover
 * Export/import of your events plugin WordPress data
+* RTL ready
 
 Using this WordPress calendar plugin, a timetable can be added to Elementor, Divi, Beaver or any other builder via shortcode. The calendar events plugin provides Timetable block for Gutenberg.
 
@@ -94,17 +95,14 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.4.7, Nov 4 2022 =
+* Fixed a deprecation warning in PHP.
+
 = 2.4.6, May 18 2022 =
 * Fixed an issue when content of Timetable block may disappear in the block editor.
 
 = 2.4.5, Jan 12 2022 =
 * Security - implemented better handling of the event duplication functionality. Reported by Chloe Chamberland from Wordfence.
-
-= 2.4.4, Oct 27 2021 =
-* Security - sanitization and escaping.
-
-= 2.4.3, Sep 27 2021 =
-* Security - fixed unescaped shortcode attributes.
 
 --------
 

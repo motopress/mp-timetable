@@ -30,8 +30,6 @@ const config = {
 	externals: {
 		'react'    : 'React',
 		'react-dom': 'ReactDOM',
-		'lodash'   : 'lodash',
-		//https://www.cssigniter.com/importing-gutenberg-core-wordpress-libraries-es-modules-blocks/
 		'wp.i18n': {
 			window: [ 'wp', 'i18n' ]
 		},

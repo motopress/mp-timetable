@@ -262,14 +262,12 @@ class Core {
 	 * Init plugin version
 	 */
 	public function init_plugin_version() {
-		
-		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
-		
+
 		if ( ! function_exists( 'get_plugin_data' ) ) {
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
-		
-		$pluginObject  = get_plugin_data( $filePath );
+
+		$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
 		$this->version = $pluginObject[ 'Version' ];
 	}
 	

@@ -36,6 +36,12 @@ To compile styles you need:
 * Run `npm run dev:styles` to compile your styles automatically whenever you've made changes to the associated files.
 * Run `npm run build:styles` to compile styles once.
 
+Internationalization:
+* Create a POT file `wp i18n make-pot . ./languages/mp-timetable.pot --exclude="media/js/blocks/src"`
+* `wp i18n make-pot . ./languages/mp-timetable-new.pot --exclude="media/js/blocks/src" --subtract="./languages/mp-timetable.pot"`
+* Extract JavaScript strings `wp i18n make-json ./languages --no-purge --pretty-print`
+* `po2json ./languages/mp-timetable-ru_RU.po ./languages/mp-timetable-ru_RU-mptt-blocks-js.json -f jed`
+
 ## Support
 This is a developer's portal for the Timetable and Event Schedule plugin and should not be used for support. Please visit the support page if you need to submit a support request.
 

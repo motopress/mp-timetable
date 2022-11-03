@@ -80,7 +80,7 @@ class Mp_Timetable_Widget extends Widget_Base {
         self::show_shortcode( $attributes );
     }
 
-    protected function _register_controls() {
+    protected function register_controls() {
         $controls = $this;
 
         $controls->start_controls_section(
