@@ -27,10 +27,6 @@ defined( 'ABSPATH' ) || exit;
 
 use mp_timetable\plugin_core\classes\Core;
 
-if ( ! defined( 'MP_TT_PLUGIN_NAME' ) ) {
-	define( 'MP_TT_PLUGIN_NAME', 'mp-timetable' );
-}
-
 if ( ! defined( 'MP_TT_DEBUG' ) ) {
 	define( 'MP_TT_DEBUG', false );
 }
@@ -40,7 +36,7 @@ if ( ! defined( 'MP_TT_PLUGIN_FILE' ) ) {
 }
 
 if ( ! defined( 'MP_TT_PLUGIN_BASENAME' ) ) {
-	define( 'MP_TT_PLUGIN_BASENAME', plugin_basename( MP_TT_PLUGIN_FILE ) );
+	define( 'MP_TT_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 }
 
 register_activation_hook( __FILE__, array( Mp_Time_Table::init(), 'on_activation' ) );
@@ -263,15 +259,6 @@ class Mp_Time_Table {
 			restore_current_blog();
 		}
 	}
-
-	/**
-	 * Get plugin name
-	 *
-	 * @return string
-	 */
-	public static function get_plugin_name() {
-		return dirname( plugin_basename( __FILE__ ) );
-	}
 	
 	/**
 	 * On blog creation
@@ -297,19 +284,13 @@ class Mp_Time_Table {
 	/**
 	 * Get plugin url
 	 *
-	 * @param bool|false $path
-	 * @param string $pluginName
-	 * @param string $sync
+	 * @param string $path
 	 *
 	 * @return string
 	 */
-	static function get_plugin_url( $path = false, $pluginName = '', $sync = '' ) {
+	static function get_plugin_url( $path = '' ) {
 
-		if ( empty( $pluginName ) ) {
-			$pluginName = self::get_plugin_name();
-		}
-
-		return plugins_url() . '/' . $pluginName . '/' . $path . $sync;
+		return plugin_dir_url( __FILE__ ) . $path;
 	}
 
 }
