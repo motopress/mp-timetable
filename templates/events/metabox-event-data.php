@@ -8,7 +8,7 @@
 \mp_timetable\plugin_core\classes\View::get_instance()->render_html('events/event-data', array('event_data' => $event_data), true);
 
 ?>
-<p class="description"><?php _e('Timeslots are ordered by column order and event start time.', 'mp-timetable'); ?></p>
+<p class="description"><?php _e('Timeslots are ordered by column order and the event start time.', 'mp-timetable'); ?></p>
 <h4><?php _e('Add New / Edit Timeslot', 'mp-timetable'); ?></h4>
 <table id="add_event_table" class="widefat">
 	<tr>
