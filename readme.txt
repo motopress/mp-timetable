@@ -21,19 +21,19 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 ### Main features
 
 * Several column types.
-* Ability to choose columns and events to be displayed in the timetable.
+* Ability to choose columns and events to be displayed in the schedule.
 * Ability to add event tags and categories.
 * Ability to display the events by the appropriate categories.
 * Hour measure to be displayed in the left timetable column to show more accurate duration of each activity (event).
 * Filter styles: drop-down list and tabs.
 * Option to display/hide 'All Events' view mode, hours column and empty rows.
 * Customizable event parameters (title, time, subtitle, etc.) and the ability to display only preferable ones in the timetable.
-* Featured images for individual events in the events calendar.
+* Featured images for individual events in the calendar.
 * Opportunity to set event URL to link it any external website.
 * Text align options for event blocks.
 * Unique IDs for multiple timetables on a single page.
 * Color settings for background, background hover, text, and text hover.
-* Export and import of your events data.
+* Export and import of your data.
 * RTL ready.
 
 The event calendar plugin can be used for timetabling different types of events like various lessons, gym classes, festivals, conferences, ceremonies, case-studies, formal parties, concerts, and much more. It's handy in terms of backend event schedule management and maximum easy for your audience to use.
@@ -56,7 +56,7 @@ Highlight important activities by presenting them in different colors. Various c
 
 Hourly time frames are generally large enough for showing the events, but you still can increase them by setting the timetable to show up to 15 minutes accurate time in the left 'time' column.  
 
-#### Timetable block
+#### Timetable Gutenberg block
 
 The calendar events plugin provides Timetable block for Gutenberg. Timetable can be added to any other builder via shortcode.
 
@@ -64,13 +64,19 @@ The calendar events plugin provides Timetable block for Gutenberg. Timetable can
 
 Plugin provides Timetable widget for Elementor. Choose the layout and style for your events, show or hide the event description, customize the table look, choose the mobile behavior and more.
 
-### Appointment Booking plugin
+### Appointment Booking
 
 Want to take automatic online appointment reservations through your website for events, classes, and any other type of services?
 
 [Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) is our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
 Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
+
+== Frequently Asked Questions ==
+
+= How to order event timeslots? =
+
+Timeslots are ordered by column order and the event start time.
 
 == Installation ==
 
@@ -102,7 +108,7 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
-= 2.4.7, Nov 11 2022 =
+= 2.4.7, Nov 14 2022 =
 * Fixed a deprecation warning in PHP.
 
 = 2.4.6, May 18 2022 =
