@@ -39,7 +39,11 @@ class Column extends Model {
 	 * @return array
 	 */
 	public function set_column_columns($columns) {
-		$columns = array_slice($columns, 0, 2, true) + array("mp-column_timeslots_number" => __('Timeslots', 'mp-timetable')) + array_slice($columns, 2, count($columns) - 1, true);
+
+		$columns = array_slice($columns, 0, 2, true) + array("mp-column_menu_order" => __('Order', 'mp-timetable')) +
+			array_slice($columns, 2, count($columns) - 1, true);
+		$columns = array_slice($columns, 0, 2, true) + array("mp-column_timeslots_number" => __('Timeslots', 'mp-timetable')) +
+			array_slice($columns, 2, count($columns) - 1, true);
 
 		return $columns;
 	}
@@ -57,6 +61,11 @@ class Column extends Model {
 			case 'mp-column_timeslots_number':
 				$metaData = $this->count_events($post);
 				echo empty($metaData) ? "—" : esc_html( $metaData ); // int
+				break;
+			case 'mp-column_menu_order':
+				if ( $post->menu_order > 0 ) {
+					echo esc_html( $post->menu_order ); // int
+				}
 				break;
 		}
 	}

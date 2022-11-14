@@ -7,16 +7,14 @@
 ![](https://img.shields.io/wordpress/plugin/rating/mp-timetable)
 ![](https://img.shields.io/badge/license-GPL--2.0%2B-blue.svg?style=flat)
 
-The MotoPress [Timetable and Event Scheduling plugin](https://motopress.com/products/timetable-event-schedule/) for WordPress allows you to create a mobile-friendly timetable with events organized by dates and time. This is one of the most popular free WordPress event scheduling plugins with tons of options you can alter for featuring your events.
+MotoPress [Timetable & Event Schedule Plugin](https://motopress.com/products/timetable-event-schedule/) for WordPress allows you to create a mobile-friendly timetable with events organized by dates and time. This is one of the most popular free WordPress event scheduling plugins with tons of options you can alter for featuring your events.
 
-* **[Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)**
+* [Timetable & Event Schedule Plugin Demo](https://mpttdemo.getmotopress.com/)
 * [Free Theme](https://gutenix.com/products/school/)
 
-This is a perfect free WordPress events plugin for such businesses as concert and party organizers, sports centers, schools and educational institutions, and many more industries.
+Plugin allows you to control a color scheme, change timeframes, pick between a minimal or complex layout, customize columns, add tags and categories, add list or tab filters, upload event featured images, add users as event heads, and apply many more settings.
 
-The plugin allows you to control a color scheme, change timeframes, pick between a minimal or complex layout, customize columns, add tags and categories, add list or tab filters, upload event featured images, add users as event heads, and apply many more settings.
-
-This timetable plugin for WordPress works smoothly with Elementor and the block editor, so you can easily customize the look of the timetable in a visual mode.
+It works smoothly with Elementor and the block editor (Gutenberg), so you can easily customize the look of the timetable in a visual mode.
 
 ### More booking & scheduling WordPress plugins by MotoPress
 MotoPress also ships with a few more dedicated solutions for the appointment and rental property booking needs.
@@ -35,6 +33,12 @@ To compile files for editor blocks you need:
 To compile styles you need:
 * Run `npm run dev:styles` to compile your styles automatically whenever you've made changes to the associated files.
 * Run `npm run build:styles` to compile styles once.
+
+Internationalization:
+* Create a POT file `wp i18n make-pot . ./languages/mp-timetable.pot --exclude="media/js/blocks/src"`
+* Extract new strings `wp i18n make-pot . ./languages/mp-timetable-new.pot --exclude="media/js/blocks/src" --subtract="./languages/mp-timetable.pot"`
+* Extract JavaScript strings `wp i18n make-json ./languages --no-purge --pretty-print`
+* `po2json ./languages/mp-timetable-ru_RU.po ./languages/mp-timetable-ru_RU-mptt-blocks-js.json -f jed`
 
 ## Support
 This is a developer's portal for the Timetable and Event Schedule plugin and should not be used for support. Please visit the support page if you need to submit a support request.

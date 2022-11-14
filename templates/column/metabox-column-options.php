@@ -1,4 +1,6 @@
-<input type="hidden" name="<?php echo Mp_Time_Table::get_plugin_name() . '_noncename' ?>" value="<?php echo wp_create_nonce(Mp_Time_Table::get_plugin_path()) ?>"/>
+<?php
+	wp_nonce_field( 'mptt_save', 'mptt_save_nonce' );
+?>
 <input type="hidden" id="date-format" value="<?php echo esc_attr( get_option('date_format') );?>">
 
 <table id="column-options" class="column-options form-table">

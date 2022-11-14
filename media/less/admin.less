@@ -18,7 +18,7 @@
   #events-list {
 		
 		.active {
-			* {
+			> td {
 				background-color: #F7FCFE;
 			}
 			td:first-child {
@@ -38,7 +38,6 @@
 				font-weight: 400;
 				height: 100%;
 				left: 0;
-				line-height: 1.85;
 				margin: 0;
 				position: absolute;
 				text-align: center;
@@ -47,6 +46,10 @@
 				top: 0;
 				width: 100%;
 			}
+		}
+		.spinner.left {
+			margin-left: 0;
+			margin-right: 0;
 		}
 	}
 }

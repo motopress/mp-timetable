@@ -174,7 +174,6 @@ Registry.register("adminFunctions", (function($) {
 							open_callback.call(this, jbox_container);
 						},
 						onClose: function() {
-							//Registry._get('ContentDML').nonceAjax = Math.random().toString(36).slice(2);
 							$("#" + this.id).remove();
 						}
 					};

@@ -68,7 +68,7 @@ class Core {
 	 */
 	public function init_plugin( $name ) {
 
-		load_plugin_textdomain( 'mp-timetable', false, Mp_Time_Table::get_plugin_name() . '/languages/' );
+		load_plugin_textdomain( 'mp-timetable', false, dirname( MP_TT_PLUGIN_BASENAME ) . '/languages/' );
 		
 		// include template for function
 		Core::include_all( Mp_Time_Table::get_plugin_part_path( 'templates-functions' ) );
@@ -262,14 +262,12 @@ class Core {
 	 * Init plugin version
 	 */
 	public function init_plugin_version() {
-		
-		$filePath = Mp_Time_Table::get_plugin_path() . Mp_Time_Table::get_plugin_name() . '.php';
-		
+
 		if ( ! function_exists( 'get_plugin_data' ) ) {
 			include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 		}
-		
-		$pluginObject  = get_plugin_data( $filePath );
+
+		$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
 		$this->version = $pluginObject[ 'Version' ];
 	}
 	
@@ -591,7 +589,7 @@ class Core {
                             'status_active'    => esc_html__( 'Active', 'mp-timetable' ),
                             'status_inactive'  => esc_html__( 'Inactive', 'mp-timetable' ),
                             'status_loading'   => esc_html__( 'Loading...', 'mp-timetable' ),
-                            'status_activate'    => esc_html__( 'Activate', 'mp-timetable' ),
+                            'status_activate'  => esc_html__( 'Activate', 'mp-timetable' ),
                         )
                     );
                     break;

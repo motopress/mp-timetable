@@ -1,7 +1,5 @@
 import Inspector from './inspector';
 
-import { pick } from "lodash";
-
 const { serverSideRender: ServerSideRender } = wp;
 const { Component, Fragment } = wp.element;
 const { compose } = wp.compose;
@@ -68,15 +66,18 @@ export default compose([
 
         return {
             selectedEvents:  events  ? events .map((event)  => {
-                return pick( event,  [ 'id', 'title' ])
+                const { id, title } = event;
+                return { id, title }
             }) : null,
 
             selectedColumns: columns ? columns.map((column) => {
-                return pick( column, [ 'id', 'title' ])
+                const { id, title } = column;
+                return { id, title }
             }) : null,
 
             selectedEventCategories: eventCategories ? eventCategories.map((categorie) => {
-                return pick( categorie, [ 'id', 'name' ])
+                const { id, name } = categorie;
+                return { id, name }
             }) : null
         };
     }),

@@ -52,24 +52,21 @@ class Post extends Module {
 
 		$request = $_REQUEST; // WPCS: input var ok, CSRF ok, sanitization ok.
 
-		if ( !empty( $request[Mp_Time_Table::get_plugin_name() . '_noncename'] ) ) {
+		if ( ! empty( $request[ 'mptt_save_nonce' ] ) ) {
 
 			$post_type = sanitize_text_field( $request['post_type'] );
 
-			if ( !wp_verify_nonce(
-					sanitize_key( $request[Mp_Time_Table::get_plugin_name() . '_noncename'] ),
-					Mp_Time_Table::get_plugin_path()
-				)
-			) {
+			if ( ! wp_verify_nonce( sanitize_key( $request[ 'mptt_save_nonce' ] ), 'mptt_save' ) ) {
 				return $post->ID;
 			}
 
 			// Is the user allowed to edit the post or page?
-			if (!current_user_can('edit_post', $post->ID)) {
+			if ( ! current_user_can('edit_post', $post->ID) ) {
 				return $post->ID;
 			}
+
 			// verify if this is an auto save routine. If it is our form has not been submitted, so we dont want to do anything
-			if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+			if ( defined('DOING_AUTOSAVE') && DOING_AUTOSAVE ) {
 				return $post->ID;
 			}
 

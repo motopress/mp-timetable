@@ -32,9 +32,7 @@
 						} ?>
 					</td>
 					<td>
-						<a class="button icon dashicons-edit edit-event-button" data-id="<?php echo esc_attr( $data->id );?>" title="<?php _e('Edit event in the form below', 'mp-timetable') ?>"></a>
-						<a class="button icon dashicons-trash delete-event-button" data-id="<?php echo esc_attr( $data->id );?>" title="<?php _e('Delete', 'mp-timetable') ?>"></a>
-						<span class="spinner left"></span>
+						<a class="button icon dashicons-edit edit-event-button" data-id="<?php echo esc_attr( $data->id );?>" title="<?php _e('Edit event in the form below', 'mp-timetable') ?>"></a><a class="button icon dashicons-trash delete-event-button" data-id="<?php echo esc_attr( $data->id );?>" title="<?php _e('Delete', 'mp-timetable') ?>"></a><span class="spinner left"></span>
 					</td>
 				</tr>
 			<?php endforeach; ?>
