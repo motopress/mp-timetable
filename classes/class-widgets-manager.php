@@ -15,7 +15,7 @@ class Widgets_Manager {
      * WidgetsManager constructor.
      */
     public function __construct() {
-        add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ], 12 );
+        add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ], 12 );
     }
 
     public function register_widgets() {

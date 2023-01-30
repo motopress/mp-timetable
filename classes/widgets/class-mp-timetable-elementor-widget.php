@@ -470,4 +470,4 @@ class Mp_Timetable_Widget extends Widget_Base {
 
 }
 
-Plugin::instance()->widgets_manager->register_widget_type( new Mp_Timetable_Widget() );
+Plugin::instance()->widgets_manager->register( new Mp_Timetable_Widget() );
