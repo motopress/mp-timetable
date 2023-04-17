@@ -111,6 +111,13 @@ class Plugins_Offer {
     private function getPluginLists() {
 
         $plugins  = array(
+            'motopress-appointment' => array(
+                'slug' => 'motopress-appointment-lite',
+                'name' => 'Hourly Appointment Booking',
+                'path' => 'motopress-appointment-lite/motopress-appointment.php',
+                'icon' => 'https://ps.w.org/motopress-appointment-lite/assets/icon.svg',
+                'description' => 'Take automatic online appointment reservations through your website for events, classes, and any other type of services.'
+            ),
             'getwid' => array(
                 'slug' => 'getwid',
                 'name' => 'Getwid: 40+ Free Gutenberg Blocks',

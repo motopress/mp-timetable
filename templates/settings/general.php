@@ -1,5 +1,5 @@
 <div class="wrap">
-	<h1 class="wp-heading-inline"><?php _e('General Settings', 'mp-timetable'); ?></h1>
+	<h1><?php _e('General Settings', 'mp-timetable'); ?></h1>
 	<div class="motopress-offer-primary">
 
 	<?php settings_errors('mpTimetableSettings', false); ?>
