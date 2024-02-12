@@ -36,7 +36,7 @@ class State_Factory {
 	 *
 	 * @return bool|\mp_timetable\plugin_core\classes\Model
 	 */
-	public function get_model($value = null) {
+	public function get_model($value = '') {
 		$model = false;
 		if ('model' == $value) {
 			$model = Model::get_instance();
@@ -56,7 +56,7 @@ class State_Factory {
 	 *
 	 * @return bool
 	 */
-	public function get_controller($value = null) {
+	public function get_controller($value = '') {
 		$controller = false;
 		$class = "{$this->namespace}\classes\controllers\Controller_" . ucfirst($value);
 		if (class_exists($class)) {
@@ -72,7 +72,7 @@ class State_Factory {
 	 *
 	 * @return bool
 	 */
-	public function get_preprocessor($value = null) {
+	public function get_preprocessor($value = '') {
 		$preprocessor = false;
 		$class = "{$this->namespace}\classes\preprocessors\Preprocessor_" . ucfirst($value);
 		if (class_exists($class)) {

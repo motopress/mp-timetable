@@ -10,6 +10,8 @@ use mp_timetable\plugin_core\classes\Model as Model;
 class Export extends Model {
 	protected static $instance;
 	private $table;
+	public $post_types;
+	public $taxonomy_names;
 
 	public static function get_instance() {
 		if (null === self::$instance) {
@@ -31,7 +33,7 @@ class Export extends Model {
 		global $wpdb, $post;
 
 		if ( !defined('ABSPATH') ) exit;
-		
+
 		if ( !current_user_can('export') ) exit;
 
 		if ( !function_exists('export_wp') ) {
@@ -441,6 +443,9 @@ class Export extends Model {
 	 * @return string
 	 */
 	public function mptt_cdata($str) {
+
+		$str = strval( $str );
+
 		if (!seems_utf8($str)) {
 			$str = utf8_encode($str);
 		}

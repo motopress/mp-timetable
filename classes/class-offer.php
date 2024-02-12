@@ -88,7 +88,7 @@ class Plugins_Offer {
 
             $error = esc_html__( 'Unable to connect to the filesystem. Please confirm your credentials.' );
 
-            if ( $wp_filesystem instanceof WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
+            if ( $wp_filesystem instanceof \WP_Filesystem_Base && is_wp_error( $wp_filesystem->errors ) && $wp_filesystem->errors->has_errors() ) {
                 $error = esc_html__( $wp_filesystem->errors->get_error_message() );
             }
 
@@ -145,7 +145,7 @@ class Plugins_Offer {
     }
 
 	private function getPluginInstallationLink( $slug ) {
-	
+
 		$action = 'install-plugin';
 
 		return wp_nonce_url(
@@ -164,7 +164,7 @@ class Plugins_Offer {
 	private function getPluginData( $plugin ) {
 
 		if ( array_key_exists( $plugin['path'], get_plugins() ) ) {
-			
+
 			if ( is_plugin_active( $plugin['path'] ) ) {
 				$plugin['status_text'] = esc_html__( 'Active', 'mp-timetable' );
 				$plugin['status_class'] = 'active';
