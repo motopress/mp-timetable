@@ -4,7 +4,7 @@
  * Plugin Name: Timetable and Event Schedule
  * Plugin URI: https://motopress.com/products/timetable-event-schedule/
  * Description: Smart time-management tool with a clean minimalist design for featuring your timetables and upcoming events.
- * Version: 2.4.9
+ * Version: 2.4.10
  * Author: MotoPress
  * Author URI: https://motopress.com
  * License: GPLv2 or later
@@ -16,9 +16,9 @@
  * This plugin contains hooks that allow you to edit, add and move content without the need to edit template files.
  * This method protects against upgrade issues. There are several actions and filters you can use to modify content output.
  * You can check \mp-timetable\classes\class-hooks.php for the list of hooks.
- * 
+ *
  * Alternatively in "Developer Mode", you can copy template files from '/mp-timetable/templates/' folder to '/your-theme/mp-timetable/' to override them.
- * 
+ *
  * The Timetable plugin also supports default WordPress templates hierarchy:
  * https://developer.wordpress.org/themes/basics/template-hierarchy/#visual-overview
  */
@@ -57,9 +57,9 @@ add_filter( 'wpmu_drop_tables', array( 'Mp_Time_Table', 'on_delete_blog' ) );
  * Class Mp_Time_Table
  */
 class Mp_Time_Table {
-	
+
 	protected static $instance;
-	
+
 	/**
 	 * Mp_Time_Table constructor.
 	 */
@@ -67,7 +67,7 @@ class Mp_Time_Table {
 		$this->include_all();
 		Core::get_instance()->init_plugin( 'mp_timetable' );
 	}
-	
+
 	/**
 	 * Include all files
 	 */
@@ -96,7 +96,7 @@ class Mp_Time_Table {
 		 * Include Model
 		 */
 		require_once self::get_plugin_path() . 'classes/class-model.php';
-		
+
 		/**
 		 * Include Controller
 		 */
@@ -105,12 +105,12 @@ class Mp_Time_Table {
 		 * Include State factory
 		 */
 		require_once self::get_plugin_path() . 'classes/class-state-factory.php';
-		
+
 		/**
 		 * Include Preprocessor
 		 */
 		require_once self::get_plugin_path() . 'classes/class-preprocessor.php';
-		
+
 		/**
 		 * include shortcodes
 		 */
@@ -127,7 +127,7 @@ class Mp_Time_Table {
 		 * Include hooks
 		 */
 		require_once self::get_plugin_path() . 'classes/class-hooks.php';
-		
+
 		/**
 		 * Include blocks
 		 */
@@ -138,14 +138,14 @@ class Mp_Time_Table {
          */
         require_once self::get_plugin_path() . 'classes/class-widgets-manager.php';
 	}
-	
+
 	/**
 	 * Get plugin path
 	 */
 	public static function get_plugin_path() {
 		return plugin_dir_path( __FILE__ );
 	}
-	
+
 	/**
 	 * @return Mp_Time_Table
 	 */
@@ -153,10 +153,10 @@ class Mp_Time_Table {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
-		
+
 		return self::$instance;
 	}
-	
+
 	/**
 	 * Retrieve relative to theme root path to templates.
 	 *
@@ -165,7 +165,7 @@ class Mp_Time_Table {
 	public static function get_template_path() {
 		return apply_filters( 'mptt_template_path', 'mp-timetable/' );
 	}
-	
+
 	/**
 	 * Retrieve relative to plugin root path to templates.
 	 *
@@ -174,7 +174,7 @@ class Mp_Time_Table {
 	public static function get_templates_path() {
 		return self::get_plugin_path() . 'templates/';
 	}
-	
+
 	/**
 	 * Get plugin part path
 	 *
@@ -185,12 +185,12 @@ class Mp_Time_Table {
 	public static function get_plugin_part_path( $part = '' ) {
 		return self::get_plugin_path() . $part;
 	}
-	
+
 	/**
 	 * On activation
 	 */
 	public static function on_activation( $network_wide = false ) {
-		
+
 		if ( $network_wide && is_multisite() ) {
 
 			$sites = get_sites();
@@ -240,7 +240,7 @@ class Mp_Time_Table {
 	public static function on_uninstall() {
 		do_action( 'mptt_on_uninstall' );
 	}
-	
+
 	/**
 	 * On create blog
 	 *
@@ -259,17 +259,17 @@ class Mp_Time_Table {
 			restore_current_blog();
 		}
 	}
-	
+
 	/**
 	 * On blog creation
 	 */
 	public static function on_delete_blog( $tables ) {
-		
+
 		$tables[] = self::get_datatable();
-		
+
 		return $tables;
 	}
-	
+
 	/**
 	 * Get data table name
 	 *
@@ -277,10 +277,10 @@ class Mp_Time_Table {
 	 */
 	public static function get_datatable() {
 		global $wpdb;
-		
+
 		return $wpdb->prefix . "mp_timetable_data";
 	}
-	
+
 	/**
 	 * Get plugin url
 	 *

@@ -101,7 +101,7 @@ class GUMP {
 	 */
 	public static function xss_clean(array $data) {
 		foreach ($data as $k => $v) {
-			$data[$k] = filter_var($v, FILTER_SANITIZE_STRING);
+			$data[$k] = static::polyfill_filter_var_string($v);
 		}
 
 		return $data;
@@ -121,7 +121,7 @@ class GUMP {
 		$method = 'validate_' . $rule;
 
 		if (method_exists(__CLASS__, $method) || isset(self::$validation_methods[$rule])) {
-			throw new Exception("Validator rule '$rule' already exists.");
+			throw new \Exception("Validator rule '$rule' already exists.");
 		}
 
 		self::$validation_methods[$rule] = $callback;
@@ -143,7 +143,7 @@ class GUMP {
 		$method = 'filter_' . $rule;
 
 		if (method_exists(__CLASS__, $method) || isset(self::$filter_methods[$rule])) {
-			throw new Exception("Filter rule '$rule' already exists.");
+			throw new \Exception("Filter rule '$rule' already exists.");
 		}
 
 		self::$filter_methods[$rule] = $callback;
@@ -260,7 +260,6 @@ class GUMP {
 	 * @return array
 	 */
 	public function sanitize(array $input, array $fields = array(), $utf8_encode = true) {
-		$magic_quotes = (bool)get_magic_quotes_gpc();
 
 		if (empty($fields)) {
 			$fields = array_keys($input);
@@ -277,9 +276,6 @@ class GUMP {
 					$value = null;
 				}
 				if (is_string($value)) {
-					if ($magic_quotes === true) {
-						$value = stripslashes($value);
-					}
 
 					if (strpos($value, "\r") !== false) {
 						$value = trim($value);
@@ -293,7 +289,7 @@ class GUMP {
 						}
 					}
 
-					$value = filter_var($value, FILTER_SANITIZE_STRING);
+					$value = static::polyfill_filter_var_string($value);
 				}
 
 				$return[$field] = $value;
@@ -368,7 +364,7 @@ class GUMP {
 						}
 
 					} else {
-						throw new Exception("Validator method '$method' does not exist.");
+						throw new \Exception("Validator method '$method' does not exist.");
 					}
 				}
 			}
@@ -443,7 +439,6 @@ class GUMP {
 			if (array_key_exists($e['field'], self::$fields)) {
 				$field = self::$fields[$e['field']];
 			}
-			
 
 			switch ($e['rule']) {
 				case 'mismatch' :
@@ -697,7 +692,7 @@ class GUMP {
 				} elseif (isset(self::$filter_methods[$filter])) {
 					$input[$field] = call_user_func(self::$filter_methods[$filter], $input[$field], $params);
 				} else {
-					throw new Exception("Filter method '$filter' does not exist.");
+					throw new \Exception("Filter method '$filter' does not exist.");
 				}
 			}
 		}
@@ -815,7 +810,13 @@ class GUMP {
 	 * @return string
 	 */
 	protected function filter_sanitize_string($value, $params = null) {
-		return filter_var($value, FILTER_SANITIZE_STRING);
+		return self::polyfill_filter_var_string($value);
+	}
+
+	private static function polyfill_filter_var_string($value)
+	{
+		$str = preg_replace('/x00|<[^>]*>?/', '', $value);
+		return (string)str_replace(['', ''], ['&#39;', '&#34;'], $str);
 	}
 
 	/**
@@ -1717,8 +1718,8 @@ class GUMP {
 			return;
 		}
 
-		$cdate1 = new DateTime(date('Y-m-d', strtotime($input[$field])));
-		$today = new DateTime(date('d-m-Y'));
+		$cdate1 = new \DateTime(date('Y-m-d', strtotime($input[$field])));
+		$today = new \DateTime(date('d-m-Y'));
 
 		$interval = $cdate1->diff($today);
 		$age = $interval->y;

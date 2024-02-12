@@ -62,7 +62,9 @@ class WXR_Parser_SimpleXML {
 
 		$dom = new \DOMDocument;
 		$old_value = null;
-		if (function_exists('libxml_disable_entity_loader')) {
+
+		// @see wp-content/plugins/wordpress-importer/parsers/class-wxr-parser-simplexml.php:24
+		if (function_exists('libxml_disable_entity_loader') && PHP_VERSION_ID < 80000 ) {
 			$old_value = libxml_disable_entity_loader(true);
 		}
 		$success = $dom->loadXML(file_get_contents($file));
@@ -266,7 +268,7 @@ class WXR_Parser_SimpleXML {
  * WXR Parser that makes use of the XML Parser PHP extension.
  */
 class WXR_Parser_XML {
-	var $wp_tags = array(
+	public $wp_tags = array(
 		'wp:post_id', 'wp:post_date', 'wp:post_date_gmt', 'wp:comment_status', 'wp:ping_status', 'wp:attachment_url',
 		'wp:status', 'wp:post_name', 'wp:post_parent', 'wp:menu_order', 'wp:post_type', 'wp:post_password',
 		'wp:is_sticky', 'wp:term_id', 'wp:category_nicename', 'wp:category_parent', 'wp:cat_name', 'wp:category_description',
@@ -274,11 +276,27 @@ class WXR_Parser_XML {
 		'wp:term_name', 'wp:term_description', 'wp:author_id', 'wp:author_login', 'wp:author_email', 'wp:author_display_name',
 		'wp:author_first_name', 'wp:author_last_name',
 	);
-	var $wp_sub_tags = array(
+	public $wp_sub_tags = array(
 		'wp:comment_id', 'wp:comment_author', 'wp:comment_author_email', 'wp:comment_author_url',
 		'wp:comment_author_IP', 'wp:comment_date', 'wp:comment_date_gmt', 'wp:comment_content',
 		'wp:comment_approved', 'wp:comment_type', 'wp:comment_parent', 'wp:comment_user_id',
 	);
+
+	public $wxr_version;
+	public $in_post;
+	public $cdata;
+	public $data;
+	public $sub_data;
+	public $in_tag;
+	public $in_sub_tag;
+	public $authors;
+	public $posts;
+	public $term;
+	public $category;
+	public $tag;
+	public $base_url;
+	public $base_blog_url;
+	public $time_slots;
 
 	function parse($file) {
 		$this->wxr_version = $this->in_post = $this->cdata = $this->data = $this->sub_data = $this->in_tag = $this->in_sub_tag = false;
@@ -460,13 +478,14 @@ class WXR_Parser_XML {
  * WXR Parser that uses regular expressions. Fallback for installs without an XML parser.
  */
 class WXR_Parser_Regex {
-	var $authors = array();
-	var $posts = array();
-	var $categories = array();
-	var $tags = array();
-	var $terms = array();
-	var $time_slots = array();
-	var $base_url = '';
+	public $authors = array();
+	public $posts = array();
+	public $categories = array();
+	public $tags = array();
+	public $terms = array();
+	public $time_slots = array();
+	public $base_url = '';
+	public $has_gzip;
 
 	function __construct() {
 		$this->has_gzip = is_callable('gzopen');

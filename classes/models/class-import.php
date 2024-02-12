@@ -16,7 +16,7 @@ class Import extends Model {
 	var $id; // WXR attachment ID
 	var $file;
 
-	var $import_data;
+	public $import_data;
 	// information to import from WXR file
 	var $version;
 	var $authors = array();
@@ -39,6 +39,7 @@ class Import extends Model {
 	var $fetch_attachments = false;
 	var $url_remap = array();
 	var $featured_images = array();
+
 
 	public static function get_instance() {
 		if (null === self::$instance) {

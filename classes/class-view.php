@@ -14,6 +14,9 @@ class View {
 	protected $templates_path;
 	protected $prefix = 'mptt';
 	private $data;
+	public $taxonomy_names;
+	public $post_types;
+	public $template;
 
 	/**
 	 * View constructor.

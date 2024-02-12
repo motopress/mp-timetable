@@ -10,16 +10,19 @@ use mp_timetable\classes\models\Events;
  * Class main state
  */
 class Core {
-	
+
 	protected static $instance;
-	
+
 	protected $version;
 
 	/**
 	 * Current state
 	 */
 	private $state;
-	
+
+	public $taxonomy_names;
+	public $post_types;
+
 	/**
 	 * Core constructor.
 	 */
@@ -34,7 +37,7 @@ class Core {
 			'mp-column'
 		);
 	}
-	
+
 	/**
 	 * Check for ajax post
 	 * @return bool
@@ -46,21 +49,21 @@ class Core {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * @return array
 	 */
 	public function get_post_types() {
 		return $this->post_types;
 	}
-	
+
 	/**
 	 * @return array
 	 */
 	public function get_taxonomy_names() {
 		return $this->taxonomy_names;
 	}
-	
+
 	/**
 	 *  Init current plugin
 	 *
@@ -69,30 +72,30 @@ class Core {
 	public function init_plugin( $name ) {
 
 		load_plugin_textdomain( 'mp-timetable', false, dirname( MP_TT_PLUGIN_BASENAME ) . '/languages/' );
-		
+
 		// include template for function
 		Core::include_all( Mp_Time_Table::get_plugin_part_path( 'templates-functions' ) );
-		
+
 		// include plugin models files
 		Model::get_instance()->install();
-		
+
 		// include plugin controllers files
 		Controller::get_instance()->install();
-		
+
 		// include plugin Preprocessors files
 		Preprocessor::install();
-		
+
 		// include plugin modules
 		Module::install();
-		
+
 		// install state
 		$this->install_state( $name );
-		
+
 		// init all hooks
 		Hooks::get_instance()->install_hooks();
 		Hooks::get_instance()->register_template_action();
 	}
-	
+
 	/**
 	 * Include all files from folder
 	 *
@@ -113,7 +116,7 @@ class Core {
 			}
 		}
 	}
-	
+
 	/**
 	 * Install current state
 	 *
@@ -123,7 +126,7 @@ class Core {
 		// include plugin state
 		Core::get_instance()->set_state( new State_Factory( $name ) );
 	}
-	
+
 	/**
 	 * @return Core
 	 */
@@ -131,10 +134,10 @@ class Core {
 		if ( null === self::$instance ) {
 			self::$instance = new self();
 		}
-		
+
 		return self::$instance;
 	}
-	
+
 	/**
 	 * Include pseudo template
 	 *
@@ -143,25 +146,25 @@ class Core {
 	 * @return string
 	 */
 	public function modify_single_template( $template ) {
-		
+
 		global $post;
-		
+
 		if ( ! empty( $post ) && in_array( $post->post_type, $this->post_types ) ) {
 			add_action( 'loop_start', array( $this, 'setup_pseudo_template' ) );
 		}
-		
+
 		return $template;
 	}
-	
+
 	/**
 	 * Setup pseudo template
 	 *
 	 * @param object $query
 	 */
 	public function setup_pseudo_template( $query ) {
-		
+
 		global $post;
-		
+
 		if ( $query->is_main_query() ) {
 			if ( ! empty( $post ) && in_array( $post->post_type, $this->post_types ) ) {
 				add_filter( 'the_content', array( $this, 'append_post_meta' ) );
@@ -169,7 +172,7 @@ class Core {
 			remove_action( 'loop_start', array( $this, 'setup_pseudo_template' ) );
 		}
 	}
-	
+
 	/**
 	 * Append post meta
 	 *
@@ -180,9 +183,9 @@ class Core {
 	public function append_post_meta( $content ) {
 		// run only once
 		remove_filter( 'the_content', array( $this, 'append_post_meta' ) );
-		
+
 		global $post;
-		
+
 		ob_start();
 		switch ( $post->post_type ) {
 			case 'mp-event':
@@ -194,10 +197,10 @@ class Core {
 		}
 		$append  = ob_get_clean();
 		$content .= $append;
-		
+
 		return $content;
 	}
-	
+
 	/**
 	 * Get model instace
 	 *
@@ -210,10 +213,10 @@ class Core {
 		if ( $type ) {
 			$state = $this->get_model( $type );
 		}
-		
+
 		return $state;
 	}
-	
+
 	/**
 	 * Check and return current state
 	 *
@@ -224,7 +227,7 @@ class Core {
 	public function get_model( $type = null ) {
 		return Core::get_instance()->get_state()->get_model( $type );
 	}
-	
+
 	/**
 	 * Get State
 	 * @return bool
@@ -236,7 +239,7 @@ class Core {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Set state
 	 *
@@ -245,7 +248,7 @@ class Core {
 	public function set_state( $state ) {
 		$this->state = $state;
 	}
-	
+
 	/**
 	 * Get version
 	 * @return mixed
@@ -254,10 +257,10 @@ class Core {
 		if ( empty( $this->version ) ) {
 			$this->init_plugin_version();
 		}
-		
+
 		return $this->version;
 	}
-	
+
 	/**
 	 * Init plugin version
 	 */
@@ -270,7 +273,7 @@ class Core {
 		$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
 		$this->version = $pluginObject[ 'Version' ];
 	}
-	
+
 	/**
 	 * Get controller
 	 *
@@ -281,7 +284,7 @@ class Core {
 	public function get_controller( $type ) {
 		return Core::get_instance()->get_state()->get_controller( $type );
 	}
-	
+
 	/**
 	 * Get view
 	 *
@@ -290,7 +293,7 @@ class Core {
 	public function get_view() {
 		return View::get_instance();
 	}
-	
+
 	/**
 	 * Get preprocessor
 	 *
@@ -301,7 +304,7 @@ class Core {
 	public function get_preprocessor( $type = null ) {
 		return Core::get_instance()->get_state()->get_preprocessor( $type );
 	}
-	
+
 	/**
 	 * Route plugin url
 	 */
@@ -313,7 +316,7 @@ class Core {
 		if ( ! empty( $action ) && current_user_can('edit_posts') ) {
 			// call controller
 			Preprocessor::get_instance()->call_controller( $action, $controller );
-			
+
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 				wp_die();
 			} else {
@@ -321,16 +324,16 @@ class Core {
 			}
 		}
 	}
-	
+
 	/**
 	 * Register taxonomies
 	 */
 	public function register_all_taxonomies() {
-		
+
 		$permalinks = Core::get_instance()->get_permalink_structure();
-		
+
 		do_action( 'mptt_before_register_taxonomies' );
-		
+
 		$event_category_labels = array(
 			'name'               => __( 'Event categories', 'mp-timetable' ),
 			'singular_name'      => __( 'Event category', 'mp-timetable' ),
@@ -345,7 +348,7 @@ class Core {
 			'not_found_in_trash' => __( 'No Event categories found in Trash', 'mp-timetable' ),
 			'menu_name'          => __( 'Event categories', 'mp-timetable' )
 		);
-		
+
 		$event_category_args = array(
 			'label'                 => __( 'Event categories', 'mp-timetable' ),
 			'labels'                => $event_category_labels,
@@ -374,7 +377,7 @@ class Core {
 			apply_filters( 'mptt_taxonomy_objects_event_category', array( 'mp-event' ) ),
 			apply_filters( 'mptt_taxonomy_args_event_category', $event_category_args)
 		);
-		
+
 		$event_tag_labels = array(
 			'name'               => __( 'Event tags', 'mp-timetable' ),
 			'singular_name'      => __( 'Event tag', 'mp-timetable' ),
@@ -389,7 +392,7 @@ class Core {
 			'not_found_in_trash' => __( 'No Event tags found in Trash', 'mp-timetable' ),
 			'menu_name'          => __( 'Event tags', 'mp-timetable' )
 		);
-		
+
 		$event_tag_args = array(
 			'label'                 => __( 'Event tags', 'mp-timetable' ),
 			'labels'                => $event_tag_labels,
@@ -412,23 +415,23 @@ class Core {
 			'_builtin'              => false,
 			'show_in_quick_edit'    => null,
 		);
-		
+
 		register_taxonomy(
 			'mp-event_tag',
 			apply_filters( 'mptt_taxonomy_objects_event_tag', array( 'mp-event' ) ),
 			apply_filters( 'mptt_taxonomy_args_event_tag', $event_tag_args)
 		);
-		
+
 		do_action( 'mptt_after_register_taxonomies' );
 	}
-	
+
 	/**
 	 * Register custom post type
 	 */
 	public function register_all_post_type() {
-		
+
 		$permalinks = Core::get_instance()->get_permalink_structure();
-		
+
 		do_action( 'mptt_before_register_post_types' );
 
 		register_post_type(
@@ -508,22 +511,22 @@ class Core {
 				)
 			)
 		);
-		
+
 		do_action( 'mptt_after_register_post_types' );
-		
+
 	}
-	
+
 	/**
 	 * Create Plugin table if not exists
 	 */
 	public function create_table() {
 
 		global $wpdb;
-		
+
 		$charset_collate = $wpdb->get_charset_collate();
-		
+
 		$table_name = Mp_Time_Table::get_datatable();
-		
+
 		$sql = "CREATE TABLE IF NOT EXISTS $table_name (
 				  `id` int(11) NOT NULL AUTO_INCREMENT,
 				  `column_id` int(11) NOT NULL,
@@ -535,11 +538,11 @@ class Core {
 				  PRIMARY KEY (`id`),
 				  UNIQUE KEY `id` (`id`)
 				) $charset_collate";
-		
+
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $sql );
 	}
-	
+
 	/**
 	 * Hook admin_enqueue_scripts
 	 */
@@ -547,7 +550,7 @@ class Core {
 		global $current_screen;
 		$this->current_screen( $current_screen );
 	}
-	
+
 	/**
 	 * Load script by current screen
 	 *
@@ -564,11 +567,11 @@ class Core {
 				'timeslot_update_nonce' => wp_create_nonce( 'timeslot_update_nonce' ),
 			)
 		);
-		
+
 		wp_enqueue_script( 'underscore' );
 
 		wp_enqueue_style( 'mptt-admin-style', Mp_Time_Table::get_plugin_url( 'media/css/admin.css' ), array(), $this->version );
-		
+
 		wp_enqueue_script( 'mptt-functions', Mp_Time_Table::get_plugin_url( 'media/js/mptt-functions' . $this->get_prefix() . '.js' ), array(), $this->version );
 
         if ( ! empty( $_GET[ 'page' ] ) ) {
@@ -604,7 +607,7 @@ class Core {
 					wp_enqueue_script( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/js/lib/spectrum' . $this->get_prefix() . '.js' ), array( 'jquery' ), '1.8.0' );
 					wp_enqueue_script( 'mptt-event-object' );
 					wp_enqueue_script( 'jquery-ui-timepicker', Mp_Time_Table::get_plugin_url( 'media/js/lib/jquery.ui.timepicker' . $this->get_prefix() . '.js' ), '0.3.3' );
-					
+
 					wp_enqueue_style( 'jquery-ui-core', Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
 					wp_enqueue_style( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/css/spectrum.css' ), array(), '1.8.0' );
 					wp_enqueue_style( 'jquery-ui-timepicker', Mp_Time_Table::get_plugin_url( 'media/css/jquery.ui.timepicker.css' ), array(), '0.3.3' );
@@ -613,7 +616,7 @@ class Core {
 				case 'mp-column':
 					wp_enqueue_script( 'jquery-ui-datepicker' );
 					wp_enqueue_script( 'mptt-event-object' );
-					
+
 					wp_enqueue_style( 'jquery-ui-core', Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
 					break;
 
@@ -621,7 +624,7 @@ class Core {
 				case 'widgets':
 					wp_enqueue_script( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/js/lib/spectrum' . $this->get_prefix() . '.js' ), array( 'jquery' ), '1.8.0' );
 					wp_enqueue_script( 'mptt-event-object' );
-					
+
 					wp_enqueue_style( 'jquery-ui-core', Mp_Time_Table::get_plugin_url( 'media/css/jquery-ui-1.10.0.custom.min.css' ), array(), '1.10.0' );
 					wp_enqueue_style( 'spectrum', Mp_Time_Table::get_plugin_url( 'media/css/spectrum.css' ), array(), '1.8.0' );
 					break;
@@ -632,7 +635,7 @@ class Core {
 				case 'page':
 					wp_enqueue_script( 'jquery-ui-tabs' );
 					wp_enqueue_script( 'jBox', Mp_Time_Table::get_plugin_url( 'media/js/lib/jBox' . $this->get_prefix() . '.js' ), array( 'jquery' ), '0.2.1' );
-					
+
 					wp_enqueue_style( 'jBox', Mp_Time_Table::get_plugin_url( 'media/css/jbox/jBox.css' ), array(), '1.8.0' );
 					break;
 
@@ -677,7 +680,7 @@ class Core {
 			wp_send_json_success();
 		}
 	}
-	
+
 	/**
 	 *  Get prefix
 	 *
@@ -694,7 +697,7 @@ class Core {
 
 		return $prefix;
 	}
-	
+
 	/**
 	 * Hook wp_enqueue_scripts
 	 */
@@ -710,7 +713,7 @@ class Core {
     public function elementor_enqueue_scripts() {
         $this->add_plugin_js( 'elementor-widget' );
     }
-	
+
 	/**
 	 * Add plugin js
 	 *
@@ -723,7 +726,7 @@ class Core {
 			'MPTT',
 			array( 'table_class' => apply_filters( 'mptt_shortcode_static_table_class', 'mptt-shortcode-table' ) )
 		);
-		
+
 		switch ( $type ) {
 			case 'shortcode':
 			case 'widget':
@@ -744,14 +747,14 @@ class Core {
                 break;
 		}
 	}
-	
+
 	/**
 	 * Add plugin css
 	 */
 	public function add_plugin_css() {
 		wp_enqueue_style( 'mptt-style', Mp_Time_Table::get_plugin_url( 'media/css/style.css' ), array(), $this->version );
 	}
-	
+
 	/**
 	 * Fix fatal error for earlier WP versions
 	 *
@@ -759,20 +762,20 @@ class Core {
 	 */
 	public function is_embed() {
 		global $wp_version;
-		
+
 		if ( ! function_exists( 'is_embed' ) ) {
 			return false;
 		}
-		
+
 		if ( version_compare( $wp_version, '4.4', '<' ) ) {
 			if ( ! function_exists( 'is_embed' ) ) {
 				return false;
 			}
 		}
-		
+
 		return is_embed();
 	}
-	
+
 	/**
 	 * Get permalink settings
 	 *

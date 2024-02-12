@@ -4,7 +4,7 @@ Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
 Tested up to: 6.2
-Stable tag: 2.4.9
+Stable tag: 2.4.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,7 +54,7 @@ Highlight important activities by presenting them in different colors. Various c
 
 #### Visual time frames
 
-Hourly time frames are generally large enough for showing the events, but you still can increase them by setting the timetable to show up to 15 minutes accurate time in the left 'time' column.  
+Hourly time frames are generally large enough for showing the events, but you still can increase them by setting the timetable to show up to 15 minutes accurate time in the left 'time' column.
 
 #### Timetable Gutenberg block
 
@@ -81,7 +81,7 @@ Timeslots are ordered by column order and the event start time.
 == Installation ==
 
 1. Upload the plugin files to the /wp-content/plugins/ directory
-2. Activate the plugin through the 'Plugins' menu in WordPress. You'll find 'Timetable' on your main WordPress dashboard.  
+2. Activate the plugin through the 'Plugins' menu in WordPress. You'll find 'Timetable' on your main WordPress dashboard.
 
 == Copyright ==
 
@@ -107,6 +107,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.4.10, Feb 14 2024 =
+* Improved compatibility with PHP 8.2.
 
 = 2.4.9, Apr 17 2023 =
 * Minor bugfixes and improvements.
