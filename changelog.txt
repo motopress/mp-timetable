@@ -1,3 +1,9 @@
+= 2.4.7, Nov 14 2022 =
+* Fixed a deprecation warning in PHP.
+
+= 2.4.6, May 18 2022 =
+* Fixed an issue when content of Timetable block may disappear in the block editor.
+
 = 2.4.5, Jan 12 2022 =
 * Security - implemented better handling of the event duplication functionality. Reported by Chloe Chamberland from Wordfence.
 
