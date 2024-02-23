@@ -614,14 +614,14 @@ Registry.register("Event",
 					$.each(events, function(index) {
 						var start = $(this).attr('data-start');
 						var end = $(this).attr('data-end');
-						
+
 						arrMin[index] = start;
 						arrMax[index] = end;
 					});
 
 					var min = Math.min.apply(Math, arrMin);
 					var max = Math.max.apply(Math, arrMax);
-					
+
 					if ( nextEventIndex && max > nextEventIndex ) {
 						max = nextEventIndex;
 					}
@@ -705,11 +705,7 @@ Registry.register("Event",
 				initTableData: function() {
 					state.setClassTd();
 					state.setRowSpanTd();
-					var table_class = '.' + MPTT.table_class;
-
-					if ($(table_class).data('hide_empty_row')) {
-						state.hideEmptyRows();
-					}
+					state.hideEmptyRows();
 				},
 				/**
 				 *  init Filters
@@ -874,14 +870,19 @@ Registry.register("Event",
 				 */
 				hideEmptyRows: function() {
 					var table_class = '.' + MPTT.table_class;
+					var tables = $(table_class);
 
-					var trs = $(table_class + ' tbody tr'),
-						col_count = $(table_class).first().find('th').length;
+					$.each(tables, function(index, table) {
+						if ( $(table).data('hide_empty_row') ) {
+							var trs = $(table).find('tbody tr'),
+								col_count = $(table).first().find('th').length;
 
-					$.each(trs, function(index, value) {
-						// if all columns in the row are empty
-						if ($(value).find('td.event').length === 0 && $(value).find('td').length === col_count) {
-							$(value).remove();
+							$.each(trs, function(index, value) {
+								// if all columns in the row are empty
+								if ($(value).find('td.event').length === 0 && $(value).find('td').length === col_count) {
+									$(value).remove();
+								}
+							});
 						}
 					});
 				},
