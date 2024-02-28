@@ -208,12 +208,17 @@ class Shortcode extends Core {
 	 * @return float|int
 	 */
 	protected function get_event_index( $increment, $time, $step, $type ) {
-		if ( $type == 'start' ) {
-			$index = date( 'G', strtotime( $time ) ) / $increment + floor( date( 'i', strtotime( $time ) ) / $step );
-		} else {
-			$index = date( 'G', strtotime( $time ) ) / $increment + ceil( date( 'i', strtotime( $time ) ) / $step );
+
+		$index = 0;
+
+		if ( $increment > 0 && $step > 0 ) {
+			if ( $type == 'start' ) {
+				$index = date( 'G', strtotime( $time ) ) / $increment + floor( date( 'i', strtotime( $time ) ) / $step );
+			} else {
+				$index = date( 'G', strtotime( $time ) ) / $increment + ceil( date( 'i', strtotime( $time ) ) / $step );
+			}
 		}
-		
+
 		return $index;
 	}
 	

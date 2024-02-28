@@ -319,9 +319,15 @@ function mptt_sidebar() {
  * @return array
  */
 function mptt_make_data_shortcode( $bounds, $mptt_shortcode_data, $column_events ) {
+
 	$data        = array( 'rows' => array() );
-	$amount_rows = 23 / $mptt_shortcode_data[ 'params' ][ 'increment' ];
-	
+	$amount_rows = 23;
+
+	if ( isset( $mptt_shortcode_data[ 'params' ][ 'increment' ] ) && floatval( $mptt_shortcode_data[ 'params' ][ 'increment' ] ) > 0 ) {
+
+		$amount_rows = 23 / floatval( $mptt_shortcode_data[ 'params' ][ 'increment' ] );
+	}
+
 	$data[ 'table_header' ] = mptt_get_header_row( $mptt_shortcode_data );
 	
 	foreach ( $column_events as $column_id => $events_list ) {
@@ -378,16 +384,16 @@ function get_time_cell( $row_index, $amount_rows, $increment ) {
 		} else {
 			$tm_position = explode( '.', $tm );
 			
-			if ( $tm_position[ 1 ] == 25 ) {
+			if ( isset( $tm_position[ 1 ] ) && $tm_position[ 1 ] == 25 ) {
 				$mnts = ':15';
-			} elseif ( $tm_position[ 1 ] == 5 ) {
+			} elseif ( isset( $tm_position[ 1 ] ) && $tm_position[ 1 ] == 5 ) {
 				$mnts = ':30';
 			} else {
 				$mnts = ':45';
 			}
 			
 			$time = floor( $tm ) . $mnts;
-			
+
 			return $time;
 		}
 	}
