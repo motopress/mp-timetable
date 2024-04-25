@@ -78,7 +78,20 @@ class Import extends Model {
 		if (empty($time_slot)) {
 			return false;
 		}
-		$data = $wpdb->get_results('SELECT id FROM  ' . $this->table . '   WHERE column_id = "' . $time_slot['column'] . '" AND event_id = "' . $time_slot['event'] . '" AND event_start = "' . $time_slot['event_start'] . '" AND event_end = "' . $time_slot['event_end'] . '"');
+
+		$sql = "SELECT id FROM {$this->table} WHERE column_id=%d AND event_id=%d AND event_start=%s AND event_end=%s";
+
+		$sql = $wpdb->prepare(
+			$sql,
+			array(
+				$time_slot['column'],
+				$time_slot['event'],
+				$time_slot['event_start'],
+				$time_slot['event_end']
+			)
+		);
+
+		$data = $wpdb->get_results( $sql );
 		return empty($data) ? false : true;
 	}
 
