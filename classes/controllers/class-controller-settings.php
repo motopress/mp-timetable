@@ -28,7 +28,7 @@ class Controller_Settings extends Controller {
 	 * Action template
 	 */
 	public function action_content() {
-		
+
 		if ( current_user_can('manage_options') ) {
 
 			$data = Settings::get_instance()->get_settings();
@@ -61,6 +61,10 @@ class Controller_Settings extends Controller {
 				)
 			);
 			exit;
+		}
+
+		if ( empty( $_GET['page'] ) || wp_unslash( $_GET['page'] ) !== 'mptt-settings' ) {
+			return;
 		}
 
 		/**
