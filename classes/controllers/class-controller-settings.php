@@ -46,6 +46,10 @@ class Controller_Settings extends Controller {
 	 */
 	public function action_save() {
 
+		if ( empty( $_GET['page'] ) || wp_unslash( $_GET['page'] ) !== 'mptt-settings' ) {
+			return;
+		}
+
 		if ( isset( $_POST['mp-timetable-save-settings'] ) &&
 			wp_verify_nonce( sanitize_key( $_POST['mp-timetable-save-settings'] ), 'mp_timetable_nonce_settings') ) {
 
@@ -61,10 +65,6 @@ class Controller_Settings extends Controller {
 				)
 			);
 			exit;
-		}
-
-		if ( empty( $_GET['page'] ) || wp_unslash( $_GET['page'] ) !== 'mptt-settings' ) {
-			return;
 		}
 
 		/**
