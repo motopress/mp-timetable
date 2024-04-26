@@ -100,22 +100,39 @@ class Events extends Model {
 	 * @return array|null|object
 	 */
 	public function get_event_data( $params, $order_by = 'event_start', $publish = true ) {
+
+		$available_columns_for_search = array( 'id', 'column_id', 'event_id' );
+
+		if ( ! in_array( $params["field"], $available_columns_for_search ) ) {
+			return array();
+		}
+
+		// order_by always set to 'event_start', but add all suitable columns to the available list to prevent possible issues
+		$available_columns_for_order = array( 'id', 'column_id', 'event_id', 'event_start', 'event_end', 'user_id' );
+
+		if ( ! in_array( $order_by, $available_columns_for_order ) ) {
+			$order_by = 'event_start';
+		}
+
 		$publish_query_part = $publish ? " AND `post_status` = 'publish'" : '';
 		$table_posts        = $this->wpdb->prefix . 'posts';
 		
 		$event_data = $this->wpdb->get_results(
-			"SELECT t.*"
-			. " FROM $this->table_name t INNER JOIN"
-			. " ("
-			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = 'mp-column' AND `post_status` = 'publish'"
-			. " ) p ON t.`column_id` = p.`ID`"
-			. " INNER JOIN ("
-			. "	SELECT * FROM {$table_posts}"
-			. " WHERE `post_type` = '{$this->post_type}'{$publish_query_part}"
-			. " ) e ON t.`event_id` = e.`ID`"
-			. " WHERE t.`{$params["field"]}` = {$params['id']} "
-			. " ORDER BY p.`menu_order`, t.`{$order_by}`"
+			$this->wpdb->prepare(
+				"SELECT t.*"
+				. " FROM $this->table_name t INNER JOIN"
+				. " ("
+				. "	SELECT * FROM {$table_posts}"
+				. " WHERE `post_type` = 'mp-column' AND `post_status` = 'publish'"
+				. " ) p ON t.`column_id` = p.`ID`"
+				. " INNER JOIN ("
+				. "	SELECT * FROM {$table_posts}"
+				. " WHERE `post_type` = '{$this->post_type}'{$publish_query_part}"
+				. " ) e ON t.`event_id` = e.`ID`"
+				. " WHERE t.`{$params["field"]}` = %d "
+				. " ORDER BY p.`menu_order`, t.`{$order_by}`",
+				$params['id']
+			)
 		);
 
 		foreach ( $event_data as $key => $event ) {
@@ -509,17 +526,29 @@ class Events extends Model {
 	public function get_events_data( array $params ) {
 		$events      = array();
 		$sql_request = "SELECT * FROM " . $this->table_name;
-		
+
+		$available_columns = array( 'column_id', 'event_id' );
+
 		if ( ( ! empty( $params[ 'all' ] ) && $params[ 'all' ] ) || empty( $params[ 'list' ] ) ) {
 			
-		} elseif ( ! is_array( $params[ 'column' ] ) ) {
-			
+		} elseif ( ! is_array( $params[ 'column' ] ) && in_array( $params[ 'column' ], $available_columns ) ) {
+
+			$values_in = '';
+
 			if ( isset( $params[ 'list' ] ) && is_array( $params[ 'list' ] ) ) {
-				$params[ 'list' ] = implode( ',', $params[ 'list' ] );
+				$values_in = $params[ 'list' ];
+			} else {
+				$values_in = explode( ',', $params[ 'list' ] );
 			}
+
+			foreach ( $values_in as $index => $value ) {
+				$values_in[ $index ] = $this->wpdb->prepare( '%d', $value );
+			}
+
+			$values_in = implode( ',',  $values_in );
 			
-			$sql_request .= " WHERE " . $params[ 'column' ] . " IN (" . $params[ 'list' ] . ")";
-			
+			$sql_request .= " WHERE `" . $params[ 'column' ] . "` IN (" . $values_in . ")";
+
 		} elseif ( is_array( $params[ 'column' ] ) && is_array( $params[ 'list' ] ) ) {
 			
 			$sql_request .= " WHERE ";
@@ -527,17 +556,33 @@ class Events extends Model {
 			$last_key = key( array_slice( $params[ 'column' ], - 1, 1, true ) );
 			
 			foreach ( $params[ 'column' ] as $key => $column ) {
-				if ( isset( $params[ 'list' ][ $column ] ) && is_array( $params[ 'list' ][ $column ] ) ) {
-					$params[ 'list' ][ $column ] = implode( ',', $params[ 'list' ][ $column ] );
+
+				if ( ! in_array( $params[ 'column' ], $available_columns ) ) {
+					continue;
 				}
-				$sql_request .= $column . " IN (" . $params[ 'list' ][ $column ] . ")";
+
+				$values_in = '';
+
+				if ( isset( $params[ 'list' ][ $column ] ) && is_array( $params[ 'list' ][ $column ] ) ) {
+					$values_in = $params[ 'list' ][ $column ];
+				} else {
+					$values_in = explode( ',', $params[ 'list' ][ $column ]) ;
+				}
+
+				foreach ( $values_in as $index => $value ) {
+					$values_in[ $index ] = $this->wpdb->prepare( '%d', $value );
+				}
+
+				$values_in = implode( ',', $values_in );
+
+				$sql_request .= "`" . $params[ 'column' ] . "` IN (" . $values_in . ")";
 				$sql_request .= ( $last_key != $key ) ? ' AND ' : '';
 			}
 			
 		}
 		
 		$sql_request .= ' ORDER BY `event_start`';
-		
+
 		$events_data = $this->wpdb->get_results( $sql_request );
 		
 		if ( is_array( $events_data ) ) {
@@ -892,7 +937,9 @@ class Events extends Model {
 			/*
 			 * duplicate timeslots in custom BD
 			 */
-			$timeslots = $wpdb->get_results( "SELECT * FROM {$this->table_name} WHERE event_id = " . $post_id, OBJECT );
+			$timeslots = $this->wpdb->get_results( 
+				$this->wpdb->prepare("SELECT * FROM {$this->table_name} WHERE event_id = %d", $post_id ), 
+			OBJECT );
 
 			if ( !empty($timeslots) ) {
 
