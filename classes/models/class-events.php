@@ -557,7 +557,7 @@ class Events extends Model {
 			
 			foreach ( $params[ 'column' ] as $key => $column ) {
 
-				if ( ! in_array( $params[ 'column' ], $available_columns ) ) {
+				if ( ! in_array( $column, $available_columns ) ) {
 					continue;
 				}
 
@@ -575,7 +575,7 @@ class Events extends Model {
 
 				$values_in = implode( ',', $values_in );
 
-				$sql_request .= "`" . $params[ 'column' ] . "` IN (" . $values_in . ")";
+				$sql_request .= "`" . $column . "` IN (" . $values_in . ")";
 				$sql_request .= ( $last_key != $key ) ? ' AND ' : '';
 			}
 			
