@@ -833,7 +833,13 @@ class Import extends Model {
 						do_action('wp_import_insert_comment', $inserted_comments[$key], $comment, $comment_post_ID, $post);
 
 						foreach ($comment['commentmeta'] as $meta) {
-							$value = maybe_unserialize($meta['value']);
+
+							if ( is_serialized( $meta['value'] ) ) {
+								$value = unserialize( trim( $meta['value'] ), array( 'allowed_classes' => false ) );
+							} else {
+								$value = $meta['value'];
+							}
+
 							add_comment_meta($inserted_comments[$key], $meta['key'], $value);
 						}
 
@@ -880,8 +886,14 @@ class Import extends Model {
 
 					if ($key) {
 						// export gets meta straight from the DB so could have a serialized string
-						if (!$value)
-							$value = maybe_unserialize($meta['value']);
+						if ( !$value ) {
+
+							if ( is_serialized( $meta['value'] ) ) {
+								$value = unserialize( trim( $meta['value'] ), array( 'allowed_classes' => false ) );
+							} else {
+								$value = $meta['value'];
+							}
+						}
 
 						add_post_meta($post_id, $key, $value);
 						do_action('import_post_meta', $post_id, $key, $value);
