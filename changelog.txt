@@ -1,3 +1,9 @@
+= 2.4.9, Apr 17 2023 =
+* Minor bugfixes and improvements.
+
+= 2.4.8, Jan 30 2023 =
+* Fixed deprecation warnings in Elementor 3.5 and above.
+
 = 2.4.7, Nov 14 2022 =
 * Fixed a deprecation warning in PHP.
 

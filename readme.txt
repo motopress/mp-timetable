@@ -3,8 +3,8 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
-Tested up to: 6.5
-Stable tag: 2.4.13
+Tested up to: 6.6
+Stable tag: 2.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -108,6 +108,9 @@ Plugin bundles the following third-party resources:
 
 == Changelog ==
 
+= 2.4.14, Aug 5 2024 =
+* Minor bugfixes and improvements.
+
 = 2.4.13, Apr 30 2024 =
 * Minor bugfixes.
 
@@ -119,12 +122,6 @@ Plugin bundles the following third-party resources:
 
 = 2.4.10, Feb 12 2024 =
 * Improved compatibility with PHP 8.2.
-
-= 2.4.9, Apr 17 2023 =
-* Minor bugfixes and improvements.
-
-= 2.4.8, Jan 30 2023 =
-* Fixed deprecation warnings in Elementor 3.5 and above.
 
 --------
 
