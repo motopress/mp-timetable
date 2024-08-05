@@ -557,7 +557,7 @@ class Import extends Model {
 							'user_login' => $old_login,
 							'user_pass' => wp_generate_password(),
 							'user_email' => isset( $this->authors[$old_login]['author_email'] ) ? $this->authors[$old_login]['author_email'] : '',
-							'display_name' => $this->authors[$old_login]['author_display_name'],
+							'display_name' => isset( $this->authors[$old_login]['author_display_name'] ) ? $this->authors[$old_login]['author_display_name'] : '',
 							'first_name' => isset( $this->authors[$old_login]['author_first_name'] ) ? $this->authors[$old_login]['author_first_name'] : '',
 							'last_name' => isset( $this->authors[$old_login]['author_last_name'] ) ? $this->authors[$old_login]['author_last_name'] : '',
 					);
@@ -569,7 +569,7 @@ class Import extends Model {
 						$this->processed_authors[$old_id] = $user_id;
 					$this->author_mapping[$santized_old_login] = $user_id;
 				} else {
-					printf( __( 'Failed to create new user for %s. Their posts will be attributed to the current user.', 'mp-timetable' ), esc_html($this->authors[$old_login]['author_display_name']) );
+					printf( __( 'Failed to create new user for %s. Their posts will be attributed to the current user.', 'mp-timetable' ), esc_html( $old_login ) );
 					if ( defined('IMPORT_DEBUG') && IMPORT_DEBUG )
 						echo ' ' . $user_id->get_error_message();
 					echo '<br />';
@@ -991,4 +991,3 @@ class Import extends Model {
 		return apply_filters('import_attachment_size_limit', 0);
 	}
 }
-
