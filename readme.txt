@@ -3,7 +3,7 @@ Contributors: MotoPress
 Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
-Tested up to: 6.6
+Tested up to: 6.7
 Stable tag: 2.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -17,6 +17,7 @@ MotoPress Timetable and Event Schedule is an all-around organizer plugin develop
 * [Plugin Demo](https://mpttdemo.getmotopress.com/)
 * [Documentation](https://motopress.com/documentation/wordpress/plugins/timetable/)
 * [Free Theme](https://gutenix.com/products/school/)
+* [Events Calendar](https://motopress.com/products/events-calendar/) – an extended version of the Timetable plugin: a [detailed comparison](https://motopress.com/events-calendar-vs-timetable/).
 
 ### Main features
 
@@ -63,6 +64,21 @@ The calendar events plugin provides Timetable block for Gutenberg. Timetable can
 #### Timetable Elementor widget
 
 Plugin provides Timetable widget for Elementor. Choose the layout and style for your events, show or hide the event description, customize the table look, choose the mobile behavior and more.
+
+### Events Calendar
+
+To address some of the limitations of the MotoPress Timetable plugin and simplify the event management process even further, we developed an absolutely fresh product, the next-gen WordPress events calendar plugin. While sharing some features and goals with the free Timetable plugin, the Events Calendar is designed for easier event creation in visual mode, with many more features:
+
+* Add and display recurring events easily.
+* Create hourly, multi-day, and all-day events.
+* Create multiple calendars.
+* Use month, week, day, and list views for events.
+* Create an event that starts on one day and ends on another.
+* Add multiple events to the same time slot.
+* Dedicated WordPress block to edit the look of your calendar.
+* Shortcode settings.
+
+[Compare Timetable vs Events Calendar](https://motopress.com/events-calendar-vs-timetable/)
 
 ### Appointment Booking
 
