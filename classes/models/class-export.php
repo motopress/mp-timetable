@@ -32,9 +32,14 @@ class Export extends Model {
 
 		global $wpdb, $post;
 
-		if ( !defined('ABSPATH') ) exit;
+		if (! defined( 'ABSPATH' ) ||
+			! isset( $_POST['_wpnonce'] ) ||
+			! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['_wpnonce'] ) ), 'mptt_export_xml' ) ||
+			! current_user_can( 'export' )
+		) {
 
-		if ( !current_user_can('export') ) exit;
+			wp_die( __( 'Sorry, you are not allowed to export the content of this site.' ) );
+		}
 
 		if ( !function_exists('export_wp') ) {
 			include_once(ABSPATH . 'wp-admin/includes/export.php');

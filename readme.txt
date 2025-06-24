@@ -4,7 +4,7 @@ Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 2.4.14
+Stable tag: 2.4.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -82,11 +82,9 @@ To address some of the limitations of the MotoPress Timetable plugin and simplif
 
 ### Appointment Booking
 
-Want to take automatic online appointment reservations through your website for events, classes, and any other type of services?
+Want to take automatic online appointment reservations through your website for events, classes, and any other type of services? [Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) is our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
 
-[Hourly Appointment Booking](https://motopress.com/products/appointment-booking/?utm_source=wp_org_tt_page&utm_medium=text_link&utm_campaign=appointment_plugin) is our custom-crafted plugin optimized for easy appointment scheduling and quick online reservations.
-
-Proud developers of Timetable plugin and the biggest set of blocks for Gutenberg - [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
+Developed by MotoPress – a trusted WordPress company with over a decade of expertise in crafting booking solutions, including our renowned [WordPress Booking Plugins](https://motopress.com/products/category/wordpress-booking-plugins/) and the extensive Gutenberg block collection – [Getwid WordPress Blocks](https://wordpress.org/plugins/getwid/).
 
 == Frequently Asked Questions ==
 
@@ -123,6 +121,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.4.15, Jun 24 2025 =
+* Security – improved export process validation.
 
 = 2.4.14, Aug 5 2024 =
 * Minor bugfixes and improvements.
