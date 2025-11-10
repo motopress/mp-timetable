@@ -823,8 +823,8 @@ class Events extends Model {
 	}
 	
 	public function post_row_actions( $actions, $post ) {
-		
-		if ( $post->post_type == $this->post_type && current_user_can('edit_posts') ) {
+
+		if ( $post->post_type == $this->post_type && current_user_can( 'edit_post', $post->ID ) ) {
 
 			$action_url = add_query_arg(
 				array(
@@ -862,7 +862,7 @@ class Events extends Model {
 
 		$nonce = sanitize_key( $_REQUEST['_wpnonce'] );
 
-		if ( wp_verify_nonce( $nonce, 'mptt_duplicate_event' ) && current_user_can('edit_posts') ) {
+		if ( wp_verify_nonce( $nonce, 'mptt_duplicate_event' ) && current_user_can( 'edit_post', $post->ID ) ) {
 
 			$current_user = wp_get_current_user();
 			$new_post_author = $current_user->ID;
