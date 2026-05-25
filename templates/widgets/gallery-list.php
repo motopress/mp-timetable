@@ -25,7 +25,7 @@
 		<input class="widefat" id="<?php echo esc_attr( $widget_object->get_field_id('next_days') );?>"
 		       name="<?php echo esc_attr( $widget_object->get_field_name('next_days') );?>" type="text"
 		       value="<?php echo esc_html( $instance['next_days'] ); ?>">
-		<?php _n('day', 'days', $instance['next_days'], "mp-timetable") ?>
+		<?php echo _n('day', 'days', $instance['next_days'], "mp-timetable") ?>
 	</p>
 	<p>
 		<label class="widget-categories"
