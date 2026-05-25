@@ -61,9 +61,19 @@ class Controller_Events extends Controller {
 	 */
 	public function action_get_event_data() {
 
-		if ( current_user_can('edit_posts') ) {
+		check_ajax_referer( 'timeslot_read_nonce', 'nonce' );
 
-			$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+		$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+
+		$event_id = 0;
+		$timeslot = $this->get('events')->get_timeslot_by_id( $id );
+
+		if ( $timeslot ) {
+			$event_id = (int) $timeslot->event_id;
+		}
+
+		if ( $event_id && current_user_can( 'edit_post', $event_id ) ) {
+
 			$result = $this->get('events')->get_event_data(array('field' => 'id', 'id' => $id), 'event_start', false);
 
 			if (!empty($result)) {

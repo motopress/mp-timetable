@@ -185,7 +185,8 @@ Registry.register("Event",
 						Registry._get("adminFunctions").wpAjax({
 								controller: "events",
 								action: "get_event_data",
-								id: id
+								id: id,
+								nonce: MPTT.timeslot_read_nonce,
 							},
 							function(data) {
 								var $addMpEvent = $('#add_mp_event');

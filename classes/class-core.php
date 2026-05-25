@@ -563,6 +563,7 @@ class Core {
 			'MPTT',
 			array(
 				'table_class' => apply_filters( 'mptt_shortcode_static_table_class', 'mptt-shortcode-table' ),
+				'timeslot_read_nonce' => wp_create_nonce( 'timeslot_read_nonce' ),
 				'timeslot_delete_nonce' => wp_create_nonce( 'timeslot_delete_nonce' ),
 				'timeslot_update_nonce' => wp_create_nonce( 'timeslot_update_nonce' ),
 			)

@@ -148,8 +148,15 @@ class Hooks extends Core {
 		Core::get_instance()->register_all_post_type();
 		// Register taxonomy all
 		Core::get_instance()->register_all_taxonomies();
-		// route url
-		Core::get_instance()->wp_ajax_route_url();
+
+		if (
+			is_admin() &&
+			isset( $_POST['controller'], $_POST['mptt_action'] ) &&
+			'import' === sanitize_key( wp_unslash( $_POST['controller'] ) ) &&
+			'export' === sanitize_key( wp_unslash( $_POST['mptt_action'] ) )
+		) {
+			Core::get_instance()->wp_ajax_route_url();
+		}
 		
 		if ( Settings::get_instance()->is_plugin_template_mode() ) {
 			// plugin mode
