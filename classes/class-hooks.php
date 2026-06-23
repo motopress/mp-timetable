@@ -42,6 +42,7 @@ class Hooks extends Core {
 		add_action( 'admin_init', array( $this->get_controller( 'settings' ), 'action_save' ) );
 		add_action( 'admin_init', array( $this, 'admin_init' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+		add_action( 'admin_footer-edit.php', array( $this, 'render_events_calendar_promo_template' ) );
 		add_action( 'manage_posts_custom_column', array( $this->get( 'events' ), 'get_event_taxonomy' ) );
 		add_action( 'manage_posts_custom_column', array( $this->get( 'column' ), 'get_column_columns' ) );
 		add_action( 'current_screen', array( Core::get_instance(), 'current_screen' ) );
@@ -242,6 +243,22 @@ class Hooks extends Core {
 		//Help
 		add_submenu_page( 'edit.php?post_type=mp-event', __( 'Help & Shortcode', 'mp-timetable' ), __( 'Help & Shortcode', 'mp-timetable' ),
 			'edit_posts', 'mptt-help', array( $this->get_controller( 'help' ), 'action_content' ) );
+	}
+
+	/**
+	 * Render promo markup for native post list screens.
+	 */
+	public function render_events_calendar_promo_template() {
+
+		$current_screen = get_current_screen();
+
+		if ( empty( $current_screen ) || ! in_array( $current_screen->id, array( 'edit-mp-event', 'edit-mp-column' ), true ) ) {
+			return;
+		}
+
+		require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
+
+		Plugins_Offer::renderEventsCalendarPromo( true, 'inline_promo' );
 	}
 	
 	/**

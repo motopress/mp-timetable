@@ -6,6 +6,31 @@ class Plugins_Offer {
 
 	public function __construct() { }
 
+	public static function renderEventsCalendarPromo( $is_template = false, $css_class = '' ) {
+
+		$classes = trim( 'mptt-events-calendar-promo ' . $css_class );
+
+		if ( $is_template ) {
+			$classes .= ' mptt-events-calendar-promo-template';
+		}
+		?>
+			<div class="<?php echo esc_attr( $classes ); ?>">
+				<span class="mptt-events-calendar-promo__text">
+					<?php esc_html_e( 'Build event calendars with Events Calendar by MotoPress', 'mp-timetable' ); ?>
+				</span>
+				<a
+					class="button button-small mptt-events-calendar-promo__button"
+					href="<?php echo esc_url(
+                        'https://calendar.getmotopress.com/?utm_source=mp-timetable&utm_medium=user-website&utm_campaign=events-calendar-demo' ); ?>"
+					target="_blank"
+					rel="noopener noreferrer"
+				>
+					<?php esc_html_e( 'Free Trial', 'mp-timetable' ); ?>
+				</a>
+			</div>
+		<?php
+	}
+
 	public static function activatePluginAjax() {
 
         check_ajax_referer( 'mptt-install-plugins', 'nonce' );

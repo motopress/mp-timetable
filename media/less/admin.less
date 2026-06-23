@@ -123,6 +123,34 @@ select.mptt-resize-vertical {
 	min-height: 4em;
 }
 
+.mptt-events-calendar-promo {
+	display: inline-block;
+	margin-top: 1em;
+	padding: 4px 8px 4px 10px;
+	background: #fff;
+	border: 1px solid #cce;
+	vertical-align: super;
+	border-radius: 4px;
+
+	&.inline_promo {
+		margin-left: 2em;
+		margin-top: 0;
+	}
+
+	&.mptt-events-calendar-promo-template {
+		display: none;
+	}
+
+	.mptt-events-calendar-promo__text {
+		font-size: 14px;
+		line-height: 1.5;
+	}
+
+	.mptt-events-calendar-promo__button {
+		margin-left: .5em;
+	}
+}
+
 .motopress-offer-primary {
 	float: left;
 	width: 60%;
@@ -217,5 +245,14 @@ select.mptt-resize-vertical {
 		width: 100%;
 		max-width: none;
 		margin-left: 0;
+	}
+
+	.mptt-events-calendar-promo {
+		display: block;
+
+		&.inline_promo {
+			margin-left: 0;
+			margin-top: 1em;
+		}
 	}
 }

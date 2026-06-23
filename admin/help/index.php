@@ -1,6 +1,10 @@
 <div class="wrap">
 
 	<h1>Help</h1>
+	<?php
+	require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
+	\mp_timetable\plugin_core\classes\Plugins_Offer::renderEventsCalendarPromo();
+	?>
 	<p><?php
 
 		$pluginObject  = get_plugin_data( MP_TT_PLUGIN_FILE );
