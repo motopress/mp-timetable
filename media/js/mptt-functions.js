@@ -298,6 +298,26 @@ Registry.register("adminFunctions", (function($) {
 	"use strict";
 
 	$(document).ready(function() {
+
+		var mptt_events_calendar_promo_init = function() {
+			var promo = $('.mptt-events-calendar-promo-template').first(),
+				title = $('.wrap .wp-heading-inline').first(),
+				insertAfter;
+
+			if (!promo.length || !title.length || $('.wrap > .mptt-events-calendar-promo').not('.mptt-events-calendar-promo-template').length) {
+				return;
+			}
+
+			insertAfter = title.nextAll('.page-title-action').last();
+
+			if (!insertAfter.length) {
+				insertAfter = title;
+			}
+
+			promo
+				.removeClass('mptt-events-calendar-promo-template')
+				.insertAfter(insertAfter);
+		}
 		
 		var mptt_table_init = function() {
 			var body = $('body');
@@ -345,6 +365,7 @@ Registry.register("adminFunctions", (function($) {
 		window.mptt = {};
 
 		window.mptt.tableInit = mptt_table_init;
+		mptt_events_calendar_promo_init();
 		mptt_table_init();
 	});
 })(jQuery);

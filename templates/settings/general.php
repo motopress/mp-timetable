@@ -1,5 +1,9 @@
 <div class="wrap">
 	<h1><?php _e('General Settings', 'mp-timetable'); ?></h1>
+	<?php
+	require_once Mp_Time_Table::get_plugin_path() . 'classes/class-offer.php';
+	\mp_timetable\plugin_core\classes\Plugins_Offer::renderEventsCalendarPromo();
+	?>
 	<div class="motopress-offer-primary">
 
 	<?php settings_errors('mpTimetableSettings', false); ?>

@@ -4,7 +4,7 @@ Donate link: https://motopress.com/
 Tags: schedule, timetable, calendar, event, events calendar, dates, event organizer, booking, appointment, upcoming events
 Requires at least: 4.6
 Tested up to: 7.0
-Stable tag: 2.4.17
+Stable tag: 2.4.18
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -121,6 +121,9 @@ Plugin bundles the following third-party resources:
 
 
 == Changelog ==
+
+= 2.4.18, Jun 23 2026 =
+* Added an Events Calendar promo to Timetable admin pages.
 
 = 2.4.17, May 25 2026 =
 * Security – enhanced permission validation when reading events.
