@@ -1,12 +1,15 @@
 {
   "name": "mp-timetable",
-  "version": "2.4.7",
+  "version": "2.4.18",
   "license": "GPLv2+",
   "main": "src/index.js",
   "private": true,
+  "engines": {
+    "node": ">=22.14.0"
+  },
   "scripts": {
-    "dev": "webpack --mode development --watch",
-    "build": "webpack --mode production",
+    "dev": "node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --mode development --watch",
+    "build": "node --openssl-legacy-provider ./node_modules/webpack/bin/webpack.js --mode production",
     "dev:styles": "gulp",
     "build:styles": "gulp less"
   },
