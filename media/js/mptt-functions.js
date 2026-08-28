@@ -319,7 +319,7 @@ Registry.register("adminFunctions", (function($) {
 				.insertAfter(insertAfter);
 		}
 		
-		var mptt_table_init = function() {
+		var mptt_table_init = function(context) {
 			var body = $('body');
 	
 			if(detectIE()){
@@ -330,7 +330,7 @@ Registry.register("adminFunctions", (function($) {
 				body.removeClass('mprm_ie_browser');
 			}
 	
-			var $mptt_shortcode_wrapper = $('.mptt-shortcode-wrapper');
+			var $mptt_shortcode_wrapper = context ? $(context).find('.mptt-shortcode-wrapper') : $('.mptt-shortcode-wrapper');
 	
 			if ((typeof typenow) !== "undefined") {
 				if (pagenow === typenow) {
@@ -349,17 +349,17 @@ Registry.register("adminFunctions", (function($) {
 			}
 	
 			if ($mptt_shortcode_wrapper.length) {
-				Registry._get("Event").initTableData();
-				Registry._get("Event").filterShortcodeEvents();
-				Registry._get("Event").getFilterByHash();
+				Registry._get("Event").initTableData(context);
+				Registry._get("Event").filterShortcodeEvents(context);
+				Registry._get("Event").getFilterByHash(context);
 
 				$mptt_shortcode_wrapper.show();
 				$mptt_shortcode_wrapper.addClass('table-init');
 			}
 	
 			if ($('.upcoming-events-widget').length || $mptt_shortcode_wrapper.length) {
-				Registry._get("Event").setColorSettings();
-			}			
+				Registry._get("Event").setColorSettings(undefined, context);
+			}
 		}
 
 		window.mptt = {};

@@ -497,8 +497,8 @@ Registry.register("Event",
 				/**
 				 * Fill all possible height in ceil
 				 */
-				setEventsHeight: function() {
-					var events = $('.mptt-shortcode-wrapper').find('table').find('td.event');
+				setEventsHeight: function(context) {
+					var events = context ? $(context).find('table').find('td.event') : $('.mptt-shortcode-wrapper').find('table').find('td.event');
 					$.each(events, function() {
 						var td = $(this);
 						state.recalculate_Height(td);
@@ -508,12 +508,12 @@ Registry.register("Event",
 				 * Set user color settings
 				 * @param selector
 				 */
-				setColorSettings: function(selector) {
+				setColorSettings: function(selector, context) {
 					if (_.isUndefined(selector)) {
 						selector = '.mptt-colorized';
 					}
 
-					var elements = $(selector);
+					var elements = context ? $(context).find(selector) : $(selector);
 					// var height = '';
 					$.each(elements, function() {
 						var element = $(this),
@@ -690,29 +690,30 @@ Registry.register("Event",
 
 					parentShortcode.find('table[id="#' + eventID + '"]').fadeIn();
 
-					state.setEventsHeight();
+					state.setEventsHeight(parentShortcode);
 				},
 				/**
 				 * Add class if exists events in <TD>
 				 */
-				setClassTd: function() {
-					$.each($('.mptt-event-container'), function() {
+				setClassTd: function(context) {
+					var events = context ? $(context).find('.mptt-event-container') : $('.mptt-event-container');
+					$.each(events, function() {
 						$(this).parents('td').addClass('event');
 					});
 				},
 				/**
 				 * Init TimeTable
 				 */
-				initTableData: function() {
-					state.setClassTd();
-					state.setRowSpanTd();
-					state.hideEmptyRows();
+				initTableData: function(context) {
+					state.setClassTd(context);
+					state.setRowSpanTd(context);
+					state.hideEmptyRows(context);
 				},
 				/**
 				 *  init Filters
 				 */
-				filterShortcodeEvents: function() {
-					var selector = $('.mptt-menu');
+				filterShortcodeEvents: function(context) {
+					var selector = context ? $(context).find('.mptt-menu') : $('.mptt-menu');
 
 					if (selector.length) {
 
@@ -721,7 +722,7 @@ Registry.register("Event",
 							state.responsiveFilter($(this));
 						});
 
-						$('.mptt-navigation-tabs.mptt-menu a').off('click').on('click', function(event) {
+						(context ? $(context).find('.mptt-navigation-tabs.mptt-menu a') : $('.mptt-navigation-tabs.mptt-menu a')).off('click').on('click', function(event) {
 
 							var $currentTab = $(this);
 							$currentTab.parents('.mptt-navigation-tabs.mptt-menu').find('li').removeClass('active');
@@ -755,7 +756,7 @@ Registry.register("Event",
 				/**
 				 * Filter by hash
 				 */
-				getFilterByHash: function() {
+				getFilterByHash: function(context) {
 					var is_single = 1;
 					var hash = window.location.hash;
 
@@ -763,7 +764,7 @@ Registry.register("Event",
 						var HashArray = hash.split(':');
 						var id = HashArray[0];
 						var event = HashArray[1];
-						var shortcode_wrapper = $('.mptt-shortcode-wrapper');
+						var shortcode_wrapper = context ? $(context).find('.mptt-shortcode-wrapper') : $('.mptt-shortcode-wrapper');
 						event = _.isUndefined(event) ? 'all' : event;
 
 						if (shortcode_wrapper.length === is_single) {
@@ -783,7 +784,7 @@ Registry.register("Event",
 
 						}
 					}
-					state.setEventsHeight();
+					state.setEventsHeight(context);
 				},
 				/**
 				 * Clear table after change colSpan
@@ -841,9 +842,10 @@ Registry.register("Event",
 				/**
 				 * Set rowSpan td
 				 */
-				setRowSpanTd: function() {
+				setRowSpanTd: function(context) {
 					var table_class = '.' + MPTT.table_class;
-					$.each($(table_class), function() {
+					var tables = context ? $(context).find(table_class) : $(table_class);
+					$.each(tables, function() {
 						var $table = $(this);
 
 						$.each($table.find('td.event'), function() {
@@ -869,9 +871,9 @@ Registry.register("Event",
 				/**
 				 * Remove empty rows
 				 */
-				hideEmptyRows: function() {
+				hideEmptyRows: function(context) {
 					var table_class = '.' + MPTT.table_class;
-					var tables = $(table_class);
+					var tables = context ? $(context).find(table_class) : $(table_class);
 
 					$.each(tables, function(index, table) {
 						if ( $(table).data('hide_empty_row') ) {

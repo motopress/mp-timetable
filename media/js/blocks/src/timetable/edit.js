@@ -20,16 +20,18 @@ class Edit extends Component {
     }
 
     componentDidMount() {
-        const block = document.getElementById( `block-${this.props.clientId}` );
-
-        const mutationObserver = new MutationObserver( () => {
-            window.mptt.tableInit();
+        this.mutationObserver = new MutationObserver( () => {
+            window.mptt.tableInit( this.preview );
         } );
 
-        mutationObserver.observe( block, {
+        this.mutationObserver.observe( this.preview, {
             childList: true,
             subtree: true
         } );
+    }
+
+    componentWillUnmount() {
+        this.mutationObserver.disconnect();
     }
 
     placeholder() {
@@ -44,13 +46,15 @@ class Edit extends Component {
         return (
             <Fragment>
                 <Inspector { ...this.props }/>
-                <Disabled>
-                    <ServerSideRender
-                        block="mp-timetable/timetable"
-                        attributes={ this.props.attributes }
-                        LoadingResponsePlaceholder={ this.placeholder }
-                    />
-                </Disabled>
+                <div ref={ ( preview ) => { this.preview = preview; } }>
+                    <Disabled>
+                        <ServerSideRender
+                            block="mp-timetable/timetable"
+                            attributes={ this.props.attributes }
+                            LoadingResponsePlaceholder={ this.placeholder }
+                        />
+                    </Disabled>
+                </div>
             </Fragment>
         );
     }
